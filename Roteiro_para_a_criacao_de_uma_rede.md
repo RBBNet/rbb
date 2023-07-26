@@ -250,6 +250,13 @@ Caso você **não** seja a instituição inicial pule para a [seção 3](#3---at
 yarn truffle migrate --reset --network besu
 
 ```
+#### 2.4.4 - Armazenando os endereços dos contratos.
+
+Quando o truffle terminar de fazer o migrate, você verá no terminal os contratos e seus respectivos endereços, como mostra a imagem abaixo: 
+
+![](https://i.imgur.com/kwI3nDK.png)
+
+Armazene nesta tabela `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/Endere%C3%A7os%20dos%20Contratos.md` o endereço dos contratos **Admin**, **NodeRules** e **AccountRules**.
 
 ### 2.5 - Executar sub-roteiro "[Levantar DApp de permissionamento](#44---levantar-dapp-de-permissionamento)"
 
