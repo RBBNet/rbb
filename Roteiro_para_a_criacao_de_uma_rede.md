@@ -299,9 +299,13 @@ Os passos acima serão detalhados a seguir.
 
 Os enodes que serão inseridos nos arquivos genesis.json e static-nodes.json podem ser obtidos no seguinte arquivo anteriormente compartilhado: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/enodes.md`.
 
-#### 4.1.1 - Ajustes no genesis.json do boot
+#### 4.1.1 - Cópia do genesis.json para os nós
+
+Para cada um dos nós (validator, boot e writer):
 
 - Inclua em `.env.configs/`, o arquivo `genesis.json` localizado em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json`.
+
+#### 4.1.2 - Ajustes no genesis.json do boot
 
 - Inclua na seção apropriada (conforme modelo) do arquivo `.env.configs/genesis.json`, os enodes de todos os **outros** boots da rede.
 
@@ -318,7 +322,7 @@ Os enodes que serão inseridos nos arquivos genesis.json e static-nodes.json pod
   O arquivo genesis.json do bootnode deve seguir conforme o exemplo abaixo:  
   ![Conteúdo exemplo do arquivo genesis.json](https://i.imgur.com/MPgJljO.png)
 
-#### 4.1.2 - Ajustes nos static-nodes
+#### 4.1.3 - Ajustes nos static-nodes
 
 Ajuste o arquivo `static-nodes.json` dos writers e validators da seguinte forma:
 
