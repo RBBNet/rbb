@@ -99,7 +99,7 @@ As seguintes atividades serão executadas nesse sub-roteiro:
 
 Os passos acima serão detalhados a seguir.
 
-Ajuste o arquivo `static-nodes.json` do writer e validator da seguinte forma:
+Se ele não existir, crie um arquivo `static-nodes.json` no writer e no validator; se ele já existir, ajuste o `static-nodes.json` do writer e validator da seguinte forma:
 
 #### **Nó validator**
 
