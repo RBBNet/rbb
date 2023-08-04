@@ -99,8 +99,6 @@ As seguintes atividades serão executadas nesse sub-roteiro:
 
 Os passos acima serão detalhados a seguir.
 
-Se ele não existir, crie um arquivo `static-nodes.json` no writer e no validator; se ele já existir, ajuste o `static-nodes.json` do writer e validator da seguinte forma:
-
 #### **Nó validator**
 
 - Desabilite a descoberta de nós com o seguinte comando:
@@ -110,7 +108,7 @@ Se ele não existir, crie um arquivo `static-nodes.json` no writer e no validato
   
   ```
 
-- No **validator**, inclua no arquivo `volumes/validator/static-nodes.json` o enode do boot.
+- No **validator**, crie e inclua no arquivo `volumes/validator/static-nodes.json` o enode do boot.
 
   Modelo:
 
@@ -129,7 +127,7 @@ Se ele não existir, crie um arquivo `static-nodes.json` no writer e no validato
   
   ```
 
-- No **writer**, inclua no arquivo `volumes/writer/static-nodes.json` o enode do boot.
+- No **writer**, crie e inclua no arquivo `volumes/writer/static-nodes.json` o enode do boot.
 
   Modelo:
 
