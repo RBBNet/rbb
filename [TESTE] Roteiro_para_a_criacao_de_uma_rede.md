@@ -193,6 +193,8 @@ docker-compose up -d
   yarn install
   
   ```
+  
+  - ⚠️ Pode ser necessário também instalar o compilador offline do solidity caso você esteja em um ambiente corporativo: Se estiver no linux execute `yarn linuxcompiler`. Se estiver no Windows execute `yarn windowscompiler`. ⚠️
 
 - Crie um arquivo `.env` e defina as variáveis de ambiente neste arquivo conforme template abaixo:
 
