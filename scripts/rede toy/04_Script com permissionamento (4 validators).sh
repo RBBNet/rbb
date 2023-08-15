@@ -2,19 +2,33 @@
 # baixa o diretório
 {
 projectname="Teste4Validators"
-branch="-b V1-backend-migration"
+branch_do_Permissionamento="-b V1-backend-migration"
+
+PortaBoot="10071"
+PortaValidator1="10070"
+PortaValidator2="10073"
+PortaValidator3="10074"
+PortaValidator4="10075"
+PortaWriter="10072"
+
+
+
+
+
+
+
 git clone https://github.com/RBBNet/start-network.git
 mv start-network $projectname
 cd $projectname
 # cria os nós especificados.
 ./rbb-cli node create validator1, boot, writer, validator2, validator3, validator4
 # define as portas do container
-./rbb-cli config set nodes.validator1.ports+=[\"10070:8545\"]
-./rbb-cli config set nodes.boot.ports+=[\"10071:8545\"]
-./rbb-cli config set nodes.writer.ports+=[\"10072:8545\"]
-./rbb-cli config set nodes.validator2.ports+=[\"10073:8545\"]
-./rbb-cli config set nodes.validator3.ports+=[\"10074:8545\"]
-./rbb-cli config set nodes.validator4.ports+=[\"10075:8545\"]
+./rbb-cli config set nodes.boot.ports+=[\"$(echo $PortaBoot):8545\"]
+./rbb-cli config set nodes.validator1.ports+=[\"$(echo $PortaValidator1):8545\"]
+./rbb-cli config set nodes.validator2.ports+=[\"$(echo $PortaValidator2):8545\"]
+./rbb-cli config set nodes.validator3.ports+=[\"$(echo $PortaValidator3):8545\"]
+./rbb-cli config set nodes.validator4.ports+=[\"$(echo $PortaValidator4):8545\"]
+./rbb-cli config set nodes.writer.ports+=[\"$(echo $PortaWriter):8545\"]
 # cria o genesis
 ./rbb-cli genesis create --validators validator1,validator2,validator3,validator4
 # desabilita o discovery nos nós especificados 
@@ -27,10 +41,10 @@ cd $projectname
 # ajusta os static nodes apontando para o boot
 bootkey=$(./rbb-cli config dump | grep 0x | sed -n '2 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
 validator1key=$(./rbb-cli config dump | grep 0x | sed -n '4 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
-writerkey=$(./rbb-cli config dump | grep 0x | sed -n '6 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
-validator2key=$(./rbb-cli config dump | grep 0x | sed -n '8 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
-validator3key=$(./rbb-cli config dump | grep 0x | sed -n '10 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
-validator4key=$(./rbb-cli config dump | grep 0x | sed -n '12 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
+validator2key=$(./rbb-cli config dump | grep 0x | sed -n '6 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
+validator3key=$(./rbb-cli config dump | grep 0x | sed -n '8 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
+validator4key=$(./rbb-cli config dump | grep 0x | sed -n '10 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
+writerkey=$(./rbb-cli config dump | grep 0x | sed -n '12 p' |sed 's/"publicKey": "0x//' | sed 's/",//')
 echo "[
 \"enode://$(echo $bootkey)@boot:30303\",
 \"enode://$(echo $validator2key)@validator2:30303\",
@@ -73,7 +87,7 @@ nvm use 16
 npm i --global yarn
 # ---- - - - -
 
-git clone https://github.com/RBBNet/Permissionamento.git $(echo $branch)
+git clone https://github.com/RBBNet/Permissionamento.git $(echo $branch_do_Permissionamento)
 cd Permissionamento
 yarn install
 yarn linuxcompiler
@@ -95,7 +109,18 @@ BESU_NODE_PERM_KEY=c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc
 BESU_NODE_PERM_ENDPOINT=http://$(echo $validator1ip):8545
 CHAIN_ID=648629
 INITIAL_ALLOWLISTED_NODES=enode://$(echo $bootkey)|0|0x000000000000|Boot|BNDES,enode://$(echo $validator1key)|1|0x000000000000|Validator|BNDES,enode://$(echo $validator2key)|1|0x000000000000|Validator|BNDES,enode://$(echo $validator3key)|1|0x000000000000|Validator|BNDES,enode://$(echo $validator4key)|1|0x000000000000|Validator|BNDES,enode://$(echo $writerkey)|2|0x000000000000|Writer|BNDES" > .env
-sleep 120
+
+
+echo;echo "Pressione Enter quando os nós começarem a sincronizar";echo
+read -s -n 1 -t 120
+ 
+if [ $? -eq 0 ]; then
+    echo "Enter! Continuando..."
+else
+    echo "Tempo de espera acabou, continuando..."
+fi
+
+
 yarn truffle migrate --reset --network besu
 cd .. && cd $projectname
 #docker-compose up -d boot writer
