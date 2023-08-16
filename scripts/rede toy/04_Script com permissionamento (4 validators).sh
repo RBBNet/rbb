@@ -111,7 +111,7 @@ CHAIN_ID=648629
 INITIAL_ALLOWLISTED_NODES=enode://$(echo $bootkey)|0|0x000000000000|Boot|BNDES,enode://$(echo $validator1key)|1|0x000000000000|Validator|BNDES,enode://$(echo $validator2key)|1|0x000000000000|Validator|BNDES,enode://$(echo $validator3key)|1|0x000000000000|Validator|BNDES,enode://$(echo $validator4key)|1|0x000000000000|Validator|BNDES,enode://$(echo $writerkey)|2|0x000000000000|Writer|BNDES" > .env
 
 
-echo;echo "Esperando a produção de blocos entre nós, por favor aguarde. . .";echo
+echo;echo "Esperando a produção de blocos entre os nós, por favor aguarde. . .";echo
 sleep 120
 
 yarn truffle migrate --reset --network besu
