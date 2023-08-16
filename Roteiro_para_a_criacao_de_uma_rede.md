@@ -315,11 +315,13 @@ Para cada um dos nós (validator, boot e writer):
   Modelo:
 
   ```json
-  "bootnodes" : 
-  [ 
-  "enode://<chave-pública-SEM-0x>@<ip>:<porta>", 
-  "enode://<chave-pública-SEM-0x>@<ip>:<porta>" 
-  ]
+  "discovery": {
+    "bootnodes" : 
+    [ 
+      "enode://<chave-pública-SEM-0x>@<ip>:<porta>", 
+      "enode://<chave-pública-SEM-0x>@<ip>:<porta>" 
+    ]
+  },
   ```
 
   O arquivo genesis.json do bootnode deve seguir conforme o exemplo abaixo:  
