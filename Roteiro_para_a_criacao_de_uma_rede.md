@@ -454,7 +454,7 @@ docker-compose up -d
 
 Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](https://besu.hyperledger.org/public-networks/how-to/monitor/metrics).
 
-#### 4.5.2 Disponibilizando as métricas para outras organizações
+#### 4.5.2 Disponibilizar as métricas para outras organizações
 - Preencher o arquivo **monitoring-endpoints.md** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/monitoring-endpoints.md` com o ID da organização usado nas métricas, o IP e a porta do Prometheus que exporta as métricas.
 > [!NOTE]
 > As devidas liberações de firewall devem ser providenciadas.
@@ -469,12 +469,12 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
 ```
 O arquivo de configuração **prometheus.yml** deste roteiro apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização. 
 
-#### 4.5.3 Capturando as métricas de outras organizações
+#### 4.5.3 Capturar as métricas de outras organizações
 A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por dashboards (Grafana, Zabix, etc.). Neste roteiro, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração pode ser verificada no arquivo **prometheus.yml, job_name: rbb_federado**. 
 > [!NOTE]
 > O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **monitoring-endpoints.md**.
 
-#### 4.5.4 Levantando o Prometheus
+#### 4.5.4 Levantar o Prometheus
 - Uma vez alterado o arquivo **prometheus.yml**, levante o container do Prometheus:
 ```
 docker-compose up -d
