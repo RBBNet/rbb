@@ -464,8 +464,8 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
 - job_name: rbb
   labels:
     id: <id da organização>
-	  node: <boot|validator|writer>, conforme o nó de origem da métrica. 
-	  organization: <nome da organização>
+    node: <boot|validator|writer>, conforme o nó de origem da métrica. 
+    organization: <nome da organização>
 ```
 O arquivo de configuração **prometheus.yml** deste roteiro apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização. 
 
