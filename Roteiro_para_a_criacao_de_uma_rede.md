@@ -459,8 +459,7 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
 > [!NOTE]
 > As devidas liberações de firewall devem ser providenciadas.
 
-> [!IMPORTANT]
-> Toda organização deverá ter uma configuração no Prometheus que exporta as métricas com os seguintes requisitos:
+- Toda organização deverá ter uma configuração no Prometheus que exporta as métricas com os seguintes requisitos:
 ```
 - job_name: rbb
   labels:
