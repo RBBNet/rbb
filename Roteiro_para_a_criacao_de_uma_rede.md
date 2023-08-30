@@ -431,21 +431,36 @@ Toda organização deverá fornecer um endpoint Prometheus onde as métricas de 
 
 A configuração apresentada aqui é a mais simples que atende ao requisito, embora cada organização possa usar topologias mais complexas. Por exemplo, uma organização pode usar Prometheus individuais para cada nó e agregar as métricas em outro Prometheus para disponibilizar externamente. É possível também usar outro Prometheus isolado para coletar as métricas de outras organizações.
 
-#### 4.5.1 Habilitar as métricas em cada nó do Besu:
-- Mapeie a porta padrão das métricas (9545) em uma porta do host. O exemplo abaixo usa o script *rbb-cli* para mapear a porta de métricas para o boot na porta 10002 do host.
+- Defina um servidor para executar o Prometheus e clone o projeto de monitoração:
+```
+git clone https://github.com/RBBNet/rbb-monitoracao.git
+```
+O projeto apresenta a seguinte estrutura:
+```
+rbb-monitoracao
+├── docker-compose.yml      # Arquivo de configuração do container docker Prometheus
+└── prometheus
+    ├── prometheus.yml      # Arquivo de configuração do Prometheus
+    ├── rules.yml           # Arquivo de regras do Prometheus
+    └── web-config.yml      # Arquivo de configuração para a interface web do Prometheus
+```
+#### 4.5.1 Habilitar as métricas no Besu:
+> [!NOTE]
+> As configurações a seguir devem ser realizadas em cada nó do Besu.
+
+- Mapeie a porta padrão das métricas (9545) em uma porta do host. O exemplo abaixo usa o script *rbb-cli* para mapear a porta de métricas para o boot na porta 10002 do host. O comando correspondente (**nodes.<boot|validator|writer>.ports**) deverá ser realizado para os demais nós .
 ```
 ./rbb-cli config set nodes.boot.ports+=[\"10002:9545\"]
 ```
-> [!NOTE]
-> O comando correspondente (**nodes.<boot|validator|writer>.ports**) deverá ser realizado para os demais nós .
 
-- No docker-compose.yml, as seguintes variáveis de ambiente devem estar configuradas:
+- No docker-compose.yml do nó Besu, as seguintes variáveis de ambiente devem estar configuradas:
 ```
 BESU_METRICS_ENABLED: "true"
 BESU_METRICS_HOST: "0.0.0.0"
+BESU_HOST_ALLOWLIST: "*"        # Se a regra for mais restritiva, adicionar IP do Prometheus
 ```
   
-- Reinicie o container com as novas configurações:
+- Reinicie o container Besu com as novas configurações:
 ```
 docker-compose down
 ./rbb-cli config render-templates
@@ -455,11 +470,10 @@ docker-compose up -d
 Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](https://besu.hyperledger.org/public-networks/how-to/monitor/metrics).
 
 #### 4.5.2 Disponibilizar as métricas para outras organizações
-- Preencher o arquivo **monitoring-endpoints.md** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/monitoring-endpoints.md` com o ID da organização usado nas métricas, o IP e a porta do Prometheus que exporta as métricas.
 > [!NOTE]
-> As devidas liberações de firewall devem ser providenciadas.
+> As configurações a seguir devem ser realizadas no servidor do Prometheus.
 
-- Toda organização deverá ter uma configuração no Prometheus que exporta as métricas com os seguintes requisitos:
+- Toda organização deverá ter uma configuração no Prometheus (arquivo prometheus.yml) que exporta as métricas com os seguintes requisitos:
 ```
 - job_name: rbb
   labels:
@@ -467,15 +481,19 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
     node: <boot|validator|writer>, conforme o nó de origem da métrica. 
     organization: <nome da organização>
 ```
-O arquivo de configuração **prometheus.yml** deste roteiro apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização. 
+O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização.
+
+- Preencher o arquivo **monitoring-endpoints.md** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/monitoring-endpoints.md` com o ID da organização usado nas métricas, o IP e a porta do Prometheus que exporta as métricas.
+> [!NOTE]
+> As devidas liberações de firewall devem ser providenciadas.
 
 #### 4.5.3 Capturar as métricas de outras organizações
-A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por dashboards (Grafana, Zabix, etc.). Neste roteiro, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração pode ser verificada no arquivo **prometheus.yml, job_name: rbb_federado**. 
+A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por dashboards (Grafana, Zabix, etc.). No repositório de monitoração, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração pode ser verificada no arquivo prometheus.yml, *job_name: rbb_federado*. 
 > [!NOTE]
 > O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **monitoring-endpoints.md**.
 
 #### 4.5.4 Levantar o Prometheus
-- Uma vez alterado o arquivo **prometheus.yml**, levante o container do Prometheus:
+- Uma vez alterado o arquivo prometheus.yml, levante o container do Prometheus:
 ```
 docker-compose up -d
 ```
