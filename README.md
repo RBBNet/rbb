@@ -107,3 +107,7 @@ O Tribunal de Contas da União - TCU, órgão de controle externo do governo fed
 No âmbito da Rede Blockchain Brasil (RBB), o TCU exerce o papel de partícipe fundador, conforme Acordo de Cooperação número D-121.2.0014.22, celebrado em abril de 2022 junto ao BNDES – Banco Nacional de Desenvolvimento Econômico e Social. O acordo estabelece as prerrogativas de cada tipo de partícipe (partícipes fundadores e partícipes aderentes), suas funções, atribuições e poderes. 
 
 Vale destacar, entretanto, que **o TCU, por meio de seus representantes formalmente indicados**, assim como ocorre em outras iniciativas similares, **exerce na RBB papel meramente administrativo, sem qualquer vínculo com as atividades de Controle Externo** advindas de sua função constitucional. A despeito de ser fundador, o TCU atua na Rede como qualquer outro partícipe, resguardadas as funções e poderes de partícipe fundador, descritas no supracitado acordo de cooperação. Portanto, **o TCU, nessa condição, não chancela, corrobora, atesta a validade ou emite opinião prévia sobre as atividades exercidas por partícipes da RBB que porventura sejam passíveis das ações de Controle Externo**. 
+
+## Versionamento
+
+Mais informações neste link: https://github.com/RBBNet/rbb/blob/master/Versionamento.md
