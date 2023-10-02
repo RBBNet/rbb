@@ -8,7 +8,7 @@ Por motivos de praticidade, esse arquivo contém um guia menor e resumido de ver
 
 * Software usando Versionamento Semântico DEVE declarar uma API pública. _No repositório do Permissionamento, estamos considerando a API pública como sendo as ABIs dos contratos. A definição de API depende do caso, mas no geral, é uma biblioteca, aplicativo ou software._
 
-* Um número de versão normal DEVE ter o formato de X.Y.Z, onde X, Y, e Z são inteiros não negativos, e NÃO DEVE conter zeros à esquerda. X é a versão Major, Y é a versão Minor, e Z é a versão de Patch. **Prefiro usar os termos em inglês, nesse caso: Major, Minor e Patch**
+* Um número de versão normal DEVE ter o formato de X.Y.Z, onde X, Y, e Z são inteiros não negativos, e NÃO DEVE conter zeros à esquerda. X é a versão Major, Y é a versão Minor, e Z é a versão de Patch. 
 Cada elemento DEVE aumentar numericamente. _Pelo entendimento, a release da branch **migrations** ficou como 1.0.1, um patch de correção, apesar de adicionar outras funcionalidades. Em tese, ela seria a 1.1.0._ 
 * Uma vez que um pacote versionado foi lançado(released), o conteúdo desta versão NÃO DEVE ser modificado. Qualquer modificação DEVE ser lançado como uma nova versão.
 * Versão 1.0.0 define a API como pública. A maneira como o número de versão é incrementado após este lançamento é dependente da API pública e como ela muda. _A versão 1.0.0 é a usada na rede de Laboratório, com a release **v1.0.0+lab01-backend**._
