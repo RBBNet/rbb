@@ -1,18 +1,29 @@
 # Método de versionamento 
 
-As releases do Permissionamento seguem o _semantic versioning_, cujo guia completo pode ser encontrado neste link (https://semver.org). 
+O Versionamento Semântico fornece um sistema claro e consistente para gerenciar versões de software, facilitando a comunicação de mudanças e garantindo a compatibilidade com versões anteriores. As releases da RBB seguem o _semantic versioning_, cujo guia completo pode ser encontrado neste link (https://semver.org). 
 
-Por motivos de praticidade, esse arquivo contém um guia menor e resumido de versionamento, e como estamos utilizando ele.
 
 ## Regras de versionamento
 
-* Software usando Versionamento Semântico DEVE declarar uma API pública. _No repositório do Permissionamento, estamos considerando a API pública como sendo as ABIs dos contratos. A definição de API depende do caso, mas no geral, é uma biblioteca, aplicativo ou software._
+**Declaração de API Pública**
+* Software usando Versionamento Semântico DEVE declarar uma API pública. _A definição de API depende do caso, mas no geral, é uma biblioteca, aplicativo ou software que fornece funcionalidades para uso externo._
 
-* Um número de versão normal DEVE ter o formato de X.Y.Z, onde X, Y, e Z são inteiros não negativos, e NÃO DEVE conter zeros à esquerda. X é a versão Major, Y é a versão Minor, e Z é a versão de Patch. 
-Cada elemento DEVE aumentar numericamente. _Pelo entendimento, a release da branch **migrations** ficou como 1.0.1, um patch de correção, apesar de adicionar outras funcionalidades. Em tese, ela seria a 1.1.0._ 
-* Uma vez que um pacote versionado foi lançado(released), o conteúdo desta versão NÃO DEVE ser modificado. Qualquer modificação DEVE ser lançado como uma nova versão.
-* Versão 1.0.0 define a API como pública. A maneira como o número de versão é incrementado após este lançamento é dependente da API pública e como ela muda. _A versão 1.0.0 é a usada na rede de Laboratório, com a release **v1.0.0+lab01-backend**._
-* Versão de Correção Z (x.y.Z | x > 0) DEVE ser incrementado apenas se mantiver compatibilidade e introduzir correção de bugs.
+**Formato de versão**
+* Um número de versão normal DEVE ter o formato de X.Y.Z, onde X, Y e Z são inteiros não negativos, e NÃO DEVE conter zeros à esquerda.
+* Quando um software está na versão 0.x.x, ele geralmente está em desenvolvimento inicial ou está passando por testes iniciais. Isso significa que o software ainda não atingiu um estado estável ou uma API pública bem definida.
+* X é a versão Major, Y é a versão Minor, e Z é a versão de Patch. 
+* Versão Maior X (X.y.z | X > 0) DEVE ser incrementada se forem introduzidas mudanças incompatíveis na API pública. PODE incluir alterações a nível de versão Menor e de versão de Correção. Versão de Correção e Versão Menor DEVEM ser redefinidas para 0(zero) quando a versão Maior for incrementada.]
 * Versão Menor Y (x.Y.z | x > 0) DEVE ser incrementada se uma funcionalidade nova e compatível for introduzida na API pública. DEVE ser incrementada se qualquer funcionalidade da API pública for definida como descontinuada. PODE ser incrementada se uma nova funcionalidade ou melhoria substancial for introduzida dentro do código privado. PODE incluir mudanças a nível de correção. A versão de Correção DEVE ser redefinida para 0(zero) quando a versão Menor for incrementada.
-* Versão Maior X (X.y.z | X > 0) DEVE ser incrementada se forem introduzidas mudanças incompatíveis na API pública. PODE incluir alterações a nível de versão Menor e de versão de Correção. Versão de Correção e Versão Menor DEVEM ser redefinidas para 0(zero) quando a versão Maior for incrementada.
-* Por motivos de praticidade e melhora no entendimento, a build no Permissionamento é nomeada a partir da data de lançamento da release. Exemplo: _v1.0.1+2023-09-28_. 
+* Versão de Correção Z (x.y.Z | x > 0) DEVE ser incrementado apenas se mantiver compatibilidade e introduzir correção de bugs.
+* No contexto do versionamento semântico, as "builds" são um campo opcional na versão que pode ser usado para incluir informações adicionais. Então, a estrutura de uma versão com build é **MAJOR.MINOR.PATCH+BuildMetadata**
+* Cada elemento DEVE aumentar numericamente.
+* Versão 1.0.0 define a API como pública. A maneira como o número de versão é incrementado após este lançamento é dependente da API pública e como ela muda.
+
+
+
+**Imutabilidade das versões**
+* Uma vez que um pacote versionado foi lançado (released), o conteúdo desta versão NÃO DEVE ser modificado. Qualquer modificação DEVE ser lançado como uma nova versão.
+
+
+
+ 
