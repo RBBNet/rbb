@@ -489,6 +489,16 @@ O arquivo de configuração do [repositório de monitoração](https://github.co
 
 #### 4.5.3 Capturar as métricas de outras organizações
 A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por dashboards (Grafana, Zabix, etc.). No repositório de monitoração, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração pode ser verificada no arquivo prometheus.yml, *job_name: rbb_federado*. 
+
+- Alterar os labels dos alvos (*targets*) de cada organização conforme abaixo:
+```
+- job_name: rbb-federado
+  - targets: [<ip do prometheus alvo>]
+    labels:
+      id: <id da organização>
+      node: 'prometheus' 
+      organization: <nome da organização>
+```
 > [!NOTE]
 > O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **monitoring-endpoints.md**.
 
