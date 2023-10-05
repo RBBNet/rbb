@@ -19,11 +19,14 @@ O Versionamento Semântico fornece um sistema claro e consistente para gerenciar
 * Cada elemento DEVE aumentar numericamente.
 * Versão 1.0.0 define a API como pública. A maneira como o número de versão é incrementado após este lançamento é dependente da API pública e como ela muda.
 
-
-
 **Imutabilidade das versões**
 * Uma vez que um pacote versionado foi lançado (released), o conteúdo desta versão NÃO DEVE ser modificado. Qualquer modificação DEVE ser lançado como uma nova versão.
 
+## Dinâmica
 
+* A branch _main_ é a padrão. Ela deve ser protegida de novas alterações diretas, ou seja, qualquer nova funcionalidade deverá ser primeiro implantada em outra branch.
+* Após a implementação e testes da nova funcionalidade, deverá ser feito um _pull request_.
+* Releases após o _pull request_ são opcionais, porém desejáveis. Devem ser geradas a partir da branch _main_.
+* Para o tratamento de incidentes, haverá a recuperação de uma release antiga e estável para outra branch, conserto da funcionalidade quebrada e enfim o _pull request_ para a main novamente, com a geração de uma nova release.
 
  
