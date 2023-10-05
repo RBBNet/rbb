@@ -29,5 +29,6 @@ O Versionamento Semântico fornece um sistema claro e consistente para gerenciar
 * Após a implementação e testes da nova funcionalidade, deverá ser feito um _pull request_.
 * Releases após o _pull request_ são opcionais, porém desejáveis. Devem ser geradas a partir da branch _main_.
 * Para o tratamento de incidentes, haverá a recuperação de uma release antiga e estável para outra branch, conserto da funcionalidade quebrada e enfim o _pull request_ para a main novamente, com a geração de uma nova release.
+* Na criação de releases, deve-se ter em mente os recursos que serão usados por outros repositórios. As _Actions_ geram artefatos nas releases. A importação desses recursos se dá no yarn install.
 
  
