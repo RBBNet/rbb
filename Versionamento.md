@@ -15,7 +15,8 @@ O Versionamento Semântico fornece um sistema claro e consistente para gerenciar
 * Versão Maior X (X.y.z | X > 0) DEVE ser incrementada se forem introduzidas mudanças incompatíveis na API pública. PODE incluir alterações a nível de versão Menor e de versão de Correção. Versão de Correção e Versão Menor DEVEM ser redefinidas para 0(zero) quando a versão Maior for incrementada.]
 * Versão Menor Y (x.Y.z | x > 0) DEVE ser incrementada se uma funcionalidade nova e compatível for introduzida na API pública. DEVE ser incrementada se qualquer funcionalidade da API pública for definida como descontinuada. PODE ser incrementada se uma nova funcionalidade ou melhoria substancial for introduzida dentro do código privado. PODE incluir mudanças a nível de correção. A versão de Correção DEVE ser redefinida para 0(zero) quando a versão Menor for incrementada.
 * Versão de Correção Z (x.y.Z | x > 0) DEVE ser incrementado apenas se mantiver compatibilidade e introduzir correção de bugs.
-* No contexto do versionamento semântico, as "builds" são um campo opcional na versão que pode ser usado para incluir informações adicionais. Então, a estrutura de uma versão com build é **MAJOR.MINOR.PATCH+BuildMetadata**
+* No contexto do versionamento semântico, as "builds" são um campo opcional na versão que pode ser usado para incluir informações adicionais. Então, a estrutura de uma versão com build é **MAJOR.MINOR.PATCH+BuildMetadata**. Estão sendo usadas para marcar implementações intermediárias com a data de criação da release. Exemplo: _1.1.0+2023-02-30_.
+
 * Cada elemento DEVE aumentar numericamente.
 * Versão 1.0.0 define a API como pública. A maneira como o número de versão é incrementado após este lançamento é dependente da API pública e como ela muda.
 
