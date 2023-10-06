@@ -6,7 +6,7 @@ O Versionamento Semântico fornece um sistema claro e consistente para gerenciar
 ## Regras de versionamento
 
 **Declaração de API Pública**
-* Software usando Versionamento Semântico DEVE declarar uma API pública. _A definição de API depende do caso, mas no geral, é uma biblioteca, aplicativo ou software que fornece funcionalidades para uso externo._
+* Software usando Versionamento Semântico DEVE declarar uma API pública. _A definição de API depende do caso, mas no geral, é uma biblioteca, aplicativo, documentação ou qualquer coisa que fornece funcionalidades para uso externo. De qualquer maneira, é importante que esta API seja clara e precisa._
 
 **Formato de versão**
 * Um número de versão normal DEVE ter o formato de X.Y.Z, onde X, Y e Z são inteiros não negativos, e NÃO DEVE conter zeros à esquerda.
@@ -25,10 +25,7 @@ O Versionamento Semântico fornece um sistema claro e consistente para gerenciar
 
 ## Dinâmica
 
-* A branch _main_ é a padrão. Ela deve ser protegida de novas alterações diretas, ou seja, qualquer nova funcionalidade deverá ser primeiro implantada em outra branch.
-* Após a implementação e testes da nova funcionalidade, deverá ser feito um _pull request_.
-* Releases após o _pull request_ são opcionais, porém desejáveis. Devem ser geradas a partir da branch _main_.
-* Para o tratamento de incidentes, haverá a recuperação de uma release antiga e estável para outra branch, conserto da funcionalidade quebrada e enfim o _pull request_ para a main novamente, com a geração de uma nova release.
+* A branch _main_ é a padrão. Ela deve ser protegida de novas alterações diretas, ou seja, qualquer nova funcionalidade deverá ser primeiro implantada em outra branch. A branch nova para implementação de features é denominada _feature branch_ e é gerada a partir da _main_.
+* Após a implementação e testes da nova funcionalidade, deverá ser feito um _pull request_. Releases após isso são opcionais, e tags são desejáveis e recomendadas. Dessa forma, tags e releases são geradas a partir da _main_.
+* Para o caso de incidentes: haverá a recuperação da release ou tag em questão para a _incident branch_, e após o conserto do erro, realizar outro _pull request_ para a main, com a geração de uma nova release.
 * Na criação de releases, deve-se ter em mente os recursos que serão usados por outros repositórios. As _Actions_ geram artefatos nas releases. A importação desses recursos se dá no yarn install.
-
- 
