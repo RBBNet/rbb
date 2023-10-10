@@ -412,7 +412,7 @@ O endereço dos validadores pode ser obtido em `https://github.com/RBBNet/partic
 
   ```bash
   curl -#SL https://github.com/RBBNet/dapp-permissionamento/archive/refs/tags/v1.0.0+2023-10-10.tar.gz | tar xz
-  cd dapp-permissionamento
+  cd dapp-permissionamento-1.0.0-2023-10-10
   ```
 
 - Siga o roteiro descrito no arquivo **README.md**.
