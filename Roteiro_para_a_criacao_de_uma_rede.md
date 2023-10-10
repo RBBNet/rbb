@@ -411,20 +411,11 @@ O endereço dos validadores pode ser obtido em `https://github.com/RBBNet/partic
 - Execute os seguintes comandos em um diretório que estará acessível pelo servidor web:
 
   ```bash
-  curl -#SL https://github.com/RBBNet/Permissionamento/releases/download/0.1/permissioningDapp.tar.gz | tar xz
-  cd permissioningDapp
-
+  curl -#SL https://github.com/RBBNet/dapp-permissionamento/archive/refs/tags/v1.0.0+2023-10-10.tar.gz | tar xz
+  cd dapp-permissionamento
   ```
 
-- Adicione um arquivo "config.json" no diretório `permissioningDapp` contendo as seguintes informações:
-
-  ```json
-  {
-          "accountIngressAddress":  "<Endereço do contrato account ingress>",
-          "nodeIngressAddress": "<Endereço do contrato node ingress>",
-          "networkId": "<ChainID da rede>"
-  }
-  ```
+- Siga o roteiro descrito no arquivo **README.md**.
 
 ### 4.5 - Levantar monitoração
 Toda organização deverá fornecer um endpoint Prometheus onde as métricas de seus nós poderão ser coletadas por outras organizações (*cross-service federation*). Na configuração sugerida neste roteiro, um único Prometheus é responsável por ler as métricas de cada nó e disponibilizá-las para outras organizações da RBB. O mesmo Prometheus é usado também para coletar as métricas de outras organizações.
