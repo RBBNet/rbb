@@ -468,13 +468,12 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
 ```
 - job_name: rbb
   labels:
-    id: <id da organização>
-    node: <boot|validator|writer>, conforme o nó de origem da métrica. 
+    node: <boot|validator|writer|prometheus>, conforme o nó de origem da métrica. 
     organization: <nome da organização>
 ```
 O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização.
 
-- Preencher o arquivo **monitoring-endpoints.md** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/monitoring-endpoints.md` com o ID da organização usado nas métricas, o IP e a porta do Prometheus que exporta as métricas.
+- Preencher o arquivo **monitoring-endpoints.md** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/monitoring-endpoints.md` com o valor para o label _organization_ da organização usado nas métricas, o IP e a porta do Prometheus que exporta as métricas.
 > [!NOTE]
 > As devidas liberações de firewall devem ser providenciadas.
 
@@ -486,8 +485,6 @@ A forma de capturar as métricas de outras organizações pode variar bastante. 
 - job_name: rbb-federado
   - targets: [<ip do prometheus alvo>]
     labels:
-      id: <id da organização>
-      node: 'prometheus' 
       organization: <nome da organização>
 ```
 > [!NOTE]
