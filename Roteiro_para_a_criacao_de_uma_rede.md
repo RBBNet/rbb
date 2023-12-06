@@ -285,7 +285,7 @@ A votação de validadores é feita apenas por validadores. Caso possua um nó p
 
 ### 3.6 - Executar sub-roteiro "[Levantar block explorer](#46---levantar-block-explorer)"
 
-### 3.7 - Executar sub-roteiro "[Instanciar nós Boot de observer e Observer](#47---Instanciar nós Boot de observer e Observer)"
+### 3.7 - Executar sub-roteiro "[Instanciar nós Boot de observer e Observer](#47---Instanciar n%C3%B3s Boot de observer e Observer)"
 
 ---
 
