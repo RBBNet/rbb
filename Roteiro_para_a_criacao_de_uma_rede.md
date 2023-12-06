@@ -13,7 +13,7 @@ Este roteiro tem como objetivo levantar uma cópia compatível com a RBB do zero
 
 ## 1 - Atividades iniciais a serem executadas em paralelo para todas as instituições
 
-As atividades desta seção devem ser executadas no início da implantação da rede por todas as instituições que irão aderir à rede. Além disso, as atividades desta seção devem ser executadas em cada máquina virtual (Virtual Machine - VM) em que cada nó será alocado.
+As atividades desta seção devem ser executadas no início da implantação da rede por todas as instituições que irão aderir à rede. Além disso, devem ser executadas em cada máquina virtual (Virtual Machine - VM) em que cada nó será alocado.
 
 ### 1.1 - Pré-requisitos
 
