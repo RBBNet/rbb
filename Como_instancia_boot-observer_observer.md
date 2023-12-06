@@ -32,16 +32,16 @@ BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED: "false"
       - 30303:30303/udp 
 
 
-**5.** Em seguida , a partir do nó `Boot de observer` execute o comando docker-compose up e aguarde o container iniciar. Se tudo ocorrer como esperado este nó se conectará com um ou mais boots da rede, dependendo das configurações do arquivo `genesis.json`
+**5.** Em seguida , a partir do nó `Boot de observer` execute o comando docker-compose up e aguarde o container iniciar. Se tudo ocorrer como esperado este nó se conectará com um ou mais boots da rede, caso as configurações do arquivo `genesis.json` estiver em conformidade.
 
-**6.** Acesse o host do `observer` e realize os passos 2, 3 e 4 deste documento, porém no passo 2 deve receber o genesis.json do boot de observer. Este genesis.json deve conter os parâmetros discovery.bootnodes a chave pública (removendo `0x`), endereço ip e porta p2p fornecidos pelo boot de observer, como no exemplo a seguir:
+**6.** Acesse o host do `observer` e realize os passos 2, 3 e 4 deste documento, porém no passo 2 deve receber o `genesis.json` do boot de observer. Este genesis.json deve conter os parâmetros discovery.bootnodes a chave pública (removendo `0x`), endereço ip e porta P2P fornecidos pelo boot de observer, como no exemplo a seguir:
 
 `"discovery": {
       "bootnodes": ["enode://d2156e7a95f32026f41dbb9d34df915ce2b2a235d93281eeda27d52cd88844d369812c78cbd1f797ad2177aba8a66607f97fa5df0ef3aa82932e141beb1ce8c0@100.100.100.100:30303"]
     }
 `
 
-É importante que no parâmetro bootnodes a chave pública seja do boot de observer, pois o observer realizará conexão apenas com este nó, de maneira nenhuma observer poderá conectar-se com outro tipo nó da rede (boot, writer, validators), pois Observers são externos à rede. 
+É importante que no parâmetro bootnodes a chave pública seja do boot de observer, pois o observer realizará conexão apenas com este nó, de maneira nenhuma o observer poderá conectar-se com outro tipo nó da rede (boot, writer, validators), pois observers são externos à rede. 
 
-Execute o comando `docker-compose up`. Se tudo ocorrer como esperado, observer deve conectar-se ao boot de observer.
+**7.** Execute o comando `docker-compose up`. Se tudo ocorrer como esperado, o nó observer deve conectar-se ao boot de observer.
    
