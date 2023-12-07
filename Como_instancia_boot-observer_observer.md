@@ -19,14 +19,22 @@ Este roteiro guia na criação de nós `Boot de observer` e `observer` para o la
 
 **2.** Acesse o `Boot de observer`, copie o genesis.json fornecido pelo boot da rede e cole em `start-network/.env-configs`. O genesis.json poderá já ter sido disponibilizado neste endereço: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
 
-**3.** Desabilite o permissionamento no arquivo `docker-compose.yml` alterando as variáveis para false, como no exemplo a seguir: 
+**3.** Desabilite o permissionamento executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
-BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED: "false"
-BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED: "false"
+./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
 
-**4.** Novamente no arquivo docker-compose.yml, verifique se a porta P2P está aberta para conexões tcp e udp, como no exemplo a seguir:
-   
+
+
+**4.** Novamente, o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
+
+```
+./rbb-cli config dump
+```
+
+Deve aparecer estas portas:
+
 	ports:
       - 30303:30303/tcp
       - 30303:30303/udp 
