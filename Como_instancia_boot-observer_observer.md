@@ -22,7 +22,7 @@ Este roteiro guia na criação de nós `Boot de observer` e `observer` para o la
 ./rbb-cli config set nodes.observer-boot.address=\"<IP-Externo-observer-boot>:30303\"
 ```
 
-**2.** Acesse o `observer-boot`, baixe o arquivo genesis.json neste endereço e cole em `start-network/.env-configs`: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
+**2.** Acesse o `observer-boot`, baixe o arquivo genesis.json disponível na URL a seguir e cole em `start-network/.env-configs`: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
 
 **3.** Desabilite o permissionamento de contas e nós, executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
