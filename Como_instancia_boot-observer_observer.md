@@ -2,7 +2,7 @@
 
 Este roteiro guia na criação de nós `Boot de observer` e `observer` para o laboratório da RBB usando Docker. Algumas premissas simplificadoras são assumidas: 
 - Boot de observer e observer devem estar em hosts diferentes;
-- Boot de observer conecta-se em um nó núcleo da rede (preferencialmente um boot);
+- Boot de observer conecta-se com um nó núcleo da rede (preferencialmente um boot);
 - Boot de observer realiza a comunicação entre os nós da rede e observer;
 - Observer é um nó de consulta, externo a rede;
 - Observer não pode enviar transações para rede, desta forma o boot deve bloquear tentativas de envio de transações.
@@ -50,7 +50,9 @@ docker-compose up -d
 ```
 
 e aguarde o container iniciar. Se tudo ocorrer como esperado este nó se conectará com um ou mais boots da rede, caso as configurações do arquivo `genesis.json` estiver em conformidade.
-   
+
+
+
 ### Observer
 
 **1.** Crie um nó chamado `observer` com o comando abaixo:
@@ -62,13 +64,22 @@ e aguarde o container iniciar. Se tudo ocorrer como esperado este nó se conecta
 
 **2.** Acesse o `observer`, copie o genesis.json do `observer-boot` e cole em `start-network/.env-configs`.
 
-**3.** Desabilite o permissionamento executando o comando abaixo. Você deve estar dentro do diretório start-network:
+**3.** No arquivo `genesis.json` que acabou de trazer do `observer-boot`, modifique o trecho `discovery`, de modo que contenha apenas os dados do `observer-boot`, deve conter a chave pública (removendo `0x`), endereço ip e porta P2P do `observer-boot`, como no exemplo a seguir:
+```
+"discovery": {
+      "bootnodes": ["enode://d2156e7a95f32026f41dbb9d34df915ce2b2a...2932e141beb1ce8c0@100.100.100.100:30303"]
+    }
+```
+
+É importante que no parâmetro bootnodes a chave pública seja do `observer-boot`, pois o observer realizará conexão apenas com este nó, de maneira nenhuma o observer poderá conectar-se com outro tipo nó da rede (boot, writer, validators), pois observers são externos à rede. 
+
+**4.** Desabilite o permissionamento executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
 ./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
 ./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
 
-**4.** Novamente, o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
+**5.** Novamente, o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
 
 ```
 ./rbb-cli config dump
@@ -81,14 +92,7 @@ Deve aparecer estas portas:
       - 30303:30303/udp 
 
 
-**5.** Acesse o host do `observer` e modifique o trecho `discovery`, de modo que contenha apenas os dados do `observer-boot`, deve contar a chave pública (removendo `0x`), endereço ip e porta P2P do `observer-boot`, como no exemplo a seguir:
-```
-"discovery": {
-      "bootnodes": ["enode://d2156e7a95f32026f41dbb9d34df915ce2b2a...2932e141beb1ce8c0@100.100.100.100:30303"]
-    }
-```
 
-É importante que no parâmetro bootnodes a chave pública seja do `observer-boot`, pois o observer realizará conexão apenas com este nó, de maneira nenhuma o observer poderá conectar-se com outro tipo nó da rede (boot, writer, validators), pois observers são externos à rede. 
 
 
 **6.** Em seguida , a partir do nó `observer` execute o comando:
