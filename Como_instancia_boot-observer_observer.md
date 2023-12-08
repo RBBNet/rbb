@@ -7,7 +7,7 @@ Este roteiro guia na criação de nós `Boot de observer` e `observer` para o la
 - Observer é um nó de consulta, externo a rede;
 - Observer não pode enviar transações para rede, desta forma o boot deve bloquear tentativas de envio de transações.
 
-## 1. Instanciar os nós
+## Instanciar os nós
 
 > [!IMPORTANT]
 > Pré-requisitos
@@ -15,22 +15,22 @@ Este roteiro guia na criação de nós `Boot de observer` e `observer` para o la
 
 ### Boot de Observer
 
-**2.** Crie um nó chamado `observer-boot` com o comando abaixo:
+**1.** Crie um nó chamado `observer-boot` com o comando abaixo:
 ```
 ./rbb-cli node create observer-boot
 ./rbb-cli config set nodes.observer-boot.ports+=[\"8545:8545\"]
 ./rbb-cli config set nodes.observer-boot.address=\"<IP-Externo-observer-boot>:30303\"
 ```
 
-**3.** Acesse o `observer-boot`, copie o genesis.json fornecido pelo `boot` da rede e cole em `start-network/.env-configs`. O genesis.json poderá já ter sido disponibilizado neste endereço: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
+**2.** Acesse o `observer-boot`, copie o genesis.json fornecido pelo `boot` da rede e cole em `start-network/.env-configs`. O genesis.json poderá já ter sido disponibilizado neste endereço: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
 
-**4.** Desabilite o permissionamento de contas e nós, executando o comando abaixo. Você deve estar dentro do diretório start-network:
+**3.** Desabilite o permissionamento de contas e nós, executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
 ./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
 ./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
 
-**5.** Novamente, o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
+**4.** Novamente, o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
 
 ```
 ./rbb-cli config dump
@@ -43,7 +43,7 @@ Deve aparecer estas portas:
       - 30303:30303/udp 
 
 
-**6.** Em seguida , a partir do nó `observer-boot` execute o comando:
+**5.** Em seguida , a partir do nó `observer-boot` execute o comando:
 ```
 ./rbb-cli config render-templates
 docker-compose up -d
