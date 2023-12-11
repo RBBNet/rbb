@@ -22,12 +22,41 @@ Este roteiro guia na criação de nós `Boot de observer` e `observer` para o la
 ./rbb-cli config set nodes.observer-boot.address=\"<IP-Externo-observer-boot>:30303\"
 ```
 
-**2.** Acesse o `observer-boot`, baixe o arquivo genesis.json disponível na URL a seguir e cole em `start-network/.env-configs`: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
+**2.** Vamos ajustar o arquivo genesis.json. Acesse o `observer-boot`, baixe o arquivo genesis.json disponível na URL a seguir e cole em `start-network/.env-configs`: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
+
+
+Aqui temos duas situações para o observer-boot:
+
+ 	1. A empresa não possui nó boot
+  
+	2. A empresa possui nó boot
+ 
+- Para o caso `1. A empresa não possui nó boot`, o observer-boot se conectará aos boot de outras instituições via discovery. Neste caso não será necessário fazer demais alterações no arquivo baixado `genesis.json`.
+
+- Para o caso `2. A empresa possui nó boot`, o observer-boot se conectará ao boot da sua rede via static-nodes. Neste caso será preciso excluir o trecho `discovery` mostrado na imagem abaixo:
+
+![](https://i.imgur.com/mdU0lYT.png))
+
+Desabilite a descoberta de nós com o seguinte comando:
+
+  ```bash
+  ./rbb-cli config set nodes.observer-boot.environment.BESU_DISCOVERY_ENABLED=false
+  
+  ```
+ Crie o arquivo `volumes/observer-boot/static-nodes.json` e inclua o enode do boot da própria instituição (usando **IP interno**).
+
+  Modelo:
+
+  ```json
+  [ 
+  "enode://<chave-pública-SEM-0x>@<ip-interno>:<porta>"
+  ]
+  ```
 
 **3.** Desabilite o permissionamento de contas e nós, executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
-./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
-./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
 
 **4.** Novamente, o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
@@ -75,8 +104,8 @@ e aguarde o container iniciar. Se tudo ocorrer como esperado este nó se conecta
 
 **4.** Desabilite o permissionamento executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
-./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
-./rbb-cli config set nodes.validator.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
 
 **5.** Novamente, o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
