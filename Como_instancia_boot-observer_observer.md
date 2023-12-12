@@ -17,7 +17,7 @@ Este roteiro guia na criação de nós `observer-boots` e `observers` para o lab
 
 **1.** Crie um nó chamado `observer-boot` com o comando abaixo:
 ```
-./rbb-cli node create observer-boot
+./rbb-cli node create observer_boot
 ./rbb-cli config set nodes.observer_boot.ports+=[\"8545:8545\"]
 ./rbb-cli config set nodes.observer_boot.address=\"<IP-externo-observer-boot>:30303\"
 ```
