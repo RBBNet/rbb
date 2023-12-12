@@ -33,7 +33,7 @@ Aqui temos duas situações para o observer-boot:
  
 - Para o caso `1. A empresa não possui nó boot`, o observer-boot se conectará aos boot de outras instituições via discovery. Neste caso, garanta que a seção `discovery` do `genesis.json` contenha todos os boot nodes das outras instituições (ele pode estar vazio ou com uma lista - verifique).
   
-- Para o caso `2. A empresa possui nó boot`, o observer-boot se conectará ao boot da sua própria instituições, usando static-nodes. Neste caso será preciso excluir o trecho `discovery` mostrado na imagem abaixo do arquivo genesis.json:
+- Para o caso `2. A empresa possui nó boot`, o observer-boot se conectará ao boot da sua própria instituição, usando static-nodes. Neste caso será preciso excluir o trecho `discovery` mostrado na imagem abaixo do arquivo genesis.json:
 
 ![](https://i.imgur.com/mdU0lYT.png))
 
@@ -43,7 +43,7 @@ Desabilite a descoberta de nós com o seguinte comando:
   ./rbb-cli config set nodes.observer_boot.environment.BESU_DISCOVERY_ENABLED=false
   
   ```
- Crie o arquivo `volumes/observer-boot/static-nodes.json` e inclua o enode do boot da própria instituição (usando **IP interno**).
+ Crie o arquivo `volumes/observer_boot/static-nodes.json` e inclua o enode do boot da própria instituição (usando **IP interno**).
 
   Modelo:
 
@@ -57,15 +57,16 @@ Desabilite a descoberta de nós com o seguinte comando:
 ```
 ./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
 ./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
+
 ```
 
 **4.** Habilite o permissionamento **de contas** no modo "local", ou seja, usando um arquivo. 
 ```
 ./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE_ENABLED=true
-./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE="/var/lib/besu/accounts-permissioned.toml"
+./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE=\"/var/lib/besu/permissioned-accounts.toml\"
 
 ```
-Crie um arquivo de nome accounts-permissioned.toml no diretório /volumes/observer-boot com o seguinte conteúdo (a lista é vazia mesmo):
+Crie um arquivo como o nome permissioned-accounts.toml no diretório /volumes/observer_boot com o seguinte conteúdo (a lista é vazia mesmo):
 ```
 accounts-allowlist=[]
 ```
