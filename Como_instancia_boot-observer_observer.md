@@ -1,17 +1,17 @@
 # Instanciar `Boot de observer` e `observer`
 
-Este roteiro guia na criação de nós `Boot de observer` e `observer` para o laboratório da RBB usando Docker. Algumas premissas simplificadoras são assumidas: 
-- Boot de observer e observer devem estar em hosts diferentes;
-- Boot de observer conecta-se com um nó núcleo da rede (preferencialmente um boot);
-- Boot de observer realiza a comunicação entre os nós da rede e observer;
-- Observer é um nó de consulta, externo a rede;
-- Observer não pode enviar transações para rede, desta forma o boot deve bloquear tentativas de envio de transações.
+Este roteiro guia na criação de nós `observer-boots` e `observers` para o laboratório da RBB usando Docker. Algumas premissas: 
+- Observer-boot conecta-se com um ou mais nós boots, dependendo do caso (mais detalhes à frente);
+- Observer-boot realiza a comunicação entre os nós da rede e observers;
+- Observers são nós de consulta, externos à rede, sobre os quais não temos nenhum controle;
+- Observers não podem enviar transações para rede. Desta forma, o observer-boot deve bloquear tentativas de envio de transações.
 
 ## Instanciar os nós
 
 > [!IMPORTANT]
 > Pré-requisitos
 > 	- Rede com nós de núcleo funcionando (boot, validadores, writers)
+> 	- A porta 30303 do host do observer-boot deve estar **aberta para conexões externas a partir da Internet**. 
 
 ### Boot de Observer
 
@@ -19,7 +19,7 @@ Este roteiro guia na criação de nós `Boot de observer` e `observer` para o la
 ```
 ./rbb-cli node create observer-boot
 ./rbb-cli config set nodes.observer-boot.ports+=[\"8545:8545\"]
-./rbb-cli config set nodes.observer-boot.address=\"<IP-Externo-observer-boot>:30303\"
+./rbb-cli config set nodes.observer-boot.address=\"<IP-externo-observer-boot>:30303\"
 ```
 
 **2.** Vamos ajustar o arquivo genesis.json. Acesse o `observer-boot`, baixe o arquivo genesis.json disponível na URL a seguir e cole em `start-network/.env-configs`: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
@@ -31,9 +31,9 @@ Aqui temos duas situações para o observer-boot:
   
 	2. A empresa possui nó boot
  
-- Para o caso `1. A empresa não possui nó boot`, o observer-boot se conectará aos boot de outras instituições via discovery. Neste caso não será necessário fazer demais alterações no arquivo baixado `genesis.json`.
-
-- Para o caso `2. A empresa possui nó boot`, o observer-boot se conectará ao boot da sua rede via static-nodes. Neste caso será preciso excluir o trecho `discovery` mostrado na imagem abaixo:
+- Para o caso `1. A empresa não possui nó boot`, o observer-boot se conectará aos boot de outras instituições via discovery. Neste caso, garanta que a seção `discovery` do `genesis.json` contenha todos os boot nodes das outras instituições (ele pode estar vazio ou com uma lista - verifique).
+  
+- Para o caso `2. A empresa possui nó boot`, o observer-boot se conectará ao boot da sua própria instituições, usando static-nodes. Neste caso será preciso excluir o trecho `discovery` mostrado na imagem abaixo do arquivo genesis.json:
 
 ![](https://i.imgur.com/mdU0lYT.png))
 
@@ -53,13 +53,24 @@ Desabilite a descoberta de nós com o seguinte comando:
   ]
   ```
 
-**3.** Desabilite o permissionamento de contas e nós, executando o comando abaixo. Você deve estar dentro do diretório start-network:
+**3.** Desabilite o permissionamento **on chain** de contas e nós, executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
 ./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
 ./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
 
-**4.** Novamente, o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
+**4.** Habilite o permissionamento **de contas** no modo "local", ou seja, usando um arquivo. 
+```
+./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE_ENABLED=true
+./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE="/var/lib/besu/accounts-permissioned.toml"
+
+```
+Crie um arquivo de nome accounts-permissioned.toml no diretório /volumes/observer-boot com o seguinte conteúdo (a lista é vazia mesmo):
+```
+accounts-allowlist=[]
+```
+
+**5.** Execute o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
 
 ```
 ./rbb-cli config dump
@@ -72,17 +83,19 @@ Deve aparecer estas portas:
       - 30303:30303/udp 
 
 
-**5.** Em seguida , a partir do nó `observer-boot` execute o comando:
+**6.** Em seguida , a partir do nó `observer-boot` execute o comando:
 ```
 ./rbb-cli config render-templates
 docker-compose up -d
 ```
 
-e aguarde o container iniciar. Se tudo ocorrer como esperado este nó se conectará com um ou mais boots da rede, caso as configurações do arquivo `genesis.json` estiver em conformidade.
+e aguarde o container iniciar. 
 
 
 
 ### Observer
+
+Esse é um tutorial para a configuração de um observer por um dos participantes da rede, logo há algumas simplificações.
 
 **1.** Crie um nó chamado `observer` com o comando abaixo:
 ```
