@@ -18,8 +18,8 @@ Este roteiro guia na criação de nós `observer-boots` e `observers` para o lab
 **1.** Crie um nó chamado `observer-boot` com o comando abaixo:
 ```
 ./rbb-cli node create observer-boot
-./rbb-cli config set nodes.observer-boot.ports+=[\"8545:8545\"]
-./rbb-cli config set nodes.observer-boot.address=\"<IP-externo-observer-boot>:30303\"
+./rbb-cli config set nodes.observer_boot.ports+=[\"8545:8545\"]
+./rbb-cli config set nodes.observer_boot.address=\"<IP-externo-observer-boot>:30303\"
 ```
 
 **2.** Vamos ajustar o arquivo genesis.json. Acesse o `observer-boot`, baixe o arquivo genesis.json disponível na URL a seguir e cole em `start-network/.env-configs`: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
@@ -40,7 +40,7 @@ Aqui temos duas situações para o observer-boot:
 Desabilite a descoberta de nós com o seguinte comando:
 
   ```bash
-  ./rbb-cli config set nodes.observer-boot.environment.BESU_DISCOVERY_ENABLED=false
+  ./rbb-cli config set nodes.observer_boot.environment.BESU_DISCOVERY_ENABLED=false
   
   ```
  Crie o arquivo `volumes/observer-boot/static-nodes.json` e inclua o enode do boot da própria instituição (usando **IP interno**).
@@ -55,14 +55,14 @@ Desabilite a descoberta de nós com o seguinte comando:
 
 **3.** Desabilite o permissionamento **on chain** de contas e nós, executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
-./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
-./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
 
 **4.** Habilite o permissionamento **de contas** no modo "local", ou seja, usando um arquivo. 
 ```
-./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE_ENABLED=true
-./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE="/var/lib/besu/accounts-permissioned.toml"
+./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE_ENABLED=true
+./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE="/var/lib/besu/accounts-permissioned.toml"
 
 ```
 Crie um arquivo de nome accounts-permissioned.toml no diretório /volumes/observer-boot com o seguinte conteúdo (a lista é vazia mesmo):
@@ -70,17 +70,12 @@ Crie um arquivo de nome accounts-permissioned.toml no diretório /volumes/observ
 accounts-allowlist=[]
 ```
 
-**5.** Execute o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
+**5.** No arquivo docker-compose.yml, verifique se a porta P2P está aberta para conexões tcp e udp, como no exemplo a seguir:
 
-```
-./rbb-cli config dump
-```
+ports:
 
-Deve aparecer estas portas:
-
-	ports:
-      - 30303:30303/tcp
-      - 30303:30303/udp 
+    30303:30303/tcp
+    30303:30303/udp
 
 
 **6.** Em seguida , a partir do nó `observer-boot` execute o comando:
@@ -121,17 +116,13 @@ Esse é um tutorial para a configuração de um observer por um dos participante
 ./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
 
-**5.** Novamente, o comando para confirmar se a porta P2P está aberta para conexões tcp e udp:
+**5.** No arquivo docker-compose.yml, verifique se a porta P2P está aberta para conexões tcp e udp, como no exemplo a seguir:
 
-```
-./rbb-cli config dump
-```
+ports:
 
-Deve aparecer estas portas:
+    30303:30303/tcp
+    30303:30303/udp
 
-	ports:
-      - 30303:30303/tcp
-      - 30303:30303/udp 
 
 
 
