@@ -49,7 +49,7 @@ Desabilite a descoberta de nós com o seguinte comando:
 
   ```json
   [ 
-  "enode://<chave-pública-SEM-0x>@<ip-interno>:<porta>"
+  "enode://<chave-pública-SEM-0x>@<ip-interno>:<porta-P2P>"
   ]
   ```
 
@@ -66,18 +66,10 @@ Desabilite a descoberta de nós com o seguinte comando:
 ./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE=\"/var/lib/besu/permissioned-accounts.toml\"
 
 ```
-Crie um arquivo como o nome permissioned-accounts.toml no diretório /volumes/observer_boot com o seguinte conteúdo (a lista é vazia mesmo):
+Crie o arquivo `volumes/observer_boot/permissioned-accounts.toml` com o seguinte conteúdo (a lista é vazia mesmo):
 ```
 accounts-allowlist=[]
 ```
-
-**5.** No arquivo docker-compose.yml, verifique se a porta P2P está aberta para conexões tcp e udp, como no exemplo a seguir:
-
-ports:
-
-    30303:30303/tcp
-    30303:30303/udp
-
 
 **6.** Em seguida , a partir do nó `observer-boot` execute o comando:
 ```
