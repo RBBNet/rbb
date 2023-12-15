@@ -107,7 +107,7 @@ Esse é um tutorial para a configuração de um observer por um dos participante
 ```
 ./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
-Observe que seu observer aceitará pedidos de conexão de quaisquer outros nós, logo faz sentido manter a porta P2P (em geral, a 30303) protegida por um firewall ou algo similar.
+Observe que seu observer aceitará pedidos de conexão de quaisquer outros nós, logo faz sentido manter a porta P2P (em geral, a 30303) protegida por um firewall ou algo similar. Outra opção seria usar um permissionamento local e só incluir no arquivo o(s) observer-boot(s) que seu observer conectar.
 
 **5.** No arquivo docker-compose.yml, verifique se a porta P2P está aberta para conexões tcp e udp, como no exemplo a seguir:
 
