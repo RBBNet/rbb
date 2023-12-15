@@ -103,11 +103,11 @@ Esse é um tutorial para a configuração de um observer por um dos participante
 
 É importante que no parâmetro bootnodes a chave pública seja do `observer-boot`, pois o observer realizará conexão apenas com este nó, de maneira nenhuma o observer poderá conectar-se com outro tipo nó da rede (boot, writer, validators), pois observers são externos à rede. 
 
-**4.** Desabilite o permissionamento executando o comando abaixo. Você deve estar dentro do diretório start-network:
+**4.** Desabilite o permissionamento de nós executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
-./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
 ./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
+Observe que seu observer aceitará pedidos de conexão de quaisquer outros nós, logo faz sentido manter a porta P2P (em geral, a 30303) protegida por um firewall ou algo similar.
 
 **5.** No arquivo docker-compose.yml, verifique se a porta P2P está aberta para conexões tcp e udp, como no exemplo a seguir:
 
