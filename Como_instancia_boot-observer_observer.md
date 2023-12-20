@@ -92,16 +92,17 @@ Esse é um tutorial para a configuração de um observer por um dos participante
 ./rbb-cli config set nodes.observer.address=\"<IP-Externo-observer>:30303\"
 ```
 
-**2.** Acesse o `observer`, copie o genesis.json do `observer-boot` e cole em `start-network/.env-configs`.
+**2.** Vamos ajustar o arquivo genesis.json. Acesse o seu nó `observer`, baixe o arquivo genesis.json disponível na URL a seguir e cole em `start-network/.env-configs`: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
 
-**3.** No arquivo `genesis.json` que acabou de trazer do `observer-boot`, modifique o trecho `discovery`, de modo que contenha apenas os dados do `observer-boot`, deve conter a chave pública (removendo `0x`), endereço ip e porta P2P do `observer-boot`, como no exemplo a seguir:
+
+**3.** No arquivo `genesis.json` que acabou de copiar, modifique o trecho `discovery`, de modo que contenha os enodes de todos os `observer-boots` a que seu `observer` terá acesso (pode ser um observer-boot seu, de outras instituições ou ambos). Como sempre, cada linha deve conter a chave pública (removendo `0x`), endereço ip e porta P2P do `observer-boot` correspondente, como no exemplo a seguir:
 ```
 "discovery": {
       "bootnodes": ["enode://d2156e7a95f32026f41dbb9d34df915ce2b2a...2932e141beb1ce8c0@100.100.100.100:30303"]
     }
 ```
 
-É importante que no parâmetro bootnodes a chave pública seja do `observer-boot`, pois o observer realizará conexão apenas com este nó, de maneira nenhuma o observer poderá conectar-se com outro tipo nó da rede (boot, writer, validators), pois observers são externos à rede. 
+É importante que no parâmetro bootnodes a chave pública seja de `observer-boots`, pois o observer realizará conexão apenas com estes nós, de maneira nenhuma o observer poderá conectar-se com outro tipo nó da rede (boot, writer, validators), pois observers são externos à rede. 
 
 **4.** Desabilite o permissionamento de nós executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
