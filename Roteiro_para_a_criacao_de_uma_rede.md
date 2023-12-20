@@ -279,13 +279,16 @@ Após a instituição inicial começar a implantação da rede, as outras instit
 
 A votação de validadores é feita apenas por validadores. Caso possua um nó preparado para ser validator, mas ainda sem produzir blocos, avise às outras instituições - que possuem validadores produzindo blocos - para votarem no seu validator. Peça para executar o sub-roteiro "[Votar nos validadores](#43---votar-nos-validadores)".
 
-### 3.4 - Executar sub-roteiro "[Levantar DApp de permissionamento](#44---levantar-dapp-de-permissionamento)"
+### 3.4 - Executar sub-roteiro "[Levantar DApp de permissionamento](#44---levantar-dapp-de-permissionamento)" (opcional)
 
 ### 3.5 - Executar sub-roteiro "[Levantar monitoração](#45---levantar-monitora%C3%A7%C3%A3o)"
 
-### 3.6 - Executar sub-roteiro "[Levantar block explorer](#46---levantar-block-explorer)"
+### 3.6 - Executar sub-roteiro "[Levantar block explorer](#46---levantar-block-explorer)" (opcional)
 
-### 3.7 - Executar sub-roteiro "[Instanciar nós Boot de observer e Observer](#48---instanciar-n%C3%B3s-boot-de-observer-e-observer)"
+### 3.7 - Executar sub-roteiro "[Instanciar nó Boot de observer](#48---instanciar-n%C3%B3s-boot-de-observer-e-observer)"
+
+### 3.8 - Executar sub-roteiro "[Instanciar nó Observer]()" (opcional)
+
 
 ---
 
@@ -523,9 +526,11 @@ http://boot-node-ip:blockexplorer-port
 
 ### 4.7 - Levantar EthStats - Executar sub-roteiro "[Roteiro de instalação do EthStats](roteiro_monitoramento_ethstats.md)"
 
-### 4.8 - Instanciar nós Boot de observer e Observer
+### 4.8 - Instanciar nó observer-boot
 
 O procedimento se encontra [neste link](https://github.com/RBBNet/rbb/blob/master/Como_instancia_boot-observer_observer.md).
 
+### 4.9 - Instanciar nó observer
 
+O procedimento se encontra [neste link]().
 
