@@ -1,4 +1,4 @@
-### Observer
+# Instanciar nó `Observer`
 
 Esse é um tutorial para a configuração de um observer por um dos participantes da rede, logo há algumas simplificações.
 
