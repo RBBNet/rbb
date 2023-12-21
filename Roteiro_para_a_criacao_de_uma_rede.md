@@ -528,9 +528,9 @@ http://boot-node-ip:blockexplorer-port
 
 ### 4.8 - Instanciar nó observer-boot
 
-O procedimento se encontra [neste link](https://github.com/RBBNet/rbb/blob/master/Como_instancia_boot-observer_observer.md).
+O procedimento se encontra [neste link](https://github.com/RBBNet/rbb/blob/master/instanciar_observer-boot.md).
 
 ### 4.9 - Instanciar nó observer
 
-O procedimento se encontra [neste link]().
+O procedimento se encontra [neste link](https://github.com/RBBNet/rbb/blob/master/instanciar_observer.md).
 
