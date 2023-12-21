@@ -1,6 +1,6 @@
 # Instanciar nó `Boot de observer`
 
-Este roteiro guia na criação de nós `observer-boots` e `observers` para o laboratório da RBB usando Docker. Algumas premissas: 
+Este roteiro guia na criação de nós `observer-boots` para o laboratório da RBB usando Docker. Algumas premissas: 
 - Observer-boot conecta-se com um ou mais nós boots, dependendo do caso (mais detalhes à frente);
 - Observer-boot realiza a comunicação entre os nós da rede e observers;
 - Observers são nós de consulta, externos à rede, sobre os quais não temos nenhum controle;
