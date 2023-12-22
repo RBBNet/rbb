@@ -22,9 +22,9 @@ Esse é um tutorial para a configuração de um observer por um dos participante
     }
 ```
 
-É importante que no parâmetro bootnodes a chave pública seja de `observer-boots`, pois o observer realizará conexão apenas com estes nós, de maneira nenhuma o observer poderá conectar-se com outro tipo nó da rede (boot, writer, validators), pois observers são externos à rede. 
+É importante que, no parâmetro bootnodes, as chaves públicas sejam de `observer-boots`, pois o observer realizará conexão apenas com estes nós. De maneira nenhuma o observer poderá conectar-se com outro tipo nó da rede (boot, writer, validators), pois devem se comportar similarmente aos observers que são externos à rede. 
 
-**4.** Desabilite o permissionamento **on chain** de nós executando o comando abaixo. Você deve estar dentro do diretório start-network:
+**4.** Desabilite o permissionamento de nós **on chain** executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
 ./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
