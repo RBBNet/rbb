@@ -23,6 +23,7 @@ loading() {
 
 { apt-get update && apt-get install -y ruby-full && gem install lolcat; } > /dev/null &
 loading
+wait
 
 
 
