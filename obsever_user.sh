@@ -42,9 +42,11 @@ cat << 'EOF' | lolcat -a -s 100 -F 0.023 -S 130
     \/_____/\/___/ \/___/ \/____/\/_/  \/__/  \/____/\/_/
 
 EOF
-
+echo "Current directory: $(pwd)"
 curl -sL https://github.com/RBBNet/start-network/releases/download/v0.4.1%2Bpermv1/start-network.tar.gz | tar xz
+echo "Current directory: $(pwd)"
 cd start-network
+echo "Current directory: $(pwd)"
 ./rbb-cli node create observer
 ./rbb-cli config set nodes.observer.ports+=[\"8545:8545\"]
 
