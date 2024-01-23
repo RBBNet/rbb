@@ -25,6 +25,6 @@ Para instalar o nó `Observer`, execute o seguinte comando:
 Linux, macOS ou Windows(WSL2 com Docker):
 
 ```
-curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/obsever_user.sh | bash
+source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/obsever_user.sh)
 
 ```
