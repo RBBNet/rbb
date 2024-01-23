@@ -50,6 +50,7 @@ cd start-network
 
 ./rbb-cli config set nodes.observer.address=\"0.0.0.0:30303\"
 
+echo "Current directory: $(pwd)"
 echo 'oii' > aaaaaaaaaaaaaaaaaaaaa.txt
 
 #echo '{
