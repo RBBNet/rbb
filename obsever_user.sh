@@ -1,9 +1,6 @@
 #!/bin/bash
 
-#!/bin/bash
-
-# Função para um spinner mais elaborado
-spinner() {
+loading() {
     local pid=$!
     local delay=0.1
     local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
@@ -17,16 +14,8 @@ spinner() {
     printf "    \b\b\b\b"
 }
 
-# Executando os comandos com o spinner
 { apt-get update && apt-get install -y ruby-full && gem install lolcat; } > /dev/null &
-spinner
-
-echo "Processo concluído."
-
-
-
-
-
+loading
 
 
 
