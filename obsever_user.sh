@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt update && apt install ruby-full && gem install lolcat > /dev/null
+apt update && apt install ruby-full && gem install lolcat >/dev/null
 cat << 'EOF' | lolcat -a -s 100 -F 0.023 -S 130
  ____    ____    ____
 /\  _`\ /\  _`\ /\  _`\
