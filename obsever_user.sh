@@ -50,7 +50,7 @@ cd start-network
 
 ./rbb-cli config set nodes.observer.address=\"0.0.0.0:30303\"
 
-
+ 
 echo '{
  "config": {
    "chainId": 648629,
