@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -x
 loading() {
     local pid=$!
     local delay=0.1
