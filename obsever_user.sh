@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+
 loading() {
     local pid=$!
     local delay=0.1
@@ -49,9 +49,9 @@ echo "Current directory: $(pwd)"
 cd start-network
 echo "Current directory: $(pwd)"
 ./rbb-cli node create observer
-./rbb-cli config set nodes.observer.ports+=[\"8545:8545\"]
+#./rbb-cli config set nodes.observer.ports+=[\"8545:8545\"]
 
-./rbb-cli config set nodes.observer.address=\"0.0.0.0:30303\"
+#./rbb-cli config set nodes.observer.address=\"0.0.0.0:30303\"
 
 echo "Current directory: $(pwd)"
 echo 'oii' > aaaaaaaaaaaaaaaaaaaaa.txt
