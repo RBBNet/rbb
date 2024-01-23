@@ -4,6 +4,9 @@ loading() {
     local pid=$!
     local delay=0.1
     local spinstr='|/-\'
+
+    tput civis
+
     while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
         local temp=${spinstr#?}
         printf " [%c]  " "$spinstr"
@@ -11,8 +14,12 @@ loading() {
         sleep $delay
         printf "\r"
     done
+
+    tput cnorm
+
     printf "    \r"
 }
+
 
 { apt-get update && apt-get install -y ruby-full && gem install lolcat; } > /dev/null &
 loading
