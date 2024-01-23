@@ -1,6 +1,35 @@
 #!/bin/bash
 
-apt update && apt install ruby-full && gem install lolcat >/dev/null
+#!/bin/bash
+
+# Função para um spinner mais elaborado
+spinner() {
+    local pid=$!
+    local delay=0.1
+    local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf " [%c]  " "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\b\b\b\b\b\b"
+    done
+    printf "    \b\b\b\b"
+}
+
+# Executando os comandos com o spinner
+{ apt-get update && apt-get install -y ruby-full && gem install lolcat; } > /dev/null &
+spinner
+
+echo "Processo concluído."
+
+
+
+
+
+
+
+
 cat << 'EOF' | lolcat -a -s 100 -F 0.023 -S 130
  ____    ____    ____
 /\  _`\ /\  _`\ /\  _`\
