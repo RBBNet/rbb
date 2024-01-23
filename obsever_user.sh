@@ -49,7 +49,7 @@ cd start-network
 ./rbb-cli config set nodes.observer.ports+=[\"8545:8545\"]
 ./rbb-cli config set nodes.observer.address=\"<IP-Externo-observer>:30303\"
 
-echo 'oii' > aaaaaaaaaaaaaaaaaaaa.txt
+echo 'oii' > aaaaaaaaaaaaaaaaaaaaa.txt
 
 #echo '{
 #  "config": {
