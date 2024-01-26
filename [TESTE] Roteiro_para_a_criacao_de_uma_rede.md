@@ -193,8 +193,6 @@ docker-compose up -d
   yarn install
   
   ```
-  
-  - ⚠️ Pode ser necessário também instalar o compilador offline do solidity caso você esteja em um ambiente corporativo: Se estiver no linux execute `yarn linuxcompiler`. Se estiver no Windows execute `yarn windowscompiler`. ⚠️
 
 - Crie um arquivo `.env` e defina as variáveis de ambiente neste arquivo conforme template abaixo:
 
@@ -203,7 +201,7 @@ docker-compose up -d
   ACCOUNT_INGRESS_CONTRACT_ADDRESS=0x0000000000000000000000000000000000008888
   BESU_NODE_PERM_ACCOUNT=627306090abaB3A6e1400e9345bC60c78a8BEf57
   BESU_NODE_PERM_KEY=c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
-  BESU_NODE_PERM_ENDPOINT=http://127.0.0.1:8545
+  BESU_NODE_PERM_ENDPOINT=http://localhost:8545
   CHAIN_ID=648629
   INITIAL_ALLOWLISTED_NODES=enode://7ef6...d416|0|0x000000000000|Boot|BNDES,enode://d350...70d2|1|0x000000000000|Validator|BNDES,enode://971d...5c3c|2|0x000000000000|Writer|BNDES
   ```
@@ -226,7 +224,7 @@ docker-compose up -d
 ### 4.3 - Executar o Deploy
 
 ```bash
-yarn truffle migrate --reset --network besu
+yarn deploy --network besu
 
 ```
 
