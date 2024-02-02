@@ -225,7 +225,7 @@ Caso você **não** seja a instituição inicial pule para a [seção 3](#3---at
   CHAIN_ID=648629
   INITIAL_ADMIN_ACCOUNTS=0x38393851d6d26497de390b37b4eb0c1c20a5b0bc,0xc78622f314453aeb349615bff240b6891cefd465,0x8b708294671a61cb3af2626e45ec8ac228a03dea
   INITIAL_ALLOWLISTED_ACCOUNTS=0x38393851d6d26497de390b37b4eb0c1c20a5b0bc,0xc78622f314453aeb349615bff240b6891cefd465,0x8b708294671a61cb3af2626e45ec8ac228a03dea
-  INITIAL_ALLOWLISTED_NODES=enode://7ef6...d416|0|0x000000000000|Boot|BNDES,enode://d350...70d2|1|0x000000000000|Validator|BNDES,enode://971d...5c3c|2|0x000000000000|Writer|BNDES
+  INITIAL_ALLOWLISTED_NODES=enode://7ef6...d416|0|0x000000000000|boot|BNDES,enode://d350...70d2|1|0x000000000000|validator|BNDES,enode://971d...5c3c|2|0x000000000000|writer|BNDES
   ```
 
   Em `BESU_NODE_PERM_ACCOUNT`, conforme o template, insira o endereço da conta a fazer o deploy e a ser a primeira conta de administração do permissionamento.
@@ -244,7 +244,7 @@ Caso você **não** seja a instituição inicial pule para a [seção 3](#3---at
   Em `INITIAL_ALLOWLISTED_NODES`, conforme o template, insira as informações de todos os nós da lista localizada em: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/enodes.md`. As informações de cada nó devem ser separadas por vírgula e devem ser inseridas da seguinte forma:
   
   ```.env
-  enode://<chave-pública-SEM-0x>|<tipo-do-nó-(0: Boot, 1: Validator, 2: Writer, 3: WriterPartner, 4: ObserverBoot, 5: Other)>|<geohash-do-nó>|<nome-do-nó>|<nome-da-instituição>
+  enode://<chave-pública-SEM-0x>|<tipo-do-nó-(0: boot, 1: validator, 2: writer, 3: observer_boot)>|<geohash-do-nó>|<nome-do-nó>|<nome-da-instituição>
   ```
 
 #### 2.4.3 - Executar o Deploy
