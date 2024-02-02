@@ -102,7 +102,7 @@ Execute o comando/script abaixo em cada VM para gerar as chaves e o endereço do
   - Execute o comando abaixo para definir o IP interno e a porta da VM pela qual serão feitas conexões P2P com o nó writer:
 
     ```bash
-    ./rbb-cli config set nodes.boot.address=\"<IP-Interno-Writer>:10305\"
+    ./rbb-cli config set nodes.writer.address=\"<IP-Interno-Writer>:10305\"
 
     ```
 
