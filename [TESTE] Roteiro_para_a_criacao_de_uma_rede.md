@@ -203,7 +203,7 @@ docker-compose up -d
   BESU_NODE_PERM_KEY=c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
   BESU_NODE_PERM_ENDPOINT=http://localhost:8545
   CHAIN_ID=648629
-  INITIAL_ALLOWLISTED_NODES=enode://7ef6...d416|0|0x000000000000|boot|BNDES,enode://d350...70d2|1|0x000000000000|validator|BNDES,enode://971d...5c3c|2|0x000000000000|writer|BNDES
+  INITIAL_ALLOWLISTED_NODES=enode://7ef6...d416|0|0x000000000000|Boot|BNDES,enode://d350...70d2|1|0x000000000000|Validator|BNDES,enode://971d...5c3c|2|0x000000000000|Writer|BNDES
   ```
 
   Em `BESU_NODE_PERM_ACCOUNT`, conforme o template, insira o endereço da conta a fazer o deploy e a ser a primeira conta admin do permissionamento. Por ser este um roteiro somente para testes, o endereço contido no template poderá ser utilizado.
@@ -218,7 +218,7 @@ docker-compose up -d
   Em `INITIAL_ALLOWLISTED_NODES`, conforme o template, insira as informações dos nós validator, boot e writer. As informações de cada nó devem ser separadas por vírgula e devem ser inseridas da seguinte forma:
 
   ```.env
-  enode://<chave-pública-SEM-0x>|<tipo-do-nó-(0: boot, 1: validator, 2: writer, 3: observer_boot)>|<geohash-do-nó>|<nome-do-nó>|<nome-da-instituição>
+  enode://<chave-pública-SEM-0x>|<tipo-do-nó-(0: Boot, 1: Validator, 2: Writer, 3: WriterPartner, 4: ObserverBoot, 5: Other)>|<geohash-do-nó>|<nome-do-nó>|<nome-da-instituição>
   ```
 
 ### 4.3 - Executar o Deploy
