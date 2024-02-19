@@ -54,9 +54,7 @@ cat > .env.configs/genesis.json << 'EOF'
      "requesttimeoutseconds": 8
    },
    "discovery": {
-     "bootnodes": [
-       "enode://338611d5c7c43dd47d17247f3c4dd96f31eadab961b1513475dfdd9f9f8297c7c7ab42c517cc62bdf8a7aff1247cb95297ecdb28ea560c9d6e96b218742905a2@200.225.103.107:60606"
-       ]
+     "bootnodes": ["enode://af280e94bc99984159966f8dd51469dcae8f77ecc0d5e312697255abf1ecea7f89016035639d66f7f8429ee666db9225d7b8f55614d91157e83d268eeff5d968@observer_boot:30303"]
    }
  },
 
