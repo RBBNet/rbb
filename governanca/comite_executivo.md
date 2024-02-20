@@ -24,6 +24,24 @@
 
 
 # Reuniões do Comitê Executivo realizadas.
+
+- 03/08/2023
+  - Não consta Ata assinada digitalmente
+  - Destaques:
+    - Conclusão das etapas prévias ao reset de laboratório
+    - Frentes técnicas não finalizadas
+- 13/07/2023
+  - Não consta Ata assinada digitalmente
+  - Destaques:
+    - Andamento menor do que o esperado
+    - Problemas de conexão entre os nós (TCU/ BNDES na identificação 
+      de regras de segurança impeditivas)
+    - Não foi possível concluir as metas estabelecidas para sprint
+- 23/06/2023
+  - Não consta Ata assinada digitalmente
+  - Destaques:
+    - Avanço significativo de todas as organizações.
+    - Evento BlockchainGov
 - 01/06/2023
   - [Ata assinada digitalmente](2023-06-01-RBB-Ata-Reunião-Comitê-Executivo-Assinada.pdf)
   - Destaques:
