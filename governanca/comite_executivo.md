@@ -23,25 +23,42 @@
   - Carlos Leonardo dos Santos Mendes
 
 
-# Reuniões do Comitê Executivo realizadas.
-
+# Reuniões do Comitê Executivo realizadas
+- 14/12/2023
+  - Não consta Ata assinada digitalmente
+  - Destaques:
+    - Manual de Operações.
+    - Cronograma do Piloto.
+- 16/11/2023
+  - [Ata assinada digitalmente]()
+  - Destaques:
+    - Manual de Operações.
+    - Proposta sobre o Piloto.
+- 11/09/2023
+  - Não consta Ata assinada digitalmente
+  - Destaques:
+    - Reset do Laboratório.
+    - Andamento de tarefas para o Piloto.
+- 24/08/2023
+  - Não consta Ata assinada digitalmente
+  - Destaques:
+    - Replanejamento para o Piloto.
+    - Planejamento para o Evento BlockchainGov.
 - 03/08/2023
   - Não consta Ata assinada digitalmente
   - Destaques:
-    - Conclusão das etapas prévias ao reset de laboratório
-    - Frentes técnicas não finalizadas
+    - Relato das iniciativas técnicas.  
+    - Conclusão das etapas prévias ao reset de laboratório.
 - 13/07/2023
   - Não consta Ata assinada digitalmente
   - Destaques:
-    - Andamento menor do que o esperado
-    - Problemas de conexão entre os nós (TCU/ BNDES na identificação 
-      de regras de segurança impeditivas)
-    - Não foi possível concluir as metas estabelecidas para sprint
+    - Relato das iniciativas técnicas.
+    - Conclusões das metas estabelecidas para sprint
 - 23/06/2023
   - Não consta Ata assinada digitalmente
   - Destaques:
     - Avanço significativo de todas as organizações.
-    - Evento BlockchainGov
+    - Apresentação PUC-Rio
 - 01/06/2023
   - [Ata assinada digitalmente](2023-06-01-RBB-Ata-Reunião-Comitê-Executivo-Assinada.pdf)
   - Destaques:
