@@ -30,7 +30,7 @@
     - Manual de Operações.
     - Cronograma do Piloto.
 - 16/11/2023
-  - [Ata assinada digitalmente]()
+  - [Ata assinada digitalmente](2023-11-16-RBB-Ata-Reunião-Comitê-Executivo-assinado.pdf)
   - Destaques:
     - Manual de Operações.
     - Proposta sobre o Piloto.
