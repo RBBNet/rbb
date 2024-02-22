@@ -55,7 +55,7 @@ cat > .env.configs/genesis.json << 'EOF'
     },
     "discovery": {
       "bootnodes": [
-        "enode://af280e94bc99984159966f8dd51469dcae8f77ecc0d5e312697255abf1ecea7f89016035639d66f7f8429ee666db9225d7b8f55614d91157e83d268eeff5d968@172.20.15.5:30303"
+        "enode://76283354125102c9d15b225354082b4d25359cf2de2868bafd6c0df5205b815d3128dd789fe93e854fefd8085b76a51ffc2cb17a61657ecd60f7ac925caeb769@172.22.0.3:30303"
       ]
     }
   },
