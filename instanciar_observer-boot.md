@@ -15,7 +15,7 @@ Este roteiro guia na criação de nós `observer-boots` para o laboratório da R
 
 ### Boot de Observer
 
-**1.** Crie um nó chamado `observer-boot` com o comando abaixo:
+**1.** Crie um nó chamado `observer_boot` com o comando abaixo:
 ```
 ./rbb-cli node create observer_boot
 ./rbb-cli config set nodes.observer_boot.ports+=[\"8545:8545\"]
