@@ -27,5 +27,4 @@ Na terceira reunião da Governança da RBB, já com a participações de TCU, BN
   - Apoiar o Comitê de Governança no acompanhamento de projetos e iniciativas em andamento;
   - Apoiar o Comitê de Governança com levantamento e análises de dados demandados para tomada de decisões.
 
-Você pode acompanhar as atas das reuniões e outros detalhes de ambos os comitês: [Comitê Executivo](comite_executivo.md) e [Comitê Técnico](comite_tecnico.md).
-
+Você pode acompanhar as atas das reuniões e outros detalhes de ambos os comitês: [Comitê Executivo](https://github.com/RBBNet/rbb/blob/master/governanca/Reuni%C3%B5es%20Comit%C3%AA%20Executivo/comite_executivo.md) e [Comitê Técnico](https://github.com/RBBNet/rbb/blob/master/governanca/Reuni%C3%B5es%20Comit%C3%AA%20T%C3%A9cnico/comite_tecnico.md).
