@@ -49,18 +49,16 @@ cat > .env.configs/genesis.json << 'EOF'
     "berlinBlock": 0,
     "contractSizeLimit": 2147483647,
     "qbft": {
-      "blockperiodseconds": 4,
+      "blockperiodseconds": 10,
       "epochlength": 30000,
-      "requesttimeoutseconds": 8
+      "requesttimeoutseconds": 20
     },
     "discovery": {
-      "bootnodes": [
-        "enode://76283354125102c9d15b225354082b4d25359cf2de2868bafd6c0df5205b815d3128dd789fe93e854fefd8085b76a51ffc2cb17a61657ecd60f7ac925caeb769@172.22.0.3:30303"
-      ]
+      "bootnodes": ["enode://01dfd25ed38d4c2662bae1dd95d4fcee148f7fac3b2ab5c399b4e83aa277d107d390a48fd7343635b5de17fccdaf1f1eeda71f46b556c1db7f4520a4480da6a7@172.22.0.2:30303"]
     }
   },
   "nonce": "0x0",
-  "gasLimit": "0xF42400",
+  "gasLimit": "0x2FEFD800",
   "difficulty": "0x1",
   "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
   "coinbase": "0x0000000000000000000000000000000000000000",
@@ -86,9 +84,10 @@ cat > .env.configs/genesis.json << 'EOF'
       }
     }
   },
-  "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d5940e83e7a14ea6245f316c2ab6e64c4d32bc9a53bdc080c0",
-  "timestamp": "0x65d3b18c"
+  "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d594f0f07322390f1eefc56eaa3e149a8f0d2e5ac13bc080c0",
+  "timestamp": "0x65d80cde"
 }
+
 EOF
 
 # sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
