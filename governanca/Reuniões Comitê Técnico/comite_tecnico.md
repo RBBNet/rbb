@@ -1,4 +1,4 @@
-# Representantes dos Partícipes no Comitê Técnico da RBB
+![image](https://github.com/RBBNet/rbb/assets/99134231/9bc59898-f424-42db-84c4-a271d25f96b5)# Representantes dos Partícipes no Comitê Técnico da RBB
 
 - BNDES
   - Gladstone Moises Arantes Junior - Titular e Coordenador (conforme [ata](2022-11-29-Ata-Reunião-Governança-RBB-Assinada.pdf)).
@@ -29,15 +29,46 @@
 
 Este é o [modelo de carta](Modelo-Carta-Indicação-Comitê-Técnico.docx) para indicação ao Comitê Técnico da RBB.
 
-# Reuniões do Comitê Técnico realizadas 
-
+# Reuniões do Comitê Técnico realizadas
+- 28/02/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Acompanhamento.
+      - Comunicação.
+      - Infra Básica.
+      - Monitoração.
+      - Responsabilização.
+- 14/02/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Acompanhamento.
+      - Comunicação.
+      - Infra Básica.
+      - Monitoração.
+    - Report para o Comitê Executivo.
+- 07/02/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+    - Report para o Comitê Executivo.
+    - Comunicação sobre propostas de ajuste na arquitetura da rede.
+    - Visão sobre processo de subir a rede.
 - 31/01/2023
-  - Segunda reunião realizada.
-  - Objetivos principais:
-    - Apresentar propostas para algumas das atividades levantadas na reunião anterior.
-    - Definir responsáveis pelas frentes.
-  - [Apresentação realizada na reunião](2023-01-31-Reunião-Comitê-Técnico.pptx)
+  - Pauta Proposta:
+    - Apresentação/revisão de propostas técnicas para Piloto.
+      - Monitoração.
+      - Incidentes, SLA e Problemas.
+      - Nós observadores.
+      - Responsabilização.
+      - Controle de uso.
+    - Debate sobre segurança das chaves privadas.
+    - Acompanhamento de iniciativas e report para Comitê Executivo.
+    - Definição de responsáveis pelas frentes. 
 - 24/01/2023
-  -  Primeira reunião realizada.
-  -  Objetivo principal: estruturar um plano de ação para o piloto da RBB.
-  -  [Apresentação realizada na reunião](2023-01-24-Reunião-Comitê-Técnico.pptx)
+  - Primeira reunião realizada.
+  - Pauta Proposta:
+    - Revisão atribuições Comitê Técnico.
+    - Apresentação proposta de trabalho para Piloto.
+    - Periodicidade e duração das reuniões etc.
+    - Impactos LACChain. 
+
+
