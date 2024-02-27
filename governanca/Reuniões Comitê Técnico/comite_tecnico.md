@@ -14,7 +14,7 @@
 - CPQD
   - Elder Bruno Evaristo Correa - Titular.
   - Jeffson Celeiro Sousa - Suplente.
-  - [Carta de indicação ao Comitê Técnico](https://github.com/RBBNet/rbb/blob/master/governanca/Indica%C3%A7%C3%B5es%20Representantes/2023-04-03-Indica%C3%A7%C3%A3o-Representantes-CPQD.pdf)).
+  - [Carta de indicação ao Comitê Técnico](https://github.com/RBBNet/rbb/blob/master/governanca/Indica%C3%A7%C3%B5es%20Representantes/2023-04-03-Indica%C3%A7%C3%A3o-Representantes-CPQD.pdf).
 - Dataprev
   - Claudemir Custódio Brum - Titular.
   - Julio Cesar Faria Cornacchia - Suplente
