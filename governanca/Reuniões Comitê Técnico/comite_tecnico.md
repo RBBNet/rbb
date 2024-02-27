@@ -1,35 +1,250 @@
-![image](https://github.com/RBBNet/rbb/assets/99134231/9bc59898-f424-42db-84c4-a271d25f96b5)# Representantes dos Partícipes no Comitê Técnico da RBB
+# Representantes dos Partícipes no Comitê Técnico da RBB
 
 - BNDES
-  - Gladstone Moises Arantes Junior - Titular e Coordenador (conforme [ata](2022-11-29-Ata-Reunião-Governança-RBB-Assinada.pdf)).
+  - Gladstone Moises Arantes Junior - Titular e Coordenador (conforme [ata](https://github.com/RBBNet/rbb/blob/master/governanca/Reuni%C3%B5es%20Comit%C3%AA%20Executivo/2022-11-29%20Reuni%C3%A3o/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)).
   - Sérgio Marques de Viveiros - Suplente.
-  - [Carta de indicação ao Comitê Técnico](2022-12-22-Indicação-Representantes-BNDES-CARTA-SUP-ATI-01-2022.pdf).
+  - [Carta de indicação ao Comitê Técnico](https://github.com/RBBNet/rbb/blob/master/governanca/Indica%C3%A7%C3%B5es%20Representantes/2022-12-22-Indica%C3%A7%C3%A3o-Representantes-BNDES-CARTA-SUP-ATI-01-2022.pdf).
 - TCU
   - Eldon Teixeira Coutinho - Titular.
   - Valter Rogerio Messias - Suplente.
-  - [Ofício de indicação ao Comitê Técnico](2023-01-05-Indicação-Representantes-TCU.pdf).
+  - [Ofício de indicação ao Comitê Técnico](https://github.com/RBBNet/rbb/blob/master/governanca/Indica%C3%A7%C3%B5es%20Representantes/2023-01-05-Indica%C3%A7%C3%A3o-Representantes-TCU.pdf).
 - RNP 
   - Luiz Eduardo Folly de Campos - Titular. 
-  - [Carta de indicação ao Comitê Técnico](2023-01-03-Indicação-Representante-RNP.pdf).
+  - [Carta de indicação ao Comitê Técnico](https://github.com/RBBNet/rbb/blob/master/governanca/Indica%C3%A7%C3%B5es%20Representantes/2023-01-03-Indica%C3%A7%C3%A3o-Representante-RNP.pdf).
 - CPQD
   - Elder Bruno Evaristo Correa - Titular.
   - Jeffson Celeiro Sousa - Suplente.
-  - [Carta de indicação ao Comitê Técnico](2023-01-06-Indicação-Representantes-CPQD.pdf).
+  - [Carta de indicação ao Comitê Técnico](https://github.com/RBBNet/rbb/blob/master/governanca/Indica%C3%A7%C3%B5es%20Representantes/2023-04-03-Indica%C3%A7%C3%A3o-Representantes-CPQD.pdf)).
 - Dataprev
   - Claudemir Custódio Brum - Titular.
   - Julio Cesar Faria Cornacchia - Suplente
   - Danilo Gonçalves Lyra - Suplente.
-  - [Carta de indicação ao Comitê Técnico](2023-01-19-Indicação-Representantes-Dataprev.pdf).
+  - [Carta de indicação ao Comitê Técnico](https://github.com/RBBNet/rbb/blob/master/governanca/Indica%C3%A7%C3%B5es%20Representantes/2023-01-19-Indica%C3%A7%C3%A3o-Representantes-Dataprev.pdf).
 - Prodemge
-  - Fabrício Resende Gonçalves - Titular. 
-  - Carlos Leonardo dos Santos Mendes - Suplente. 
-  - [Carta de indicação ao Comitê Técnico](2023-02-13-Indicação-Representantes-Prodemge.pdf).
+  - Alexandre Sidney Ferreira - Titular. 
+  - Rodrigo Fernandes dos Santos - Suplente. 
+  - [Carta de indicação ao Comitê Técnico](https://github.com/RBBNet/rbb/blob/master/governanca/Indica%C3%A7%C3%B5es%20Representantes/2024-01-09-Prodemge-Alex-e-Rodrigo-Subst-Caleo.pdf).
 
 # Indicação de Representante para o Comitê Técnico da RBB
 
-Este é o [modelo de carta](Modelo-Carta-Indicação-Comitê-Técnico.docx) para indicação ao Comitê Técnico da RBB.
+Este é o [modelo de carta](https://github.com/RBBNet/rbb/blob/master/governanca/Indica%C3%A7%C3%B5es%20Representantes/Modelo-Carta-Indica%C3%A7%C3%A3o-Comit%C3%AA-T%C3%A9cnico.docx) para indicação ao Comitê Técnico da RBB.
 
 # Reuniões do Comitê Técnico realizadas
+- 21/02/2024
+  - Pauta Proposta:
+    - Acompanhamento.
+    - Gestores de Incidentes.
+    - Padrões de nomes dos nodes.
+    - Outros itens.
+- 07/02/2024
+  - Pauta Proposta:
+    - Sobre o Cronograma.
+    - Acompanhamento.
+    - Gestores de Incidentes.
+- 31/01/2024
+  - Pauta Proposta:
+    - Sobre o Cronograma.
+    - Acompanhamento.
+- 19/12/2023
+  - Pauta Proposta:
+    - Sobre o Cronograma.
+    - Acompanhamento.
+    - Permissionamento.
+- 12/12/2023
+  - Pauta Proposta:
+    - Sobre o Cronograma.
+    - Acompanhamento.
+    - Permissionamento.
+- 05/12/2023
+  - Pauta Proposta:
+    - Cronograma proposto.
+    - Acompanhamento.
+- 28/11/2023
+  - Pauta Proposta:
+    - Cronograma proposto.
+    - Permissionamento.
+- 21/11/2023
+  - Pauta Proposta:
+    - Decisões do Comitê Executivo.
+    - Template de Cronograma.
+    - Pré-condições e considerações.
+    - Próximos passos.
+- 14/11/2023
+  - Pauta Proposta:
+    - Andamentos.
+    - Manual de Operações.
+    - Propostas para o Comitê Executivo.
+- 07/11/2023
+  - Pauta Proposta:
+    - Andamentos.
+    - Comunicação.
+    - Questões sobre o Permissionamento.
+- 31/10/2023
+  - Pauta Proposta:
+    - Andamentos.
+    - ANPD.
+    - Truffle -> Hardhat.
+    - Permissionamento.
+- 24/10/2023
+  - Pauta Proposta:
+    - Andamentos.
+    - ANPD.
+- 17/10/2023
+  - Pauta Proposta:
+    - Andamentos.
+    - Descontinuidade Truffle.
+    - Próximas reuniões.
+- 10/10/2023
+  - Pauta Proposta:
+    - Andamentos.
+    - Versionamento.
+    - Próximas reuniões.
+- 03/10/2023
+  - Pauta Proposta:
+    - Andamentos.
+    - Prazos
+    - Próximas reuniões.
+- 26/09/2023
+  - Pauta Proposta:
+    - Apresentação HSM.
+    - Andamentos.
+    - Autoridade Nacional de Proteção de Dados.
+- 19/09/2023
+  - Pauta Proposta:
+    - BlockchainGov e Workshop.
+    - Go/ No Go.
+    - Próximas reuniões.
+- 29/08/2023
+  - Pauta Proposta:
+    - Andamento geral.
+    - Ajuste material sobre a operação da RBB.
+    - Evento BlockchainGov e Workshop.
+- 22/08/2023
+  - Pauta Proposta:
+    - Andamento geral.
+    - Material sobre a operação da RBB.
+    - Evento BlockchainGov.
+- 15/08/2023
+  - Pauta Proposta:
+    - Replanejamento para o Piloto.
+- 08/08/2023
+  - Pauta Proposta:
+    - Reset da rede.
+    - Próxima Sprint.
+- 01/08/2023
+  - Pauta Proposta:
+    - Reset da rede.
+    - Próxima Sprint.
+- 25/07/2023
+  - Pauta Proposta:
+    - Relato das iniciativas técnicas.
+    - Próxima Sprint.
+- 18/07/2023
+  - Pauta Proposta:
+    - Relato das iniciativas técnicas.
+    - Próxima Sprint.
+- 11/07/2023
+  - Pauta Proposta:
+    - Relato das iniciativas técnicas.
+    - Preparação para o Comitê Executivo.
+    - Próxima Sprint.
+- 04/07/2023
+  - Pauta Proposta:
+    - Relato das iniciativas técnicas.
+    - Follow-up da manual de operações.
+- 27/06/2023
+  - Pauta Proposta:
+    - Relato sobre Blockchain SP.
+    - Relato das iniciativas técnicas.
+    - Follow-up da manual de operações.
+- 30/05/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Infra Básica - BNDES + Dataprev + TCU.
+      - Monitoração -  CPQD + RNP.
+      - Permissionamento - BNDES.
+      - Dapps - Prodemge.
+      - Segurança - RNP.
+      - Observação - PUC.
+    - Manual de Operações.
+- 09/05/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Infra Básica.
+      - Monitoração.
+      - Permissionamento.
+      - Dapps.
+      - Observação.
+    - Padrão mínimo para planejamento.
+    - Sobre casos de uso da RBB no piloto.
+- 25/04/2023
+  - Pauta Proposta:
+    - Comunicações  
+    - Reports das iniciativas.
+      - Acompanhamento.
+      - Infra Básica.
+      - Monitoração.
+      - Responsabilização/permissionamento.
+    - Decisão sobre permissionamento.
+    - Escopo/prazo para o Comitê Executivo.
+- 18/04/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Acompanhamento.
+      - Comunicação.
+      - Infra Básica.
+      - Monitoração.
+      - Responsabilização/permissionamento.
+    - Controle de uso.
+    - Planejamento para o piloto.
+- 04/04/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Acompanhamento.
+      - Comunicação.
+      - Infra Básica.
+      - Monitoração.
+      - Responsabilização/permissionamento.
+    - Controle de uso.
+    - Planejamento para o piloto.
+- 28/03/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Acompanhamento.
+      - Comunicação.
+      - Infra Básica.
+      - Monitoração.
+      - Responsabilização/permissionamento.
+    - **Retorno do Comitê Executivo.**
+    - Sobre chaves privadas.
+- 21/03/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Acompanhamento.
+      - Comunicação.
+      - Infra Básica.
+      - Monitoração.
+      - Responsabilização/permissionamento.
+    - Prazos no acordo.
+    - Modelo de negócio.
+- 14/03/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Acompanhamento.
+      - Comunicação.
+      - Infra Básica.
+      - Monitoração.
+      - Responsabilização/permissionamento.
+    - Prazos no acordo.
+- 07/03/2023
+  - Pauta Proposta:
+    - Reports das iniciativas.
+      - Acompanhamento.
+      - Comunicação.
+      - Infra Básica.
+      - Monitoração.
+      - Responsabilização/permissionamento.
+    - Report para o Comitê Executivo.
 - 28/02/2023
   - Pauta Proposta:
     - Reports das iniciativas.
