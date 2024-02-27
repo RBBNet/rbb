@@ -98,7 +98,7 @@ O roteiro de instalação técnico encontra-se [nesse link](Roteiro_para_a_criac
 
 ## Contato
 
-Em caso de dúvidas e sugestões, entre em contato através do e-mail [blockchaingov@bndes.gov.br](#). Temporariamente, favor enviar e-mail para [glads@bndes.gov.br](#).
+Em caso de dúvidas e sugestões, entre em contato através do e-mail [rbb@bndes.gov.br](#).
 
 ## Aviso Legal sobre a participação do Tribunal de Contas da União – TCU
 
