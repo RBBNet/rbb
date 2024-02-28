@@ -1,26 +1,49 @@
 # Representantes dos Partícipes no Comitê Executivo da RBB
 
-- BNDES
+**- BNDES**
   - Fernando Passeri Lavrado
+  - Gladstone Moises Arantes Junior
   - Luciana Giuliani de Oliveira Reis
   - Sérgio Marques de Viveiros
-  - Gladstone Moises Arantes Junior - glads@bndes.gov.br
-- TCU
-  - Rainério Rodrigues Leite
-  - Eldon Teixeira Coutinho
-- Prodest
-  - Leandro Barbieri
-  - Flávio Eduardo Babilon Milanesi
-- Dataprev
-  - Felipe Braga Carneiro Leão
-  - Claudemir Custódio Brum
-- CPqD
+    
+**- CPQD**
   - José Reynaldo Formigoni Filho
-- RNP
+    
+**- Dataprev**
+  - Bernado Martins Pina
+  - Felipe Braga Carneiro Leão
+  - Fernanda Bruno dos Santos
+    
+**- Prefeitura de Araguaína (Em solicitação)**
+  - Allen Kardec Feitosa Oliveira
+  - Max Doeel Nunes Guimarães
+  - Igor Thawan do Nascimento da Silva
+  - Sérgio Maia Rabelo
+    
+**- Prodemge**
+  - Augusto Nogueira Zadra
+  - Mônica Rocha de Ázara
+    
+**- PUC-Rio**
+  - Gustavo Robichez de Carvalho
+  - Rafael Barbosa Nasser
+    
+**- RNP**
   - Leandro Neumann Ciuffo
-- Prodemge
-  - Mônica Rocha de Azara
-  - Carlos Leonardo dos Santos Mendes
+    
+**- Serpro (Em solicitação)**
+  - Jetro Paulo Weber
+  - Kerley de Lourdes Silva
+  - Marco Túlio da Silva Lima
+    
+**- TCU**
+  - Eldon Teixeira Coutinho
+  - Rainério Rodrigues Leite
+    
+**- STC-MA - Secretária de Estado de Transparência e Controle**
+  - Ronald Serra Campos
+  - Steferson Lima Costa Ferreira
+
 
 
 # Reuniões do Comitê Executivo realizadas
