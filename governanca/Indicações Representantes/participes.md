@@ -1,6 +1,6 @@
-# Partícipes do Acordo de Cooperação
+# Partícipes do ACT
 
-Abaixo, a lista das instituições formalmente participantes do Acordo de Cooperação da RBB e seus representantes: 
+Lista de instituições e respectivos representantes:
 - BNDES
   - Fernando Passeri Lavrado
   - Gladstone Moises Arantes Junior - glads@bndes.gov.br
@@ -12,14 +12,14 @@ Abaixo, a lista das instituições formalmente participantes do Acordo de Cooper
   - Bernado Martins Pina
   - Felipe Braga Carneiro Leão
   - Fernanda Bruno dos Santos
-- Prefeitura de Araguaína
-  - Allen Kardec Feitosa Oliveira (a ser confirmado) 
-  - Max Doeel Nunes Guimarães (a ser confirmado) 
-  - Igor Thawan do Nascimento da Silva (a ser confirmado) 
-  - Sérgio Maia Rabelo (a ser confirmado) 
+- Prefeitura de Araguaína (Em solicitação)
+  - Allen Kardec Feitosa Oliveira
+  - Max Doeel Nunes Guimarães
+  - Igor Thawan do Nascimento da Silva
+  - Sérgio Maia Rabelo
 - Prodemge
   - Augusto Nogueira Zadra
-  - Mônica Rocha de Ázara (ela foi desligada?)
+  - Mônica Rocha de Ázara
 - PUC-Rio 
   - Gustavo Robichez de Carvalho (a ser confirmado) 
   - Rafael Barbosa Nasser (a ser confirmado)
@@ -32,7 +32,7 @@ Abaixo, a lista das instituições formalmente participantes do Acordo de Cooper
 - TCU
   - Eldon Teixeira Coutinho
   - Rainério Rodrigues Leite
-- Universidade do Estado do Maranhão
+- Secretário de Estado de Transparência e Controle
   - Ronald Serra Campos
   - Steferson Lima Costa Ferreira
 
