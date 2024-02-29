@@ -36,8 +36,7 @@ curl -sL https://github.com/RBBNet/start-network/releases/download/v0.4.1%2Bperm
 cd start-network
 ./rbb-cli node create observer
 ./rbb-cli config set nodes.observer.ports+=[\"8545:8545\"]
-
-./rbb-cli config set nodes.observer.address=[\"0.0.0.0:30303\"]
+#./rbb-cli config set nodes.observer.address=[\"0.0.0.0:30303\"]
 
  
 
@@ -54,9 +53,12 @@ cat > .env.configs/genesis.json << 'EOF'
       "requesttimeoutseconds": 8
     },
     "discovery": {
-      "bootnodes": ["enode://ae8acabb86730b6370c8ec0d0f320ef735228dc86168a5f5b0bc3ac6427f60bb488b80c45534e5c16eabea1cf07d3afcad0d62c481c0213411130fa0a75f7987@172.20.1.69:30303"]
+      "bootnodes": [
+        "enode://338611d5c7c43dd47d17247f3c4dd96f31eadab961b1513475dfdd9f9f8297c7c7ab42c517cc62bdf8a7aff1247cb95297ecdb28ea560c9d6e96b218742905a2@200.225.103.107:60606"
+        ]
     }
   },
+
   "nonce": "0x0",
   "gasLimit": "0xF42400",
   "difficulty": "0x1",
@@ -84,9 +86,10 @@ cat > .env.configs/genesis.json << 'EOF'
       }
     }
   },
-  "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d5940b4ca559680167d757d829500d68ebd74cbbfaf1c080c0",
-  "timestamp": "0x65d8fc49"
+  "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d594bebeac1b65916f055aa1933cbe93e9093445b798c080c0",
+  "timestamp": "0x64d3e6f4"
 }
+
 EOF
 
 # sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
