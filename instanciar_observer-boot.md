@@ -37,12 +37,6 @@ Aqui temos duas situações para o observer-boot:
 
 ![](https://i.imgur.com/mdU0lYT.png))
 
-Desabilite a descoberta de nós com o seguinte comando:
-
-  ```bash
-  ./rbb-cli config set nodes.observer_boot.environment.BESU_DISCOVERY_ENABLED=false
-  
-  ```
  Crie o arquivo `volumes/observer_boot/static-nodes.json` e inclua o enode do boot da própria instituição (usando **IP interno**).
 
   Modelo:
