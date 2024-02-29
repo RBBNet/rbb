@@ -100,6 +100,10 @@ O roteiro de instalação técnico encontra-se [nesse link](Roteiro_para_a_criac
 
 Em caso de dúvidas e sugestões, entre em contato através do e-mail [rbb@bndes.gov.br](#).
 
+## Incidentes
+
+Em caso de incidentes, preencha o documento [Gestor de incidentes](https://github.com/RBBNet/rbb/blob/master/documentos/Modelo%20Carta%20Gestor%20de%20Incidentes.docx) e envie para o e-mail [rbb@bndes.gov.br](#).
+
 ## Aviso Legal sobre a participação do Tribunal de Contas da União – TCU
 
 O Tribunal de Contas da União - TCU, órgão de controle externo do governo federal, auxilia o Congresso Nacional na missão de acompanhar a execução orçamentária e financeira do país e contribuir com o aperfeiçoamento da Administração Pública em benefício da sociedade. Para isso, tem como visão ser referência na promoção de uma Administração Pública efetiva, ética, ágil e responsável.
