@@ -54,8 +54,8 @@ cat > .env.configs/genesis.json << 'EOF'
     },
     "discovery": {
       "bootnodes": [
-        "enode://338611d5c7c43dd47d17247f3c4dd96f31eadab961b1513475dfdd9f9f8297c7c7ab42c517cc62bdf8a7aff1247cb95297ecdb28ea560c9d6e96b218742905a2@200.225.103.107:60606"
-        ]
+        "enode://338611d5c7c43dd47d17247f3c4dd96f31eadab961b1513475dfdd9f9f8297c7c7ab42c517cc62bdf8a7aff1247cb95297ecdb28ea560c9d6e96b218742905a2@200.225.103.107:60606
+      ]
     }
   },
 
@@ -89,7 +89,6 @@ cat > .env.configs/genesis.json << 'EOF'
   "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d594bebeac1b65916f055aa1933cbe93e9093445b798c080c0",
   "timestamp": "0x64d3e6f4"
 }
-
 EOF
 
 ## sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
