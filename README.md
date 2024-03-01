@@ -4,7 +4,7 @@ Bem vindo à Rede Blockchain Brasil!
 
 A Rede Blockchain Brasil (RBB) é uma rede de instituições, de abrangência nacional, composta de estrutura de governança e infraestrutura tecnológica, que tem o objetivo de facilitar a adoção da tecnologia de blockchain para a implementação de aplicações de interesse público. A criação da rede permitirá a otimização de recursos, redução de custos e remoção de barreiras de entrada para uso da tecnologia e a inovação no setor público.
 
-A RBB foi fundada pelo **Banco Nacional de Desenvolvimento Econômico e Social** (BNDES) e o **Tribunal de Contas da União** (TCU), através de um [Acordo de Cooperação](documentos/ACT_TCU_BNDES_RBB.pdf), [assinado em 12/04/2022](https://www.in.gov.br/web/dou/-/extrato-do-acordo-de-cooperacao-n-d-121.2.0014.22-393697725). Instituições que desejarem participar da rede deverão [submeter sua solicitação](roteiro_adesao.md) à **Governança da RBB**.
+A RBB foi fundada pelo **Banco Nacional de Desenvolvimento Econômico e Social** (BNDES) e o **Tribunal de Contas da União** (TCU), através de um [Acordo de Cooperação](https://github.com/RBBNet/rbb/blob/master/documentos/ACT%20-%20Documento%20firmado%20entre%20BNDES%20e%20TCU.pdf), [assinado em 12/04/2022](https://www.in.gov.br/web/dou/-/extrato-do-acordo-de-cooperacao-n-d-121.2.0014.22-393697725). Instituições que desejarem participar da rede deverão [submeter sua solicitação](roteiro_adesao.md) à **Governança da RBB**.
 
 ## Histórico
 
@@ -54,7 +54,7 @@ A implantação da RBB será feita de forma gradativa, conforme determinado em s
 
 Observação: O piloto será uma rede de produção, com a utilização de dados reais, porém com níveis de serviço reduzidos.
 
-O Plano de Trabalho tem previsão de ser executado em 60 meses a partir da assinatura do [Acordo de Cooperação](documentos/ACT_TCU_BNDES_RBB.pdf) entre BNDES e TCU.
+O Plano de Trabalho tem previsão de ser executado em 60 meses a partir da assinatura do [Acordo de Cooperação](https://github.com/RBBNet/rbb/blob/master/documentos/ACT%20-%20Documento%20firmado%20entre%20BNDES%20e%20TCU.pdf) entre BNDES e TCU.
 
 Embora a iniciativa da RBB tenha sido oficialmente criada com a assinatura do Acordo em 12/04/2022, uma rede de laboratório e um grupo de debates já existem desde 2021. Várias [iniciativas e discussões técnicas](iniciativas.md) importantes ocorreram nesse período, antecipando discussões e projetos que deverão ser realizados, agora, dentro da estrutura formal. 
 
@@ -102,7 +102,7 @@ Em caso de dúvidas e sugestões, entre em contato através do e-mail [rbb@bndes
 
 ## Incidentes
 
-Em caso de incidentes, preencha o documento [Gestor de incidentes](https://github.com/RBBNet/rbb/blob/master/documentos/Modelo%20Carta%20Gestor%20de%20Incidentes.docx) e envie para o e-mail [rbb@bndes.gov.br](#).
+Em caso de incidentes, preencha o documento [Gestor de incidentes](https://github.com/RBBNet/rbb/blob/master/documentos/Modelo%20-%20Carta%20Gestor%20de%20Incidentes.docx) e envie para o e-mail [rbb@bndes.gov.br](#).
 
 ## Aviso Legal sobre a participação do Tribunal de Contas da União – TCU
 
