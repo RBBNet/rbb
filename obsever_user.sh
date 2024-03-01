@@ -91,7 +91,7 @@ cat > .env.configs/genesis.json << 'EOF'
 }
 EOF
 
-## sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
+# sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
 ./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ./rbb-cli config render-templates
 docker-compose up -d
