@@ -102,7 +102,7 @@ Em caso de dúvidas e sugestões, entre em contato através do e-mail [rbb@bndes
 
 ## Incidentes
 
-Em caso de incidentes, preencha o documento [Gestor de incidentes](https://github.com/RBBNet/rbb/blob/master/documentos/Modelo%20-%20Carta%20Gestor%20de%20Incidentes.docx) e envie para o e-mail [rbb@bndes.gov.br](#).
+Para a indicação de gestores de incidentes de sua instituição participante, preencha o documento [Gestor de incidentes](https://github.com/RBBNet/rbb/blob/master/documentos/Modelo%20-%20Carta%20Gestor%20de%20Incidentes.docx) e envie para o e-mail [rbb@bndes.gov.br](#).
 
 ## Aviso Legal sobre a participação do Tribunal de Contas da União – TCU
 
