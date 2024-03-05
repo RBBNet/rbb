@@ -17,6 +17,7 @@ curl -fsSL https://get.docker.com | sudo sh
 
 > [!NOTE]
 > Para implantações no Windows, deve ser instalado o WSL2 e respectivamente o Docker.
+> 
 > A data e hora do sistema deve estar devidamente atualizada para que seja possível a sincronização de blocos.
 
 ## 🚀 Subindo um nó observer
