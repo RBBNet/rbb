@@ -10,6 +10,13 @@ Esse é um tutorial para a configuração de um observer por quaisquer pessoa ex
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
+### Recursos do sistema
+
+**Mínimo**
+- RAM: 2 GB
+- CPU: Intel Pentium 4
+- Disco: 80 GB
+
 - Docker (Caso não tenha instalado, execute no shell do Linux o comando abaixo para instalar)
 ```bash
 curl -fsSL https://get.docker.com | sudo sh
@@ -25,7 +32,7 @@ apt install -y docker-compose
 > - Para implantações no Windows, deve ser instalado o WSL2 e respectivamente o Docker.
 > - A data e hora do sistema deve estar devidamente atualizada para que seja possível a sincronização de blocos.
 
-## 🚀 Subindo um nó observer
+## 🚀 Subindo nó observer
 
 Para instalar o nó `Observer`, execute o seguinte comando:
 
@@ -35,3 +42,5 @@ Linux, macOS ou Windows(WSL2 com Docker):
 source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/obsever_user.sh)
 
 ```
+
+Ao término da instalação, você poderá acompanhar as transações e visualização dos blocos acessando `http://localhost:5001` usando Chrome, Firefox, Edge ou demais navegadores.
