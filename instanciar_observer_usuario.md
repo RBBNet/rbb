@@ -15,6 +15,12 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 curl -fsSL https://get.docker.com | sudo sh
 ```
 
+- Docker-compose
+```bash
+sudo apt update \
+apt install -y docker-compose
+```
+
 > [!NOTE]
 > - Para implantações no Windows, deve ser instalado o WSL2 e respectivamente o Docker.
 > - A data e hora do sistema deve estar devidamente atualizada para que seja possível a sincronização de blocos.
