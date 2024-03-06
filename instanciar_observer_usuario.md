@@ -45,3 +45,11 @@ source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/obsever_us
 ```
 
 Ao término da instalação, você poderá acompanhar as transações e visualização dos blocos acessando `http://localhost:5001` usando Chrome, Firefox, Edge ou demais navegadores.
+
+## Utilização
+
+Ao acessar a dashboard, clique no botão **status** caso queira acompanhar o status da sincronização (download) dos blocos da RBB (Rede blockchain do Brasil) conforme mostra a imagem abaixo:
+
+![](https://i.imgur.com/jdFnmmu.png)
+
+Enquanto a sincronização acontece, você já poderá navegar e visualizar as informações já obtidas da blockchain.
