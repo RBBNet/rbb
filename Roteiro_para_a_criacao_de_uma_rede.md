@@ -509,9 +509,9 @@ docker-compose up -d
 - Executar no boot node, no node de monitoramento, ou no node que irá executar o block explorer:
 
 ```bash
-git clone https://github.com/web3labs/sirato-free.git
+git clone https://github.com/RBBNet/chainlens-free
 
-cd sirato-free/docker-compose
+cd chainlens-free/docker-compose
 
 NODE_ENDPOINT=http://<ip-boot-node>:<porta-rpc> PORT=<porta-blockexplorer> docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up
 
