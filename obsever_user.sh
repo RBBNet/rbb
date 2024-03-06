@@ -94,4 +94,12 @@ EOF
 sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
 ./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ./rbb-cli config render-templates
-docker-compose up -d && docker-compose logs -f
+docker-compose up -d
+cd ..
+git clone https://github.com/RBBNet/chainlens-free
+cd chainlens-free/docker-compose
+export PORT=5001
+NODE_ENDPOINT=http://localhost:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
+echo
+echo "Explorador de blocos disponível em http://$(hostname -I | awk '{print $1}'):$PORT"
+#echo 'Feito.'
