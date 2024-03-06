@@ -30,14 +30,14 @@ apt install -y docker-compose
 ```
 
 > [!NOTE]
-> - Para implantações no Windows, deve ser instalado o WSL2 e respectivamente o Docker.
+> - Para implantações no Windows, deve ser instalado o WSL2 (caso não esteja instalado) e, em seguida, o Docker.
 > - A data e hora do sistema deve estar devidamente atualizada para que seja possível a sincronização de blocos.
 
 ## 🚀 Subindo nó observer
 
 Para instalar o nó `Observer`, execute o seguinte comando:
 
-Linux, macOS ou Windows(WSL2 com Docker):
+Linux, macOS ou Windows (WSL2 com Docker):
 
 ```
 source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/obsever_user.sh)
