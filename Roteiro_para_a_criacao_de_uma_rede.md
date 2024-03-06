@@ -271,7 +271,7 @@ Armazene nesta tabela `https://github.com/RBBNet/participantes/blob/main/`**${re
 
 Após a instituição inicial começar a implantação da rede, as outras instituições entrarão uma após a outra. Os passos dessa seção serão executados a cada instituição que aderir à rede.
 
-### 3.1 - Executar sub-roteiro "[Ajustar genesis e static-nodes](#41---ajustar-genesis-e-static-nodes)"
+### 3.1 - Executar sub-roteiro "[Ajustar genesis, static-nodes e template docker-compose.yml](#41---ajustar-genesis-e-static-nodes)"
 
 ### 3.2 - Executar sub-roteiro "[Levantar os nós](#42---levantar-os-nós)"
 
@@ -300,6 +300,7 @@ As seguintes atividades serão executadas nesse sub-roteiro:
 
 - Inclusão do arquivo genesis.json.
 - Inclusão da lista de todos os boots (usando IPs externos) no genesis.json do boot.
+- Inclusão de novo template do docker-compose.yml.hbs.
 - Criação de um arquivo static-nodes.json no validator com os validators das outras instituições (usando IPs externos) e com o boot da própria instituição (usando IP interno).
 - Criação de um arquivo static-nodes.json no writer apenas com o boot da própria instituição (usando IP interno).
 
@@ -332,7 +333,15 @@ Para cada um dos nós (validator, boot e writer):
   O arquivo genesis.json do bootnode deve seguir conforme o exemplo abaixo:  
   ![Conteúdo exemplo do arquivo genesis.json](https://i.imgur.com/MPgJljO.png)
 
-#### 4.1.3 - Ajustes nos static-nodes
+#### 4.1.3 - Ajustes no docker-compose.yml.hbs
+
+Esse passo passou a ser necessário porque decidimos usar outra release do repositório start-network (que é baixado no passo 1.2), mas os partícipes já tinham passado desse ponto. As mudanças dessa release foram duas: genesis.json e docker-compose.yml.hbs, porém o roteiro já instruía usar a versão do genesis.json contida no repositório participantes. Nesse passo, faremos, basicamente, o mesmo para o segundo arquivo.
+
+Para cada um dos nós:
+
+- Substitua, na raiz de start-network, o arquivo `docker-compose.yml.hbs` pelo arquivo de mesmo nome localizado em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/docker-compose.yml.hbs`.
+
+#### 4.1.4 - Ajustes nos static-nodes
 
 Ajuste o arquivo `static-nodes.json` dos writers e validators da seguinte forma:
 
