@@ -98,8 +98,9 @@ docker-compose up -d
 cd ..
 git clone https://github.com/RBBNet/chainlens-free
 cd chainlens-free/docker-compose
+export IP=$(hostname -I | awk '{print $1}')
 export PORT=5001
-NODE_ENDPOINT=http://localhost:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
+NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
 echo
 echo "Explorador de blocos disponível em http://$(hostname -I | awk '{print $1}'):$PORT"
 echo 'Feito.'
