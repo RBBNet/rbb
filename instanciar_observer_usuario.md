@@ -48,7 +48,7 @@ Ao término da instalação, você poderá acompanhar as transações e visualiz
 
 ## Utilização
 
-Ao acessar a dashboard, clique no botão **status** caso queira acompanhar o status da sincronização (download) dos blocos da RBB (Rede blockchain do Brasil) conforme mostra a imagem abaixo:
+Ao acessar a dashboard, clique no botão **Status** caso queira acompanhar o status da sincronização (download) dos blocos da RBB (Rede blockchain do Brasil) conforme mostra a imagem abaixo:
 
 ![](https://i.imgur.com/jdFnmmu.png)
 
