@@ -13,9 +13,9 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 ### Recursos do sistema
 
 **Mínimo**
-- RAM: 2 GB
+- RAM: 4 GB
 - CPU: Intel Pentium 4
-- Disco: 80 GB
+- Disco: ~80 GB
 
 ### Docker e Docker-compose (Caso não tenha instalado, execute no shell do Linux o comando abaixo para instalar)
 - Docker
