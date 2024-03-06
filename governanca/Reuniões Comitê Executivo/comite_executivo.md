@@ -48,7 +48,7 @@
 
 # Reuniões do Comitê Executivo realizadas
 - 14/12/2023
-  - Não consta Ata assinada digitalmente
+  - [Ata assinada digitalmente](https://github.com/RBBNet/rbb/blob/master/governanca/Reuni%C3%B5es%20Comit%C3%AA%20Executivo/2023-12-14%20Reuni%C3%A3o/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_assinada.pdf)
   - Destaques:
     - Manual de Operações.
     - Cronograma do Piloto.

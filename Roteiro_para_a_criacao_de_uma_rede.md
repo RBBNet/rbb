@@ -30,7 +30,7 @@ As atividades desta seção devem ser executadas no início da implantação da 
 - Execute os seguintes comandos:
 
   ```bash
-  curl -#SL https://github.com/RBBNet/start-network/releases/download/v0.4.0-permv1/start-network.tar.gz | tar xz
+  curl -#SL https://github.com/RBBNet/start-network/releases/download/v0.4.1+permv1/start-network.tar.gz | tar xz
   cd start-network
 
   ```
@@ -509,9 +509,9 @@ docker-compose up -d
 - Executar no boot node, no node de monitoramento, ou no node que irá executar o block explorer:
 
 ```bash
-git clone https://github.com/web3labs/sirato-free.git
+git clone https://github.com/RBBNet/chainlens-free
 
-cd sirato-free/docker-compose
+cd chainlens-free/docker-compose
 
 NODE_ENDPOINT=http://<ip-boot-node>:<porta-rpc> PORT=<porta-blockexplorer> docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up
 
