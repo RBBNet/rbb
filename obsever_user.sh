@@ -103,4 +103,4 @@ export PORT=5001
 NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
 echo
 echo "Explorador de blocos disponível em http://$(hostname -I | awk '{print $1}'):$PORT"
-#echo 'Feito.'
+echo 'Feito.'
