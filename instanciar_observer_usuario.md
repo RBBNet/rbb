@@ -13,9 +13,9 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 ### Recursos do sistema
 
 **Mínimo**
-- RAM: 2 GB
+- RAM: 4 GB
 - CPU: Intel Pentium 4
-- Disco: 80 GB
+- Disco: ~80 GB
 
 ### Docker e Docker-compose (Caso não tenha instalado, execute no shell do Linux o comando abaixo para instalar)
 - Docker
@@ -45,3 +45,11 @@ source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/obsever_us
 ```
 
 Ao término da instalação, você poderá acompanhar as transações e visualização dos blocos acessando `http://localhost:5001` usando Chrome, Firefox, Edge ou demais navegadores.
+
+## Utilização
+
+Ao acessar a dashboard, clique no botão **Status** caso queira acompanhar o status da sincronização (download) dos blocos da RBB (Rede blockchain do Brasil) conforme mostra a imagem abaixo:
+
+![](https://i.imgur.com/jdFnmmu.png)
+
+Enquanto a sincronização acontece, você já poderá navegar e visualizar as informações já obtidas da blockchain.
