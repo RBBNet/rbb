@@ -184,7 +184,7 @@ Caso você **não** seja a instituição inicial pule para a [seção 3](#3---at
 
   `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json`
 
-### 2.2 - Executar sub-roteiro "[Ajustar genesis e static-nodes](#41---ajustar-genesis-e-static-nodes)"
+### 2.2 - Executar sub-roteiro "[Ajustar genesis, static-nodes e docker-compose.yml.hbs](#41---ajustar-genesis-e-static-nodes)"
 
 ### 2.3 - Executar sub-roteiro "[Levantar os nós](#42---levantar-os-nós)"
 
@@ -271,7 +271,7 @@ Armazene nesta tabela `https://github.com/RBBNet/participantes/blob/main/`**${re
 
 Após a instituição inicial começar a implantação da rede, as outras instituições entrarão uma após a outra. Os passos dessa seção serão executados a cada instituição que aderir à rede.
 
-### 3.1 - Executar sub-roteiro "[Ajustar genesis, static-nodes e template docker-compose.yml](#41---ajustar-genesis-e-static-nodes)"
+### 3.1 - Executar sub-roteiro "[Ajustar genesis, static-nodes e docker-compose.yml.hbs](#41---ajustar-genesis-e-static-nodes)"
 
 ### 3.2 - Executar sub-roteiro "[Levantar os nós](#42---levantar-os-nós)"
 
