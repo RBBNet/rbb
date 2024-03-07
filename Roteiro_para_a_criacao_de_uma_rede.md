@@ -165,6 +165,8 @@ O diagrama a seguir pode ser útil na compreensão dos próximos passos.
   - Permita conexão (inbound) no `IP_Externo:Porta` do seu boot a partir dos writers (**apenas dos partícipes parceiros**) que integram a RBB.
   - Permita conexão (outbound) para os `IPs_Externos:Portas` dos writers (**apenas dos partícipes parceiros**) que integram a RBB.
 
+Temos optado por configurar regras tanto para UDP quanto para TCP, embora suspeitemos que UDP seja necessário apenas para nós que participam do discovery (boot e observer-boot). Ainda não testamos, porém, não abrir o UDP para validators e writers.
+
 ## 2 - Atividades a serem executadas no início da rede pela instituição inicial
 
 A instituição inicial desempenhará as primeiras atividades da rede. É ela quem levantará os primeiros nós antes de todos os outros e, em especial, é a responsável por implantar os **smart contracts** de permissionamento.
