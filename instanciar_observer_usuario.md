@@ -17,7 +17,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 - CPU: Intel Pentium 4
 - Disco: ~80 GB
 
-### Docker e Docker-compose (Caso não tenha instalado, execute no shell do Linux o comando abaixo para instalar)
+### 1. Docker e Docker-compose (Caso já tenha o Docker instalado e já configurado, pule esta etapa)
 - Docker + configuração básica para usuário comum
 ```bash
 curl -fsSL https://get.docker.com | sudo sh && dockerd-rootless-setuptool.sh && su - ${USER}
