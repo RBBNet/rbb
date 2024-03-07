@@ -18,9 +18,9 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 - Disco: ~80 GB
 
 ### Docker e Docker-compose (Caso não tenha instalado, execute no shell do Linux o comando abaixo para instalar)
-- Docker
+- Docker + configuração básica para usuário comum
 ```bash
-curl -fsSL https://get.docker.com | sudo sh
+curl -fsSL https://get.docker.com | sudo sh && dockerd-rootless-setuptool.sh && su - ${USER}
 ```
 
 - Docker-compose
