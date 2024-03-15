@@ -72,3 +72,6 @@ docker-compose up -d
 ```
 
 e aguarde o container iniciar. 
+
+> [!IMPORTANT]
+> Lembre-se de permissionar o observer-boot recém criado na blockchain. Caso contrário o nó não irá sincronizar os blocos.
