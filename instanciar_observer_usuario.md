@@ -6,16 +6,21 @@ Esse é um tutorial para a configuração de um observer por quaisquer pessoa ex
 
 > A função de um nó observer é ter acesso a todas as transações da rede blockchain RBB, bem como visualizar blocos e endereços ao longo do tempo. Portanto, não haverá como operar transações.
 
-## 💻 Pré-requisitos
-
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
-
 ### Recursos do sistema
 
 **Mínimo**
 - RAM: 4 GB
 - CPU: Intel Pentium 4
 - Disco: ~80 GB
+
+## 💻 Pré-requisitos
+
+Antes de começar, verifique se você atendeu aos seguintes requisitos:
+
+```
+1. Docker e Docker-compose
+2. Git
+```
 
 ### 1. Docker e Docker-compose (Caso já tenha o Docker instalado e já configurado, pule esta etapa)
 - Docker + configuração básica para usuário comum
