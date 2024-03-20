@@ -105,18 +105,18 @@ Entretanto, caso a configuração esteja sendo feito para uma nova rede, um novo
 
 Sintaxe:
 ```
-./rbb-cli genesis create [--validator|--validators|-v <no>] [--boot|--boots|-b <no|endereco>]
+./rbb-cli genesis create [--validator|--validators|-v <no>] [--boot|--boots|-b <no|endereco>]
 ```
 
 Onde:
-- Para definição de nós validadores, a serem incluídos na propriedade `extradata` do arquivo genesis, é possível usar qualquer das seguintes opções: `--validator`, `--validators` ou `-v`.
+- Para definição de nós validadores, a serem incluídos na propriedade `extradata` do arquivo genesis, é possível usar qualquer das seguintes opções: `--validator`, `--validators` ou `-v`.
 - `<no>` é o nome do nó, ou lista de nós separados por vírgula, a serem configurados como validators da nova rede. Exemplos: `validator`, `validator1,validator2,validator3`
-- Para a definião de nós boot, a serem incluídos na configuração de `discovery` do arquivo genesis, é possível usar qualquer das seguintes opções: `--boot`, `--boots` ou `-b`.
+- Para a definião de nós boot, a serem incluídos na configuração de `discovery` do arquivo genesis, é possível usar qualquer das seguintes opções: `--boot`, `--boots` ou `-b`.
 - `<no|endereco>` é o nome do nó ou endereço enode (`chave_publica_sem0x:ip:porta`). Também pode ser informada uma lista de nós ou endereços separados por vírgula. Exemplos: `boot1`, `ec254664b4d1ca7b587c70943a5d10a2d2fb74af0b501dac6c07de53ebc9f1465023e7533d215082a3e83f2fa5a63aba509770960704012bed5c65efd515cd40:100.100.100.100:30303`
 
 Exemplo:
 ```
-./rbb-cli genesis create --validators validator1,validator2 --boots boot1,boot2,boot3
+./rbb-cli genesis create --validators validator1,validator2 --boots boot1,boot2,boot3
 ```
 
 
