@@ -45,7 +45,7 @@ Para instalar o nó `Observer`, execute o seguinte comando:
 Linux, macOS ou Windows (WSL2 com Docker):
 
 ```
-source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/chainlens-free/obsever_user.sh)
+source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/chainlens-free/observer_user.sh)
 
 ```
 
