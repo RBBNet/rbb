@@ -48,21 +48,18 @@ cat > .env.configs/genesis.json << 'EOF'
     "berlinBlock": 0,
     "contractSizeLimit": 2147483647,
     "qbft": {
-      "blockperiodseconds": 4,
+      "blockperiodseconds": 10,
       "epochlength": 30000,
-      "requesttimeoutseconds": 8
+      "requesttimeoutseconds": 20
     },
     "discovery": {
       "bootnodes": [
-        "enode://338611d5c7c43dd47d17247f3c4dd96f31eadab961b1513475dfdd9f9f8297c7c7ab42c517cc62bdf8a7aff1247cb95297ecdb28ea560c9d6e96b218742905a2@200.225.103.107:60606",
-        "enode://b2105d7a95f32026f41cab9d34df915ce2b2a235d93281eeda14d52cd88844d369812c78cbd1f797ad2177aba8a66607f97fa5df0ef3aa97942f040cda5bf9b0@139.82.24.20:60606",
-        "enode://f04f30a6f61ce586d835de93aea2424a28e52cea7f3034e8ea8f5fa99d5d8d71d6367c14662e2cceed82409bfd33ff5f615e5ce7fad56fe278da9a603e96ec48@200.159.252.32:60606"
+          "enode://0e0d0de41d9d57cd9090195511d48582de5383ab5112bcc881c63e5dc784df74fe94242174ccaceb9c4e3e4b28f1fd55501c9d06870c2f7a516a4ccbb6853d8b@192.168.56.101:30303"
       ]
     }
   },
-
   "nonce": "0x0",
-  "gasLimit": "0xF42400",
+  "gasLimit": "0x2FEFD800",
   "difficulty": "0x1",
   "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
   "coinbase": "0x0000000000000000000000000000000000000000",
@@ -88,8 +85,8 @@ cat > .env.configs/genesis.json << 'EOF'
       }
     }
   },
-  "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d594bebeac1b65916f055aa1933cbe93e9093445b798c080c0",
-  "timestamp": "0x64d3e6f4"
+  "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d5944d0dffabf0181e2f7476814a0e4f6b5b5c9d4b32c080c0",
+  "timestamp": "0x65ef2c51"
 }
 EOF
 
@@ -98,12 +95,29 @@ sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
 ./rbb-cli config render-templates
 docker-compose up -d
 cd ..
-git clone https://github.com/RBBNet/chainlens-free
-cd chainlens-free/docker-compose
-export IP=$(hostname -I | awk '{print $1}')
-export PORT=5001
-NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
-cd ../..
+
+export IP_LOCALHOST=$(hostname -I | awk '{print $1}')
+# export PORT=5001
+export CHAINID=648629
+
+curl -#SL https://github.com/blockscout/blockscout/archive/refs/tags/v6.1.0-beta.tar.gz | tar xz
+cd blockscout-6.1.0-beta/docker-compose/
+curl -#LO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/docker-compose.yml
+sed -i "s/<IP>/${CHAINID}/g" docker-compose.yml
+cd envs
+curl -#L \
+-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-blockscout.env \
+-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-frontend.env \
+-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-smart-contract-verifier.env \
+-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-stats.env \
+-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-visualizer.env
+sed -i "s/\$IP_LOCALHOST/${IP_LOCALHOST}/g" *
+cd ../proxy
+sed -i "s/localhost/${IP_LOCALHOST}/g" *
+cd ..
+
+docker-compose up -d
 echo
-echo "Explorador de blocos disponível em http://$(hostname -I | awk '{print $1}'):$PORT"
+sleep 5
+echo "Explorador de blocos disponível em http://$(hostname -I | awk '{print $1}')"
 echo 'Feito.'
