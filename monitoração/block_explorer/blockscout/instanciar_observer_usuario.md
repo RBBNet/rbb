@@ -50,6 +50,7 @@ source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C
 
 Ao término da instalação, você poderá acompanhar as transações e visualização dos blocos acessando a URL informada ao final da instalação. Acesse utilizando um navegador como Chrome, Firefox, Edge ou demais navegadores.
 
+![](https://i.imgur.com/V1JVB2X.png)
 
 ## Utilização
 
