@@ -106,7 +106,7 @@ export CHAINID=648629
 curl -#SL https://github.com/blockscout/blockscout/archive/refs/tags/v6.1.0-beta.tar.gz | tar xz
 cd blockscout-6.1.0-beta/docker-compose/
 curl -#LO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/docker-compose.yml
-sed -i "s/<IP>/${CHAINID}/g" docker-compose.yml
+sed -i "s/\$CHAINID/${CHAINID}/g" docker-compose.yml
 cd envs
 curl -#L \
 -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-blockscout.env \
@@ -115,6 +115,7 @@ curl -#L \
 -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-stats.env \
 -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-visualizer.env
 sed -i "s/\$IP_LOCALHOST/${IP_LOCALHOST}/g" *
+sed -i "s/\$CHAINID/${CHAINID}/g" *
 cd ../proxy
 sed -i "s/localhost/${IP_LOCALHOST}/g" *
 cd ..
