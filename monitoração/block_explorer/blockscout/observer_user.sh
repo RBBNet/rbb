@@ -48,18 +48,21 @@ cat > .env.configs/genesis.json << 'EOF'
     "berlinBlock": 0,
     "contractSizeLimit": 2147483647,
     "qbft": {
-      "blockperiodseconds": 10,
+      "blockperiodseconds": 4,
       "epochlength": 30000,
-      "requesttimeoutseconds": 20
+      "requesttimeoutseconds": 8
     },
     "discovery": {
       "bootnodes": [
-          "enode://0e0d0de41d9d57cd9090195511d48582de5383ab5112bcc881c63e5dc784df74fe94242174ccaceb9c4e3e4b28f1fd55501c9d06870c2f7a516a4ccbb6853d8b@192.168.56.101:30303"
+        "enode://338611d5c7c43dd47d17247f3c4dd96f31eadab961b1513475dfdd9f9f8297c7c7ab42c517cc62bdf8a7aff1247cb95297ecdb28ea560c9d6e96b218742905a2@200.225.103.107:60606",
+        "enode://b2105d7a95f32026f41cab9d34df915ce2b2a235d93281eeda14d52cd88844d369812c78cbd1f797ad2177aba8a66607f97fa5df0ef3aa97942f040cda5bf9b0@139.82.24.20:60606",
+        "enode://f04f30a6f61ce586d835de93aea2424a28e52cea7f3034e8ea8f5fa99d5d8d71d6367c14662e2cceed82409bfd33ff5f615e5ce7fad56fe278da9a603e96ec48@200.159.252.32:60606"
       ]
     }
   },
+
   "nonce": "0x0",
-  "gasLimit": "0x2FEFD800",
+  "gasLimit": "0xF42400",
   "difficulty": "0x1",
   "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
   "coinbase": "0x0000000000000000000000000000000000000000",
@@ -85,8 +88,8 @@ cat > .env.configs/genesis.json << 'EOF'
       }
     }
   },
-  "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d5944d0dffabf0181e2f7476814a0e4f6b5b5c9d4b32c080c0",
-  "timestamp": "0x65ef2c51"
+  "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d594bebeac1b65916f055aa1933cbe93e9093445b798c080c0",
+  "timestamp": "0x64d3e6f4"
 }
 EOF
 
