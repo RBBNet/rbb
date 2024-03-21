@@ -44,7 +44,7 @@ services:
         ETHEREUM_JSONRPC_HTTP_URL: http://host.docker.internal:8545/
         ETHEREUM_JSONRPC_TRACE_URL: http://host.docker.internal:8545/
         #ETHEREUM_JSONRPC_WS_URL: ws://host.docker.internal:8545/
-        CHAIN_ID: '${CHAINID}'
+        CHAIN_ID: '<CHAINID>'
 
   visualizer:
     extends:
