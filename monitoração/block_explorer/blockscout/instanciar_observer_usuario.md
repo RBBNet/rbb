@@ -19,7 +19,6 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 ```
 1. Docker e Docker-compose
-2. Git
 ```
 
 ### 1. Docker e Docker-compose (Caso já tenha o Docker instalado e já configurado, pule esta etapa)
@@ -45,16 +44,19 @@ Para instalar o nó `Observer`, execute o seguinte comando:
 Linux, macOS ou Windows (WSL2 com Docker):
 
 ```
-source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/chainlens-free/observer_user.sh)
+source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/observer_user.sh)
 
 ```
 
-Ao término da instalação, você poderá acompanhar as transações e visualização dos blocos acessando `http://localhost:5001` usando Chrome, Firefox, Edge ou demais navegadores.
+Ao término da instalação, você poderá acompanhar as transações e visualização dos blocos acessando a URL informada ao final da instalação. Acesse utilizando um navegador como Chrome, Firefox, Edge ou demais navegadores.
+
 
 ## Utilização
 
-Ao acessar a dashboard, clique no botão **Status** caso queira acompanhar o status da sincronização (download) dos blocos da RBB (Rede blockchain do Brasil) conforme mostra a imagem abaixo:
+Ao acessar a dashboard, você já poderá observar os blocos sendo baixados e indexados. Nesta etapa inicial, pode demorar um tempo até que todos os blocos da RBB (Rede blockchain Brasil) sejam recebidos.
 
-![](https://i.imgur.com/jdFnmmu.png)
+Imagem ilustrativa abaixo:
+
+![](https://i.imgur.com/GqdSBuj.png)
 
 Enquanto a sincronização acontece, você já poderá navegar e visualizar as informações já obtidas da blockchain.
