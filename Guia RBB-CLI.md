@@ -4,6 +4,13 @@ Este documento é um guia para o utilitário de interface de linha de comando (C
 
 A configuração dos nós é feita a partir de comandos que geram arquivos e preenchem *templates* para que diferentes tipos de nós Besu possam ser configurados e posteriormente utilizados nos contêineres.
 
+Os *templates* utilizados são:
+- `docker-compose.yml.hbs`: Utilizado para configuração do Docker Compose.
+- `templates/genesis.json.hbs`: Utilizado para a geração de arquivo genesis dos nós.
+- `.env.configs/static-nodes-local-boot.json.hbs`: Utilizado para configuração estática de conectividade entre nós.
+- `.env.configs/static-nodes-validators.json.hbs`: Utilizado para configuração estática de conectividade entre nós.
+- `.env.configs/static-nodes-validators-and-local-boot.json.hbs`: Utilizado para configuração estática de conectividade entre nós.
+
 
 ## Criação de Nós
 
