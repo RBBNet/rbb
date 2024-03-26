@@ -22,16 +22,16 @@ Sintaxe:
 ```
 
 Onde:
-- `<no>` é o nome do nó a ser criado. Exemplos: `validator`, `boot`, `writer`, `observer-boot`
+- `<no>` é o nome do nó a ser criado. Os nomes dos nós devem seguir o [padrão estabelecido para a RBB](padrao_nomes_nos.md). Exemplos: `validator01`, `boot01`, `writer01`, `observer-boot01`
 
 Exemplo:
 ```
-./rbb-cli node create validator
+./rbb-cli node create validator01
 ```
 
 É possível criar mais de um nó de uma única vez, informando-se diferentes nomes separados por vírgula. Exemplo:
 ```
-./rbb-cli node create boot,writer
+./rbb-cli node create boot01,writer01
 ``` 
 
 
@@ -70,9 +70,9 @@ Onde:
 
 Exemplos:
 ```
-./rbb-cli config set nodes.validator.ports+=[\"10001:8545\"]
-./rbb-cli config set nodes.validator.address=\"123.123.123.123:10303\"
-./rbb-cli config set nodes.validator.environment.BESU_DISCOVERY_ENABLED=false
+./rbb-cli config set nodes.validator01.ports+=[\"10001:8545\"]
+./rbb-cli config set nodes.validator01.address=\"123.123.123.123:10303\"
+./rbb-cli config set nodes.validator01.environment.BESU_DISCOVERY_ENABLED=false
 ```
 
 Parâmetros comumente utilizados:
@@ -86,7 +86,7 @@ Variáveis comumente utilizadas:
 
 Caso se deseje testar a definição de um parâmetro sem que essa alteração seja efetivamente gravada, é possível usar a opção `--dry-run`:
 ```
-./rbb-cli config set --dry-run nodes.validator.address=\"123.123.123.123:10303\"
+./rbb-cli config set --dry-run nodes.validator01.address=\"123.123.123.123:10303\"
 ```
 
 
@@ -123,7 +123,7 @@ Onde:
 
 Exemplo:
 ```
-./rbb-cli genesis create --validators validator1,validator2 --boots boot1,boot2,boot3
+./rbb-cli genesis create --validators validator01,validator02 --boots boot01,boot02,boot03
 ```
 
 
