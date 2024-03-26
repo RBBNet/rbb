@@ -8,8 +8,5 @@ Para aumentar a transparência da Rede Blockchain Brasil, foram anexados nós ob
 
 Neste diretório, se encontram duas opções de block explorer: o Chainlens e o Blockscout. Nenhuma delas é favorecida em relação à outra, de forma que o usuário pode verificar e analisar ambas.
 
-![image](https://github.com/RBBNet/rbb/assets/111009073/eafc4760-c92f-4d94-9cf4-9d3ddae95bdb)
-
-
-![image](https://github.com/RBBNet/rbb/assets/111009073/7eaab35c-4c11-448d-88b5-32be4b4e4ca3)
+![image](https://github.com/RBBNet/rbb/assets/111009073/817299e7-e32f-45f5-a330-ef281536e306)
 
