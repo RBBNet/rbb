@@ -58,10 +58,6 @@ ports:
 
 Nesse caso, remova uma delas no docker-compose.yml.
 
-Outro erro pode ocorrer no infra.json: 
-
-*BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=true* e *BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false*, ou seja, duas linhas duplicadas com valores contraditórios. O que deve prevalecer é a variável *false*, portanto, caso você veja nos logs um erro como "linhas duplicadas no arquivo X", remova a que está com *true*.
-
 :pushpin: *Não consigo subir o Blockscout*
 
 Verifique os logs com *docker-compose logs -f* no seu terminal e proceda de acordo com os erros que aparecem. 
