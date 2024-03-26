@@ -1,63 +1,71 @@
-# Instanciar nó `Observer`
+# Instanciar nó "observer" com explorador de blocos *Blockscout*
 
-Esse é um tutorial para a configuração de um observer por quaisquer pessoa externa à rede (usuário).
+Esse é um tutorial para a configuração de um nó observer para o usuário (qualquer pessoa externa à rede). 
 
-> Observers são nós de consulta, externos à rede.
+* Nós observer são nós de consulta. A função deles é ter acesso a todas as transações da rede blockchain RBB, bem como visualizar blocos e endereços ao longo do tempo. Portanto, não haverá como operar transações.
 
-> A função de um nó observer é ter acesso a todas as transações da rede blockchain RBB, bem como visualizar blocos e endereços ao longo do tempo. Portanto, não haverá como operar transações.
+## Recursos do sistema
 
-### Recursos do sistema
+Redes blockchain podem variar em tamanhos e requisitos, porém, para ter boa performance, é recomendado:
 
-**Mínimo**
-- RAM: 4 GB
-- CPU: Intel Pentium 4
-- Disco: ~80 GB
+**CPU**: 16 core, 32 thread
+**RAM**: 128 GB
+**Disco**: 500 GB
 
-## 💻 Pré-requisitos
+Tendo em vista que essa não é uma realidade alcançável para o público em geral, os requisitos mínimos são:
+
+**CPU**: 6 core, 12 thread
+**RAM**: 16 GB
+**Disco**: 80 GB 
+
+:warning: Pode ser que o *Blockscout* consiga funcionar em máquinas mais modestas. Caso a máquina em questão não consiga se aproximar dos requisitos mínimos, é interessante utilizar o *Chainlens*, uma alternativa mais leve.
+
+## Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-```
-1. Docker e Docker-compose
-```
+1. Docker
+2. Docker-compose
 
-### 1. Docker e Docker-compose (Caso já tenha o Docker instalado e já configurado, pule esta etapa)
-- Docker + configuração básica para usuário comum
-```bash
-curl -fsSL https://get.docker.com | sudo sh && dockerd-rootless-setuptool.sh && su - ${USER}
-```
-
-- Docker-compose
-```bash
-curl -SL https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-```
-
+:pushpin: Caso você não tenha o Docker instalado, acesse a [página de instalação do Docker](https://www.docker.com/products/docker-desktop/).
+   
 > [!NOTE]
 > - Para implantações no Windows, deve ser instalado o WSL2 (caso não esteja instalado) e, em seguida, o Docker.
 > - A data e hora do sistema deve estar devidamente atualizada para que seja possível a sincronização de blocos.
 
-## 🚀 Subindo nó observer
+## Subindo nó observer
 
-Para instalar o nó `Observer`, execute o seguinte comando:
-
-Linux, macOS ou Windows (WSL2 com Docker):
-
+Para instanciar um nó observer, execute o seguinte comando:
 ```
 source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/observer_user.sh)
-
 ```
-
 Ao término da instalação, você poderá acompanhar as transações e visualização dos blocos acessando a URL informada ao final da instalação. Acesse utilizando um navegador como Chrome, Firefox, Edge ou demais navegadores.
 
-![](https://i.imgur.com/V1JVB2X.png)
-
 ## Utilização
-
-Ao acessar a dashboard, você já poderá observar os blocos sendo baixados e indexados. Nesta etapa inicial, pode demorar um tempo até que todos os blocos da RBB (Rede blockchain Brasil) sejam recebidos.
-
-Imagem ilustrativa abaixo:
+Ao acessar a dashboard, você já poderá observar os blocos sendo baixados e indexados. Nesta etapa inicial, é esperado que a sincronização com a RBB leve um tempo considerável para ocorrer, até que todos os blocos possam ser recebidos.
 
 ![](https://i.imgur.com/GqdSBuj.png)
 
-Enquanto a sincronização acontece, você já poderá navegar e visualizar as informações já obtidas da blockchain.
+## Erros
+:pushpin: *Meu observer não subiu*
+
+É possível que o docker-compose.yml fique com linhas duplicadas para o mapeamento de portas:
+```
+ports:
+      - 8545:8545
+      - 8545:8545
+```
+
+Nesse caso, remova uma delas no docker-compose.yml.
+
+Outro erro pode ocorrer no infra.json: 
+
+*BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=true* e *BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false*, ou seja, duas linhas duplicadas com valores contraditórios. O que deve prevalecer é a variável *false*, portanto, caso você veja nos logs um erro como "linhas duplicadas no arquivo X", remova a que está com *true*.
+
+:pushpin: *Não consigo subir o Blockscout*
+
+Verifique os logs com *docker-compose logs -f* no seu terminal e proceda de acordo com os erros que aparecem. 
+
+## Ler também
+
+[Guia do Blockscout para o usuário](https://docs.blockscout.com/for-users/overviews)
