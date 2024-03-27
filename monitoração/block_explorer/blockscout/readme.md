@@ -47,6 +47,25 @@ Ao acessar a dashboard, você já poderá observar os blocos sendo baixados e in
 
 ![](https://i.imgur.com/GqdSBuj.png)
 
+## Verificação de contratos
+
+Após subir o Blockscout, é necessário esperar até que todos os blocos estejam indexados. Quando isso ocorrer, você poderá usar os serviços do Blockscout, destacando-se o de **verificação de contratos**, apontado na imagem a seguir:
+
+![image](https://github.com/RBBNet/rbb/assets/111009073/b1c58818-10d2-447c-a9ee-52c50574e35d)
+
+Ao clicar no botão, aparecerá a tela de verificação de smart contracts. Alguns argumentos serão pedidos, como o endereço (incluindo 0x[...]), a licença e o tipo de verificação. A licença no caso da RBB será *None*, e o tipo de verificação é à escolha do usuário. Nesse caso, será utilizado o *Multi-part form files*, embora outros possam ser selecionados.
+
+![image](https://github.com/RBBNet/rbb/assets/111009073/075e4c4b-9d1c-40ea-8c90-a0dfaff9dd7c)
+
+A versão do compilador é 0.5.9+commit.c68bc34e. A versão da EVM é a default, mas, caso dê erro, tente a *petersburg*. Otimização desabilitada - sabe-se que ela muda o bytecode do código, o que impossibilita a verificação. Por fim, adicione na caixa pontilhada os arquivos dos smart contracts.
+
+:warning: Se um contrato importar outro, disponibilize também o importado. Exemplo: contrato A importa contrato B e C, então na hora de verificar o contrato A, é necessário pôr B e C junto.
+
+Por fim, clique em *verify & publish*.
+
+![image](https://github.com/RBBNet/rbb/assets/111009073/03d0e02a-a5cf-441d-9ec3-041ed81c7810)
+
+
 ## Erros
 :pushpin: *Meu observer não subiu*
 
