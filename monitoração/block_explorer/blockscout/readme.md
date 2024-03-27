@@ -1,4 +1,5 @@
 # Instanciar nó "observer" com explorador de blocos *Blockscout*
+---
 
 Esse é um tutorial para a configuração de um nó observer para o usuário (qualquer pessoa externa à rede). 
 
@@ -8,19 +9,15 @@ Esse é um tutorial para a configuração de um nó observer para o usuário (qu
 
 Redes blockchain podem variar em tamanhos e requisitos, porém, para ter boa performance, é recomendado:
 
-**CPU**: 16 core, 32 thread
-
-**RAM**: 128 GB
-
-**Disco**: 500 GB
+- **CPU**: 16 core, 32 thread
+- **RAM**: 128 GB
+- **Disco**: 500 GB
 
 Tendo em vista que essa não é uma realidade alcançável para o público em geral, os requisitos mínimos são:
 
-**CPU**: 6 core, 12 thread
-
-**RAM**: 16 GB
-
-**Disco**: 80 GB 
+- **CPU**: 6 core, 12 thread
+- **RAM**: 16 GB
+- **Disco**: 80 GB 
 
 :warning: Pode ser que o *Blockscout* consiga funcionar em máquinas mais modestas. Caso a máquina em questão não consiga se aproximar dos requisitos mínimos, é interessante utilizar o *Chainlens*, uma alternativa mais leve.
 
