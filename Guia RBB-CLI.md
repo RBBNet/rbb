@@ -7,9 +7,6 @@ A configuração dos nós é feita a partir de comandos que geram arquivos e pre
 Os *templates* utilizados são:
 - `docker-compose.yml.hbs`: Utilizado para configuração do Docker Compose.
 - `templates/genesis.json.hbs`: Utilizado para a geração de arquivo genesis dos nós.
-- `.env.configs/static-nodes-local-boot.json.hbs`: Utilizado para configuração estática de conectividade entre nós.
-- `.env.configs/static-nodes-validators.json.hbs`: Utilizado para configuração estática de conectividade entre nós.
-- `.env.configs/static-nodes-validators-and-local-boot.json.hbs`: Utilizado para configuração estática de conectividade entre nós.
 
 
 ## Criação de Nós
