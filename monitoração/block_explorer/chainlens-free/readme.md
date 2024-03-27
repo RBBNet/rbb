@@ -1,10 +1,9 @@
-# Instanciar nó `Observer`
+# Instanciar nó "observer" com explorador de blocos *Chainlens*
+---
 
 Esse é um tutorial para a configuração de um observer por quaisquer pessoa externa à rede (usuário).
 
-> Observers são nós de consulta, externos à rede.
-
-> A função de um nó observer é ter acesso a todas as transações da rede blockchain RBB, bem como visualizar blocos e endereços ao longo do tempo. Portanto, não haverá como operar transações.
+* Nós observer são nós de consulta. A função deles é ter acesso a todas as transações da rede blockchain RBB, bem como visualizar blocos e endereços ao longo do tempo. Portanto, não haverá como operar transações.
 
 ### Recursos do sistema
 
@@ -13,36 +12,20 @@ Esse é um tutorial para a configuração de um observer por quaisquer pessoa ex
 - CPU: Intel Pentium 4
 - Disco: ~80 GB
 
-## 💻 Pré-requisitos
+## Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
-```
 1. Docker e Docker-compose
 2. Git
-```
-
-### 1. Docker e Docker-compose (Caso já tenha o Docker instalado e já configurado, pule esta etapa)
-- Docker + configuração básica para usuário comum
-```bash
-curl -fsSL https://get.docker.com | sudo sh && dockerd-rootless-setuptool.sh && su - ${USER}
-```
-
-- Docker-compose
-```bash
-sudo apt update \
-apt install -y docker-compose
-```
 
 > [!NOTE]
 > - Para implantações no Windows, deve ser instalado o WSL2 (caso não esteja instalado) e, em seguida, o Docker.
 > - A data e hora do sistema deve estar devidamente atualizada para que seja possível a sincronização de blocos.
 
-## 🚀 Subindo nó observer
+## Subindo nó observer
 
-Para instalar o nó `Observer`, execute o seguinte comando:
-
-Linux, macOS ou Windows (WSL2 com Docker):
+Para instalar o nó "Observer", execute o seguinte comando:
 
 ```
 source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/chainlens-free/observer_user.sh)
