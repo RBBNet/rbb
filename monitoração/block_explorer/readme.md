@@ -21,16 +21,23 @@ Todas as tecnologias utilizadas e códigos, salvo as configurações específica
 ## Como subir um observer?
 
 ### Subindo um observer sem block explorer
-Entre nesse [link](https://github.com/RBBNet/rbb/blob/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/observer_user.sh), faça o download do arquivo e pare na linha 99 - dessa forma, o script não irá baixar o block explorer, e apenas o observer será levantado. Tenha em mente que ele estará rodando em localhost:8545.
+
+```bash
+source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/observer_user.sh)
+```
 
 ### Subindo um observer com Blockscout
-Entre nesse [link](https://github.com/RBBNet/rbb/blob/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/observer_user.sh), faça o download do arquivo e execute normalmente.
 
+```bash
+source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/observer_user.sh -b)
+```
 Tutorial: disponível [aqui](https://github.com/RBBNet/rbb/blob/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/readme.md)
 
 ### Subindo um observer com Chainlens
-Entre nesse [link](https://github.com/RBBNet/rbb/blob/master/monitora%C3%A7%C3%A3o/block_explorer/chainlens-free/observer_user.sh), faça o download do arquivo e execute normalmente.
 
+```bash
+source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/observer_user.sh -c)
+```
 Tutorial: disponível [aqui](https://github.com/RBBNet/rbb/blob/master/monitora%C3%A7%C3%A3o/block_explorer/chainlens-free/readme.md)
 
 ## Qual usar?

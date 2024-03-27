@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/asciititle | bash
 
 echo 'Starting installation...'
 sleep 2
@@ -128,10 +128,6 @@ elif [ "$1" == "-c" ]; then
 	cd ../..
 	echo
 	echo "Explorador de blocos disponível em http://$(hostname -I | awk '{print $1}'):$PORT"
-    
-else
-    echo "Installing just Observer node..."
-    sleep 1
 fi
 
 
