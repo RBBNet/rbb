@@ -57,6 +57,7 @@ ports:
       - 8545:8545
 ```
 
+
 Nesse caso, remova uma delas no docker-compose.yml.
 
 :pushpin: *Não consigo subir o Blockscout*
