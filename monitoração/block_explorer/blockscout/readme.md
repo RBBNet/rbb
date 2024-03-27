@@ -63,6 +63,10 @@ Nesse caso, remova uma delas no docker-compose.yml.
 
 Verifique os logs com *docker-compose logs -f* no seu terminal e proceda de acordo com os erros que aparecem. 
 
+:pushpin: *Socorro! Quero subir o Blockscout, mas aparece um monte de erro!*
+
+Procure o [Discord do Blockscout](https://discord.com/invite/blockscout). 
+
 ## Ler também
 
 [Guia do Blockscout para o usuário](https://docs.blockscout.com/for-users/overviews)
