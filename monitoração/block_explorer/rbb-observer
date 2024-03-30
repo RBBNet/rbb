@@ -11,6 +11,8 @@ Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem 
  -b,           instala um nó observer + Blockscout como block explorer.
  -r, --remove  desinstala o nó observer e o block explorer.
  -h, --help    mostra esta ajuda e sai.
+ --logs        mostra o log de sincronização do nó observer.
+ --restart     reinicia o nó observer.
 '
   exit 0
   ;;
@@ -43,6 +45,12 @@ Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem 
   echo
   echo "Observer removido com sucesso."
   exit 0
+  ;;
+--logs)
+  docker-compose -f start-network/docker-compose.yml logs -f
+  ;;
+--restart)
+  docker-compose -f start-network/docker-compose.yml restart
   ;;
 esac
 
