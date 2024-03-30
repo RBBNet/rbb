@@ -1,7 +1,7 @@
 #!/bin/bash
 
 case "$1" in
-        -h | --help)
+-h | --help)
 echo 'Uso: ./rbb-obsever [OPÇÃO]
 Facilitador para implantação de um nó observer ou observer + block explorer.
 
@@ -12,57 +12,57 @@ Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem 
  -r, --remove  desinstala o nó observer e o block explorer.
  -h, --help    mostra esta ajuda e sai.
 '
- exit 0
-        ;;
-        -r | --remove)
-        found=0
-        if [ -d "start-network" ]; then
-                cd start-network
-                docker-compose down --remove-orphans
-                cd ..
-                found=1
-        fi
-        if [ -d "blockscout-6.1.0-beta" ]; then
-                cd blockscout-6.1.0-beta/docker-compose/
-                docker-compose down --remove-orphans
-                cd ../..
-                found=1
-        fi
-        if [ -d "chainlens-free" ]; then
-                cd chainlens-free/docker-compose
-                docker-compose down --remove-orphans
-                cd ../..
-                found=1
-        fi
-        if [ $found -eq 0 ]; then
-                echo "Arquivos já removidos."
-                exit 0
-        else
-        sudo rm -rf start start-network blockscout-6.1.0-beta chainlens-free > /dev/null 2>&1
-        fi
-        echo
-        echo "Observer removido com sucesso."
-        exit 0
-        ;;
+  exit 0
+  ;;
+-r | --remove)
+  found=0
+  if [ -d "start-network" ]; then
+    cd start-network
+    docker-compose down --remove-orphans
+    cd ..
+    found=1
+  fi
+  if [ -d "blockscout-6.1.0-beta" ]; then
+    cd blockscout-6.1.0-beta/docker-compose/
+    docker-compose down --remove-orphans
+    cd ../..
+    found=1
+  fi
+  if [ -d "chainlens-free" ]; then
+    cd chainlens-free/docker-compose
+    docker-compose down --remove-orphans
+    cd ../..
+    found=1
+  fi
+  if [ $found -eq 0 ]; then
+    echo "Arquivos já removidos."
+    exit 0
+  else
+    sudo rm -rf start start-network blockscout-6.1.0-beta chainlens-free > /dev/null 2>&1
+  fi
+  echo
+  echo "Observer removido com sucesso."
+  exit 0
+  ;;
 esac
 
 
 curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/asciititle | bash
 
 if [ $# -eq 0 ]; then
-    echo "Installing just Observer node..."
+  echo "Installing just Observer node..."
 else
-    case "$1" in
-        -b)
-                echo "Installing Observer node + blockscout..."
-            ;;
-        -c)
-                echo "Installing Observer node + Chainlens block-explorer..."
-            ;;
-        *)
-            echo "Parameter not recognized, installing just Observer node..."
-            ;;
-    esac
+  case "$1" in
+    -b)
+        echo "Installing Observer node + blockscout..."
+        ;;
+    -c)
+            echo "Installing Observer node + Chainlens block-explorer..."
+        ;;
+    *)
+        echo "Parameter not recognized, installing just Observer node..."
+        ;;
+  esac
 fi
 
 
@@ -185,8 +185,8 @@ elif [ "$1" == "-c" ]; then
   export URL=http://$IP:$PORT
         git clone -n https://github.com/web3labs/chainlens-free
   cd chainlens-free
-  git checkout 484e254563948ac147795ee393af6b547ffef02d
-        cd docker-compose
+  git checkout 484e254563948ac147795ee393af6b547ffef02d > /dev/null 2>&1
+  cd docker-compose
   sed -i "s/WS_API_URL=http:\/\//WS_API_URL=ws:\/\//g" docker-compose.yml
         NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
         cd ../..
