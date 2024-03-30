@@ -166,15 +166,15 @@ if [ "$1" == "-b" ]; then
         sleep 5
         echo "Explorador de blocos disponível em $URL"
 
-  case "$(uname)" in
+  case "$(uname -a)" in
     "Linux")
         xdg-open "$URL" > /dev/null 2>&1
         ;;
     "Darwin")
-        open "$URL"
+        open "$URL" > /dev/null 2>&1
         ;;
-    "CYGWIN"*|"MINGW"*|"MSYS"*)
-        start "$URL"
+    "CYGWIN"*|"MINGW"*|"MSYS"*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
+        cmd.exe /c start "$URL" > /dev/null 2>&1
         ;;
   esac
 
@@ -193,15 +193,15 @@ elif [ "$1" == "-c" ]; then
         echo
         echo "Explorador de blocos disponível em $URL"
 
-  case "$(uname)" in
+  case "$(uname -a)" in
     "Linux")
         xdg-open "$URL" > /dev/null 2>&1
         ;;
     "Darwin")
-        open "$URL"
+        open "$URL" > /dev/null 2>&1
         ;;
-    "CYGWIN"*|"MINGW"*|"MSYS"*)
-        start "$URL"
+    "CYGWIN"*|"MINGW"*|"MSYS"*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
+        cmd.exe /c start "$URL" > /dev/null 2>&1
         ;;
   esac
 
