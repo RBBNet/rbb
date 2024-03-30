@@ -179,7 +179,6 @@ if [ "$1" == "-b" ]; then
   esac
 
 
-
 elif [ "$1" == "-c" ]; then
         export PORT=5001
   export URL=http://$IP:$PORT
@@ -206,9 +205,5 @@ elif [ "$1" == "-c" ]; then
   esac
 
 fi
-
-
-
-
 
 echo 'Feito.'
