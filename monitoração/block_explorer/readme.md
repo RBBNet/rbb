@@ -20,23 +20,30 @@ Todas as tecnologias utilizadas e códigos, salvo as configurações específica
 
 ## Como subir um observer?
 
+1. Faça o download do script e conceda as permissões necessárias:
+```bash
+curl -LO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/rbb-observer
+chmod +x rbb-observer
+```
+
 ### Subindo um observer sem block explorer
 
+
 ```bash
-source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/observer_user.sh)
+./rbb-observer
 ```
 
 ### Subindo um observer com Blockscout
 
 ```bash
-source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/observer_user.sh -b)
+./rbb-observer -b
 ```
 Tutorial: disponível [aqui](https://github.com/RBBNet/rbb/blob/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/readme.md)
 
 ### Subindo um observer com Chainlens
 
 ```bash
-source <(curl -sL https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/observer_user.sh -c)
+./rbb-observer -c
 ```
 Tutorial: disponível [aqui](https://github.com/RBBNet/rbb/blob/master/monitora%C3%A7%C3%A3o/block_explorer/chainlens-free/readme.md)
 
@@ -52,4 +59,9 @@ O usuário não é obrigado a ficar com nenhuma das duas alternativas, de forma 
 
 ![image](https://github.com/RBBNet/rbb/assets/111009073/867eccce-92ed-4082-a795-54045ec08d4c)
 
+## Desinstalar Observer
 
+Para remover completamente:
+```bash
+./rbb-observer -r
+```
