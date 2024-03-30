@@ -59,7 +59,20 @@ O usuário não é obrigado a ficar com nenhuma das duas alternativas, de forma 
 
 ![image](https://github.com/RBBNet/rbb/assets/111009073/867eccce-92ed-4082-a795-54045ec08d4c)
 
-## Desinstalar Observer
+## Como usar?
+
+Visite a URL informada ao término da instalação.
+
+### Ver os logs do nó observer manualmente
+
+Caso tenha interesse em observar o fluxo de sincronização de blocos do observer via linha de comando:
+
+```bash
+cd start-network
+docker-compose logs -f
+```
+
+## Desinstalar
 
 Para remover completamente:
 ```bash
