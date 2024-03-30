@@ -1,45 +1,63 @@
 #!/bin/bash
 
+case "$1" in
+        -h | --help)
+echo 'Uso: ./rbb-obsever [OPÇÃO]
+Facilitador para implantação de um nó observer ou observer + block explorer.
+
+Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem um block explorer.
+
+ -c,           instala um nó observer + Chainlens como block explorer.
+ -b,           instala um nó observer + Blockscout como block explorer.
+ -r, --remove  desinstala o nó observer e o block explorer.
+ -h, --help    mostra esta ajuda e sai.
+'
+ exit 0
+        ;;
+        -r | --remove)
+        found=0
+        if [ -d "start-network" ]; then
+                cd start-network
+                docker-compose down --remove-orphans
+                cd ..
+                found=1
+        fi
+        if [ -d "blockscout-6.1.0-beta" ]; then
+                cd blockscout-6.1.0-beta/docker-compose/
+                docker-compose down --remove-orphans
+                cd ../..
+                found=1
+        fi
+        if [ -d "chainlens-free" ]; then
+                cd chainlens-free/docker-compose
+                docker-compose down --remove-orphans
+                cd ../..
+                found=1
+        fi
+        if [ $found -eq 0 ]; then
+                echo "Arquivos já removidos."
+                exit 0
+        else
+        sudo rm -rf start start-network blockscout-6.1.0-beta chainlens-free > /dev/null 2>&1
+        fi
+        echo
+        echo "Observer removido com sucesso."
+        exit 0
+        ;;
+esac
+
+
+curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/asciititle | bash
 
 if [ $# -eq 0 ]; then
     echo "Installing just Observer node..."
 else
     case "$1" in
         -b)
-    		echo "Installing Observer node + blockscout..."
+                echo "Installing Observer node + blockscout..."
             ;;
         -c)
-		    echo "Installing Observer node + Chainlens block-explorer..."
-            ;;
-        --remove)
-        echo "Installing Observer node + Chainlens block-explorer..."
-        cd start-network
-        docker-compose down
-        cd ..
-        cd blockscout-6.1.0-beta/docker-compose/
-        docker-compose down
-        cd ../..
-        cd chainlens-free/docker-compose
-        docker-compose down
-        cd ../..
-        sudo rm -rf start start-network blockscout-6.1.0-beta chainlens-free
-        echo
-        echo "Observer removido com sucesso."
-        exit 0
-            ;;
-        -h || --help)
-        echo '
-        Uso: ./rbb-obsever [OPÇÃO]
-        Facilitador para implantação de um nó observer ou observer + block explorer.
-
-        Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem um block explorer.
-
-        -c,           instala um nó observer + Chainlens como block explorer.
-        -b,           instala um nó observer + Blockscout como block explorer.
-        --remove      desinstala o nó observer e o block explorer.
-        -h, --help    mostra esta ajuda e sai.
-        '
-        exit 0
+                echo "Installing Observer node + Chainlens block-explorer..."
             ;;
         *)
             echo "Parameter not recognized, installing just Observer node..."
@@ -47,7 +65,7 @@ else
     esac
 fi
 
-curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/asciititle | bash
+
 
 echo 'Starting installation...'
 sleep 2
@@ -58,7 +76,7 @@ cd start-network
 ./rbb-cli config set nodes.observer.ports+=[\"8545:8545\"]
 #./rbb-cli config set nodes.observer.address=[\"0.0.0.0:30303\"]
 
- 
+
 
 cat > .env.configs/genesis.json << 'EOF'
 {
@@ -74,7 +92,9 @@ cat > .env.configs/genesis.json << 'EOF'
     },
     "discovery": {
       "bootnodes": [
-        "enode://0e0d0de41d9d57cd9090195511d48582de5383ab5112bcc881c63e5dc784df74fe94242174ccaceb9c4e3e4b28f1fd55501c9d06870c2f7a516a4ccbb6853d8b@192.168.56.101:30303"
+        "enode://338611d5c7c43dd47d17247f3c4dd96f31eadab961b1513475dfdd9f9f8297c7c7ab42c517cc62bdf8a7aff1247cb95297ecdb28ea560c9d6e96b218742905a2@200.225.103.107:60606",
+        "enode://b2105d7a95f32026f41cab9d34df915ce2b2a235d93281eeda14d52cd88844d369812c78cbd1f797ad2177aba8a66607f97fa5df0ef3aa97942f040cda5bf9b0@139.82.24.20:60606",
+        "enode://f04f30a6f61ce586d835de93aea2424a28e52cea7f3034e8ea8f5fa99d5d8d71d6367c14662e2cceed82409bfd33ff5f615e5ce7fad56fe278da9a603e96ec48@200.159.252.32:60606"
       ]
     }
   },
@@ -121,34 +141,34 @@ cd ..
 export IP=$(hostname -I | awk '{print $1}')
 
 if [ "$1" == "-b" ]; then
-	export CHAINID=648629
+        export CHAINID=648629
   export URL=http://$IP
   curl -#SL https://github.com/blockscout/blockscout/archive/refs/tags/v6.1.0-beta.tar.gz | tar xz
-	cd blockscout-6.1.0-beta/docker-compose/
-	curl -#LO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/docker-compose.yml
-	sed -i "s/\$CHAINID/${CHAINID}/g" docker-compose.yml
-	cd envs
-	curl -#L \
-	-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-blockscout.env \
-	-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-frontend.env \
-	-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-smart-contract-verifier.env \
-	-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-stats.env \
-	-O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-visualizer.env
-	sed -i "s/\$IP_LOCALHOST/${IP}/g" *
-	sed -i "s/\$CHAINID/${CHAINID}/g" *
-	cd ../proxy
-	sed -i "s/localhost/${IP}/g" *
-	cd ..
-	
-	docker-compose up -d
+        cd blockscout-6.1.0-beta/docker-compose/
+        curl -#LO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/docker-compose.yml
+        sed -i "s/\$CHAINID/${CHAINID}/g" docker-compose.yml
+        cd envs
+        curl -#L \
+        -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-blockscout.env \
+        -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-frontend.env \
+        -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-smart-contract-verifier.env \
+        -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-stats.env \
+        -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-visualizer.env
+        sed -i "s/\$IP_LOCALHOST/${IP}/g" *
+        sed -i "s/\$CHAINID/${CHAINID}/g" *
+        cd ../proxy
+        sed -i "s/localhost/${IP}/g" *
+        cd ..
+
+        docker-compose up -d
   cd ../..
-	echo
-	sleep 5
-	echo "Explorador de blocos disponível em $URL"
+        echo
+        sleep 5
+        echo "Explorador de blocos disponível em $URL"
 
   case "$(uname)" in
     "Linux")
-        xdg-open "$URL"
+        xdg-open "$URL" > /dev/null 2>&1
         ;;
     "Darwin")
         open "$URL"
@@ -160,22 +180,22 @@ if [ "$1" == "-b" ]; then
 
 
 
-elif [ "$1" == "-c" ]; then	
-	export PORT=5001
+elif [ "$1" == "-c" ]; then
+        export PORT=5001
   export URL=http://$IP:$PORT
-	git clone -n https://github.com/web3labs/chainlens-free
+        git clone -n https://github.com/web3labs/chainlens-free
   cd chainlens-free
   git checkout 484e254563948ac147795ee393af6b547ffef02d
-	cd docker-compose
+        cd docker-compose
   sed -i "s/WS_API_URL=http:\/\//WS_API_URL=ws:\/\//g" docker-compose.yml
-	NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
-	cd ../..
-	echo
-	echo "Explorador de blocos disponível em $URL"
+        NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
+        cd ../..
+        echo
+        echo "Explorador de blocos disponível em $URL"
 
   case "$(uname)" in
     "Linux")
-        xdg-open "$URL"
+        xdg-open "$URL" > /dev/null 2>&1
         ;;
     "Darwin")
         open "$URL"
