@@ -154,8 +154,9 @@ elif [ "$1" == "-c" ]; then
 	export PORT=5001
   export URL=http://$IP:$PORT
 	git clone -n https://github.com/web3labs/chainlens-free
+  cd chainlens-free
   git checkout 484e254563948ac147795ee393af6b547ffef02d
-	cd chainlens-free/docker-compose
+	cd docker-compose
   sed -i "s/WS_API_URL=http:\/\//WS_API_URL=ws:\/\//g" docker-compose.yml
 	NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
 	cd ../..
