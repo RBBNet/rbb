@@ -27,8 +27,18 @@ else
         echo "Observer removido com sucesso."
         exit 0
             ;;
-        --help)
-        echo "Instructions"
+        -h || --help)
+        echo '
+        Uso: ./rbb-obsever [OPÇÃO]
+        Facilitador para implantação de um nó observer ou observer + block explorer.
+
+        Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem um block explorer.
+
+        -c,           instala um nó observer + Chainlens como block explorer.
+        -b,           instala um nó observer + Blockscout como block explorer.
+        --remove      desinstala o nó observer e o block explorer.
+        -h, --help    mostra esta ajuda e sai.
+        '
         exit 0
             ;;
         *)
