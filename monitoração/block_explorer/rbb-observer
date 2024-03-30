@@ -1,9 +1,5 @@
 #!/bin/bash
 
-curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/asciititle | bash
-
-echo 'Starting installation...'
-sleep 2
 
 if [ $# -eq 0 ]; then
     echo "Installing just Observer node..."
@@ -41,6 +37,10 @@ else
     esac
 fi
 
+curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/asciititle | bash
+
+echo 'Starting installation...'
+sleep 2
 
 curl -sL https://github.com/RBBNet/start-network/releases/download/v0.4.1%2Bpermv1/start-network.tar.gz | tar xz
 cd start-network
