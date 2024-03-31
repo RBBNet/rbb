@@ -150,14 +150,14 @@ cd ..
 
 # Host IP grabber
 case "$(uname -a)" in
-  "Linux")
-      export IP=$(hostname -I | awk '{for(i=1;i<=NF;i++) if ($i !~ /^172\./) {print $i; exit}}')
-      ;;
-  "Darwin")
-      export IP=$(hostname -I | awk '{for(i=1;i<=NF;i++) if ($i !~ /^172\./) {print $i; exit}}')
-      ;;
-  "CYGWIN"*|"MINGW"*|"MSYS"*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
+  *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
       export IP=$(hostname -I | awk '{print $1}')
+      ;;
+  *Linux*)
+      export IP=$(hostname -I | awk '{for(i=1;i<=NF;i++) if ($i !~ /^172\./) {print $i; exit}}')
+      ;;
+  *Darwin*)
+      export IP=$(hostname -I | awk '{for(i=1;i<=NF;i++) if ($i !~ /^172\./) {print $i; exit}}')
       ;;
 esac
 
@@ -188,14 +188,14 @@ if [ "$1" == "-b" ]; then
   echo "Explorador de blocos disponível em $URL"
 
   case "$(uname -a)" in
-    "Linux")
+    *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
+        cmd.exe /c start "$URL" > /dev/null 2>&1
+        ;;
+    *Linux*)
         xdg-open "$URL" > /dev/null 2>&1
         ;;
-    "Darwin")
+    *Darwin*)
         open "$URL" > /dev/null 2>&1
-        ;;
-    "CYGWIN"*|"MINGW"*|"MSYS"*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
-        cmd.exe /c start "$URL" > /dev/null 2>&1
         ;;
   esac
 
@@ -214,14 +214,14 @@ elif [ "$1" == "-c" ]; then
   echo "Explorador de blocos disponível em $URL"
 
   case "$(uname -a)" in
-    "Linux")
+    *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
+        cmd.exe /c start "$URL" > /dev/null 2>&1
+        ;;
+    *Linux*)
         xdg-open "$URL" > /dev/null 2>&1
         ;;
-    "Darwin")
+    *Darwin*)
         open "$URL" > /dev/null 2>&1
-        ;;
-    "CYGWIN"*|"MINGW"*|"MSYS"*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
-        cmd.exe /c start "$URL" > /dev/null 2>&1
         ;;
   esac
 
