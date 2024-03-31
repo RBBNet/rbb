@@ -26,9 +26,10 @@ Tendo em vista que essa não é uma realidade alcançável para o público em ge
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 1. Docker v20.10+
-2. Docker-compose v2.24.5
+      - [página de instalação do Docker](https://www.docker.com/products/docker-desktop/)
+2. Docker compose v2.24.5
+      - [página de instalação do compose](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
 
-:pushpin: Caso você não tenha o Docker instalado, acesse a [página de instalação do Docker](https://www.docker.com/products/docker-desktop/).
    
 > [!NOTE]
 > - Para implantações no Windows, deve ser instalado o WSL2 (caso não esteja instalado) e, em seguida, o Docker.
