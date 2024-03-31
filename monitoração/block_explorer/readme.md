@@ -69,8 +69,7 @@ Visite a URL informada ao término da instalação.
 Caso tenha interesse em observar o fluxo de sincronização de blocos do observer via linha de comando:
 
 ```bash
-cd start-network
-docker-compose logs -f
+./rbb-observer --logs
 ```
 
 ## Desinstalar
