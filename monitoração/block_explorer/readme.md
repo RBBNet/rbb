@@ -22,7 +22,7 @@ Todas as tecnologias utilizadas e códigos, salvo as configurações específica
 
 1. Faça o download do script e conceda as permissões necessárias:
 ```bash
-curl -LO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/rbb-observer
+curl -#sLO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/rbb-observer
 chmod +x rbb-observer
 ```
 
