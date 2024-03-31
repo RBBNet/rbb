@@ -78,3 +78,13 @@ Para remover completamente:
 ```bash
 ./rbb-observer -r
 ```
+
+## Resolução de problemas
+
+### Carregamento de blocos não sai de 0%
+
+Talvez o observer não tenha conseguido se conectar com o nó de sincronização. Reinicie o nó e veja se volta a sincronizar:
+
+```bash
+./rbb-observer --restart
+```
