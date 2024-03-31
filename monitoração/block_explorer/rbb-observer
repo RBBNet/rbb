@@ -20,19 +20,19 @@ Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem 
     found=0
     if [ -d "start-network" ]; then
       cd start-network
-      docker-compose down --remove-orphans
+      docker compose down --remove-orphans
       cd ..
       found=1
     fi
     if [ -d "blockscout-6.1.0-beta" ]; then
       cd blockscout-6.1.0-beta/docker-compose/
-      docker-compose down --remove-orphans
+      docker compose down --remove-orphans
       cd ../..
       found=1
     fi
     if [ -d "chainlens-free" ]; then
       cd chainlens-free/docker-compose
-      docker-compose down --remove-orphans
+      docker compose down --remove-orphans
       cd ../..
       found=1
     fi
@@ -47,10 +47,10 @@ Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem 
     exit 0
     ;;
   --logs)
-    docker-compose -f start-network/docker-compose.yml logs -f
+    docker compose -f start-network/docker-compose.yml logs -f
     ;;
   --restart)
-    docker-compose -f start-network/docker-compose.yml restart
+    docker compose -f start-network/docker-compose.yml restart
     ;;
 esac
 
@@ -143,7 +143,7 @@ EOF
 sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
 ./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ./rbb-cli config render-templates
-docker-compose up -d
+docker compose up -d
 cd ..
 
 
@@ -168,7 +168,7 @@ if [ "$1" == "-b" ]; then
   cd ../proxy
   sed -i "s/localhost/${IP}/g" *
   cd ..
-  docker-compose up -d
+  docker compose up -d
   cd ../..
   echo
   sleep 5
@@ -195,7 +195,7 @@ elif [ "$1" == "-c" ]; then
   git checkout 484e254563948ac147795ee393af6b547ffef02d > /dev/null 2>&1
   cd docker-compose
   sed -i "s/WS_API_URL=http:\/\//WS_API_URL=ws:\/\//g" docker-compose.yml
-  NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
+  NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
   cd ../..
   echo
   echo "Explorador de blocos disponível em $URL"
