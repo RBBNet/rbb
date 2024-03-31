@@ -26,7 +26,7 @@ Tendo em vista que essa não é uma realidade alcançável para o público em ge
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 1. Docker v20.10+
-2. Docker-compose v2.24+
+2. Docker-compose v2.24.5+
 
 :pushpin: Caso você não tenha o Docker instalado, acesse a [página de instalação do Docker](https://www.docker.com/products/docker-desktop/).
    
