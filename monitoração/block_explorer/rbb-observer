@@ -48,6 +48,7 @@ Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem 
     ;;
   --logs)
     docker compose -f start-network/docker-compose.yml logs -f
+    exit 0
     ;;
   --restart)
     docker compose -f start-network/docker-compose.yml restart
