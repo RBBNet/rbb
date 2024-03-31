@@ -24,6 +24,7 @@ Todas as tecnologias utilizadas e códigos, salvo as configurações específica
 ```bash
 curl -#sLO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/rbb-observer
 chmod +x rbb-observer
+
 ```
 
 ### Subindo um observer sem block explorer
