@@ -183,6 +183,8 @@ esac
 
 
 if [ "$1" == "-b" ]; then
+  echo "Subindo Blockscout..."
+  sleep 10
   export CHAINID=648629
   export URL=http://$IP
   curl -#SL https://github.com/blockscout/blockscout/archive/refs/tags/v6.1.0-beta.tar.gz | tar xz
@@ -221,6 +223,8 @@ if [ "$1" == "-b" ]; then
 
 
 elif [ "$1" == "-c" ]; then
+  echo "Subindo Chainlens..."
+  sleep 10
   export PORT=5001
   export URL=http://$IP:$PORT
   git clone -n https://github.com/web3labs/chainlens-free
