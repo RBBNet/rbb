@@ -27,11 +27,12 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 1. Git
 2. Docker v20.10+
       - [página de instalação do Docker](https://www.docker.com/products/docker-desktop/)
-3. Docker compose v2.24.5
+3. Docker compose v2.24+
+      > [!Note] Notamos que as as versões do compose 2.24.7, 2.25.0 e 2.26.0 não se mostraram compatíveis com o Blockscout. )
       - [página de instalação do compose](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
 
-   
 > [!NOTE]
+> 
 > - Para implantações no Windows, deve ser instalado o WSL2 (caso não esteja instalado) e, em seguida, o Docker.
 > - A data e hora do sistema deve estar devidamente atualizada para que seja possível a sincronização de blocos.
 
