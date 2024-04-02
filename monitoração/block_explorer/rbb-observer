@@ -172,6 +172,12 @@ sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
 ./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ./rbb-cli config render-templates
 docker compose up -d
+if [ $? -ne 0 ]; then
+    echo "Erro ao subir o observer."
+    echo -e "Dica: \e[1;33m./rbb-observer -r\e[0m pode ajudar a remover arquivos residuais."
+    echo "Saindo..."
+    exit 1
+fi
 cd ..
 
 
