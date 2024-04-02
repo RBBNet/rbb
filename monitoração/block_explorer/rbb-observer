@@ -18,6 +18,13 @@ elif [ "$docker_compose_version" != "2.24.5" ]; then
     exit 1
 fi
 
+if [[ $# -eq 0 ]] || [[ "$1" == "-c" ]] || [[ "$1" == "-b" ]]; then
+    if docker ps | grep -q "start-network-observer-1"; then
+        echo -e "Já há um nó observer Up. Digite \e[1;33m./rbb-observer -r\e[0m para remover."
+        exit 1
+    fi
+fi
+
 case "$1" in
   -h | --help)
 echo 'Uso: ./rbb-obsever [OPÇÃO]
