@@ -16,8 +16,6 @@ if [ $? -ne 0 ]; then
 elif [ "$docker_compose_version" != "2.24.5" ]; then
     echo "Versão do Docker Compose incompatível: $docker_compose_version. Requer 2.24.5. Saindo..."
     exit 1
-else
-    echo "Versão do Docker Compose compatível encontrada: $docker_compose_version"
 fi
 
 case "$1" in
