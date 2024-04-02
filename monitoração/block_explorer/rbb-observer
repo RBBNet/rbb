@@ -1,5 +1,25 @@
 #!/bin/bash
 
+if ! git --version &> /dev/null; then
+    echo "git não encontrado. Saindo..."
+    exit 1
+fi
+if ! docker --version &> /dev/null; then
+    echo "Docker não encontrado. Saindo..."
+    exit 1
+fi
+
+docker_compose_version=$(docker compose version --short)
+if [ $? -ne 0 ]; then
+    echo "Docker Compose não encontrado. Saindo..."
+    exit 1
+elif [ "$docker_compose_version" != "2.24.5" ]; then
+    echo "Versão do Docker Compose incompatível: $docker_compose_version. Requer 2.24.5. Saindo..."
+    exit 1
+else
+    echo "Versão do Docker Compose compatível encontrada: $docker_compose_version"
+fi
+
 case "$1" in
   -h | --help)
 echo 'Uso: ./rbb-obsever [OPÇÃO]
@@ -60,17 +80,17 @@ esac
 curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/asciititle | bash
 
 if [ $# -eq 0 ]; then
-  echo "Installing just Observer node..."
+  echo "Instalando apenas nó Observer..."
 else
   case "$1" in
     -b)
-      echo "Installing Observer node + blockscout..."
+      echo "Instalando nó Observer + blockscout..."
       ;;
     -c)
-      echo "Installing Observer node + Chainlens block-explorer..."
+      echo "Instalando nó Observer + Chainlens block-explorer..."
       ;;
     *)
-      echo "Parameter not recognized, exiting..."
+      echo "Parâmetro não reconhecido, saindo..."
       exit 0
       ;;
   esac
@@ -78,7 +98,7 @@ fi
 
 
 
-echo 'Starting installation...'
+echo 'Iniciando instalação...'
 sleep 2
 
 curl -sL https://github.com/RBBNet/start-network/releases/download/v0.4.1%2Bpermv1/start-network.tar.gz | tar xz
