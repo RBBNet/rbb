@@ -28,7 +28,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 2. Docker v20.10+
       - [página de instalação do Docker](https://www.docker.com/products/docker-desktop/)
 3. Docker compose v2.24+
-      > [!Note] Notamos que as as versões do compose 2.24.7, 2.25.0 e 2.26.0 não se mostraram compatíveis com o Blockscout. )
+      > [!NOTE] Notamos que as as versões do compose 2.24.7, 2.25.0 e 2.26.0 não se mostraram compatíveis com o Blockscout. )
       - [página de instalação do compose](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
 
 > [!NOTE]
