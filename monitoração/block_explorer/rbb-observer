@@ -13,6 +13,9 @@ docker_compose_version=$(docker compose version --short)
 if [ $? -ne 0 ]; then
     echo "Docker Compose não encontrado. Saindo..."
     exit 1
+elif [[ "$docker_compose_version" == "2.24.7" || "$docker_compose_version" == "2.25.0" || "$docker_compose_version" == "2.26.0" ]]; then
+    echo "Versão do compose $docker_compose_version não compatível. Saindo..."
+    exit 1
 fi
 
 case "$1" in
