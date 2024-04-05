@@ -18,8 +18,8 @@ Este roteiro guia na criação de nós `observer-boots` para o laboratório da R
 **1.** Crie um nó chamado `observer-boot` com o comando abaixo:
 ```
 ./rbb-cli node create observer-boot
-./rbb-cli config set nodes.observer_boot.ports+=[\"8545:8545\"]
-./rbb-cli config set nodes.observer_boot.address=\"<IP-externo-observer-boot>:30303\"
+./rbb-cli config set nodes.observer-boot.ports+=[\"8545:8545\"]
+./rbb-cli config set nodes.observer-boot.address=\"<IP-externo-observer-boot>:30303\"
 ```
 
 **2.** Vamos ajustar o arquivo genesis.json. Acesse o `observer-boot`, baixe o arquivo genesis.json disponível na URL a seguir e cole em `start-network/.env-configs`: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json` onde `${rede}` pode ser Lab, Piloto, etc.
