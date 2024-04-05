@@ -15,9 +15,9 @@ Este roteiro guia na criação de nós `observer-boots` para o laboratório da R
 
 ### Boot de Observer
 
-**1.** Crie um nó chamado `observer_boot` com o comando abaixo:
+**1.** Crie um nó chamado `observer-boot` com o comando abaixo:
 ```
-./rbb-cli node create observer_boot
+./rbb-cli node create observer-boot
 ./rbb-cli config set nodes.observer_boot.ports+=[\"8545:8545\"]
 ./rbb-cli config set nodes.observer_boot.address=\"<IP-externo-observer-boot>:30303\"
 ```
@@ -37,7 +37,7 @@ Aqui temos duas situações para o observer-boot:
 
 ![](https://i.imgur.com/mdU0lYT.png))
 
- Crie o arquivo `volumes/observer_boot/static-nodes.json` e inclua o enode do boot da própria instituição (usando **IP interno**).
+ Crie o arquivo `volumes/observer-boot/static-nodes.json` e inclua o enode do boot da própria instituição (usando **IP interno**).
 
   Modelo:
 
@@ -49,18 +49,18 @@ Aqui temos duas situações para o observer-boot:
 
 **3.** Desabilite o permissionamento **on chain** de contas e nós, executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
-./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
-./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 
 ```
 
 **4.** Habilite o permissionamento **de contas** no modo "local", ou seja, usando um arquivo. 
 ```
-./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE_ENABLED=true
-./rbb-cli config set nodes.observer_boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE=\"/var/lib/besu/permissioned-accounts.toml\"
+./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE_ENABLED=true
+./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE=\"/var/lib/besu/permissioned-accounts.toml\"
 
 ```
-Crie o arquivo `volumes/observer_boot/permissioned-accounts.toml` com o seguinte conteúdo (a lista é vazia mesmo):
+Crie o arquivo `volumes/observer-boot/permissioned-accounts.toml` com o seguinte conteúdo (a lista é vazia mesmo):
 ```
 accounts-allowlist=[]
 ```
