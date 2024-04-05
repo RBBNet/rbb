@@ -1,5 +1,5 @@
 
-# Roteiro para levantar uma rede de testes
+# Roteiro para levantar uma rede de testes (toy)
 
 Este roteiro tem como objetivo levantar uma rede para testes compatível com a RBB. Além disso, este roteiro assume que os nós serão iniciados em uma mesma máquina virtual (Virtual Machine - VM).
 
@@ -242,29 +242,7 @@ docker-compose restart validator
 
 ```
 
-## 5 - [EM CONSTRUÇÃO] Levantar dApp de permissionamento
-
-- Execute os seguintes comandos em um diretório que estará acessível pelo servidor web:
-
-  ```bash
-  curl -#SL https://github.com/RBBNet/Permissionamento/releases/download/0.1/permissioningDapp.tar.gz | tar xz
-  cd permissioningDapp
-  
-  ```
-
-- Adicione um arquivo "config.json" no diretório `permissioningDapp` contendo as seguintes informações:
-
-  ```json
-  {
-          "accountIngressAddress":  "<Endereço do contrato account ingress>",
-          "nodeIngressAddress": "<Endereço do contrato node ingress>",
-          "networkId": "<ChainID da rede>"
-  }
-  ```
-
-## 6 - [EM CONSTRUÇÃO] Levantar monitoração
-
-## 7 - Levantar block explorer
+## 5 - Levantar block explorer
 
 #### Sirato Block Explorer:
 
