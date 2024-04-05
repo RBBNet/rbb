@@ -115,3 +115,7 @@ Vale destacar, entretanto, que **o TCU, por meio de seus representantes formalme
 ## Versionamento
 
 Mais informações neste link: https://github.com/RBBNet/rbb/blob/master/Versionamento.md
+
+## Monitoração - observer do cidadão 
+
+Para levantar um nó observer, vá até a pasta *monitoração/block_explorer* e siga as instruções.
