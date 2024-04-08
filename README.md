@@ -24,7 +24,7 @@ Já nas blockchains público-permissionadas, é possível buscar um melhor model
 
 ## Formas de Participação
 
-As instituições participantes da RBB podem ser classificadas como:
+As instituições participantes da RBB, aderentes ao Acordo de Cooperação, podem ser classificadas como:
 
 - Partícipes Aderentes **Parceiros**
   - Devem promover o uso da RBB em aplicações do serviço público e de interesse público e seguir as decisões sobre a RBB proferidas pela Governança da RBB;
@@ -40,6 +40,14 @@ As instituições participantes da RBB podem ser classificadas como:
   - Apenas BNDES e TCU são considerados partícipes patronos;
   - Têm os mesmos direitos e deveres dos partícipes aderentes associados;
   - Têm direito a voto de desempate e vetar as propostas apresentadas.
+
+Para acesso e operação da rede, as instituições participantes devem seguir o [roteiro técnico] (Roteiro_para_a_criacao_de_uma_rede.md) para instalação e configuração de seus nós.
+
+## Acesso aos Dados pelo Público
+
+Os dados da RBB estão disponíveis para consulta pelo público em geral, conforme seu [modelo](#modelo) de blockchain público-permissionada. Isso significa que qualquer cidadão pode fazer uso de ferramentas para baixar, consultar, tratar e auditar os dados e código (*smart contracts*) gravados na blockchain.
+
+A RBB fornece um [roteiro básico]() para quem quiser ligar um nó de leitura (*"observer node"*) e uma ferramenta de visualização de blocos (*"block explorer"*) em seu próprio computador.
 
 ## Projeto
 
@@ -89,17 +97,6 @@ A RBB se baseou no *framework* da [LACChain](https://www.lacchain.net), para def
 
 ![Topologia da RBB](imagens/Topologia_RBB.png "Topologia da RBB")
 
-## Instalação
-
-Enquanto a RBB estiver em estágio de piloto ou em laboratório, para instalar nós, será necessário aderir o Acordo de Cooperação. 
-
-O roteiro de instalação técnico encontra-se [nesse link](Roteiro_para_a_criacao_de_uma_rede.md). 
-
-
-## Contato
-
-Em caso de dúvidas e sugestões, entre em contato através do e-mail [rbb@bndes.gov.br](#).
-
 ## Incidentes
 
 Para a indicação de gestores de incidentes de sua instituição participante, preencha o documento [Gestor de incidentes](https://github.com/RBBNet/rbb/blob/master/documentos/Modelo%20-%20Carta%20Gestor%20de%20Incidentes.docx) e envie para o e-mail [rbb@bndes.gov.br](#).
@@ -114,8 +111,8 @@ Vale destacar, entretanto, que **o TCU, por meio de seus representantes formalme
 
 ## Versionamento
 
-Mais informações neste link: https://github.com/RBBNet/rbb/blob/master/Versionamento.md
+A RBB utiliza regras de [versionamento semântico](versionamento.md) para seu código.
 
-## Monitoração - observer do cidadão 
+## Contato
 
-Para levantar um nó observer, vá até a pasta *monitoração/block_explorer* e siga as instruções.
+Em caso de dúvidas e sugestões, entre em contato através do e-mail [rbb@bndes.gov.br](#).
