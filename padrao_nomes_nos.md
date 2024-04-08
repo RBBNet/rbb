@@ -17,7 +17,7 @@ Exemplos de nomes válidos: `boot01`, `boot02`, `validator01`, `writer01`, `obse
 
 ## Criação e Configuração de Nós
 
-A criação e configuração de nós deve ser feita conforme o [roteiro de criação de uma rede](Roteiro_para_a_criacao_de_uma_rede.md), utilizando-se o utilitário [`rbb-cli`](Guia%20RBB-CLI.md).
+A criação e configuração de nós deve ser feita conforme o [roteiro de criação de uma rede](Roteiro_para_a_criacao_de_uma_rede.md), utilizando-se o utilitário [`rbb-cli`](guia_rbb-cli.md).
 
 Sempre que for necessário informar o nome de um nó para o `rbb-cli`, deve-se utilizar o padrão definido acima.
 
