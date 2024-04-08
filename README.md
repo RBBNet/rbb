@@ -49,6 +49,8 @@ Os dados da RBB estão disponíveis para consulta pelo público em geral, confor
 
 A RBB fornece um [roteiro básico]() para quem quiser ligar um nó de leitura (*"observer node"*) e uma ferramenta de visualização de blocos (*"block explorer"*) em seu próprio computador.
 
+A RBB também oferece um [roteiro](roteiro_criacao_rede_teste.md) para instalação e configuração de uma rede de testes local, em seu próprio computador, para aprendizado e realização de testes.
+
 ## Projeto
 
 A implantação da RBB está sendo feita de forma gradativa, conforme determinado em seu Plano de Trabalho, que tem previstas as seguintes atividades:
