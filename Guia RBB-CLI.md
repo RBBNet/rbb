@@ -31,6 +31,11 @@ Exemplo:
 ./rbb-cli node create boot01,writer01
 ``` 
 
+**Observação**: Caso o nome do nó contenha um hífen, ao se utilizar o comando `rbb-cli config set`, deve-se delimitar o nome entre `[\"` e `\"]`. Por exemplo:
+```
+./rbb-cli config set nodes.[\"observer-boot\"].ports+=[\"8545:8545\"]
+```
+
 
 ## Configuração dos nós
 

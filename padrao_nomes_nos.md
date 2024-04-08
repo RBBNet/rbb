@@ -27,6 +27,10 @@ Exemplos de comandos do `rbb-cli`:
 ./rbb-cli config set nodes.validator01.environment.BESU_DISCOVERY_ENABLED=false
 ```
 
+**Observação**: Caso o nome do nó contenha um hífen, ao se utilizar o comando `rbb-cli config set`, deve-se delimitar o nome entre `[\"` e `\"]`. Por exemplo:
+```
+./rbb-cli config set nodes.[\"observer-boot\"].ports+=[\"8545:8545\"]
+```
 
 ## Permissionamento
 
