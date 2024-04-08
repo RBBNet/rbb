@@ -43,7 +43,7 @@ As instituições participantes da RBB podem ser classificadas como:
 
 ## Projeto
 
-A implantação da RBB será feita de forma gradativa, conforme determinado em seu Plano de Trabalho, que tem previstas as seguintes atividades:
+A implantação da RBB está sendo feita de forma gradativa, conforme determinado em seu Plano de Trabalho, que tem previstas as seguintes atividades:
 
 - Implantação da rede laboratório
 - Elaboração do regulamento da RBB
@@ -52,7 +52,7 @@ A implantação da RBB será feita de forma gradativa, conforme determinado em s
 - Estruturação da produção
 - Promoção do uso da rede e evoluções
 
-Observação: O piloto será uma rede de produção, com a utilização de dados reais, porém com níveis de serviço reduzidos.
+Observação: O piloto é uma rede de produção, com a utilização de dados reais, porém com níveis de serviço reduzidos.
 
 O Plano de Trabalho tem previsão de ser executado em 60 meses a partir da assinatura do [Acordo de Cooperação](https://github.com/RBBNet/rbb/blob/master/documentos/ACT%20-%20Documento%20firmado%20entre%20BNDES%20e%20TCU.pdf) entre BNDES e TCU.
 
