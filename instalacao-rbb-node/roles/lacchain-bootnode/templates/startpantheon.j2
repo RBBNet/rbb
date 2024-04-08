@@ -1,3 +1,0 @@
-#!/bin/bash
-
-LOG4J_CONFIGURATION_FILE=/root/lacchain/log.xml pantheon --data-path /root/lacchain/data --genesis-file=/root/lacchain/data/genesis.json --network-id {{net_id}} --permissions-nodes-contract-enabled --permissions-nodes-contract-address=0x0000000000000000000000000000000000009999 --config-file=/root/lacchain/config.toml --metrics-push-enabled --metrics-push-port=9091 --metrics-push-host=35.184.17.253 --metrics-push-prometheus-job="{{node_name}}" --bootnodes

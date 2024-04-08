@@ -1,9 +1,0 @@
----
-- name: Stop Health Node
-  debug:
-      msg: Stopping Health Check Service Node
-
-- name: Stop Health Check
-  service:
-      name: health-check
-      state: stopped

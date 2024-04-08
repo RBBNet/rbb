@@ -1,9 +1,0 @@
-- name: install go
-  package:
-    name="golang"
-    state=present
-  become: yes
-
-- name: "Preparing GOPATH"
-  shell: mkdir -p /root/go/src/github
-  ignore_errors: yes

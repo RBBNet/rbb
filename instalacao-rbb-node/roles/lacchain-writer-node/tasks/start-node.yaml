@@ -1,9 +1,0 @@
----
-- name: Start Besu Node
-  debug:
-      msg: Starting Besu Node
-
-- name: Execute Pantheon service
-  service:
-      name: pantheon
-      state: started

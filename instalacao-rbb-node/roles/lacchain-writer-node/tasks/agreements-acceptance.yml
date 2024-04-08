@@ -1,7 +1,0 @@
----
-- fail:
-    msg: 'Plase Accept the conditions by typing Y when prompted.'
-  when: " (haveRead != 'Y' and haveRead != 'y') or ( isAgree != 'Y' and isAgree != 'y' ) "
-
-- debug:
-    msg: "Starting Installation"

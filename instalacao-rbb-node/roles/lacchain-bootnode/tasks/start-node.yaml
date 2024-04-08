@@ -1,9 +1,0 @@
----
-- name: Start Pantheon Node
-  debug:
-      msg: Starting Pantheon Node
-
-- name: Execute Pantheon service
-  service:
-      name: pantheon
-      state: started

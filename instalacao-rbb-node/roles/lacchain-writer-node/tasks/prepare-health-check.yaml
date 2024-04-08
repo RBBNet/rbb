@@ -1,8 +1,0 @@
-- name: Install Golang program
-  import_tasks: "install-go.yaml"
-
-- name: build executable health-check
-  import_tasks: "build-executable.yaml"
-
-- name: Init health check service
-  import_tasks: "init-health-check.yaml"

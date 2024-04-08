@@ -1,9 +1,0 @@
----
-- name: Start Health Node
-  debug:
-      msg: Starting Health Check Service Node
-
-- name: Starting Health Check
-  service:
-      name: health-check
-      state: restarted

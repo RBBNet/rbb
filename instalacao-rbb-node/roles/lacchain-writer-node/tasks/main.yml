@@ -1,7 +1,0 @@
----
-- name: Install Writer Node
-  import_tasks: "install.yaml"
-  when: install == true
-
-- name: Update Writer Node
-  import_tasks: "update.yaml"

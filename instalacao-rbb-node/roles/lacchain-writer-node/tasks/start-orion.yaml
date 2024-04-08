@@ -1,9 +1,0 @@
----
-- name: Start Orion Enclave
-  debug:
-      msg: Starting Orion Node
-
-- name: Execute Orion service
-  service:
-      name: orion
-      state: started

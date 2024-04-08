@@ -1,9 +1,0 @@
----
-- name: Stop Orion Enclave
-  debug:
-      msg: Stopping Orion Node
-
-- name: Stop Orion service
-  service:
-      name: orion
-      state: stopped 
