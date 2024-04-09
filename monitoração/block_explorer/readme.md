@@ -103,7 +103,7 @@ Ao acessar o dashboard do *block explorer* (Blockscout ou Chainlens), será poss
 
 ### Verificação de contratos - Apenas no Blockscout
 
-Após subir o Blockscout, é necessário esperar até que todos os blocos estejam indexados. Quando isso ocorrer, será possível usar os serviços do Blockscout, destacando-se o de verificação de contratos. A verificação de um smart contract envolve a submissão de seu código fonte para garantir que o *bytecode* que se encontra na blockchain corresponde ao código fonte fornecido ao usuário.
+Após subir o Blockscout, é necessário esperar até que todos os blocos estejam indexados. Esse processo é diferente de *baixar* os blocos, e pode demorar de horas a dias. Quando isso ocorrer, será possível usar os serviços do Blockscout, destacando-se o de verificação de contratos. A verificação de um smart contract envolve a submissão de seu código fonte para garantir que o *bytecode* que se encontra na blockchain corresponde ao código fonte fornecido ao usuário.
 
 Os contratos do permissionamento utilizado na RBB se encontram [nesse link](https://github.com/RBBNet/Permissionamento/tree/main/contracts).
 
