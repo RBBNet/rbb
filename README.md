@@ -47,7 +47,7 @@ Para acesso e operação da rede, as instituições participantes devem seguir o
 
 Os dados da RBB estão disponíveis para consulta pelo público em geral, conforme seu [modelo](#modelo) de blockchain público-permissionada. Isso significa que qualquer cidadão pode fazer uso de ferramentas para baixar, consultar, tratar e auditar os dados e código (*smart contracts*) gravados na blockchain.
 
-A RBB fornece um [roteiro básico]() para quem quiser ligar um nó de leitura (*"observer node"*) e uma ferramenta de visualização de blocos (*"block explorer"*) em seu próprio computador.
+A RBB fornece um [roteiro básico](https://github.com/RBBNet/rbb/tree/observer/monitora%C3%A7%C3%A3o/block_explorer) para quem quiser ligar um nó de leitura (*"observer node"*) e uma ferramenta de visualização de blocos (*"block explorer"*) em seu próprio computador.
 
 A RBB também oferece um [roteiro](roteiro_criacao_rede_teste.md) para instalação e configuração de uma rede de testes local, em seu próprio computador, para aprendizado e realização de testes.
 
