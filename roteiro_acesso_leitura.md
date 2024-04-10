@@ -63,7 +63,7 @@ Este roteiro supõe que o usuário possui uma máquina Linux ou o WSL previament
 Primeiro, faça o download do script referenciado no comando abaixo e conceda as permissões necessárias para sua execução:
 
 ```bash
-curl -#sLO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/rbb-observer
+curl -#sLO https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/rbb-observer
 chmod +x rbb-observer
 ```
 
@@ -154,7 +154,7 @@ Verifique os logs do *observer*, conforme comando informado acima.
 
 ### Blockscout não subiu
 
-Verifique os logs de erro com o comando `docker compose logs -f` a partir da pasta `./chainlens-free/docker-compose` criada pelo script. Caso não saiba como proceder, procure informações e ajuda na [comunidade do Blockscout](https://discord.gg/blockscout).
+Verifique os logs de erro com o comando `docker compose logs -f` na pasta `./blockscout/docker-compose` criada pelo script. Caso não saiba como proceder, procure informações e ajuda na [comunidade do Blockscout](https://discord.gg/blockscout).
 
 ### O carregamento de blocos no Chainlens não sai de 0%
 
