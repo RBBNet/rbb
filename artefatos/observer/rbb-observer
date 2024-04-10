@@ -53,8 +53,8 @@ Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem 
       cd ..
       found=1
     fi
-    if [ -d "blockscout-6.1.0-beta" ]; then
-      cd blockscout-6.1.0-beta/docker-compose/
+    if [ -d "blockscout" ]; then
+      cd blockscout/docker-compose/
       docker compose down --remove-orphans
       cd ../..
       found=1
@@ -69,7 +69,7 @@ Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem 
       echo "Arquivos já removidos."
       exit 0
     else
-      sudo rm -rf start start-network blockscout-6.1.0-beta chainlens-free > /dev/null 2>&1
+      sudo rm -rf start start-network blockscout chainlens-free > /dev/null 2>&1
     fi
     echo
     echo "Observer removido com sucesso."
@@ -86,7 +86,7 @@ Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem 
 esac
 
 
-curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/asciititle | bash
+curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/asciititle | bash
 
 if [ $# -eq 0 ]; then
   echo "Instalando apenas nó Observer..."
@@ -203,16 +203,17 @@ if [ "$1" == "-b" ]; then
   export CHAINID=648629
   export URL=http://$IP
   curl -#SL https://github.com/blockscout/blockscout/archive/refs/tags/v6.1.0-beta.tar.gz | tar xz
-  cd blockscout-6.1.0-beta/docker-compose/
-  curl -#LO https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/docker-compose.yml
+  mv blockscout-6.1.0-beta blockscout
+  cd blockscout/docker-compose/
+  curl -#LO https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/docker-compose.yml
   sed -i "s/\$CHAINID/${CHAINID}/g" docker-compose.yml
   cd envs
   curl -#L \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-blockscout.env \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-frontend.env \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-smart-contract-verifier.env \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-stats.env \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/monitora%C3%A7%C3%A3o/block_explorer/blockscout/docker-compose/envs/common-visualizer.env
+  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-blockscout.env \
+  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-frontend.env \
+  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-smart-contract-verifier.env \
+  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-stats.env \
+  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-visualizer.env
   sed -i "s/\$IP_LOCALHOST/${IP}/g" *
   sed -i "s/\$CHAINID/${CHAINID}/g" *
   cd ../proxy
