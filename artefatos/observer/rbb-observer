@@ -201,7 +201,7 @@ esac
 if [ "$1" == "-b" ]; then
   echo "Subindo Blockscout..."
   sleep 10
-  export CHAINID=648629
+  export CHAINID=12120014
   export URL=http://$IP
   curl -#SL https://github.com/blockscout/blockscout/archive/refs/tags/v6.1.0-beta.tar.gz | tar xz
   mv blockscout-6.1.0-beta blockscout
