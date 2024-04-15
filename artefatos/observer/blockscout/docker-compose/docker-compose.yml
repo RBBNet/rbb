@@ -5,6 +5,7 @@ services:
     extends:
       file: ./services/redis.yml
       service: redis_db
+    restart: unless-stopped
 
   db-init:
     extends:
@@ -87,3 +88,4 @@ services:
     extends:
       file: ./services/nginx.yml
       service: proxy
+    restart: unless-stopped
