@@ -49,15 +49,15 @@ Aqui temos duas situações para o observer-boot:
 
 **3.** Desabilite o permissionamento **on chain** de contas e nós, executando o comando abaixo. Você deve estar dentro do diretório start-network:
 ```
-./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
-./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.[\"observer-boot\"].environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
+./rbb-cli config set nodes.[\"observer-boot\"].environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 
 ```
 
 **4.** Habilite o permissionamento **de contas** no modo "local", ou seja, usando um arquivo. 
 ```
-./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE_ENABLED=true
-./rbb-cli config set nodes.observer-boot.environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE=\"/var/lib/besu/permissioned-accounts.toml\"
+./rbb-cli config set nodes.[\"observer-boot\"].environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE_ENABLED=true
+./rbb-cli config set nodes.[\"observer-boot\"].environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE=\"/var/lib/besu/permissioned-accounts.toml\"
 
 ```
 Crie o arquivo `volumes/observer-boot/permissioned-accounts.toml` com o seguinte conteúdo (a lista é vazia mesmo):
