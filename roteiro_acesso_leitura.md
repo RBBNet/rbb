@@ -74,7 +74,7 @@ O script pode ser utilizado de mais de uma maneira, conforme descrito nas seçõ
 Para iniciar apenas o nó *observer*, **sem** um *block explorer* "acoplado", digite o seguinte comando:
 
 ```bash
-./rbb-observer
+./rbb-observer install -o
 ```
 
 ### Opção 2 - Iniciar *observer* + Blockscout
@@ -82,7 +82,7 @@ Para iniciar apenas o nó *observer*, **sem** um *block explorer* "acoplado", di
 Para iniciar o nó *observer*, com o Blockscout "acoplado", digite o seguinte comando:
 
 ```bash
-./rbb-observer -b
+./rbb-observer install -ob
 ```
 
 Será possível acompanhar as transações e visualização dos blocos acessando a URL informada ao final da instalação, usando um navegador web.
@@ -92,10 +92,10 @@ Será possível acompanhar as transações e visualização dos blocos acessando
 Para iniciar o nó *observer*, com o Chainlens "acoplado", digite o seguinte comando:
 
 ```bash
-./rbb-observer -c
+./rbb-observer -oc
 ```
 
-Será possível acompanhar as transações e visualização dos blocos acessando o endereço *http://localhost:5001* usando um navegador web.
+Será possível acompanhar as transações e visualização dos blocos acessando o endereço HTTP informado ao final da instalação via navegador web.
 
 ## Utilização do *block explorer*
 
@@ -133,7 +133,7 @@ Por fim, clique em "verify & publish".
 Caso tenha interesse em observar o fluxo de sincronização de blocos do *observer* ou mesmo investigar problemas, utilize o seguinte comando:
 
 ```bash
-./rbb-observer --logs
+./rbb-observer logs -o
 ```
 
 ## Desinstalação
@@ -141,7 +141,7 @@ Caso tenha interesse em observar o fluxo de sincronização de blocos do *observ
 Para remover completamente o nó *observer* e *block explorer* instalados, digite:
 
 ```bash
-./rbb-observer -r
+./rbb-observer remove --all
 ```
 
 Este comando removerá todos os arquivos e dados baixados, incluindo dados de blocos da blockchain, e removerá quaisquer imagens Docker criadas.
@@ -154,14 +154,14 @@ Verifique os logs do *observer*, conforme comando informado acima.
 
 ### Blockscout não subiu
 
-Verifique os logs de erro com o comando `docker compose logs -f` na pasta `./blockscout/docker-compose` criada pelo script. Caso não saiba como proceder, procure informações e ajuda na [comunidade do Blockscout](https://discord.gg/blockscout).
+Verifique os logs de erro com o comando `./rbb-observer logs -b` Caso não saiba como proceder, procure informações e ajuda na [comunidade do Blockscout](https://discord.gg/blockscout).
 
 ### O carregamento de blocos no Chainlens não sai de 0%
 
 Talvez o *observer* não tenha conseguido se conectar com o nó de sincronização. Reinicie o nó e veja se volta a sincronizar:
 
 ```
-./rbb-observer --restart
+./rbb-observer restart -o
 ```
 
 ## Ler também
