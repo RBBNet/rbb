@@ -1,278 +1,420 @@
 #!/bin/bash
 
-if ! git --version &> /dev/null; then
-    echo "git não encontrado. Saindo..."
-    exit 1
-fi
-if ! docker --version &> /dev/null; then
-    echo "Docker não encontrado. Saindo..."
-    exit 1
-fi
-
-docker_compose_version=$(docker compose version --short)
-if [ $? -ne 0 ]; then
-    echo "Docker Compose não encontrado. Saindo..."
-    exit 1
-elif [[ "$docker_compose_version" == "2.24.7" || "$docker_compose_version" == "2.25.0" || "$docker_compose_version" == "2.26.0" ]]; then
-    echo "Versão do compose $docker_compose_version não compatível. Saindo..."
-    exit 1
-fi
-
-case "$1" in
-  -c|-b|"")
-    if docker ps | grep -q "start-network-observer-1"; then
-      echo -e "Já há um nó observer Up. Digite \e[1;33m./rbb-observer -r\e[0m para remover."
-      exit 1
-    fi
-    ;;
-  *)
-    ;;
-esac
-
-case "$1" in
-  -h | --help)
-echo 'Uso: ./rbb-obsever [OPÇÃO]
-Facilitador para implantação de um nó observer ou observer + block explorer.
-
-Se OPÇÃO não for especificado, o script instalará apenas o nó observer sem um block explorer.
-
- -c,           instala um nó observer + Chainlens como block explorer.
- -b,           instala um nó observer + Blockscout como block explorer.
- -r, --remove  desinstala o nó observer e o block explorer.
- -h, --help    mostra esta ajuda e sai.
- --logs        mostra o log de sincronização do nó observer.
- --restart     reinicia o nó observer.
-'
-    exit 0
-    ;;
-  -r | --remove)
-    found=0
-    if [ -d "start-network" ]; then
-      cd start-network
-      docker compose down --remove-orphans
-      cd ..
-      found=1
-    fi
-    if [ -d "blockscout" ]; then
-      cd blockscout/docker-compose/
-      docker compose down --remove-orphans
-      cd ../..
-      found=1
-    fi
-    if [ -d "chainlens-free" ]; then
-      cd chainlens-free/docker-compose
-      docker compose down --remove-orphans
-      cd ../..
-      found=1
-    fi
-    if [ $found -eq 0 ]; then
-      echo "Arquivos já removidos."
-      exit 0
-    else
-      sudo rm -rf start start-network blockscout chainlens-free > /dev/null 2>&1
-    fi
-    echo
-    echo "Observer removido com sucesso."
-    exit 0
-    ;;
-  --logs)
-    docker compose -f start-network/docker-compose.yml logs -f
-    exit 0
-    ;;
-  --restart)
-    docker compose -f start-network/docker-compose.yml restart
-    exit 0
-    ;;
-esac
-
-
-curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/asciititle | bash
-
-if [ $# -eq 0 ]; then
-  echo "Instalando apenas nó Observer..."
-else
-  case "$1" in
-    -b)
-      echo "Instalando nó Observer + blockscout..."
-      ;;
-    -c)
-      echo "Instalando nó Observer + Chainlens block-explorer..."
-      ;;
-    *)
-      echo "Parâmetro não reconhecido, saindo..."
-      exit 0
-      ;;
-  esac
-fi
-
-
-
-echo 'Iniciando instalação...'
-sleep 2
-
-curl -sL https://github.com/RBBNet/start-network/releases/download/v0.4.1%2Bpermv1/start-network.tar.gz | tar xz
-cd start-network
-./rbb-cli node create observer
-./rbb-cli config set nodes.observer.ports=[\"8545:8545\"]
-#./rbb-cli config set nodes.observer.address=[\"0.0.0.0:30303\"]
-
-
-
-cat > .env.configs/genesis.json << 'EOF'
-{
-  "config": {
-    "chainId": 12120014,
-    "constantinopleFixBlock": 0,
-    "berlinBlock": 0,
-    "contractSizeLimit": 2147483647,
-    "qbft": {
-      "blockperiodseconds": 4,
-      "epochlength": 30000,
-      "requesttimeoutseconds": 8
-    },
-    "discovery": {
-      "bootnodes": [
-      "enode://3fc63306a2df0b19196395dcb117af3b52f4d9b5533f8f77772baf9cab0e7f8a06e8b8191bc5ff15408dda0955ad1556359e67f04a63ff27d7fa5e60aa805815@rbb-observer-boot01.bndes.gov.br:60002",
-      "enode://5dd979ae40077dcd3ca620baeeb2328bde18b3a802e9b515181d5ef7c14b3692fc3a00d4d84ae17819d443f4fcfa13e07aa070c53aa191e7f2e46c587dc449a8@10.233.40.40:30303",
-      "enode://bf8d93733d707b30f1e09545d0ee3e57cddc697d0fdc9940540d5c4f77ec33bb8ea1cb1eeae8fccddc5b9539147dfa7ff24eb7bd82932243a77b31f83a8a7b0f@139.82.24.160:30303"
-      ]
-    }
-  },
-  "nonce": "0x0",
-  "gasLimit": "0xF42400",
-  "difficulty": "0x1",
-  "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
-  "coinbase": "0x0000000000000000000000000000000000000000",
-  "alloc": {
-    "0x0000000000000000000000000000000000008888": {
-      "comment": "Account Ingress smart contract",
-      "balance": "0",
-      "code": "608060405234801561001057600080fd5b506004361061009e5760003560e01c8063936421d511610066578063936421d5146101ca578063a43e04d8146102fb578063de8fa43114610341578063e001f8411461035f578063fe9fbb80146103c55761009e565b80630d2020dd146100a357806310d9042e1461011157806311601306146101705780631e7c27cb1461018e5780638aa10435146101ac575b600080fd5b6100cf600480360360208110156100b957600080fd5b8101908080359060200190929190505050610421565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6101196104d6565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b8381101561015c578082015181840152602081019050610141565b505050509050019250505060405180910390f35b61017861052e565b6040518082815260200191505060405180910390f35b610196610534565b6040518082815260200191505060405180910390f35b6101b461053a565b6040518082815260200191505060405180910390f35b6102e1600480360360c08110156101e057600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff1690602001909291908035906020019092919080359060200190929190803590602001909291908035906020019064010000000081111561025b57600080fd5b82018360208201111561026d57600080fd5b8035906020019184600183028401116401000000008311171561028f57600080fd5b91908080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f820116905080830192505050505050509192919290505050610544565b604051808215151515815260200191505060405180910390f35b6103276004803603602081101561031157600080fd5b810190808035906020019092919050505061073f565b604051808215151515815260200191505060405180910390f35b610349610a1e565b6040518082815260200191505060405180910390f35b6103ab6004803603604081101561037557600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610a2b565b604051808215151515815260200191505060405180910390f35b610407600480360360208110156103db57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610caf565b604051808215151515815260200191505060405180910390f35b60008060001b821161049b576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f436f6e7472616374206e616d65206d757374206e6f7420626520656d7074792e81525060200191505060405180910390fd5b6002600083815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050919050565b6060600380548060200260200160405190810160405280929190818152602001828054801561052457602002820191906000526020600020905b815481526020019060010190808311610510575b5050505050905090565b60005481565b60015481565b6000600554905090565b60008073ffffffffffffffffffffffffffffffffffffffff16610568600054610421565b73ffffffffffffffffffffffffffffffffffffffff16141561058d5760019050610735565b600260008054815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663936421d58888888888886040518763ffffffff1660e01b8152600401808773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200185815260200184815260200183815260200180602001828103825283818151815260200191508051906020019080838360005b838110156106a857808201518184015260208101905061068d565b50505050905090810190601f1680156106d55780820380516001836020036101000a031916815260200191505b5097505050505050505060206040518083038186803b1580156106f757600080fd5b505afa15801561070b573d6000803e3d6000fd5b505050506040513d602081101561072157600080fd5b810190808051906020019092919050505090505b9695505050505050565b60008060001b82116107b9576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f436f6e7472616374206e616d65206d757374206e6f7420626520656d7074792e81525060200191505060405180910390fd5b600060038054905011610817576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526047815260200180610e446047913960600191505060405180910390fd5b61082033610caf565b610875576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602b815260200180610e19602b913960400191505060405180910390fd5b6000600460008481526020019081526020016000205490506000811180156108a257506003805490508111155b15610a135760038054905081146109105760006003600160038054905003815481106108ca57fe5b9060005260206000200154905080600360018403815481106108e857fe5b9060005260206000200181905550816004600083815260200190815260200160002081905550505b600380548061091b57fe5b600190038181906000526020600020016000905590556000600460008581526020019081526020016000208190555060006002600085815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055507fe3d908a1f6d2467f8e7c8198f30125843211345eedb763beb4cdfb7fe728a5af600084604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a16001915050610a19565b60009150505b919050565b6000600380549050905090565b60008060001b8311610aa5576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f436f6e7472616374206e616d65206d757374206e6f7420626520656d7074792e81525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff161415610b2b576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526022815260200180610e8b6022913960400191505060405180910390fd5b610b3433610caf565b610b89576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602b815260200180610e19602b913960400191505060405180910390fd5b600060046000858152602001908152602001600020541415610be8576003839080600181540180825580915050906001820390600052602060002001600090919290919091505560046000858152602001908152602001600020819055505b816002600085815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055507fe3d908a1f6d2467f8e7c8198f30125843211345eedb763beb4cdfb7fe728a5af8284604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a16001905092915050565b60008073ffffffffffffffffffffffffffffffffffffffff1660026000600154815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff161415610d235760019050610e13565b60026000600154815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663fe9fbb80836040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060206040518083038186803b158015610dd557600080fd5b505afa158015610de9573d6000803e3d6000fd5b505050506040513d6020811015610dff57600080fd5b810190808051906020019092919050505090505b91905056fe4e6f7420617574686f72697a656420746f2075706461746520636f6e74726163742072656769737472792e4d7573742068617665206174206c65617374206f6e65207265676973746572656420636f6e747261637420746f20657865637574652064656c657465206f7065726174696f6e2e436f6e74726163742061646472657373206d757374206e6f74206265207a65726f2ea265627a7a723058207ca1249f31658f67f2a2383d4b63a0499b1efa44c3c2c60d73b2bdd96c412a5d64736f6c63430005090032",
-      "storage": {
-        "0x0000000000000000000000000000000000000000000000000000000000000000": "0x72756c6573000000000000000000000000000000000000000000000000000000",
-        "0x0000000000000000000000000000000000000000000000000000000000000001": "0x61646d696e697374726174696f6e000000000000000000000000000000000000",
-        "0x0000000000000000000000000000000000000000000000000000000000000004": "0x0f4240"
-      }
-    },
-    "0x0000000000000000000000000000000000009999": {
-      "comment": "Node Ingress smart contract",
-      "balance": "0",
-      "code": "608060405234801561001057600080fd5b50600436106100a95760003560e01c80634dc3fefc116100715780634dc3fefc1461026e5780638aa104351461029e578063a43e04d8146102bc578063de8fa43114610302578063e001f84114610320578063fe9fbb8014610386576100a9565b80630d2020dd146100ae57806310d9042e1461011c578063116013061461017b5780631e7c27cb146101995780633620b1df146101b7575b600080fd5b6100da600480360360208110156100c457600080fd5b81019080803590602001909291905050506103e2565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610124610497565b6040518080602001828103825283818151815260200191508051906020019060200280838360005b8381101561016757808201518184015260208101905061014c565b505050509050019250505060405180910390f35b6101836104ef565b6040518082815260200191505060405180910390f35b6101a16104f5565b6040518082815260200191505060405180910390f35b61025860048036036101008110156101ce57600080fd5b81019080803590602001909291908035906020019092919080356fffffffffffffffffffffffffffffffff19169060200190929190803561ffff169060200190929190803590602001909291908035906020019092919080356fffffffffffffffffffffffffffffffff19169060200190929190803561ffff1690602001909291905050506104fb565b6040518082815260200191505060405180910390f35b61029c6004803603602081101561028457600080fd5b810190808035151590602001909291905050506106c9565b005b6102a66107bf565b6040518082815260200191505060405180910390f35b6102e8600480360360208110156102d257600080fd5b81019080803590602001909291905050506107c9565b604051808215151515815260200191505060405180910390f35b61030a610aa8565b6040518082815260200191505060405180910390f35b61036c6004803603604081101561033657600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610ab5565b604051808215151515815260200191505060405180910390f35b6103c86004803603602081101561039c57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610d39565b604051808215151515815260200191505060405180910390f35b60008060001b821161045c576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f436f6e7472616374206e616d65206d757374206e6f7420626520656d7074792e81525060200191505060405180910390fd5b6002600083815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050919050565b606060038054806020026020016040519081016040528092919081815260200182805480156104e557602002820191906000526020600020905b8154815260200190600101908083116104d1575b5050505050905090565b60005481565b60015481565b60008073ffffffffffffffffffffffffffffffffffffffff1661051f6000546103e2565b73ffffffffffffffffffffffffffffffffffffffff161415610566577fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60001b90506106bd565b600260008054815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16633620b1df8a8a8a8a8a8a8a8a6040518963ffffffff1660e01b815260040180898152602001888152602001876fffffffffffffffffffffffffffffffff19166fffffffffffffffffffffffffffffffff191681526020018661ffff1661ffff168152602001858152602001848152602001836fffffffffffffffffffffffffffffffff19166fffffffffffffffffffffffffffffffff191681526020018261ffff1661ffff1681526020019850505050505050505060206040518083038186803b15801561067f57600080fd5b505afa158015610693573d6000803e3d6000fd5b505050506040513d60208110156106a957600080fd5b810190808051906020019092919050505090505b98975050505050505050565b3373ffffffffffffffffffffffffffffffffffffffff16600260008054815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614610781576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526033815260200180610ea36033913960400191505060405180910390fd5b7f66120f934b66d52127e448f8e94c2460ea62821335e0dd18e89ed38a4a09b41381604051808215151515815260200191505060405180910390a150565b6000600554905090565b60008060001b8211610843576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f436f6e7472616374206e616d65206d757374206e6f7420626520656d7074792e81525060200191505060405180910390fd5b6000600380549050116108a1576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526047815260200180610f016047913960600191505060405180910390fd5b6108aa33610d39565b6108ff576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602b815260200180610ed6602b913960400191505060405180910390fd5b60006004600084815260200190815260200160002054905060008111801561092c57506003805490508111155b15610a9d57600380549050811461099a57600060036001600380549050038154811061095457fe5b90600052602060002001549050806003600184038154811061097257fe5b9060005260206000200181905550816004600083815260200190815260200160002081905550505b60038054806109a557fe5b600190038181906000526020600020016000905590556000600460008581526020019081526020016000208190555060006002600085815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055507fe3d908a1f6d2467f8e7c8198f30125843211345eedb763beb4cdfb7fe728a5af600084604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a16001915050610aa3565b60009150505b919050565b6000600380549050905090565b60008060001b8311610b2f576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f436f6e7472616374206e616d65206d757374206e6f7420626520656d7074792e81525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff161415610bb5576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526022815260200180610f486022913960400191505060405180910390fd5b610bbe33610d39565b610c13576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252602b815260200180610ed6602b913960400191505060405180910390fd5b600060046000858152602001908152602001600020541415610c72576003839080600181540180825580915050906001820390600052602060002001600090919290919091505560046000858152602001908152602001600020819055505b816002600085815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055507fe3d908a1f6d2467f8e7c8198f30125843211345eedb763beb4cdfb7fe728a5af8284604051808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018281526020019250505060405180910390a16001905092915050565b60008073ffffffffffffffffffffffffffffffffffffffff1660026000600154815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff161415610dad5760019050610e9d565b60026000600154815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663fe9fbb80836040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060206040518083038186803b158015610e5f57600080fd5b505afa158015610e73573d6000803e3d6000fd5b505050506040513d6020811015610e8957600080fd5b810190808051906020019092919050505090505b91905056fe4f6e6c792052756c657320636f6e74726163742063616e20747269676765722052756c6573206368616e6765206576656e74734e6f7420617574686f72697a656420746f2075706461746520636f6e74726163742072656769737472792e4d7573742068617665206174206c65617374206f6e65207265676973746572656420636f6e747261637420746f20657865637574652064656c657465206f7065726174696f6e2e436f6e74726163742061646472657373206d757374206e6f74206265207a65726f2ea265627a7a723058208b95d097fa0ed2c9b86e5e60d93e89decddcde79ad22475fc542784d78e99aa164736f6c63430005090032",
-      "storage": {
-        "0x0000000000000000000000000000000000000000000000000000000000000000": "0x72756c6573000000000000000000000000000000000000000000000000000000",
-        "0x0000000000000000000000000000000000000000000000000000000000000001": "0x61646d696e697374726174696f6e000000000000000000000000000000000000",
-        "0x0000000000000000000000000000000000000000000000000000000000000004": "0x0f4240"
-      }
-    }
-  },
-  "extraData": "0xf83aa00000000000000000000000000000000000000000000000000000000000000000d5948cbed6ba98fd722a54126edec5f20f1df0c713fcc080c0",
-  "timestamp": "0x65dca409"
+show_help() {
+    echo "Uso: $0 [OPÇÃO]"
+    echo "Se nenhuma OPÇÃO for especificada, instalará apenas o nó observer."
+    echo ""
+    echo "Opções:"
+    echo "  install       Instala componentes com subopções -o, -c, -b, -oc, ou -ob"
+    echo "  logs          Exibe logs com subopções -o, -c, ou -b"
+    echo "  restart       Reinicia componentes com subopções -o, -c, ou -b"
+    echo "  remove        Desinstala componentes com subopções -o, -c, -b, --all"
+    echo "  -h, --help    Mostra esta ajuda e sai."
+    echo "Para mais ajuda em 'install', 'logs', 'restart', ou 'remove', use '$0 [install|logs|restart|remove] --help'"
 }
-EOF
 
-sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
-./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
-./rbb-cli config render-templates
-docker compose up -d
-if [ $? -ne 0 ]; then
-    echo "Erro ao subir o observer."
-    echo -e "Dica: \e[1;33m./rbb-observer -r\e[0m pode ajudar a remover arquivos residuais."
-    echo "Saindo..."
-    exit 1
-fi
-cd ..
+# Função para mostrar ajuda para 'install'
+show_install_help() {
+    echo "Uso: $0 install [SUBOPÇÃO]"
+    echo ""
+    echo "Subopções para 'install':"
+    echo "  -o      Instala somente o observer."
+    echo "  -c      Instala somente o Chainlens."
+    echo "  -b      Instala somente o Blockscout."
+    echo "  -oc     Instala observer + Chainlens como block explorer."
+    echo "  -ob     Instala observer + Blockscout como block explorer."
+}
+
+# Função para mostrar ajuda para 'logs', 'restart', 'remove'
+show_suboption_help() {
+    case "$1" in
+        logs)
+            echo "Uso: $0 logs [SUBOPÇÃO]"
+            echo ""
+            echo "Subopções para 'logs':"
+            echo "  -o      Mostra os logs do nó Observer"
+            echo "  -c      Mostra os logs do Chainlens"
+            echo "  -b      Mostra os logs do Blockscout"
+            ;;
+        restart)
+            echo "Uso: $0 restart [SUBOPÇÃO]"
+            echo ""
+            echo "Subopções para 'restart':"
+            echo "  -o      Reinicia o nó Observer"
+            echo "  -c      Reinicia o Chainlens"
+            echo "  -b      Reinicia o Blockscout"
+            ;;
+        remove)
+            echo "Uso: $0 remove [SUBOPÇÃO]"
+            echo ""
+            echo "Subopções para 'remove':"
+            echo "  -o      Remove o nó Observer"
+            echo "  -c      Remove o Chainlens"
+            echo "  -b      Remove o Blockscout"
+            echo "  --all   Remove todos os componentes"
+            ;;
+    esac
+    echo "  --help  Mostra esta ajuda"
+}
+
+check_dependencies() {
+    if ! git --version &> /dev/null; then
+        echo "git não encontrado. Saindo..."
+        exit 1
+    fi
+    if ! docker --version &> /dev/null; then
+        echo "Docker não encontrado. Saindo..."
+        exit 1
+    fi
+
+    docker_compose_version=$(docker compose version --short)
+    if [ $? -ne 0 ]; then
+        echo "Docker Compose não encontrado. Saindo..."
+        exit 1
+    elif [[ "$docker_compose_version" == "2.24.7" || "$docker_compose_version" == "2.25.0" || "$docker_compose_version" == "2.26.0" ]]; then
+        echo "Versão do compose $docker_compose_version não compatível. Saindo..."
+        exit 1
+    fi
+}
 
 
+asciititle() {
+  curl -s https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/asciititle | bash
+}
+
+
+install_observer() {
+    echo 'Iniciando instalação...'
+    sleep 2
+
+    curl -sL https://github.com/RBBNet/start-network/releases/download/v0.4.1%2Bpermv1/start-network.tar.gz | tar xz
+    cd start-network
+    ./rbb-cli node create observer
+    ./rbb-cli config set nodes.observer.ports=[\"8545:8545\"]
+
+    curl -#L https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/genesis.json -o .env.configs/genesis.json
+
+    sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
+    ./rbb-cli config set nodes.observer.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
+    ./rbb-cli config render-templates
+    docker compose up -d
+    if [ $? -ne 0 ]; then
+        echo "Erro ao subir o observer."
+        echo -e "Dica: \e[1;33m./rbb-observer -r\e[0m pode ajudar a remover arquivos residuais."
+        echo "Saindo..."
+        exit 1
+    fi
+    cd ..
+}
+
+install_blockscout() {
+    echo "Subindo Blockscout..."
+    sleep 10
+    export CHAINID=12120014
+    get_ip
+    export URL=http://$IP
+    curl -#SL https://github.com/blockscout/blockscout/archive/refs/tags/v6.1.0-beta.tar.gz | tar xz
+    mv blockscout-6.1.0-beta blockscout
+    cd blockscout/docker-compose/
+    curl -#LO https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/docker-compose.yml
+    sed -i "s/\$CHAINID/${CHAINID}/g" docker-compose.yml
+    cd envs
+    curl -#L \
+    -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-blockscout.env \
+    -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-frontend.env \
+    -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-smart-contract-verifier.env \
+    -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-stats.env \
+    -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-visualizer.env
+    sed -i "s/\$IP_LOCALHOST/${IP}/g" *
+    sed -i "s/\$CHAINID/${CHAINID}/g" *
+    cd ../proxy
+    sed -i "s/localhost/${IP}/g" *
+    cd ..
+    docker compose up -d
+    cd ../..
+    echo
+    sleep 10
+    echo "Block Explorer disponível em $URL"
+    open_in_browser
+}
+
+install_chainlens() {
+    echo "Subindo Chainlens..."
+    sleep 10
+    get_ip
+    export PORT=5001
+    export URL=http://$IP:$PORT
+    git clone -n https://github.com/web3labs/chainlens-free
+    cd chainlens-free
+    git checkout 484e254563948ac147795ee393af6b547ffef02d > /dev/null 2>&1
+    cd docker-compose
+    sed -i "s/WS_API_URL=http:\/\//WS_API_URL=ws:\/\//g" docker-compose.yml
+    case "$(uname -a)" in
+        *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
+            NODE_ENDPOINT=http://host.docker.internal:8545 PORT=$PORT docker compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
+            ;;
+        *)
+            NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
+            ;;
+    esac
+    cd ../..
+    echo
+    echo "Block Explorer disponível em $URL"
+    open_in_browser
+}
 
 # Host IP grabber
-case "$(uname -a)" in
-  *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
-      export IP=$(hostname -I | awk '{print $1}')
-      ;;
-  *Linux*)
-      export IP=$(hostname -I | awk '{for(i=1;i<=NF;i++) if ($i !~ /^172\./) {print $i; exit}}')
-      ;;
-  *Darwin*)
-      export IP=$(hostname -I | awk '{for(i=1;i<=NF;i++) if ($i !~ /^172\./) {print $i; exit}}')
-      ;;
+get_ip() {
+    case "$(uname -a)" in
+        *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
+            export IP=$(hostname -I | awk '{print $1}')
+            ;;
+        *Linux*)
+            export IP=$(hostname -I | awk '{for(i=1;i<=NF;i++) if ($i !~ /^172\./) {print $i; exit}}')
+            ;;
+        *Darwin*)
+            export IP=$(hostname -I | awk '{for(i=1;i<=NF;i++) if ($i !~ /^172\./) {print $i; exit}}')
+            ;;
+    esac
+}
+
+open_in_browser() {
+    case "$(uname -a)" in
+        *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
+            cmd.exe /c start "$URL" > /dev/null 2>&1
+            ;;
+        *Linux*)
+            xdg-open "$URL" > /dev/null 2>&1
+            ;;
+        *Darwin*)
+            open "$URL" > /dev/null 2>&1
+            ;;
+    esac
+}
+
+
+check_if_observer_is_absent() {
+    if [ ! -d "start-network" ]; then
+        echo "Observer ausente"
+        exit 1
+    fi
+}
+
+check_if_chainlens_is_absent() {
+    if [ ! -d "chainlens-free" ]; then
+        echo "Chainlens ausente"
+        exit 1
+    fi
+}
+
+check_if_blockscout_is_absent() {
+    if [ ! -d "blockscout" ]; then
+        echo "Blockscout ausente"
+        exit 1
+    fi
+}
+
+check_if_observer_already_installed() {
+    if ls | grep -q "start-network"; then
+        echo -e "Diretório do Observer detectado. Digite \e[1;33m./rbb-observer remove -o\e[0m para remover."
+        exit 1
+    fi
+}
+
+check_if_chainlens_already_installed() {
+    if ls | grep -q "chainlens-free"; then
+        echo -e "Diretório do Chainlens detectado. Digite \e[1;33m./rbb-observer remove -c\e[0m para remover."
+        exit 1
+    fi
+}
+
+check_if_blockscout_already_installed() {
+    if ls | grep -q "blockscout"; then
+        echo -e "Diretório do Blockscout detectado. Digite \e[1;33m./rbb-observer remove -b\e[0m para remover."
+        exit 1
+    fi
+}
+
+
+case "$1" in
+    -h | --help)
+        show_help
+        exit 0
+        ;;
+    install)
+        case "$2" in
+            --help)
+                show_install_help
+                exit 0
+                ;;
+            -o)
+                check_dependencies
+                check_if_observer_already_installed
+                asciititle
+                echo "Instalando apenas nó Observer..."
+                install_observer
+                ;;
+            -c)
+                check_dependencies
+                check_if_chainlens_already_installed
+                asciititle
+                echo "Instalando apenas o Chainlens..."
+                install_chainlens
+                ;;
+            -b)
+                check_dependencies
+                check_if_blockscout_already_installed
+                asciititle
+                echo "Instalando apenas o Blockscout..."
+                install_blockscout
+                ;;
+            -oc)
+                check_dependencies
+                check_if_observer_already_installed
+                check_if_chainlens_already_installed
+                asciititle
+                echo "Instalando nó Observer + Chainlens..."
+                install_observer
+                install_chainlens
+                ;;
+            -ob)
+                check_dependencies
+                check_if_observer_already_installed
+                check_if_blockscout_already_installed
+                asciititle
+                echo "Instalando nó Observer + Chainlens block-explorer..."
+                install_observer
+                install_blockscout
+                ;;
+            *)
+                echo "Subopção inválida para 'install'"
+                show_suboption_help "install"
+                exit 0
+                ;;
+        esac
+        ;;
+    logs)
+        case "$2" in
+            --help)
+                show_suboption_help "logs"
+                exit 0
+                ;;
+            -o)
+                check_if_observer_is_absent
+                docker compose -f start-network/docker-compose.yml logs -f
+                ;;
+            -c)
+                check_if_chainlens_is_absent
+                docker compose -f chainlens-free/docker-compose/docker-compose.yml logs -f
+                ;;
+            -b)
+                check_if_blockscout_is_absent
+                docker compose -f blockscout/docker-compose/docker-compose.yml logs -f
+                ;;
+            *)
+                if [ -z "$2" ]; then
+                    show_suboption_help "logs"
+                else
+                    echo "Subopção inválida para 'logs', saindo..."
+                fi
+                exit 0
+                ;;
+        esac
+        ;;
+    restart)
+        case "$2" in
+            --help)
+                show_suboption_help "restart"
+                exit 0
+                ;;
+            -o)
+                check_if_observer_is_absent
+                docker compose -f start-network/docker-compose.yml restart
+                ;;
+            -c)
+                check_if_chainlens_is_absent
+                docker compose -f chainlens-free/docker-compose/docker-compose.yml restart
+                ;;
+            -b)
+                check_if_blockscout_is_absent
+                docker compose -f blockscout/docker-compose/docker-compose.yml restart
+                ;;
+            *)
+                if [ -z "$2" ]; then
+                    show_suboption_help "restart"
+                else
+                    echo "Subopção inválida para 'restart', saindo..."
+                fi
+                exit 0
+                ;;
+        esac
+        ;;
+    remove)
+        case "$2" in
+            --help)
+                show_suboption_help "remove"
+                exit 0
+                ;;
+            -o)
+                check_if_observer_is_absent
+                echo "Removendo o nó Observer..."
+                sleep 2
+                docker compose -f start-network/docker-compose/docker-compose.yml down --remove-orphans > /dev/null 2>&1
+                sudo rm -rf start-network
+                echo "Nó Observer removido com sucesso."
+                ;;
+            -c)
+                check_if_chainlens_is_absent
+                echo "Removendo o Chainlens..."
+                sleep 2
+                docker compose -f chainlens-free/docker-compose/docker-compose.yml down --remove-orphans > /dev/null 2>&1
+                sudo rm -rf chainlens-free
+                echo "Chainlens removido com sucesso."
+                ;;
+            -b)
+                check_if_blockscout_is_absent
+                echo "Removendo o Blockscout..."
+                sleep 2
+                docker compose -f blockscout/docker-compose/docker-compose.yml down --remove-orphans > /dev/null 2>&1
+                sudo rm -rf blockscout
+                echo "Blockscout removido com sucesso."
+                ;;
+            --all)
+                if [[ ! -d "start-network" ]] && [[ ! -d "chainlens-free" ]] && [[ ! -d "blockscout" ]]; then
+                    echo "Nenhuma instância encontrada."
+                    exit 1
+                fi
+                echo "Removendo todos os componentes..."
+                sleep 2
+                docker compose -f start-network/docker-compose.yml down --remove-orphans
+                sudo rm -rf start-network > /dev/null 2>&1
+                docker compose -f chainlens-free/docker-compose/docker-compose.yml down --remove-orphans > /dev/null 2>&1
+                sudo rm -rf chainlens-free > /dev/null 2>&1
+                docker compose -f blockscout/docker-compose/docker-compose.yml down --remove-orphans > /dev/null 2>&1
+                sudo rm -rf blockscout > /dev/null 2>&1
+                echo "Todos os componentes removidos com sucesso."
+                ;;
+            *)
+                if [ -z "$2" ]; then
+                    show_suboption_help "remove"
+                else
+                    echo "Subopção inválida para 'remove', saindo..."
+                fi
+                exit 0
+                ;;
+        esac
+        ;;
+    *)
+        if [ -z "$1" ]; then
+            show_help
+        else
+            echo "Opção inválida, mostrando ajuda..."
+            sleep 1
+            show_help
+        fi
+        exit 0
+        ;;
 esac
 
-
-if [ "$1" == "-b" ]; then
-  echo "Subindo Blockscout..."
-  sleep 10
-  export CHAINID=12120014
-  export URL=http://$IP
-  curl -#SL https://github.com/blockscout/blockscout/archive/refs/tags/v6.1.0-beta.tar.gz | tar xz
-  mv blockscout-6.1.0-beta blockscout
-  cd blockscout/docker-compose/
-  curl -#LO https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/docker-compose.yml
-  sed -i "s/\$CHAINID/${CHAINID}/g" docker-compose.yml
-  cd envs
-  curl -#L \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-blockscout.env \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-frontend.env \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-smart-contract-verifier.env \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-stats.env \
-  -O https://raw.githubusercontent.com/RBBNet/rbb/master/artefatos/observer/blockscout/docker-compose/envs/common-visualizer.env
-  sed -i "s/\$IP_LOCALHOST/${IP}/g" *
-  sed -i "s/\$CHAINID/${CHAINID}/g" *
-  cd ../proxy
-  sed -i "s/localhost/${IP}/g" *
-  cd ..
-  docker compose up -d
-  cd ../..
-  echo
-  sleep 5
-  echo "Explorador de blocos disponível em $URL"
-
-  case "$(uname -a)" in
-    *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
-        cmd.exe /c start "$URL" > /dev/null 2>&1
-        ;;
-    *Linux*)
-        xdg-open "$URL" > /dev/null 2>&1
-        ;;
-    *Darwin*)
-        open "$URL" > /dev/null 2>&1
-        ;;
-  esac
-
-
-elif [ "$1" == "-c" ]; then
-  echo "Subindo Chainlens..."
-  sleep 10
-  export PORT=5001
-  export URL=http://$IP:$PORT
-  git clone -n https://github.com/web3labs/chainlens-free
-  cd chainlens-free
-  git checkout 484e254563948ac147795ee393af6b547ffef02d > /dev/null 2>&1
-  cd docker-compose
-  sed -i "s/WS_API_URL=http:\/\//WS_API_URL=ws:\/\//g" docker-compose.yml
-  case "$(uname -a)" in
-    *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
-      NODE_ENDPOINT=http://host.docker.internal:8545 PORT=$PORT docker compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
-      ;;
-    *)
-      NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
-      ;;
-  esac
-  cd ../..
-  echo
-  echo "Explorador de blocos disponível em $URL"
-
-  case "$(uname -a)" in
-    *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
-        cmd.exe /c start "$URL" > /dev/null 2>&1
-        ;;
-    *Linux*)
-        xdg-open "$URL" > /dev/null 2>&1
-        ;;
-    *Darwin*)
-        open "$URL" > /dev/null 2>&1
-        ;;
-  esac
-
-fi
 
 echo 'Feito.'
