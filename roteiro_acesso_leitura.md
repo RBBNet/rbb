@@ -168,8 +168,14 @@ Verifique os logs de erro com o comando `./rbb-observer logs -b` Caso não saiba
 
 Talvez o *observer* não tenha conseguido se conectar com o nó de sincronização. Reinicie o nó e veja se volta a sincronizar:
 
-```
+```bash
 ./rbb-observer restart -o
+```
+
+Caso deseje reiniciar o Chainlens, use o seguinte comando:
+
+```bash
+./rbb-observer restart -b
 ```
 
 ## Ler também
