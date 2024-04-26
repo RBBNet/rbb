@@ -65,6 +65,14 @@ Crie o arquivo `volumes/observer-boot/permissioned-accounts.toml` com o seguinte
 accounts-allowlist=[]
 ```
 
+**5.** Rode o comando abaixo para remover duplicatas de linha do arquivo `docker-compose.yml.hbs`
+```
+sed -i '/BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED/d' docker-compose.yml.hbs
+sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' docker-compose.yml.hbs
+
+```
+
+
 **6.** Em seguida , a partir do nó `observer-boot` execute o comando:
 ```
 ./rbb-cli config render-templates
