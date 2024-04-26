@@ -459,6 +459,10 @@ rbb-monitoracao
 ```
 ./rbb-cli config set nodes.boot.ports+=[\"10002:9545\"]
 ```
+> [!CAUTION]
+> Caso o nome do nó contenha traço, como "observer-boot", usar o comando no seguinte formato (sob risco de corromper o infra.json):
+> 
+> `./rbb-cli config set nodes[\"observer-boot\"].ports+=[\"10002:9545\"]`
 
 - No docker-compose.yml do nó Besu, as seguintes variáveis de ambiente devem estar configuradas:
 ```
