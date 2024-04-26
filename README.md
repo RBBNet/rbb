@@ -49,6 +49,15 @@ Os dados da RBB estão disponíveis para consulta pelo público em geral, confor
 
 A RBB fornece um [roteiro básico](roteiro_acesso_leitura.md) para quem quiser ligar um nó de leitura (*"observer node"*) e uma ferramenta de visualização de blocos (*"block explorer"*) em seu próprio computador.
 
+Quem quiser subir um nó por conta própria e se conectar, deve usar os seguintes enodes para *discovery*:
+```
+enode://3fc63306a2df0b19196395dcb117af3b52f4d9b5533f8f77772baf9cab0e7f8a06e8b8191bc5ff15408dda0955ad1556359e67f04a63ff27d7fa5e60aa805815@rbb-observer-boot01.bndes.gov.br:60002
+enode://5dd979ae40077dcd3ca620baeeb2328bde18b3a802e9b515181d5ef7c14b3692fc3a00d4d84ae17819d443f4fcfa13e07aa070c53aa191e7f2e46c587dc449a8@10.233.40.40:30303
+enode://bf8d93733d707b30f1e09545d0ee3e57cddc697d0fdc9940540d5c4f77ec33bb8ea1cb1eeae8fccddc5b9539147dfa7ff24eb7bd82932243a77b31f83a8a7b0f@139.82.24.160:30303
+```
+
+Caso o nó seja uma instância Besu, é possível utilizar como referência [este aquivo *genesis*](artefatos/observer/genesis.json), tomando-se o cuidado de utilizar as opções `--Xdns-enabled=true` e `--Xdns-update-enabled=true` para resolução correta de nomes.
+
 A RBB também oferece um [roteiro](roteiro_criacao_rede_teste.md) para instalação e configuração de uma rede de testes local, em seu próprio computador, para aprendizado e realização de testes.
 
 ## Projeto
