@@ -136,6 +136,14 @@ Caso tenha interesse em observar o fluxo de sincronização de blocos do *observ
 ./rbb-observer logs -o
 ```
 
+## Consulta aos logs do *block explorer*
+
+Caso tenha interesse em observar o fluxo de indexação de blocos do *block explorer* ou mesmo investigar problemas, utilize o seguinte comando:
+
+```bash
+./rbb-observer logs -b
+```
+
 ## Desinstalação
 
 Para remover completamente o nó *observer* e *block explorer* instalados, digite:
