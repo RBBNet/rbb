@@ -107,7 +107,8 @@ A RBB se baseou no *framework* da [LACChain](https://www.lacchain.net), para def
       - Observação: Atualmente a RBB ainda **não** suporta nós conectores com essa possibilidade.
 
 ![Topologia da RBB](arquitetura/imagens/core-satellite.png "Topologia da RBB")
-![Legenda](arquitetura/imagens/legenda-core-satellite "Legenda")
+
+![Legenda](arquitetura/imagens/legenda-core-satellite.png "Legenda")
 
 
 ## Incidentes
