@@ -106,7 +106,10 @@ A RBB se baseou no *framework* da [LACChain](https://www.lacchain.net), para def
     - Podem conectar-se apenas com nós conectores que estiverem abertos para permitir a leitura de blocos.
       - Observação: Atualmente a RBB ainda **não** suporta nós conectores com essa possibilidade.
 
-![Topologia da RBB](imagens/Topologia_RBB.png "Topologia da RBB")
+![Topologia da RBB](arquitetura/imagens/core-satellite.png "Topologia da RBB")
+
+![Legenda](arquitetura/imagens/legenda-core-satellite.png "Legenda")
+
 
 ## Incidentes
 
