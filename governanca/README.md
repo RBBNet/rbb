@@ -12,7 +12,7 @@ reuniões formais da Governança da RBB. Inicialmente, estas incluíam apenas o 
 - RNP - Aderente Associado.
 - Prodemge - Aderente Associado.
 
-Na terceira reunião da Governança da RBB, já com a participações de TCU, BNDES, Dataprev, CPQD e RNP, foi aprovado o Regulamento da RBB ([link para a ata com o Regulamento](reunioes_comite_executivo\2022-11-29_reuniao\2022-11-29-Ata-Reunião-Governança-RBB-Assinada.pdf)). O Regulamento dividiu a governança em dois comitês: o Comitê Executivo e o Comitê Técnico, definidos da seguinte forma: 
+Na terceira reunião da Governança da RBB, já com a participações de TCU, BNDES, Dataprev, CPQD e RNP, foi aprovado o Regulamento da RBB ([link para a ata com o Regulamento](reunioes_comite_executivo/2022-11-29_reuniao/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)). O Regulamento dividiu a governança em dois comitês: o Comitê Executivo e o Comitê Técnico, definidos da seguinte forma: 
 
 - **Comitê Executivo**, que é responsável por:
   - Desenvolver e atualizar o Regulamento da RBB;
