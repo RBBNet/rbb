@@ -1,6 +1,6 @@
 # Roteiro para solicitação de adesão à RBB
 
-Nos procedimentos abaixo, todos os documentos são digitais e suas assinaturas, quando requeridas, deverão seguir as especificações da ICP-Brasil ou usar o padrão gov.br. Os documentos solicitados podem ser enviados para o e-mail rbb@bndes.gov.br (não obrigatório). Temporariamente, use o e-mail glads@bndes.gov.br. 
+Nos procedimentos abaixo, todos os documentos são digitais e suas assinaturas, quando requeridas, deverão seguir as especificações da ICP-Brasil ou usar o padrão Gov.Br. Os documentos solicitados devem ser enviados para o e-mail rbb@bndes.gov.br.
 
 Os solicitantes à RBB devem: 
 - Preencher, assinar e apresentar o [Termo de Adesão](documentos/Termo-de-Adesao_RBB.docx). Sobre o seu preenchimento:
