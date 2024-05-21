@@ -48,12 +48,12 @@
 
 # Reuniões do Comitê Executivo realizadas
 - 14/12/2023
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2023-12-14_reuniao/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_assinada.pdf)
+  - [Ata assinada digitalmente](2023-12-14_reuniao/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_assinada.pdf)
   - Destaques:
     - Manual de Operações.
     - Cronograma do Piloto.
 - 16/11/2023
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2023-11-16_reuniao/2023-11-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_v1-assinado.pdf)
+  - [Ata assinada digitalmente](2023-11-16_reuniao/2023-11-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_v1-assinado.pdf)
   - Destaques:
     - Manual de Operações.
     - Proposta sobre o Piloto.
@@ -83,42 +83,42 @@
     - Avanço significativo de todas as organizações.
     - Apresentação PUC-Rio
 - 01/06/2023
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2023-06-01_reuniao/2023-06-01-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](2023-06-01_reuniao/2023-06-01-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
   - Destaques:
     - Adesão da Secretaria de Estado de Transparência e Controle do Maranhão. 
 - 27/04/2023
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2023-04-27_reuniao/2023-04-27-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](2023-04-27_reuniao/2023-04-27-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
   - Destaques:
     - Relatos sobre as frentes em andamento no Comitê Técnico.
     - Relato sobre contato com representante do Comitê Paralímpico Brasileiro.
     - Adesão da PUC-RJ ao Acordo da RBB.
     - Planejamento para o piloto.
 - 23/03/2023
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2023-03-23_reuniao/2023-03-23-RBB-Ata-Reunião-Comitê-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](2023-03-23_reuniao/2023-03-23-RBB-Ata-Reunião-Comitê-Executivo-Assinada.pdf)
   - Sem destaques.
 - 16/02/2023
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2023-02-16_reuniao/2023-02-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](2023-02-16_reuniao/2023-02-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
   - Destaques:
     - Relatos sobre as iniciativas em andamento no Comitê Técnico.
     - Ajustes no Regulamento para aceitação de assinaturas gov.br. 
 - 19/01/2023
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2023-01-19_reuniao/2023-01-19-RBB-Ata-Reuniao-Comite-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](2023-01-19_reuniao/2023-01-19-RBB-Ata-Reuniao-Comite-Executivo-Assinada.pdf)
   - Destaques:
     - Aprovada adesão da Prodemge ao Acordo da RBB. 
     - Aprovado uso de assinaturas gov.br para documentos recebidos ou produzidos pela RBB.
 - 29/11/2022
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2022-11-29_reuniao/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)
+  - [Ata assinada digitalmente](2022-11-29_reuniao/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)
   - Destaques:
     - Aprovado o Regulamento da RBB. 
     - Os Comitês criados pelo Regulamento (Comitê Executivo e Comitê Técnico) iniciam suas operações tendo o BNDES como coordenador.
     - Será produzido um modelo de carta para designação dos representantes no Comitê Técnico.
     - Outros temas foram debatidos.
 - 01/11/2022
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2022-11-01_reuniao/2022-11-01-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)
+  - [Ata assinada digitalmente](2022-11-01_reuniao/2022-11-01-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)
   - Destaques:
     - Aceitas as adesões de Prodest, Dataprev, CPqD e RNP.
     - Criação de Discord do projeto: https://discord.gg/sHSygnAUVk
 - 22/08/2022
-  - [Ata assinada digitalmente](reunioes_comite_executivo/2022-08-22_reuniao/2022-08-22-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinado.pdf)
+  - [Ata assinada digitalmente](2022-08-22_reuniao/2022-08-22-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinado.pdf)
   - Ouvintes presentes:
     - Eldon Teixeira Coutinho - TCU
