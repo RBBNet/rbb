@@ -1,0 +1,81 @@
+# Reuniões do Comitê Técnico realizadas em 2024
+
+- 22/05/2024
+  - Pauta proposta:
+    - Acompanhamento.
+    - Uso de nomes e múltiplos IPs nos nós.
+    - Planning da maturação do piloto.
+- 08/05/2024
+  - Pauta proposta:
+    - Acompanhamento.
+	- Apresentação - Caso de uso Solução Online de Licitação (SOL)
+- 08/05/2024
+  - Pauta proposta:
+    - Acompanhamento.
+    - Uso de nomes e múltiplos IPs nos nós.
+    - Incidente no validador do BNDES.
+    - Planejamento próximos passos.
+- 24/04/2024
+  - Pauta proposta:
+    - Acompanhamento.
+	- Apresentação - Identidade Digital Descentralizada (IDD)
+- 17/04/2024
+  - Pauta proposta:
+    - Acompanhamento.
+	- Incidente no piloto.
+	- Comunicação.
+	- Apresentação - Caso de uso RNP.
+- 10/04/2024
+  - Pauta proposta:
+    - Acompanhamento.
+	- Incidentes no piloto.
+	- Próximas reuniões.
+	- Treinamento - Gestão de incidentes.
+- 03/04/2024
+  - Pauta proposta:
+    - Acompanhamento.
+	- Alertas.
+	- Treinamento - Gestão de incidentes.
+- 27/03/2024
+  - Pauta proposta:
+    - Acompanhamento.
+	- *On boarding* Prodemge.
+	- Gestão de incidentes.
+	- Outros itens.
+- 20/03/2024
+  - Pauta proposta:
+    - Acompanhamento.
+	- *On boarding* Prodemge.
+	- Gestão de incidentes.
+	- Outros itens.
+- 13/03/2024
+  - Pauta proposta:
+    - Acompanhamento.
+	- Gestão de incidentes.
+	- Outros itens.
+- 06/03/2024
+  - Pauta proposta:
+    - Acompanhamento.
+	- Gestores de incidentes.
+	- Outros itens.
+- 28/02/2024
+  - Pauta proposta:
+    - Acompanhamento.
+    - Gestores de incidentes.
+    - Padrões de nomes dos nodes (confirmação).
+    - Outros itens. 
+- 21/02/2024
+  - Pauta Proposta:
+    - Acompanhamento.
+    - Gestores de Incidentes.
+    - Padrões de nomes dos nodes.
+    - Outros itens.
+- 07/02/2024
+  - Pauta Proposta:
+    - Sobre o Cronograma.
+    - Acompanhamento.
+    - Gestores de Incidentes.
+- 31/01/2024
+  - Pauta Proposta:
+    - Sobre o Cronograma.
+    - Acompanhamento.
