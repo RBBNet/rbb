@@ -5,7 +5,7 @@
     - Acompanhamento.
     - Uso de nomes e múltiplos IPs nos nós.
     - Planning da maturação do piloto.
-- 08/05/2024
+- 15/05/2024
   - Pauta proposta:
     - Acompanhamento.
 	- Apresentação - Caso de uso Solução Online de Licitação (SOL)
