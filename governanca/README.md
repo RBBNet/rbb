@@ -6,11 +6,13 @@ A partir da assinatura do Acordo de Cooperação entre o BNDES e o TCU no dia 12
 reuniões formais da Governança da RBB. Inicialmente, estas incluíam apenas o BNDES e o TCU, que são os Partícipes Patronos. A partir do exame documental e formalização das adesões dos Partícipes Aderentes, estes passam a participar das reuniões de Governança da RBB. No momento, os Partícipes da RBB (e os modos de participação) são os seguintes:
 - TCU - Patrono. 
 - BNDES - Patrono.
-- Prodest - Aderente Associado.
 - Dataprev - Aderente Associado.
 - CPQD - Aderente Associado.
 - RNP - Aderente Associado.
 - Prodemge - Aderente Associado.
+- PUC-RJ - Aderente parceiro. 
+- Secretaria de Transparência e Controle do Estado do Maranhão - Aderente Parceiro.
+- Município de Araguaína - Aderente Parceiro. 
 
 Na terceira reunião da Governança da RBB, já com a participações de TCU, BNDES, Dataprev, CPQD e RNP, foi aprovado o Regulamento da RBB ([link para a ata com o Regulamento](reunioes_comite_executivo/2022-11-29_reuniao/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)). O Regulamento dividiu a governança em dois comitês: o Comitê Executivo e o Comitê Técnico, definidos da seguinte forma: 
 
