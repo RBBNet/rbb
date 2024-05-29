@@ -34,7 +34,7 @@
 
 ## Arquitetura
 
-As visões arquiteturais apresentam diferentes perspectivas do design do sistema de acompanhamento de compras. 
+As visões arquiteturais apresentam diferentes perspectivas do design da RBB: 
 
 - [Visão de infraestrutura - infra básica](visoes/infra-basica.md)
 - [Visão de permissionamento](visoes/permissionamento.md)
