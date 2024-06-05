@@ -493,7 +493,16 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
 ```
 O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização.
 
-- Preencher o arquivo **monitoring-endpoints.md** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/monitoring-endpoints.md` com o valor para o label _organization_ da organização usado nas métricas, o IP e a porta do Prometheus que exporta as métricas.
+- Preencher o arquivo **nodes.json** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`:
+  - Encontre no arquivo a organização (atributo `organization`) correspondente.
+  - Acrescente um nó equivalente ao Prometheus na lista de nós (atributo `nodes`).
+  - Informe:
+    - Nome (`name`): por exemplo com o valor `prometheus01`.
+	- Tipo de nó (`nodeType`): com valor `prometheus`.
+    - Nome de host (lista `hostNames`): prencher com lista de nomes, caso exista algum. Caso contrário, não adicionar este atributo.
+    - Endereço(s) IP (lista `ipAddresses`): prencher lista de endereços IP. Caso só exista um endereço, preencha uma lista de apenas um elemento.
+    - Porta (`port`): porta IP utilizada.
+
 > [!NOTE]
 > As devidas liberações de firewall devem ser providenciadas.
 
@@ -508,7 +517,7 @@ A forma de capturar as métricas de outras organizações pode variar bastante. 
       organization: <nome da organização>
 ```
 > [!NOTE]
-> O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **monitoring-endpoints.md**.
+> O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **nodes.json**.
 
 #### 4.5.4 Levantar o Prometheus
 - Uma vez alterado o arquivo prometheus.yml, levante o container do Prometheus:
