@@ -1,4 +1,3 @@
-
 # Roteiro para a criação de uma rede
 
 <picture>
@@ -125,15 +124,45 @@ As instituições devem compartilhar num arquivo, os `enodes` e os `endereços (
 
 Para isso, deve-se usar um arquivo no seguinte repositório privado apenas para os participantes da rede: <https://github.com/RBBNet/participantes>. Este repositório deverá conter uma pasta que corresponde à rede que está sendo implantada. Esta pasta conterá alguns arquivos compartilhados pelo grupo, incluindo a lista de enodes.
 
-Para exemplificar, considere que o nome da rede é atribuída à variável
-rede, o que será útil em alguns momentos. Se a rede em implantação é a rede de laboratório, temos $rede=**"lab"**. Se é a rede piloto, $rede=**"piloto"**.
+Para exemplificar, considere que o nome da rede é atribuída à variável `${rede}`, o que será útil em alguns momentos. Se a rede em implantação é a rede de laboratório, temos `${rede}`=**"lab"**. Se é a rede piloto, `${rede}`=**"piloto"**.
 
-Assim, a lista de enodes ficará no arquivo em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/enodes.md`, com o formato sugerido abaixo. Observe que os enodes nessa lista usarão **sempre** os IPs **externos**. Para os writers, o IP e porta é necessário **apenas para os writers dos partícipes parceiros**. **Não é necessário** informar o IP e porta dos writers internos nessa lista.
+Assim, a lista de enodes ficará no arquivo em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`, com o formato definido abaixo. Observe que os enodes nessa lista usarão **sempre** os IPs **externos**. Para os writers, o IP e porta é necessário **apenas para os writers dos partícipes parceiros**. **Não é necessário** informar o IP e porta dos writers internos nessa lista.
 
-| Membro    | Tipo de Nó    |Enode                                     |Account            |
-|-----------|---------------|------------------------------------------|-------------------|
-|BNDES      | Boot          |`enode://91c......3b@<IP address>:<port>` |                   |
-|TCU        | Validator     |`enode://2b5......59@<IP address>:<port>` |0x5bcd....a4861984b|
+Formato do arquivo `nodes.json`:
+
+```
+[
+  {
+    "organization": "...",
+    "nodes": [
+      {
+        "name": "...",
+        "nodeType": "...",
+        "enode": "",
+        "hostNames": [ "...", "..." ... ],
+        "ipAddresses" : [ "...", "..." ... ],
+        "port": ...,
+        "id": "..."
+      }
+      ...
+    ]
+  }
+  ...
+]
+```
+
+Onde:
+- `organization` é nome da organização.
+- `nodes` é a lista de nós da organização.
+- `name` é o nome do nó, conforme o [padrão de nomes da RBB](padrao_nomes_nos.md).
+- `nodeType` é o tipo do nó, podendo ser um dos seguintes valores: `boot`, `validator`, `writer`, `observer-boot` ou `prometheus`.
+- `enode` é a chave pública do nó (sem o prefixo `0x`).
+- `hostNames` é a lista com os nomes de host do nó, caso exista algum. Caso o nó não tenha nome de host correspondente, não adicione este atributo. Caso o nó tenha apenas um nome de host, preencha a lista com um único elemento.
+- `ipAddresses` é a lista de endereços IP do nó. Caso só exista um endereço, preencha a lista com um único elemento.
+- `port` é a porta IP utilizada pelo nó.
+- `id` é o identificador do nó (com o prefixo `0x`). Este atributo deve ser utilizado para os nós do tipo `validator`.
+
+Em caso de dúvidas, é possível utiliar o [JSON schema](https://github.com/RBBNet/participantes/blob/main/nodes.schema.json) definido para o arquivo `nodes.json` no repositório privado dos participantes.
 
 ### 1.5 - Compartilhar endereço de conta de administração
 
@@ -243,7 +272,7 @@ Caso você **não** seja a instituição inicial pule para a [seção 3](#3---at
 
   Em `INITIAL_ALLOWLISTED_ACCOUNTS`, conforme o template, insira os endereços de conta de administração da lista localizada em: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/adminAddresses.md`. As listas de administração e de conta (endereços de conta permitidos de enviarem transações na rede) são diferentes e independentes. Desta forma, faz-se necessário adicionar os endereços de conta de adminstração também nesta variável de ambiente para que seja possível enviar transações na rede.
 
-  Em `INITIAL_ALLOWLISTED_NODES`, conforme o template, insira as informações de todos os nós da lista localizada em: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/enodes.md`. As informações de cada nó devem ser separadas por vírgula e devem ser inseridas da seguinte forma:
+  Em `INITIAL_ALLOWLISTED_NODES`, conforme o template, insira as informações de todos os nós, com exceção dos nós do tipo `prometheus`, da lista localizada em: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`. As informações de cada nó devem ser separadas por vírgula e devem ser inseridas da seguinte forma:
   
   ```.env
   enode://<chave-pública-SEM-0x>|<tipo-do-nó-(0: Boot, 1: Validator, 2: Writer, 3: WriterPartner, 4: ObserverBoot, 5: Other)>|<geohash-do-nó>|<nome-do-nó>|<nome-da-instituição>
@@ -308,7 +337,7 @@ As seguintes atividades serão executadas nesse sub-roteiro:
 
 Os passos acima serão detalhados a seguir.
 
-Os enodes que serão inseridos nos arquivos genesis.json e static-nodes.json podem ser obtidos no seguinte arquivo anteriormente compartilhado: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/enodes.md`.
+Os enodes que serão inseridos nos arquivos genesis.json e static-nodes.json podem ser obtidos no seguinte arquivo anteriormente compartilhado: `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`.
 
 #### 4.1.1 - Cópia do genesis.json para os nós
 
@@ -417,10 +446,10 @@ docker-compose up -d
 - Através de um validator, execute o seguinte comando **para votar em um outro validator**:
 
 ```bash
-curl -X POST --data '{"jsonrpc":"2.0","method":"qbft_proposeValidatorVote","params":["<endereço-do-validator-SEM-0x>",true], "id":1}' <JSON-RPC-endpoint-validator>:<porta>
+curl -X POST --data '{"jsonrpc":"2.0","method":"qbft_proposeValidatorVote","params":["<identificador-do-validator-SEM-0x>",true], "id":1}' <JSON-RPC-endpoint-validator>:<porta>
 ```
 
-O endereço dos validadores pode ser obtido em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/enodes.md` na coluna "Account".
+Os identificadores dos validadores pode ser obtido em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json` no atributo `id` de cada nó.
 
 ### 4.4 - Levantar dApp de permissionamento
 
