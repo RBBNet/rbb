@@ -1,5 +1,11 @@
 # Reuniões do Comitê Técnico realizadas em 2024
 
+- 12/06/2024
+  - Pauta proposta:
+    - Acompanhamento.
+    - Incidentes.
+	- Múltiplos IPs.
+    - Planning da maturação do piloto.
 - 05/06/2024
   - Pauta proposta:
     - Acompanhamento.
