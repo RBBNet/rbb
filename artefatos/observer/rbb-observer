@@ -151,7 +151,7 @@ install_chainlens() {
     sed -i "s/WS_API_URL=http:\/\//WS_API_URL=ws:\/\//g" docker-compose.yml
     case "$(uname -a)" in
         *CYGWIN*|*MINGW*|*MSYS*|*Microsoft*|*microsoft*|*WSL*|*wsl*)
-            NODE_ENDPOINT=http://localhost:8545 PORT=$PORT docker compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
+            NODE_ENDPOINT=http://host.docker.internal:8545 PORT=$PORT docker compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
             ;;
         *)
             NODE_ENDPOINT=http://$IP:8545 PORT=$PORT docker compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up -d
