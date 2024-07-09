@@ -37,7 +37,7 @@ Para cada nó será necessário definir um endereço IP e porta para acesso exte
 
 ### 2.2 - Definição de nomes
 
-Os nós participantes de uma rede RBB devem seguir o [padrão estabelecido](padrao_nomes_nos.md), que compreende o padrão `<tipo_no><sequencial>`. Usualmente, o primeiro nó de um certo tipo tem o sequencial `01`. Fica a cargo de cada partícipe adequar o sequencial de acordo com a configuração desejada em sua infraestrutura.
+Os nós participantes de uma rede RBB devem seguir o [padrão estabelecido](padrao_nomes_nos.md), que compreende o padrão `<tipo_no><sequencial>` (ex.: validator01, boot02). Usualmente, o primeiro nó de um certo tipo tem o sequencial `01`. Fica a cargo de cada partícipe adequar o sequencial de acordo com a configuração desejada em sua infraestrutura.
 
 ### 2.3 - Definição de nome de host (Opcional)
 
