@@ -245,9 +245,9 @@ As seguintes regras de firewall deverão ser configuradas por sua instituição:
 - Todos os validators devem conseguir conectar-se entre si. Por isso, para seus validators:
   - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu validator a partir dos outros validators que integram a RBB.
   - Permita conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos outros validators que integram a RBB.
-- Todos os boots devem conseguir conectar-se entre si. Por isso, para seus boots:
-  - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu boot a partir dos outros boots que integram a RBB, além dos writers dos partícipes paceiros.
-  - Permita conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos outros boots que integram a RBB, além dos writers dos partícipes parceiros.
+- Todos os boots devem conseguir conectar-se entre si e com os writers dos **partícipes parceiros**. Por isso, para seus boots:
+  - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu boot a partir dos outros boots que integram a RBB, além dos writers dos **partícipes paceiros**.
+  - Permita conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos outros boots que integram a RBB, além dos writers dos **partícipes parceiros**.
 - Os observer-boots devem estar acessíveis por qualquer nó da Internet: 
   - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu observer-boot a partir de **qualquer endereço IP**.
 
