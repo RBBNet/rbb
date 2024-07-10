@@ -446,6 +446,7 @@ rbb-monitoracao
 > As configurações a seguir devem ser realizadas em cada nó do Besu.
 
 - Mapeie a porta padrão das métricas (9545) em uma porta do host. O exemplo abaixo usa o script *rbb-cli* para mapear a porta de métricas para o boot na porta 10002 do host. O comando correspondente (assumindo o sequencial do nome como 01: **nodes.<boot01|validator01|writer01>.ports**) deverá ser realizado para os demais nós.
+
 Ex.:
 ```
 ./rbb-cli config set nodes.boot01.ports+=[\"<porta-metricas>:9545\"]
@@ -473,7 +474,7 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
 ```
 - job_name: rbb
   labels:
-    node: <boot|validator|writer|prometheus>, conforme o nó de origem da métrica. 
+    node: <boot01|validator01|writer01|prometheus01|observer-boot01>, conforme o nó de origem da métrica. 
     organization: <nome da organização>
 ```
 O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização.
@@ -489,7 +490,7 @@ O arquivo de configuração do [repositório de monitoração](https://github.co
     - Porta (`port`): porta IP utilizada.
 
 > [!NOTE]
-> As devidas liberações de firewall devem ser providenciadas.
+> As devidas liberações de firewall devem ser providenciadas com base nas informações do `nodes.json`.
 
 ## 12.3 - Capturar as métricas de outras organizações
 A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por dashboards (Grafana, Zabix, etc.). No repositório de monitoração, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração pode ser verificada no arquivo prometheus.yml, *job_name: rbb_federado*. 
@@ -514,7 +515,29 @@ docker-compose up -d
 
 # 13 - Implantar block explorer (opcional)
 
-EM ELABORAÇÃO.
+## Chainlens Block Explorer
+
+- Executar no node que irá executar o block explorer:
+
+```bash
+git clone -n https://github.com/web3labs/chainlens-free
+
+cd chainlens-free
+
+git checkout 484e254563948ac147795ee393af6b547ffef02d > /dev/null 2>&1
+
+cd docker-compose
+
+sed -i "s/WS_API_URL=http:\/\//WS_API_URL=ws:\/\//g" docker-compose.yml
+
+NODE_ENDPOINT=http://<ip-interno-node>:<porta-rpc> PORT=<porta-blockexplorer> docker-compose -f docker-compose.yml -f chainlens-extensions/docker-compose-besu.yml up
+```
+
+- Acessar no browser remoto:
+
+```bash
+http://<ip-interno-node>:<porta-blockexplorer>
+```
 
 # 14 - Cadastar conta admin (opcional)
 
