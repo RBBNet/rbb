@@ -15,6 +15,8 @@ Este roteiro tem como objetivo a adição de novos nós a uma rede RBB já estab
 - [Docker](https://www.docker.com/products/docker-desktop/)
 - cURL
 
+-> **Faltam requisitos de CPU, memória e storage**
+
 ### 1.2 - Baixar o repositório `start-network`
 
 - Execute os seguintes comandos:
@@ -30,10 +32,11 @@ Daqui para frente, para cada novo nó, considere que todos os comandos são exec
 
 ### 2.1 - Definção de endereço IP externo e porta
 
-Para cada nó será necessário definir um endereço IP e porta para acesso externos pelos demais partícipes ou, especificamente no caso de nó observer-boot, pelo público em geral. A exceção será no caso de nó wirter dos partícipes associados, que será acessível apenas de forma interna a cada partícipe.
+Para cada nó será necessário definir um endereço IP e porta para acesso externo pelos demais partícipes ou, especificamente no caso de nó observer-boot, pelo público em geral. A exceção será no caso de nó wirter dos partícipes associados, que será acessível apenas de forma interna a cada partícipe.
 
 É permitido, para fins de redundância e/ou balanceamento de carga, que um nó tenha mais de um endereço IP.
 
+Obs.: Cada nó, na verdade, usa duas portas: uma porta RPC para interação humana (envio de transações, de comandos de gestão etc); e uma porta P2P, para comunicação com outros nós.
 
 ### 2.2 - Definição de nomes
 
@@ -156,14 +159,14 @@ Siga um ou vários dos itens a seguir de acordo com o(s) tipo(s) de nó que quis
 ./rbb-cli config set nodes[\"observer-boot<sequencial>\"].address=\"<ip-externo>:<porta-p2p>\"
 ```
 
-- Desligar o permissionamento *on chain*:
+- Desligar o permissionamento *on chain* tanto para contas quanto para nós:
 
 ```bash
 ./rbb-cli config set nodes[\"observer-boot<sequencial>\"].environment.BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED=false
 ./rbb-cli config set nodes[\"observer-boot<sequencial>\"].environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false
 ```
 
-- Ligar o permissionamento local:
+- Ligar o permissionamento local para contas:
 
 ```bash
 ./rbb-cli config set nodes[\"observer-boot<sequencial>\"].environment.BESU_PERMISSIONS_ACCOUNTS_CONFIG_FILE_ENABLED=true
@@ -176,13 +179,18 @@ Siga um ou vários dos itens a seguir de acordo com o(s) tipo(s) de nó que quis
 accounts-allowlist=[]
 ```
 
-**Observarção**: A inteção desse arquivo é ter uma lista de contas **vazia**, de forma **não** permitir conta alguma a enviar transações. Deve-se lembrar que o observer-boot é o único tipo de nó da RBB com acesso público, que deve ser utilizado **somente para leitura**.
+**Observarção**: A inteção desse arquivo é ter uma lista de contas **vazia**, de forma **não** permitir conta alguma enviar transações. Deve-se lembrar que o observer-boot é o único tipo de nó da RBB com acesso público e que deve ser utilizado **somente para leitura**.
 
 ## 3 - Documentação do(s) novo(s) nó(s)
 
 Com base nas informações definidas no passo anterior, a documentação da RBB deve ser atualizada. As informações dos nós devem ser compartilhadas para que todas as instituições conheçam as informações de todos os nós da rede e possam conectar esses nós conforme a topologia da rede.
 
-Para isso, deve-se documentar as informações definidas no item anterior em arquivo no repositório privado apenas para os participantes da rede: <https://github.com/RBBNet/participantes>, no arquivo `nodes.json`, no seguinte formato:
+Para isso, deve-se documentar as informações definidas no item anterior, acrescentando-as no arquivo localizado no repositório privado, com acesso restrito apenas para os participantes da rede: <https://github.com/RBBNet/participantes>. 
+
+O arquivo é o `nodes.json`, que se encontra em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede os novos nós devam ser adicionados. 
+
+O arquivo `nodes.json` possui o seguinte formato:
+
 
 ```
 [
@@ -218,13 +226,13 @@ Onde:
 
 Em caso de dúvidas, é possível utiliar o [JSON schema](https://github.com/RBBNet/participantes/blob/main/nodes.schema.json) definido para o arquivo `nodes.json` no repositório privado dos participantes.
 
-O arquivo `nodes.json` encontra-se em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede os novos nós devam ser adicionados.
-
 ## 4 - Comunicação
 
-Comunique aos demais partícipes da rede sobre a inclusão de novos nós na rede. Várias atividades deverão ser realizadas em conjunto para o correto funcionamento dos novos nós.
+Comunique aos demais partícipes da rede sobre a inclusão de novos nós na rede. Várias atividades deverão ser realizadas em conjunto para o correto funcionamento dos novos nós, logo há necessidade de uma coordenação a partir desse ponto. 
 
 ## 5 - Regras de firewall
+
+Os passos 5.1 e 5.2 podem ser executados em paralelo pelo partícipe que está aderindo à rede (5.1) e pelos outros partícipes (5.2). 
 
 As conexões entre os nós writer, boot, validator e observer-boot de uma instituição se dará por endereços IP **internos** e as conexões entre nós de diferentes instituições se dará por endereços IP **externos**. O diagrama a seguir pode ser útil para melhor compreensão.
 
@@ -238,14 +246,10 @@ As seguintes regras de firewall deverão ser configuradas por sua instituição:
   - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu validator a partir dos outros validators que integram a RBB.
   - Permita conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos outros validators que integram a RBB.
 - Todos os boots devem conseguir conectar-se entre si. Por isso, para seus boots:
-  - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu boot a partir dos outros boots que integram a RBB.
-  - Permita conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos outros boots que integram a RBB.
-- Os writers dos **partícipes parceiros** devem conseguir conectar-se com todos os boots. Por isso, para seu writer:
-  - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu writer a partir dos boots que integram a RBB.
-  - Permita conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos boots que integram a RBB.
-- Os observer-boots dos **partícipes parceiros** devem conseguir conectar-se com todos os boots e serem acessíveis de forma pública. Por isso, para seu observer-boot:
+  - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu boot a partir dos outros boots que integram a RBB, além dos writers dos partícipes paceiros.
+  - Permita conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos outros boots que integram a RBB, além dos writers dos partícipes parceiros.
+- Os observer-boots devem estar acessíveis por qualquer nó da Internet: 
   - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu observer-boot a partir de **qualquer endereço IP**.
-  - Permita conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos boots que integram a RBB.
 
 Temos optado por configurar regras tanto para UDP quanto para TCP, embora suspeitemos que UDP seja necessário apenas para nós que participam do discovery (boot e observer-boot). Ainda não testamos, porém, não abrir o UDP para validators e writers.
 
@@ -259,21 +263,20 @@ As seguintes regras de firewall deverão ser configuradas pelas demais institui�
 - Todos os boots devem conseguir conectar-se entre si. Por isso, os demais partícipes devem realizar configurações para que seus boots:
   - Permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus boots a partir dos novos boots adicionados à RBB.
   - Permitam conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos novos boots adicionados à RBB.
-- Os writers dos **partícipes parceiros** devem conseguir conectar-se com todos os boots. Por isso, os demais partícipes devem realizar configurações para que:
-  - Seus boots permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus boots a partir dos novos writers dos **partícipes parceiros** adicionados à RBB.
+- Os writers dos **partícipes parceiros** devem conseguir conectar-se com todos os boots. Por isso, os **partícipes parceiros** devem realizar configurações para que:
   - Seus writers permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus writers a partir dos novos boots adicionados à RBB.
   - Seus writers permitam conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos novos boots adicionados à RBB.
-- Os observer-boots dos **partícipes parceiros** devem conseguir conectar-se com todos os boots e serem acessíveis de forma pública. Por isso, os demais partícipes devem realizar configurações para que:
-  - Seus boots permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus boots a partir dos novos observer-boots dos **partícipes parceiros** adicionados à RBB.
+- Os observer-boots dos **partícipes parceiros** devem conseguir conectar-se com todos os boots. Por isso, os **partícipes parceiros** devem realizar configurações para que:
+  - Seus observer-boots permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus observer-boots a partir dos novos boots adicionados à RBB.
   - Seus observer-boots permitam conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos novos boots adicionados à RBB.
 
 # 6 - Permissionamento do(s) novo(s) nó(s)
 
-Para que possam conectar-se à rede, os novos nós precisar ser autorizados. Esta autorização deve ser feita através de execução dos *smart contracts* de permissionamento da RBB, que devem ser executados por uma conta de administração.
+Para que possam conectar-se à rede, os novos nós precisar ser permissionados. Este permissionamento deve ser feito através de execução dos *smart contracts* da RBB específicos para essa função, que devem ser executados por uma conta de administração.
 
 Solicite que um administrador da rede realize o(s) devido(s) permissionamento(s).
 
-# 7 - Ajustar genesis e static-nodes do(s) novo(s) nó(s)
+# 7 - Ajustar genesis e static-nodes do(s) novo(s) nó(s) para o novo partícipe
 
 As atividades a seguir deverão ser executadas para cada novo nó, de acordo com seu tipo.
 
@@ -324,21 +327,6 @@ Veja o exemplo abaixo:
 ]
 ```
 
-- Para **partícipe parceiro**, inclua na seção apropriada do arquivo `.env.configs/genesis.json` todos os **outros** boots da rede (usando endereços IP **externos**):
-
-```json
-  "discovery": {
-    "bootnodes" : 
-    [ 
-      "enode://<chave-publica-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>", 
-      "enode://<chave-publica-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>"
-    ]
-  },
-```
-
-Veja o exemplo abaixo:  
-![Conteúdo exemplo do arquivo genesis.json](https://i.imgur.com/mdU0lYT.png)
-
 ## 7.4 Novo observer-boot
 
 - Copie para `.env.configs/` o arquivo `genesis.json` localizado em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/genesis.json`.
@@ -351,22 +339,7 @@ Veja o exemplo abaixo:
 ]
 ```
 
-- Para **partícipe parceiro**, inclua na seção apropriada do arquivo `.env.configs/genesis.json` todos os **outros** boots da rede (usando endereços IP **externos**):
-
-```json
-  "discovery": {
-    "bootnodes" : 
-    [ 
-      "enode://<chave-publica-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>", 
-      "enode://<chave-publica-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>"
-    ]
-  },
-```
-
-Veja o exemplo abaixo:  
-![Conteúdo exemplo do arquivo genesis.json](https://i.imgur.com/mdU0lYT.png)
-
-# 8 - Ajustar genesis e static-nodes dos nós dos partícipes associados
+# 8 - Ajustar genesis e static-nodes dos nós dos outros partícipes associados 
 
 As atividades a seguir deverão ser executadas pelos **partícipes associados** para cada novo nó, de acordo com seu tipo.
 
@@ -395,39 +368,11 @@ As atividades a seguir deverão ser executadas pelos **partícipes associados** 
 ]
 ```
 
-## 8.3 Novo writer de partícipe parceiro
-
-- Inclua na seção apropriada do arquivo `.env.configs/genesis.json` do boot da instituição o novo writer adicionado à rede (usando endereço IP **externo**):
-
-```json
-  "discovery": {
-    "bootnodes" : 
-    [ 
-      ...
-      "enode://<chave-publica-writer-externo-SEM-0x>@<ip-externo>:<porta-p2p>"
-    ]
-  },
-```
-
-## 8.4 Novo observer-boot de partícipe parceiro
-
-- Inclua na seção apropriada do arquivo `.env.configs/genesis.json` do boot da instituição o novo observer-boot adicionado à rede (usando endereço IP **externo**):
-
-```json
-  "discovery": {
-    "bootnodes" : 
-    [ 
-      ...
-      "enode://<chave-publica-observer-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>"
-    ]
-  },
-```
-
-# 9 - Ajustar genesis dos nós dos partícipes parceiros
+# 9 - Ajustar genesis dos nós dos partícipes parceiros  
 
 As atividades a seguir deverão ser executadas pelos **partícipes parceiros** para cada novo nó, de acordo com seu tipo.
 
-## 8.1 Novo boot
+## 9.1 - Novo boot na rede - Ajustes no writer e no observer-boot do partícipes parceiro
 
 - Inclua na seção apropriada do arquivo `.env.configs/genesis.json` do writer e do observer-boot (se houver) da instituição o novo boot adicionado à rede (usando endereço IP **externo**):
 
@@ -479,16 +424,102 @@ Os identificadores dos validadores pode ser obtido em `https://github.com/RBBNet
 
 # 12 - Implantar monitoração
 
+Toda organização deverá fornecer um endpoint Prometheus onde as métricas de seus nós poderão ser coletadas por outras organizações (*cross-service federation*). Na configuração sugerida neste roteiro, um único Prometheus é responsável por ler as métricas de cada nó e disponibilizá-las para outras organizações da RBB. O mesmo Prometheus é usado também para coletar as métricas de outras organizações.
+
+A configuração apresentada aqui é a mais simples que atende ao requisito, embora cada organização possa usar topologias mais complexas. Por exemplo, uma organização pode usar Prometheus individuais para cada nó e agregar as métricas em outro Prometheus para disponibilizar externamente. É possível também usar outro Prometheus isolado para coletar as métricas de outras organizações.
+
+- Defina um servidor para executar o Prometheus e clone o projeto de monitoração:
+```
+git clone https://github.com/RBBNet/rbb-monitoracao.git
+```
+O projeto apresenta a seguinte estrutura:
+```
+rbb-monitoracao
+├── docker-compose.yml      # Arquivo de configuração do container docker Prometheus
+└── prometheus
+    ├── prometheus.yml      # Arquivo de configuração do Prometheus
+    ├── rules.yml           # Arquivo de regras do Prometheus
+    └── web-config.yml      # Arquivo de configuração para a interface web do Prometheus
+```
+## 12.1 - Habilitar as métricas no Besu:
+> [!NOTE]
+> As configurações a seguir devem ser realizadas em cada nó do Besu.
+
+- Mapeie a porta padrão das métricas (9545) em uma porta do host. O exemplo abaixo usa o script *rbb-cli* para mapear a porta de métricas para o boot na porta 10002 do host. O comando correspondente (assumindo o sequencial do nome como 01: **nodes.<boot01|validator01|writer01>.ports**) deverá ser realizado para os demais nós.
+Ex.:
+```
+./rbb-cli config set nodes.boot01.ports+=[\"<porta-metricas>:9545\"]
+```
+
+> [!CAUTION]
+> Caso o nome do nó contenha traço, como "observer-boot01", usar o comando no seguinte formato (sob risco de corromper o infra.json):
+> 
+> `./rbb-cli config set nodes[\"observer-boot01\"].ports+=[\"<porta-metricas>:9545\"]`
+  
+- Reinicie o container Besu com as novas configurações:
+```
+docker-compose down
+./rbb-cli config render-templates
+docker-compose up -d
+```
+
+Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](https://besu.hyperledger.org/public-networks/how-to/monitor/metrics).
+
+## 12.2 - Disponibilizar as métricas para outras organizações
+> [!NOTE]
+> As configurações a seguir devem ser realizadas no servidor do Prometheus.
+
+- Toda organização deverá ter uma configuração no Prometheus (arquivo prometheus.yml) que exporta as métricas com os seguintes requisitos:
+```
+- job_name: rbb
+  labels:
+    node: <boot|validator|writer|prometheus>, conforme o nó de origem da métrica. 
+    organization: <nome da organização>
+```
+O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização.
+
+- Preencher o arquivo **nodes.json** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`:
+  - Encontre no arquivo a organização (atributo `organization`) correspondente.
+  - Acrescente um nó equivalente ao Prometheus na lista de nós (atributo `nodes`).
+  - Informe:
+    - Nome (`name`): por exemplo com o valor `prometheus01`.
+	- Tipo de nó (`nodeType`): com valor `prometheus`.
+    - Nome de host (lista `hostNames`): prencher com lista de nomes, caso exista algum. Caso contrário, não adicionar este atributo.
+    - Endereço(s) IP (lista `ipAddresses`): prencher lista de endereços IP. Caso só exista um endereço, preencha uma lista de apenas um elemento.
+    - Porta (`port`): porta IP utilizada.
+
+> [!NOTE]
+> As devidas liberações de firewall devem ser providenciadas.
+
+## 12.3 - Capturar as métricas de outras organizações
+A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por dashboards (Grafana, Zabix, etc.). No repositório de monitoração, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração pode ser verificada no arquivo prometheus.yml, *job_name: rbb_federado*. 
+
+- Alterar os labels dos alvos (*targets*) de cada organização conforme abaixo:
+```
+- job_name: rbb-federado
+  - targets: [<ip do prometheus alvo>]
+    labels:
+      organization: <nome da organização>
+```
+> [!NOTE]
+> O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **nodes.json**.
+
+## 12.4 - Levantar o Prometheus
+- Uma vez alterado o arquivo prometheus.yml, levante o container do Prometheus:
+```
+docker-compose up -d
+```
+- Acesse a interface web do Prometheus e verifique o estado dos alvos (menu *Status -> Targets*), bem como algumas métricas (ex: no menu *Graph*, digite como expressão *ethereum_blockchain_height*).
+
+
+# 13 - Implantar block explorer (opcional)
+
 EM ELABORAÇÃO.
 
-# 13 - Implantar DApp de permissionamento (opcional)
+# 14 - Cadastar conta admin (opcional)
 
 EM ELABORAÇÃO.
 
-# 14 - Implantar block explorer (opcional)
-
-EM ELABORAÇÃO.
-
-# 15 - Cadastar conta admin (opcional)
+# 15 - Implantar DApp de permissionamento (opcional)
 
 EM ELABORAÇÃO.
