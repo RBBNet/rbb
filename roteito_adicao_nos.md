@@ -16,19 +16,19 @@ Este roteiro tem como objetivo a adição de novos nós a uma rede RBB já estab
 
 Cada node RBB deve ser executado sobre um host próprio. A seguir são apresentados os valores de referência mínimos recomendados para hosts, tanto da rede Lab quanto da rede Piloto:
 
-Referência HW/SW para Hosts da Rede Lab:
-CPU: 2 Cores/vCPU
-RAM: 4 GB
-Disco: 100 GB SSD
-Conectividade de rede: 1G Eth
-SO: Ubuntu 22.04 Server LTS (atualizar o Ubuntu 20.04 original para Ubuntu 22.04 Server LTS)
+- Referência HW/SW para Hosts da Rede Lab:
+  - CPU: 2 Cores/vCPU
+  - RAM: 4 GB
+  - Disco: 100 GB SSD
+  - Conectividade de rede: 1G Eth
+  - SO: Ubuntu 22.04 Server LTS (atualizar o Ubuntu 20.04 original para Ubuntu 22.04 Server LTS)
 
-Referência HW/SW para Hosts da Rede Piloto:
-CPU: 8 Cores/vCPU
-RAM: 8 GB
-Disco: 200 GB SSD
-Conectividade de rede: 1G Eth
-SO: Ubuntu 22.04 Server LTS
+- Referência HW/SW para Hosts da Rede Piloto:
+  - CPU: 8 Cores/vCPU
+  - RAM: 8 GB
+  - Disco: 200 GB SSD
+  - Conectividade de rede: 1G Eth
+  - SO: Ubuntu 22.04 Server LTS
 
 
 - Outras aplicações:
