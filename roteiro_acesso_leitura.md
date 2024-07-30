@@ -42,7 +42,7 @@ Além dos requisitos de hardware, os seguintes softwares são necessários:
 > [!NOTE]
 > Notamos que as as versões do compose 2.24.7, 2.25.0 e 2.26.0 **não se mostraram compatíveis** com o Blockscout a princípio. E a versão 1.x.x do docker-compose **não é suportada**.
 
-👉 Para implantações no Windows, deve ser instalado o WSL2 (caso não esteja instalado) e, em seguida, o Docker.
+👉 Para implantações no Windows, deve ser instalado o WSL2 (caso não esteja instalado) e, em seguida, o Docker. Vale ressaltar, entretanto, que o uso do WSL para este roteiro ainda tem caráter **experimental**, podendo ocorrer eventuais incompatibilidades ou problemas em sua execução.
 
 > [!IMPORTANT]
  A data e hora do sistema devem estar devidamente atualizadas para que seja possível a sincronização de blocos.
