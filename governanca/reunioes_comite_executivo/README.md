@@ -22,7 +22,7 @@
     
 **- Prodemge**
   - Augusto Nogueira Zadra
-  - Mônica Rocha de Ázara
+  - Sândalo Carleto Del’Rio Euzébio e Bessa
     
 **- PUC-Rio**
   - Gustavo Robichez de Carvalho
