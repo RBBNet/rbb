@@ -1,6 +1,13 @@
 # Reuniões do Comitê Técnico realizadas em 2024
 
-- 06/08/2024
+- 14/08/2024
+  - Pauta proposta:
+    - Entradas e saídas de nós.
+    - Incidentes.
+    - Maturação do piloto.
+    - Treinamento.
+    - Relatório de uso.
+- 07/08/2024
   - Pauta proposta:
     - Entradas e saídas de nós.
     - Incidentes.
