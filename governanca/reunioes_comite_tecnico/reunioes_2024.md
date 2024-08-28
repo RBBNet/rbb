@@ -1,5 +1,17 @@
 # Reuniões do Comitê Técnico realizadas em 2024
 
+- 28/08/2024
+  - Pauta proposta:
+    - Entradas e saídas de nós.
+    - Proposta de alterações no nodes.json
+    - Incidentes.
+    - Maturação do piloto.
+- 21/08/2024
+  - Pauta proposta:
+    - Entradas e saídas de nós.
+    - Proposta de alterações no nodes.json
+    - Incidentes.
+    - Maturação do piloto.
 - 14/08/2024
   - Pauta proposta:
     - Entradas e saídas de nós.
