@@ -448,6 +448,8 @@ Toda organização deverá fornecer um endpoint Prometheus onde as métricas de 
 
 A configuração apresentada aqui é a mais simples que atende ao requisito, embora cada organização possa usar topologias mais complexas. Por exemplo, uma organização pode usar Prometheus individuais para cada nó e agregar as métricas em outro Prometheus para disponibilizar externamente. É possível também usar outro Prometheus isolado para coletar as métricas de outras organizações.
 
+Ainda, também é possível que cada organização reconfigure os critérios de alerta do Prometheus, conforme julgue necessário.
+
 - Defina um servidor para executar o Prometheus e clone o projeto de monitoração:
 ```
 git clone https://github.com/RBBNet/rbb-monitoracao.git
