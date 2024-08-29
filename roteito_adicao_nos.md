@@ -459,8 +459,12 @@ rbb-monitoracao
 └── prometheus
     ├── prometheus.yml      # Arquivo de configuração do Prometheus
     ├── rules.yml           # Arquivo de regras do Prometheus
-    └── web-config.yml      # Arquivo de configuração para a interface web do Prometheus
+    ├── web-config.yml      # Arquivo de configuração para a interface web do Prometheus
+    └── rules
+        ├── alerts.yml      # Arquivo de configuração para critérios de alertas
+        └── metrics.yml     # Arquivo de configuração para definição de métricas derivadas
 ```
+
 ## 12.1 - Habilitar as métricas no Besu:
 > [!NOTE]
 > As configurações a seguir devem ser realizadas em cada nó do Besu.
