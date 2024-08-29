@@ -490,7 +490,7 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
 > [!NOTE]
 > As configurações a seguir devem ser realizadas no servidor do Prometheus.
 
-- Toda organização deverá ter uma configuração no Prometheus (arquivo prometheus.yml) que exporta as métricas com os seguintes requisitos:
+- Toda organização deverá ter uma configuração no Prometheus (arquivo `prometheus.yml`) que exporta as métricas com os seguintes requisitos:
 ```
 - job_name: rbb
   labels:
@@ -499,7 +499,7 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
 ```
 O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização.
 
-- Preencher o arquivo **nodes.json** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`:
+- Preencher o arquivo **`nodes.json`** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`:
   - Encontre no arquivo a organização (atributo `organization`) correspondente.
   - Acrescente um nó equivalente ao Prometheus na lista de nós (atributo `nodes`).
   - Informe:
@@ -513,27 +513,47 @@ O arquivo de configuração do [repositório de monitoração](https://github.co
 > As devidas liberações de firewall devem ser providenciadas com base nas informações do `nodes.json`.
 
 ## 12.3 - Capturar as métricas de outras organizações
-A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por dashboards (Grafana, Zabix, etc.). No repositório de monitoração, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração pode ser verificada no arquivo prometheus.yml, *job_name: rbb_federado*. 
+A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por dashboards (Grafana, Zabix, etc.). No repositório de monitoração, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração pode ser verificada no arquivo `prometheus.yml`, *job_name: rbb_federado*. 
 
 - Alterar os labels dos alvos (*targets*) de cada organização conforme abaixo:
 ```
 - job_name: rbb-federado
-  - targets: [<ip do prometheus alvo>]
+  - targets: [<ip do prometheus alvo>:<porta do prometheus alvo>]
     labels:
       organization: <nome da organização>
 ```
 > [!NOTE]
-> O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **nodes.json**.
+> O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **`nodes.json`**.
 
 ## 12.4 - Levantar o Prometheus
-- Uma vez alterado o arquivo prometheus.yml, levante o container do Prometheus:
+- Uma vez alterado o arquivo `prometheus.yml`, levante o container do Prometheus:
 ```
 docker-compose up -d
 ```
 - Acesse a interface web do Prometheus e verifique o estado dos alvos (menu *Status -> Targets*), bem como algumas métricas (ex: no menu *Graph*, digite como expressão *ethereum_blockchain_height*).
 
 
-# 13 - Implantar block explorer (opcional)
+# 13 - Ajustar monitoração dos outros partícipes
+
+Os demais partícipes devem ajustar a configuração de seus Prometheus, para que passem a capturar as métricas dos novos nós adicionados à rede. Para tanto, faz-se necessário a inclusão de um novo alvo (*target*) no job `rbb-federado`, cadastrado no arquivo `prometheus.yml`:
+```
+- targets: [ '<ip do novo prometheus>:<porta do novo prometheus>' ]
+  labels:
+    organization: '<nome da organização do novo prometheus>'
+```
+
+Após o ajuste no arquivo, deve-se realizar a recarga da configuração no Prometheus. Recomendamos que o contêiner Docker do Prometheus seja reiniciado:
+```
+docker-compose restart
+```
+
+**Observação**: Esse comando deve ser executado na pasta onde estiver o arquivo `docker-compose.yml` do Prometheus.
+
+Opcionalmente, caso não se queira reiniciar o contêiner, é possível sinalizar ao Prometheus a necessidade de recarga de configuração durante sua execução, sem parada do serviço. Mais informações sobre esse procedimento podem ser obtidas na [documentação do Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
+
+
+
+# 14 - Implantar block explorer (opcional)
 
 ## Chainlens Block Explorer
 
@@ -559,10 +579,10 @@ NODE_ENDPOINT=http://<ip-interno-node>:<porta-rpc> PORT=<porta-blockexplorer> do
 http://<ip-interno-node>:<porta-blockexplorer>
 ```
 
-# 14 - Cadastar conta admin (opcional)
+# 15 - Cadastar conta admin (opcional)
 
 EM ELABORAÇÃO.
 
-# 15 - Implantar DApp de permissionamento (opcional)
+# 16 - Implantar DApp de permissionamento (opcional)
 
 EM ELABORAÇÃO.
