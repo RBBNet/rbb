@@ -317,9 +317,9 @@ As seguintes regras de firewall deverão ser configuradas pelas demais institui�
 - Os observer-boots dos **partícipes parceiros** devem conseguir conectar-se com todos os boots. Por isso, os **partícipes parceiros** devem realizar configurações para que:
   - Seus observer-boots permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus observer-boots a partir dos novos boots adicionados à RBB.
   - Seus observer-boots permitam conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos novos boots adicionados à RBB.
-- Todos os Prometheus devem conseguir conectar-se entre si. Por isso, os demais partícipes devem realizar configurações para que seu Prometheus:
-  - Permita conexão (inbound) no `<ip-externo>:<porta-prometheus>` do seu Prometheus a partir dos novos Prometheus adicionados à RBB.
-  - Permita conexão (outbound) para os `<ip-externo>:<porta-prometheus>` dos novos Prometheus adicionados à RBB.
+- Todos os Prometheus devem conseguir conectar-se entre si. Por isso, os demais partícipes devem realizar configurações para que seus Prometheus:
+  - Permitam conexão (inbound) no `<ip-externo>:<porta-prometheus>` dos seus Prometheus a partir dos novos Prometheus adicionados à RBB.
+  - Permitam conexão (outbound) para os `<ip-externo>:<porta-prometheus>` dos novos Prometheus adicionados à RBB.
 
 
 # 6 - Permissionamento do(s) novo(s) nó(s)
@@ -488,10 +488,11 @@ A configuração apresentada aqui é a mais simples que atende esse requisito, e
 
 Ainda, também é possível que cada organização reconfigure os critérios de alerta do Prometheus, conforme julgue oportuno.
 
-- Defina um servidor para executar o Prometheus e clone o projeto de monitoração:
+Defina um servidor para executar o Prometheus e clone o projeto de monitoração:
 ```
 git clone https://github.com/RBBNet/rbb-monitoracao.git
 ```
+
 O projeto apresenta a seguinte estrutura:
 ```
 rbb-monitoracao
@@ -509,7 +510,7 @@ rbb-monitoracao
 
 As métricas são habilitadas no Besu a partir do parâmetro `--metrics-enabled`. O arquivo `docker-compose.yml` gerado pelo `rbb-cli` cria automaticamente a variável de ambiente `BESU_METRICS_ENABLED` com o valor `true`. Portanto, todos os nós configurados via `rbb-cli` já terão as métricas compartilhadas por padrão.
 
-Ainda, conforme realizado no passo 2.4, durante a criação dos nós, a porta padrão de métricas do Besu - 9545 - foi exposta via contêiner Docker.
+Ainda, conforme realizado no passo 2.4, durante a criação dos nós, a porta padrão de métricas do Besu (9545) foi exposta via contêiner Docker.
 
 Portanto, todos os nós criados seguindo este roteiro já estarão habilitados para a coleta de métricas, bastanto apenas configurar o Prometheus.
 
@@ -517,7 +518,7 @@ Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](ht
 
 ## 12.2 - Disponibilizar as métricas para outras organizações
 
-Toda organização deverá ter uma configuração no Prometheus (arquivo `prometheus.yml`) que exporta as métricas com os seguintes requisitos:
+Toda organização deverá ter uma configuração no Prometheus (arquivo `prometheus.yml`) que exporta suas métricas:
 ```
 ...
 scrape_configs:
@@ -533,9 +534,9 @@ scrape_configs:
           organization: '<nome-organizacao>'
 ```
 
-O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (`job_name: rbb`) que atende a esses requisitos. Ele deverá ser alterado com os dados de sua organização, adicionando um alvo (*target*) para cada nó Besu.
+O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (`job_name: rbb`) que atende esse objetivo. Ele deverá ser alterado com os dados de sua organização, adicionando um alvo (*target*) para cada nó Besu.
 
-Deve-se também preencher o arquivo **`nodes.json`** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`:
+Deve-se também preencher o arquivo **`nodes.json`** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json` para documentar o nó Prometheus de sua organização:
   - Encontre no arquivo a organização (atributo `organization`) correspondente.
   - Acrescente um nó equivalente ao Prometheus na lista de nós (atributo `nodes`).
   - Informe:
@@ -568,9 +569,9 @@ scrape_configs:
 ```
 
 > [!NOTE]
-> O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **`nodes.json`**.
+> O job deve ser configurado com os alvos (*targets*) de outras organizações conforme os nós documentados no arquivo **`nodes.json`**.
 
-## 12.4 - Levantar o Prometheus
+## 12.4 - Iniciar o Prometheus
 
 Uma vez alterado o arquivo `prometheus.yml`, inicie o contêiner do Prometheus:
 ```
@@ -584,9 +585,18 @@ Acesse a interface web do Prometheus e verifique o estado dos alvos (menu *Statu
 
 Os demais partícipes devem ajustar a configuração de seus Prometheus, para que passem a capturar as métricas dos novos nós adicionados à rede. Para tanto, faz-se necessário a inclusão de um novo alvo (*target*) no job `rbb-federado`, cadastrado no arquivo `prometheus.yml`:
 ```
-- targets: [ '<ip do novo prometheus>:<porta do novo prometheus>' ]
-  labels:
-    organization: '<nome da organização do novo prometheus>'
+...
+scrape_configs:
+  ...
+  # Job para coletar as métricas de outras organizações.
+  # Inclua aqui os alvos das outras organizações (Prometheus expostos).
+  - job_name: rbb-federado
+    ...
+    static_configs:
+      ...
+      - targets: [ '<ip do novo prometheus>:<porta do novo prometheus>' ]
+        labels:
+          organization: '<nome da organização do novo prometheus>'
 ```
 
 Após o ajuste no arquivo, deve-se realizar a recarga da configuração no Prometheus. Recomendamos que o contêiner Docker do Prometheus seja reiniciado:
