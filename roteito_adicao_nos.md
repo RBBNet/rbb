@@ -8,6 +8,7 @@ Este roteiro tem como objetivo a adição de novos nós a uma rede RBB já estab
 
 **Observação**: **ESTE ROTEIRO AINDA ESTÁ EM ELABORAÇÃO** e ainda pode sofrer alterações.
 
+
 ## 1 - Preparação de ambiente
 
 ### 1.1 - Pré-requisitos
@@ -47,6 +48,7 @@ cd start-network
   ```
 
 Daqui para frente, para cada novo nó, considere que todos os comandos são executados dentro do diretório `start-network`.
+
 
 ## 2 - Criação de novo(s) nó(s)
 
@@ -201,6 +203,7 @@ accounts-allowlist=[]
 
 **Observarção**: A inteção desse arquivo é ter uma lista de contas **vazia**, de forma **não** permitir conta alguma enviar transações. Deve-se lembrar que o observer-boot é o único tipo de nó da RBB com acesso público e que deve ser utilizado **somente para leitura**.
 
+
 ## 3 - Documentação do(s) novo(s) nó(s)
 
 Com base nas informações definidas no passo anterior, a documentação da RBB deve ser atualizada. As informações dos nós devem ser compartilhadas para que todas as instituições conheçam as informações de todos os nós da rede e possam conectar esses nós conforme a topologia da rede.
@@ -246,9 +249,11 @@ Onde:
 
 Em caso de dúvidas, é possível utiliar o [JSON schema](https://github.com/RBBNet/participantes/blob/main/nodes.schema.json) definido para o arquivo `nodes.json` no repositório privado dos participantes.
 
+
 ## 4 - Comunicação
 
 Comunique aos demais partícipes da rede sobre a inclusão de novos nós na rede. Várias atividades deverão ser realizadas em conjunto para o correto funcionamento dos novos nós, logo há necessidade de uma coordenação a partir desse ponto. 
+
 
 ## 5 - Regras de firewall
 
@@ -276,7 +281,7 @@ As seguintes regras de firewall deverão ser configuradas por sua instituição:
 
 Temos optado por configurar regras tanto para UDP quanto para TCP, embora suspeitemos que UDP seja necessário apenas para nós que participam do discovery (boot e observer-boot). Ainda não testamos, porém, não abrir o UDP para validators e writers.
 
-## 5.2 Configurações pelas demais instituições
+## 5.2 Configurações pelos demais partícipes
 
 As seguintes regras de firewall deverão ser configuradas pelas demais instituições:
 
@@ -302,6 +307,7 @@ As seguintes regras de firewall deverão ser configuradas pelas demais institui�
 Para que possam conectar-se à rede, os novos nós precisar ser permissionados. Este permissionamento deve ser feito através de execução dos *smart contracts* da RBB específicos para essa função, que devem ser executados por uma conta de administração.
 
 Solicite que um administrador da rede realize o(s) devido(s) permissionamento(s).
+
 
 # 7 - Ajustar genesis e static-nodes do(s) novo(s) nó(s) para o novo partícipe
 
@@ -366,6 +372,7 @@ Veja o exemplo abaixo:
 ]
 ```
 
+
 # 8 - Ajustar genesis e static-nodes dos nós dos outros partícipes associados 
 
 As atividades a seguir deverão ser executadas pelos **partícipes associados** para cada novo nó, de acordo com seu tipo.
@@ -395,6 +402,7 @@ As atividades a seguir deverão ser executadas pelos **partícipes associados** 
 ]
 ```
 
+
 # 9 - Ajustar genesis dos nós dos partícipes parceiros  
 
 As atividades a seguir deverão ser executadas pelos **partícipes parceiros** para cada novo nó, de acordo com seu tipo.
@@ -412,6 +420,7 @@ As atividades a seguir deverão ser executadas pelos **partícipes parceiros** p
     ]
   },
 ```
+
 
 # 10 - Iniciar novo(s) nó(s)
 
@@ -435,6 +444,7 @@ docker-compose logs -f
 docker-compose down
 ```
 
+
 # 11 - Solicitar votação no(s) novo(s) validator(s)
 
 Para que um novo validador passe a fazer parte do algoritmo de consenso, os demais validadores precisam realizar uma votação para aceitá-lo. Atingindo-se a metade mais um dos votos, o novo validador é aceito.
@@ -448,6 +458,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"qbft_proposeValidatorVote","para
 ```
 
 Os identificadores dos validadores pode ser obtido em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json` no atributo `id` de cada nó.
+
 
 # 12 - Implantar monitoração
 
@@ -546,7 +557,7 @@ docker-compose up -d
 - Acesse a interface web do Prometheus e verifique o estado dos alvos (menu *Status -> Targets*), bem como algumas métricas (ex: no menu *Graph*, digite como expressão *ethereum_blockchain_height*).
 
 
-# 13 - Ajustar monitoração dos outros partícipes
+# 13 - Ajuste na monitoração pelos demais partícipes
 
 Os demais partícipes devem ajustar a configuração de seus Prometheus, para que passem a capturar as métricas dos novos nós adicionados à rede. Para tanto, faz-se necessário a inclusão de um novo alvo (*target*) no job `rbb-federado`, cadastrado no arquivo `prometheus.yml`:
 ```
@@ -563,7 +574,6 @@ docker-compose restart
 **Observação**: Esse comando deve ser executado na pasta onde estiver o arquivo `docker-compose.yml` do Prometheus.
 
 Opcionalmente, caso não se queira reiniciar o contêiner, é possível sinalizar ao Prometheus a necessidade de recarga de configuração durante sua execução, sem parada do serviço. Mais informações sobre esse procedimento podem ser obtidas na [documentação do Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
-
 
 
 # 14 - Implantar block explorer (opcional)
@@ -592,9 +602,11 @@ NODE_ENDPOINT=http://<ip-interno-node>:<porta-rpc> PORT=<porta-blockexplorer> do
 http://<ip-interno-node>:<porta-blockexplorer>
 ```
 
+
 # 15 - Cadastar conta admin (opcional)
 
 EM ELABORAÇÃO.
+
 
 # 16 - Implantar DApp de permissionamento (opcional)
 
