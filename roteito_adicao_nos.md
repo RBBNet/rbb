@@ -93,6 +93,11 @@ Siga um ou vários dos itens a seguir de acordo com o(s) tipo(s) de nó que quis
 ./rbb-cli config set nodes.boot<sequencial>.ports+=[\"<porta-rpc>:8545\"]
 ```
 
+- Definir a porta pela qual será feita a leitura de métricas pelo Prometheus:
+```bash
+./rbb-cli config set nodes.boot<sequencial>.ports+=[\"<porta-metricas>:9545\"]
+```
+
 - Definir o endereço IP **externo** e a porta pela qual serão feitas conexões P2P com o nó:
 
 ```bash
@@ -113,6 +118,11 @@ Siga um ou vários dos itens a seguir de acordo com o(s) tipo(s) de nó que quis
   
 ```bash
 ./rbb-cli config set nodes.validator<sequencial>.ports+=[\"<porta-rpc>:8545\"]
+```
+
+- Definir a porta pela qual será feita a leitura de métricas pelo Prometheus:
+```bash
+./rbb-cli config set nodes.validator<sequencial>.ports+=[\"<porta-metricas>:9545\"]
 ```
 
 - Definir o endereço IP **externo** e a porta pela qual serão feitas conexões P2P com o nó:
@@ -141,6 +151,11 @@ Siga um ou vários dos itens a seguir de acordo com o(s) tipo(s) de nó que quis
 
 ```bash
 ./rbb-cli config set nodes.writer<sequencial>.ports+=[\"<porta-rpc>:8545\"]
+```
+
+- Definir a porta pela qual será feita a leitura de métricas pelo Prometheus:
+```bash
+./rbb-cli config set nodes.writer<sequencial>.ports+=[\"<porta-metricas>:9545\"]
 ```
 
 - Definir o endereço IP e a porta pela qual serão feitas conexões P2P com o nó:
@@ -174,6 +189,11 @@ Siga um ou vários dos itens a seguir de acordo com o(s) tipo(s) de nó que quis
 ```
 
 **Observação**: Como o nome do nó contem um hífen, ao se utilizar o comando `rbb-cli config set`, deve-se delimitar o nome entre `[\"` e `\"]` no formato `nodes[\"<nome>\"]` (sem utilizar ponto), conforme exemplo acima.
+
+- Definir a porta pela qual será feita a leitura de métricas pelo Prometheus:
+```bash
+./rbb-cli config set nodes[\"observer-boot<sequencial>\"].ports+=[\"<porta-metricas>:9545\"]
+```
 
 - Definir o endereço IP **externo** e a porta pela qual serão feitas conexões P2P com o nó:
 
@@ -464,9 +484,9 @@ Os identificadores dos validadores pode ser obtido em `https://github.com/RBBNet
 
 Toda organização deverá fornecer um endpoint Prometheus onde as métricas de seus nós poderão ser coletadas por outras organizações (*cross-service federation*). Na configuração sugerida neste roteiro, um único Prometheus é responsável por ler as métricas de cada nó e disponibilizá-las para outras organizações da RBB. O mesmo Prometheus é usado também para coletar as métricas de outras organizações.
 
-A configuração apresentada aqui é a mais simples que atende ao requisito, embora cada organização possa usar topologias mais complexas. Por exemplo, uma organização pode usar Prometheus individuais para cada nó e agregar as métricas em outro Prometheus para disponibilizar externamente. É possível também usar outro Prometheus isolado para coletar as métricas de outras organizações.
+A configuração apresentada aqui é a mais simples que atende esse requisito, embora cada organização possa usar topologias mais complexas. Por exemplo, uma organização pode usar Prometheus individuais para cada nó e agregar as métricas em outro Prometheus para disponibilizar externamente. É possível também usar outro Prometheus isolado para coletar as métricas de outras organizações.
 
-Ainda, também é possível que cada organização reconfigure os critérios de alerta do Prometheus, conforme julgue necessário.
+Ainda, também é possível que cada organização reconfigure os critérios de alerta do Prometheus, conforme julgue oportuno.
 
 - Defina um servidor para executar o Prometheus e clone o projeto de monitoração:
 ```
@@ -485,45 +505,37 @@ rbb-monitoracao
         └── metrics.yml     # Arquivo de configuração para definição de métricas derivadas
 ```
 
-## 12.1 - Habilitar as métricas no Besu:
-> [!NOTE]
-> As configurações a seguir devem ser realizadas em cada nó do Besu.
+## 12.1 - Habilitar as métricas no Besu
 
-- Mapeie a porta padrão das métricas (9545) em uma porta do host. O exemplo abaixo usa o script *rbb-cli* para mapear a porta de métricas para o boot na porta 10002 do host. O comando correspondente (assumindo o sequencial do nome como 01: **nodes.<boot01|validator01|writer01>.ports**) deverá ser realizado para os demais nós.
+As métricas são habilitadas no Besu a partir do parâmetro `--metrics-enabled`. O arquivo `docker-compose.yml` gerado pelo `rbb-cli` cria automaticamente a variável de ambiente `BESU_METRICS_ENABLED` com o valor `true`. Portanto, todos os nós configurados via `rbb-cli` já terão as métricas compartilhadas por padrão.
 
-Ex.:
-```
-./rbb-cli config set nodes.boot01.ports+=[\"<porta-metricas>:9545\"]
-```
+Ainda, conforme realizado no passo 2.4, durante a criação dos nós, a porta padrão de métricas do Besu - 9545 - foi exposta via contêiner Docker.
 
-> [!CAUTION]
-> Caso o nome do nó contenha traço, como "observer-boot01", usar o comando no seguinte formato (sob risco de corromper o infra.json):
-> 
-> `./rbb-cli config set nodes[\"observer-boot01\"].ports+=[\"<porta-metricas>:9545\"]`
-  
-- Reinicie o container Besu com as novas configurações:
-```
-docker-compose down
-./rbb-cli config render-templates
-docker-compose up -d
-```
+Portanto, todos os nós criados seguindo este roteiro já estarão habilitados para a coleta de métricas, bastanto apenas configurar o Prometheus.
 
 Para maiores detalhes sobre as métricas no Besu, consulte a [documentação](https://besu.hyperledger.org/public-networks/how-to/monitor/metrics).
 
 ## 12.2 - Disponibilizar as métricas para outras organizações
-> [!NOTE]
-> As configurações a seguir devem ser realizadas no servidor do Prometheus.
 
-- Toda organização deverá ter uma configuração no Prometheus (arquivo `prometheus.yml`) que exporta as métricas com os seguintes requisitos:
+Toda organização deverá ter uma configuração no Prometheus (arquivo `prometheus.yml`) que exporta as métricas com os seguintes requisitos:
 ```
-- job_name: rbb
-  labels:
-    node: <boot01|validator01|writer01|prometheus01|observer-boot01>, conforme o nó de origem da métrica. 
-    organization: <nome da organização>
+...
+scrape_configs:
+  ...
+  # Job para coleta das métricas locais.
+  # Inclua aqui os alvos de sua organização (métricas do boot, validator, writer e prometheus)
+  - job_name: rbb
+    ...
+    static_configs:
+      - targets: ['<ip-no-besu>:<porta-metricas>']
+        labels:
+          node: '<boot01|validator01|writer01|prometheus01|observer-boot01>'
+          organization: '<nome-organizacao>'
 ```
-O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (**job_name: rbb**) que atende a esses requisitos. Ele deverá ser alterado com os dados de cada organização.
 
-- Preencher o arquivo **`nodes.json`** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`:
+O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (`job_name: rbb`) que atende a esses requisitos. Ele deverá ser alterado com os dados de sua organização, adicionando um alvo (*target*) para cada nó Besu.
+
+Deve-se também preencher o arquivo **`nodes.json`** em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`:
   - Encontre no arquivo a organização (atributo `organization`) correspondente.
   - Acrescente um nó equivalente ao Prometheus na lista de nós (atributo `nodes`).
   - Informe:
@@ -534,27 +546,38 @@ O arquivo de configuração do [repositório de monitoração](https://github.co
     - Porta (`port`): porta IP utilizada.
 
 > [!NOTE]
-> As devidas liberações de firewall devem ser providenciadas com base nas informações do `nodes.json`.
+> As devidas liberações de firewall devem ser providenciadas com base nas informações do `nodes.json`, conforme indicado no passo 5.
 
 ## 12.3 - Capturar as métricas de outras organizações
-A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por dashboards (Grafana, Zabix, etc.). No repositório de monitoração, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração pode ser verificada no arquivo `prometheus.yml`, *job_name: rbb_federado*. 
 
-- Alterar os labels dos alvos (*targets*) de cada organização conforme abaixo:
+A forma de capturar as métricas de outras organizações pode variar bastante. Por exemplo, elas podem ser capturadas com outro Prometheus ou diretamente por *dashboards* (Grafana, Zabix, etc.). No repositório de monitoração, é apresentada, como exemplo, uma forma de captura com o próprio Prometheus que exporta as métricas locais. Essa configuração (`job_name: rbb_federado`) pode ser verificada no arquivo `prometheus.yml`.
+
+É necessário adicionar um alvo (*target*) para cada uma das demais organizações, conforme abaixo:
 ```
-- job_name: rbb-federado
-  - targets: [<ip do prometheus alvo>:<porta do prometheus alvo>]
-    labels:
-      organization: <nome da organização>
+...
+scrape_configs:
+  ...
+  # Job para coletar as métricas de outras organizações.
+  # Inclua aqui os alvos das outras organizações (Prometheus expostos).
+  - job_name: rbb-federado
+    ...
+    static_configs:
+      - targets: ['<ip-prometheus-outra-organizacao>:<porta-prometheus-outra-organizacao>']
+        labels:
+          organization: '<nome-outra-organizacao>'
 ```
+
 > [!NOTE]
 > O job deve ser configurado com os alvos (*targets*) de outras organizações conforme o arquivo **`nodes.json`**.
 
 ## 12.4 - Levantar o Prometheus
-- Uma vez alterado o arquivo `prometheus.yml`, levante o container do Prometheus:
+
+Uma vez alterado o arquivo `prometheus.yml`, inicie o contêiner do Prometheus:
 ```
 docker-compose up -d
 ```
-- Acesse a interface web do Prometheus e verifique o estado dos alvos (menu *Status -> Targets*), bem como algumas métricas (ex: no menu *Graph*, digite como expressão *ethereum_blockchain_height*).
+
+Acesse a interface web do Prometheus e verifique o estado dos alvos (menu *Status -> Targets*), bem como algumas métricas (ex: no menu *Graph*, digite como expressão `ethereum_blockchain_height`).
 
 
 # 13 - Ajuste na monitoração pelos demais partícipes
