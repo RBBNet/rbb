@@ -270,6 +270,9 @@ As seguintes regras de firewall deverão ser configuradas por sua instituição:
   - Permita conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos outros boots que integram a RBB, além dos writers dos **partícipes parceiros**.
 - Os observer-boots devem estar acessíveis por qualquer nó da Internet: 
   - Permita conexão (inbound) no `<ip-externo>:<porta-p2p>` do seu observer-boot a partir de **qualquer endereço IP**.
+- Todos os Prometheus devem conseguir conectar-se entre si. Por isso, para seu Prometheus:
+  - Permita conexão (inbound) no `<ip-externo>:<porta-prometheus>` do seu Prometheus a partir dos outros Prometheus que integram a RBB.
+  - Permita conexão (outbound) para os `<ip-externo>:<porta-prometheus>` dos outros Prometheus que integram a RBB.
 
 Temos optado por configurar regras tanto para UDP quanto para TCP, embora suspeitemos que UDP seja necessário apenas para nós que participam do discovery (boot e observer-boot). Ainda não testamos, porém, não abrir o UDP para validators e writers.
 
@@ -289,6 +292,10 @@ As seguintes regras de firewall deverão ser configuradas pelas demais institui�
 - Os observer-boots dos **partícipes parceiros** devem conseguir conectar-se com todos os boots. Por isso, os **partícipes parceiros** devem realizar configurações para que:
   - Seus observer-boots permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus observer-boots a partir dos novos boots adicionados à RBB.
   - Seus observer-boots permitam conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos novos boots adicionados à RBB.
+- Todos os Prometheus devem conseguir conectar-se entre si. Por isso, os demais partícipes devem realizar configurações para que seu Prometheus:
+  - Permita conexão (inbound) no `<ip-externo>:<porta-prometheus>` do seu Prometheus a partir dos novos Prometheus adicionados à RBB.
+  - Permita conexão (outbound) para os `<ip-externo>:<porta-prometheus>` dos novos Prometheus adicionados à RBB.
+
 
 # 6 - Permissionamento do(s) novo(s) nó(s)
 
