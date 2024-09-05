@@ -104,7 +104,6 @@ A RBB se baseou no *framework* da [LACChain](https://www.lacchain.net), para def
     - Conectam-se com nós conectores designados.
   - **Nós Observadores** (*Observer Nodes*): Só podem ler as informações registradas na rede.
     - Podem conectar-se apenas com nós conectores que estiverem abertos para permitir a leitura de blocos.
-      - Observação: Atualmente a RBB ainda **não** suporta nós conectores com essa possibilidade.
 
 ![Topologia da RBB](arquitetura/imagens/core-satellite.png "Topologia da RBB")
 
