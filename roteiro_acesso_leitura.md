@@ -69,7 +69,7 @@ chmod +x rbb-observer
 
 O script pode ser utilizado de mais de uma maneira, conforme descrito nas seções a abaixo, a depender das ferramentas que se deseja executar.
 
-### Opção 1 - Iniciar *observer* sem *block explorer*
+### Opção 1 - Instalar *observer* sem *block explorer*
 
 Para iniciar apenas o nó *observer*, **sem** um *block explorer* "acoplado", digite o seguinte comando:
 
@@ -77,7 +77,7 @@ Para iniciar apenas o nó *observer*, **sem** um *block explorer* "acoplado", di
 ./rbb-observer install -o
 ```
 
-### Opção 2 - Iniciar *observer* + Blockscout
+### Opção 2 - Instalar *observer* + Blockscout
 
 Para iniciar o nó *observer*, com o Blockscout "acoplado", digite o seguinte comando:
 
@@ -87,7 +87,7 @@ Para iniciar o nó *observer*, com o Blockscout "acoplado", digite o seguinte co
 
 Será possível acompanhar as transações e visualização dos blocos acessando a URL informada ao final da instalação, usando um navegador web.
 
-### Opção 3 - Iniciar *observer* + Chainlens
+### Opção 3 - Instalar *observer* + Chainlens
 
 Para iniciar o nó *observer*, com o Chainlens "acoplado", digite o seguinte comando:
 
