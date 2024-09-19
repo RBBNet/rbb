@@ -49,7 +49,7 @@
 # Reuniões do Comitê Executivo realizadas
 # Reuniões do Comitê Executivo realizadas
 - 14/12/2023
-  - [Ata assinada digitalmente](atas/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_assinada.pdf)
+  - [Ata assinada digitalmente](atas/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_v3_assinada.pdf)
   - Destaques:
     - Manual de Operações.
     - Cronograma do Piloto.
