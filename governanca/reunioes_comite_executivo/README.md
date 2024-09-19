@@ -46,31 +46,31 @@
 
 # Reuniões do Comitê Executivo realizadas
 - 08/08/2024
-  - [Ata assinada digitalmente](atas/2024-08-08-RBB-Ata-Reuni%C3%A3o%2022%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-08-08-RBB-Ata-Reuniao%2022%20ass.pdf)
   - Destaques:
     - XXX
 - 11/07/2024
-  - [Ata assinada digitalmente](atas/2024-07-11-RBB-Ata-Reuni%C3%A3o%2021%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-07-11-RBB-Ata-Reuniao%2021%20ass.pdf)
   - Destaques:
     - XXX
 - 13/06/2024
-  - [Ata assinada digitalmente](atas/2024-06-13-RBB-Ata-Reuni%C3%A3o%2020%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-06-13-RBB-Ata-Reuniao%2020%20ass.pdf)
   - Destaques:
     - XXX
 - 09/05/2024
-  - [Ata assinada digitalmente](atas/2024-05-09-RBB-Ata-Reuni%C3%A3o%2019%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-05-09-RBB-Ata-Reuniao%2019%20ass.pdf)
   - Destaques:
     - XXX
 - 11/04/2024
-  - [Ata assinada digitalmente](atas/2024-04-11-RBB-Ata-Reuni%C3%A3o%2018%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-04-11-RBB-Ata-Reuniao%2018%20ass.pdf)
   - Destaques:
     - XXX
 - 21/03/2024
-  - [Ata assinada digitalmente](atas/2024-03-21-RBB-Ata-Reuni%C3%A3o%2017%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-03-21-RBB-Ata-Reuniao%2017%20ass.pdf)
   - Destaques:
     - XXX
 - 22/02/2024
-  - [Ata assinada digitalmente](atas/2024-02-22-RBB-Ata-Reuni%C3%A3o%2016%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-02-22-RBB-Ata-Reuniao%2016%20ass.pdf)
   - Destaques:
     - XXX
 - 14/12/2023
@@ -79,7 +79,7 @@
     - Manual de Operações.
     - Cronograma do Piloto.
 - 16/11/2023
-  - [Ata assinada digitalmente](atas/2023-11-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_v1-assinada.pdf)
+  - [Ata assinada digitalmente](atas/2023-11-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_v1-assinado.pdf)
   - Destaques:
     - Manual de Operações.
     - Proposta sobre o Piloto.
