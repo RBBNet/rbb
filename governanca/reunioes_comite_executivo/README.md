@@ -1,46 +1,46 @@
 # Representantes dos Partícipes no Comitê Executivo da RBB
 
-**- BNDES**
+**BNDES**
   - Fernando Passeri Lavrado
   - Gladstone Moises Arantes Junior
   - Luciana Giuliani de Oliveira Reis
   - Sérgio Marques de Viveiros
     
-**- CPQD**
+**CPQD**
   - José Reynaldo Formigoni Filho
     
-**- Dataprev**
+**Dataprev**
   - Bernado Martins Pina
   - Felipe Braga Carneiro Leão
   - Fernanda Bruno dos Santos
     
-**- Prefeitura de Araguaína (Em solicitação)**
+**Prefeitura de Araguaína (Em solicitação)**
   - Allen Kardec Feitosa Oliveira
   - Max Doeel Nunes Guimarães
   - Igor Thawan do Nascimento da Silva
   - Sérgio Maia Rabelo
     
-**- Prodemge**
+**Prodemge**
   - Augusto Nogueira Zadra
   - Sândalo Carleto Del’Rio Euzébio e Bessa
     
-**- PUC-Rio**
+**PUC-Rio**
   - Gustavo Robichez de Carvalho
   - Rafael Barbosa Nasser
     
-**- RNP**
+**RNP**
   - Leandro Neumann Ciuffo
     
-**- Serpro (Em solicitação)**
+**Serpro (Em solicitação)**
   - Jetro Paulo Weber
   - Kerley de Lourdes Silva
   - Marco Túlio da Silva Lima
     
-**- TCU**
+**TCU**
   - Eldon Teixeira Coutinho
   - Rainério Rodrigues Leite
     
-**- STC-MA - Secretária de Estado de Transparência e Controle**
+**STC-MA - Secretária de Estado de Transparência e Controle**
   - Ronald Serra Campos
   - Steferson Lima Costa Ferreira
 
