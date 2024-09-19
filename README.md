@@ -129,3 +129,5 @@ A RBB utiliza regras de [versionamento semântico](versionamento.md) para seu c�
 ## Contato
 
 Em caso de dúvidas e sugestões, entre em contato através do e-mail [rbb@bndes.gov.br](#).
+
+O servidor do Discord é público, entre por [esse convite](https://discord.gg/RzyUpmGqTT).
