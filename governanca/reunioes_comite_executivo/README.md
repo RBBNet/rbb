@@ -47,6 +47,8 @@
 
 
 # Reuniões do Comitê Executivo realizadas
+- 22/02/2024
+  - [Ata assinada digitalmente](atas/2024-02-22-RBB-Ata-Reuniao 16 ass.pdf)
 - 14/12/2023
   - [Ata assinada digitalmente](2023-12-14_reuniao/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_assinada.pdf)
   - Destaques:
