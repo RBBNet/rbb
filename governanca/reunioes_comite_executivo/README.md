@@ -46,40 +46,40 @@
 
 # Reuniões do Comitê Executivo realizadas
 - 08/08/2024
-  - [Ata assinada digitalmente](atas/2024-08-08-RBB-Ata-Reuniao%2022%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-08-08-RBB-Ata-Reuni%C3%A3o%2022%20ass.pdf)
   - Destaques:
     - XXX
 - 11/07/2024
-  - [Ata assinada digitalmente](atas/2024-07-11-RBB-Ata-Reuniao%2021%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-07-11-RBB-Ata-Reuni%C3%A3o%2021%20ass.pdf)
   - Destaques:
     - XXX
 - 13/06/2024
-  - [Ata assinada digitalmente](atas/2024-06-13-RBB-Ata-Reuniao%2020%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-06-13-RBB-Ata-Reuni%C3%A3o%2020%20ass.pdf)
   - Destaques:
     - XXX
 - 09/05/2024
-  - [Ata assinada digitalmente](atas/2024-05-09-RBB-Ata-Reuniao%2019%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-05-09-RBB-Ata-Reuni%C3%A3o%2019%20ass.pdf)
   - Destaques:
     - XXX
 - 11/04/2024
-  - [Ata assinada digitalmente](atas/2024-04-11-RBB-Ata-Reuniao%2018%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-04-11-RBB-Ata-Reuni%C3%A3o%2018%20ass.pdf)
   - Destaques:
     - XXX
 - 21/03/2024
-  - [Ata assinada digitalmente](atas/2024-03-21-RBB-Ata-Reuniao%2017%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-03-21-RBB-Ata-Reuni%C3%A3o%2017%20ass.pdf)
   - Destaques:
     - XXX
 - 22/02/2024
-  - [Ata assinada digitalmente](atas/2024-02-22-RBB-Ata-Reuniao%2016%20ass.pdf)
+  - [Ata assinada digitalmente](atas/2024-02-22-RBB-Ata-Reuni%C3%A3o%2016%20ass.pdf)
   - Destaques:
     - XXX
 - 14/12/2023
-  - [Ata assinada digitalmente](atas/2023-12-14-RBB-Ata-Reuniao-Comite-Executivo_assinada.pdf)
+  - [Ata assinada digitalmente](atas/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_v3_assinada.pdf)
   - Destaques:
     - Manual de Operações.
     - Cronograma do Piloto.
 - 16/11/2023
-  - [Ata assinada digitalmente](atas/2023-11-16-RBB-Ata-Reuniao-Comite-Executivo_v1-assinado.pdf)
+  - [Ata assinada digitalmente](atas/2023-11-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_v1-assinada.pdf)
   - Destaques:
     - Manual de Operações.
     - Proposta sobre o Piloto.
@@ -109,42 +109,42 @@
     - Avanço significativo de todas as organizações.
     - Apresentação PUC-Rio.
 - 01/06/2023
-  - [Ata assinada digitalmente](atas/2023-06-01-RBB-Ata-Reuniao-Comite-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2023-06-01-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
   - Destaques:
     - Adesão da Secretaria de Estado de Transparência e Controle do Maranhão.
 - 27/04/2023
-  - [Ata assinada digitalmente](atas/2023-04-27-RBB-Ata-Reuniao-Comite-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2023-04-27-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
   - Destaques:
     - Relatos sobre as frentes em andamento no Comitê Técnico.
     - Relato sobre contato com representante do Comitê Paralímpico Brasileiro.
     - Adesão da PUC-RJ ao Acordo da RBB.
     - Planejamento para o piloto.
 - 23/03/2023
-  - [Ata assinada digitalmente](atas/2023-03-23-RBB-Ata-Reuniao-Comite-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2023-03-23-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
   - Sem destaques.
 - 16/02/2023
-  - [Ata assinada digitalmente](atas/2023-02-16-RBB-Ata-Reuniao-Comite-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2023-02-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
   - Destaques:
     - Relatos sobre as iniciativas em andamento no Comitê Técnico.
     - Ajustes no Regulamento para aceitação de assinaturas gov.br.
 - 19/01/2023
-  - [Ata assinada digitalmente](atas/2023-01-19-RBB-Ata-Reuniao-Comite-Executivo-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2023-01-19-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
   - Destaques:
     - Aprovada adesão da Prodemge ao Acordo da RBB.
     - Aprovado uso de assinaturas gov.br para documentos recebidos ou produzidos pela RBB.
 - 29/11/2022
-  - [Ata assinada digitalmente](atas/2022-11-29-Ata-Reuniao-Governan%C3%A7a-RBB-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)
   - Destaques:
     - Aprovado o Regulamento da RBB.
     - Os Comitês criados pelo Regulamento (Comitê Executivo e Comitê Técnico) iniciam suas operações tendo o BNDES como coordenador.
     - Será produzido um modelo de carta para designação dos representantes no Comitê Técnico.
     - Outros temas foram debatidos.
 - 01/11/2022
-  - [Ata assinada digitalmente](atas/2022-11-01-Ata-Reuniao-Governan%C3%A7a-RBB-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2022-11-01-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)
   - Destaques:
     - Aceitas as adesões de Prodest, Dataprev, CPqD e RNP.
     - Criação de Discord do projeto: https://discord.gg/sHSygnAUVk.
 - 22/08/2022
-  - [Ata assinada digitalmente](atas/2022-08-22-Ata-Reuniao-Governan%C3%A7a-RBB-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2022-08-22-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)
   - Ouvintes presentes:
     - Eldon Teixeira Coutinho - TCU.
