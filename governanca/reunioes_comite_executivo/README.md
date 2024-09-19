@@ -44,7 +44,6 @@
   - Ronald Serra Campos
   - Steferson Lima Costa Ferreira
 
-
 # Reuniões do Comitê Executivo realizadas
 - 08/08/2024
   - [Ata assinada digitalmente](atas/2024-08-08-RBB-Ata-Reuniao%2022%20ass.pdf)
