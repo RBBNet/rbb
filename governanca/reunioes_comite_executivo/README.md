@@ -48,31 +48,37 @@
 - 08/08/2024
   - [Ata assinada digitalmente](atas/2024-08-08-RBB-Ata-Reuniao%2022%20ass.pdf)
   - Destaques:
-    - XXX
+    - Sem destaques.
 - 11/07/2024
   - [Ata assinada digitalmente](atas/2024-07-11-RBB-Ata-Reuniao%2021%20ass.pdf)
   - Destaques:
-    - XXX
+    - Agenda de lançamento da RBB.
+    - Apresentação da ferramenta SOL.
+    - Considerações sobre LGPD.
 - 13/06/2024
   - [Ata assinada digitalmente](atas/2024-06-13-RBB-Ata-Reuniao%2020%20ass.pdf)
   - Destaques:
-    - XXX
+    - Solicitação de adesão do SERPRO à RBB.
+    - Treinamento Blockchain para RBB.
 - 09/05/2024
   - [Ata assinada digitalmente](atas/2024-05-09-RBB-Ata-Reuniao%2019%20ass.pdf)
   - Destaques:
-    - XXX
+    - Alinhamento com ANPD (Autoridade Nacional de Proteção de Dados).
+    - Planejamento de próximos passos do piloto.
 - 11/04/2024
   - [Ata assinada digitalmente](atas/2024-04-11-RBB-Ata-Reuniao%2018%20ass.pdf)
   - Destaques:
-    - XXX
+    - Treinamento dos Gestores de Incidentes.
+    - Comunicação e eventos de lançamento da Rede.
 - 21/03/2024
   - [Ata assinada digitalmente](atas/2024-03-21-RBB-Ata-Reuniao%2017%20ass.pdf)
   - Destaques:
-    - XXX
+    - Gestores de incidentes.
+    - Adesão do Município de Araguaína.
 - 22/02/2024
   - [Ata assinada digitalmente](atas/2024-02-22-RBB-Ata-Reuniao%2016%20ass.pdf)
   - Destaques:
-    - XXX
+    - Gestores de incidentes.
 - 14/12/2023
   - [Ata assinada digitalmente](atas/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_v3_assinada.pdf)
   - Destaques:
