@@ -3,7 +3,7 @@
 Nos procedimentos abaixo, todos os documentos são digitais e suas assinaturas, quando requeridas, deverão seguir as especificações da ICP-Brasil ou usar o padrão Gov.Br. Os documentos solicitados devem ser enviados para o e-mail rbb@bndes.gov.br.
 
 Os solicitantes à RBB devem: 
-- Preencher, assinar e apresentar o [Termo de Adesão](documentos/Termo-de-Adesao_RBB.docx). Sobre o seu preenchimento:
+- Preencher, assinar e apresentar o [Termo de Adesão](documentos/Modelo%20-%20Termo%20de%20Adesão.docx). Sobre o seu preenchimento:
   - O Termo de Adesão deverá especificar se o novo aderente será um **Partícipe Parceiro** ou um **Partícipe Associado**, conforme detalhado no  [Acordo de Cooperação](documentos/ACT_TCU_BNDES_RBB.pdf), Cláusula II, Parágrafo I. 
   - Preencher a designação de representantes para acompanhar o Acordo, conforme o [Acordo de Cooperação](documentos/ACT_TCU_BNDES_RBB.pdf), Cláusula II, Inciso X.
     - Caso seja enviado o modelo anterior de Termo de Adesão, sem a indicação do representante, poderá ser usado o [modelo de carta de indicação de representante](documentos/Modelo-Carta-indicação-representante.doc).
