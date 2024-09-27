@@ -315,7 +315,7 @@ As seguintes regras de firewall deverão ser configuradas pelas demais institui�
   - Seus writers permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus writers a partir dos novos boots adicionados à RBB.
   - Seus writers permitam conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos novos boots adicionados à RBB.
 - Os observer-boots dos **partícipes parceiros** devem conseguir conectar-se com todos os boots. Por isso, os **partícipes parceiros** devem realizar configurações para que:
-  - Seus observer-boots permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus observer-boots a partir dos novos boots adicionados à RBB.
+  - Seus observer-boots permitam conexão (inbound) nos `<ip-externo>:<porta-p2p>` dos seus observer-boots a partir qualquer endereço IP.
   - Seus observer-boots permitam conexão (outbound) para os `<ip-externo>:<porta-p2p>` dos novos boots adicionados à RBB.
 - Todos os Prometheus devem conseguir conectar-se entre si. Por isso, os demais partícipes devem realizar configurações para que seus Prometheus:
   - Permitam conexão (inbound) no `<ip-externo>:<porta-prometheus>` dos seus Prometheus a partir dos novos Prometheus adicionados à RBB.
