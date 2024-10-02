@@ -1,5 +1,30 @@
 # Reuniões do Comitê Técnico realizadas em 2024
 
+- 02/10/2024
+  - Pauta proposta:
+    - Incidentes
+    - Novos rótulos de incidentes
+    - Apresentação Dataprev
+    - Proposta novo nodes.json
+    - Maturação do piloto
+- 25/09/2024
+  - Pauta proposta:
+    - Incidentes
+    - Entradas e saídas de nós
+    - Maturação do piloto
+    - Projetos futuros
+- 11/09/2024
+  - Pauta proposta:
+    - Incidentes
+    - Entradas e saídas de nós
+    - Maturação do piloto
+    - Projetos futuros
+- 04/09/2024
+  - Pauta proposta:
+    - Incidentes
+    - Entradas e saídas de nós
+    - Maturação do piloto
+    - Projetos futuros
 - 28/08/2024
   - Pauta proposta:
     - Entradas e saídas de nós.
