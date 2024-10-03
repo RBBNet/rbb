@@ -92,7 +92,7 @@ Será possível acompanhar as transações e visualização dos blocos acessando
 Para iniciar o nó *observer*, com o Chainlens "acoplado", digite o seguinte comando:
 
 ```bash
-./rbb-observer -oc
+./rbb-observer install -oc
 ```
 
 Será possível acompanhar as transações e visualização dos blocos acessando o endereço HTTP informado ao final da instalação via navegador web.
