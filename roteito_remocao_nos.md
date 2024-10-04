@@ -81,9 +81,11 @@ As seguintes regras de firewall deverão ser excluídas pelas demais instituiç�
   - Conexão (outbound) para os `<ip-externo>:<porta-prometheus>` dos Prometheus removidos da RBB.
 
 
-# 6 - Ajustar genesis e static-nodes dos nós dos outros partícipes associados 
+# 6 - Ajustar genesis e static-nodes dos nós dos partícipes associados remanescentes
 
-As atividades a seguir deverão ser executadas pelos **partícipes associados** para cada nó removido, de acordo com seu tipo.
+As atividades a seguir deverão ser executadas pelos **partícipes associados** para cada nó removido por outro partícipe associado, de acordo com seu tipo.
+
+Obs.: A remoção de nós de partícipes parceiros não impactam o genesis e o static-nodes de nenhum partícipe.
 
 ## 6.1 Remoção de boot
 
@@ -113,7 +115,9 @@ As atividades a seguir deverão ser executadas pelos **partícipes associados** 
 
 # 7 - Ajustar genesis dos nós dos partícipes parceiros  
 
-As atividades a seguir deverão ser executadas pelos **partícipes parceiros** para cada nó removido, de acordo com seu tipo.
+As atividades a seguir deverão ser executadas pelos **partícipes parceiros** para cada nó removido por um partícipe associado, de acordo com seu tipo.
+
+Obs.: A remoção de nós de partícipes parceiros não impactam o genesis e o static-nodes de nenhum partícipe.
 
 ## 7.1 - Remoção de boot
 
