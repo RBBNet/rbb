@@ -1,5 +1,10 @@
 # Reuniões do Comitê Técnico realizadas em 2024
 
+- 16/10/2024
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - Proposta novo nodes.json
 - 09/10/2024
   - Pauta proposta:
     - Incidentes
