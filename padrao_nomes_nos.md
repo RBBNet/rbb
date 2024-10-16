@@ -10,9 +10,10 @@ Onde:
   - `validator`
   - `writer`
   - `observer-boot`
+  - `prometheus`
 - `<sequencial>` é um número inteiro, com dois dígitos, começando em `01`, para diferenciar diferentes nós de um mesmo tipo.
 
-Exemplos de nomes válidos: `boot01`, `boot02`, `validator01`, `writer01`, `observer-boot01`
+Exemplos de nomes válidos: `boot01`, `boot02`, `validator01`, `writer01`, `observer-boot01`, `prometheus01`
 
 
 ## Criação e Configuração de Nós
@@ -32,6 +33,9 @@ Exemplos de comandos do `rbb-cli`:
 ./rbb-cli config set nodes[\"observer-boot\"].ports+=[\"8545:8545\"]
 ```
 
+**Observação**: A configuração do nós Prometheus é feita de forma distinta da configuração dos nós Besu. A ferramenta `rbb-cli` **não** é utilizada na configuração de nós Prometheus.
+
+
 ## Permissionamento
 
 Ao se se executar o *smart contract* de permissionamento de nós, o valor do parâmetro `name` da função `addEnode` também deve-se utilizar o padrão de nomenclatura.
@@ -42,3 +46,5 @@ addEnode(enodeHigh, enodeLow, nodeType, geoHash, 'boot01', organization)
 ```
 
 **Observação**: Atualmente o campo `geoHash` não está sendo usado e deve-se utilizar o valor fixo `'0x000000000000'`.
+
+**Observação**: Os nós do tipo `prometheus` não executam instância Besu e, portanto, **não** participam do processo de permissionamento.
