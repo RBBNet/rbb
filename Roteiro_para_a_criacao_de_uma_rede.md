@@ -142,13 +142,13 @@ O enode é uma string que serve de identificador para o nó e que será utilizad
 - Sua formação é o que segue: `enode://<chave-pública-SEM-0x>@<ip>:<porta>`.
 - Observe que o IP utilizado poderá ser diferente para o mesmo nó, pois haverá situações onde serão utilizados o IP externo e, outras, onde serão utilizados os IPs internos. Este roteiro chamará atenção para cada caso.
 
-As instituições devem compartilhar num arquivo, os `enodes` e os `endereços (account)` de cada nó para que todas as instituições conheçam as informações de todos os nós da rede e possam conectar esses nós conforme a topologia da rede.
+As instituições devem compartilhar em um arquivo as informações de cada nó para que todas as instituições conheçam as informações de todos os nós da rede e possam conectar esses nós conforme a topologia da rede.
 
-Para isso, deve-se usar um arquivo no seguinte repositório privado apenas para os participantes da rede: <https://github.com/RBBNet/participantes>. Este repositório deverá conter uma pasta que corresponde à rede que está sendo implantada. Esta pasta conterá alguns arquivos compartilhados pelo grupo, incluindo a lista de enodes.
+Para isso, deve-se usar um arquivo no seguinte repositório privado apenas para os participantes da rede: <https://github.com/RBBNet/participantes>. Este repositório deverá conter uma pasta que corresponde à rede que está sendo implantada. Esta pasta conterá alguns arquivos compartilhados pelo grupo, incluindo a lista de nós.
 
 Para exemplificar, considere que o nome da rede é atribuída à variável `${rede}`, o que será útil em alguns momentos. Se a rede em implantação é a rede de laboratório, temos `${rede}`=**"lab"**. Se é a rede piloto, `${rede}`=**"piloto"**.
 
-Assim, a lista de enodes ficará no arquivo em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`, com o formato definido abaixo. Observe que os enodes nessa lista usarão **sempre** os IPs **externos**. Para os writers, o IP e porta é necessário **apenas para os writers dos partícipes parceiros**. **Não é necessário** informar o IP e porta dos writers internos nessa lista.
+Assim, a lista de nós ficará no arquivo em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`, com o formato definido abaixo. Observe que os nós nessa lista usarão **sempre** os IPs **externos**. Para os writers, o IP e porta é necessário **apenas para os writers dos partícipes parceiros**. **Não é necessário** informar o IP e porta dos writers internos nessa lista.
 
 Formato do arquivo `nodes.json`:
 
@@ -160,11 +160,13 @@ Formato do arquivo `nodes.json`:
       {
         "name": "...",
         "nodeType": "...",
-        "enode": "",
+        "pubKey": "",
         "hostNames": [ "...", "..." ... ],
         "ipAddresses" : [ "...", "..." ... ],
         "port": ...,
-        "id": "..."
+        "id": "...",
+        "deploymentStatus": "...",
+        "operationalStatus": "..."
       }
       ...
     ]
@@ -178,11 +180,18 @@ Onde:
 - `nodes` é a lista de nós da organização.
 - `name` é o nome do nó, conforme o [padrão de nomes da RBB](padrao_nomes_nos.md).
 - `nodeType` é o tipo do nó, podendo ser um dos seguintes valores: `boot`, `validator`, `writer`, `observer-boot` ou `prometheus`.
-- `enode` é a chave pública do nó (sem o prefixo `0x`).
+- `pubKey` é a chave pública do nó (com o prefixo `0x`).
 - `hostNames` é a lista com os nomes de host do nó, caso exista algum. Caso o nó não tenha nome de host correspondente, não adicione este atributo. Caso o nó tenha apenas um nome de host, preencha a lista com um único elemento.
 - `ipAddresses` é a lista de endereços IP do nó. Caso só exista um endereço, preencha a lista com um único elemento.
 - `port` é a porta IP utilizada pelo nó.
 - `id` é o identificador do nó (com o prefixo `0x`). Este atributo deve ser utilizado para os nós do tipo `validator`.
+- `deploymentStatus` indica o estado de implantação do nó na rede, podendo ser um dos seguintes valores:
+  - `provisioned`: caso o nó já tenha chave pública, identificador (no caso de validator), endereço IP e porta definidos, porém sem ainda esta plenamente implantado.
+  - `deployed`: caso o nó já tenha sido implantado e já possa receber conexões.
+  - `retired: caso o nó esteja sendo ou já tenha sido definitivamente desconectado e desligado.
+- `operationalStatus` indica o estado operacional do nó:
+  - `inactive` indica que o nó está temporariamente inativo, como por exemplo quando está sofrendo manutenção.
+  - `active` indica que o nó está (ou deveria estar) ativo.
 
 Em caso de dúvidas, é possível utiliar o [JSON schema](https://github.com/RBBNet/participantes/blob/main/nodes.schema.json) definido para o arquivo `nodes.json` no repositório privado dos participantes.
 

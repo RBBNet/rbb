@@ -243,11 +243,13 @@ O arquivo `nodes.json` possui o seguinte formato:
       {
         "name": "...",
         "nodeType": "...",
-        "enode": "",
+        "pubKey": "",
         "hostNames": [ "...", "..." ... ],
         "ipAddresses" : [ "...", "..." ... ],
         "port": ...,
-        "id": "..."
+        "id": "...",
+        "deploymentStatus": "...",
+        "operationalStatus": "..."
       }
       ...
     ]
@@ -261,11 +263,18 @@ Onde:
 - `nodes` é a lista de nós da organização.
 - `name` é o nome do nó, conforme o [padrão de nomes da RBB](padrao_nomes_nos.md).
 - `nodeType` é o tipo do nó, podendo ser um dos seguintes valores: `boot`, `validator`, `writer`, `observer-boot` ou `prometheus`.
-- `enode` é a chave pública do nó (sem o prefixo `0x`).
+- `pubKey` é a chave pública do nó (com o prefixo `0x`).
 - `hostNames` é a lista com os nomes de host do nó, caso exista algum. Caso o nó não tenha nome de host correspondente, não adicione este atributo. Caso o nó tenha apenas um nome de host, preencha a lista com um único elemento.
 - `ipAddresses` é a lista de endereços IP do nó. Caso só exista um endereço, preencha a lista com um único elemento.
 - `port` é a porta IP utilizada pelo nó.
 - `id` é o identificador do nó (com o prefixo `0x`). Este atributo deve ser utilizado para os nós do tipo `validator`.
+- `deploymentStatus` indica o estado de implantação do nó na rede, podendo ser um dos seguintes valores:
+  - `provisioned`: caso o nó já tenha chave pública, identificador (no caso de validator), endereço IP e porta definidos, porém sem ainda esta plenamente implantado.
+  - `deployed`: caso o nó já tenha sido implantado e já possa receber conexões.
+  - `retired: caso o nó esteja sendo ou já tenha sido definitivamente desconectado e desligado.
+- `operationalStatus` indica o estado operacional do nó:
+  - `inactive` indica que o nó está temporariamente inativo, como por exemplo quando está sofrendo manutenção.
+  - `active` indica que o nó está (ou deveria estar) ativo.
 
 Em caso de dúvidas, é possível utiliar o [JSON schema](https://github.com/RBBNet/participantes/blob/main/nodes.schema.json) definido para o arquivo `nodes.json` no repositório privado dos participantes.
 
