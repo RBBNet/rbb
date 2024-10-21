@@ -271,7 +271,7 @@ Onde:
 - `deploymentStatus` indica o estado de implantação do nó na rede, podendo ser um dos seguintes valores:
   - `provisioned`: caso o nó já tenha chave pública, identificador (no caso de validator), endereço IP e porta definidos, porém sem ainda esta plenamente implantado.
   - `deployed`: caso o nó já tenha sido implantado e já possa receber conexões.
-  - `retired: caso o nó esteja sendo ou já tenha sido definitivamente desconectado e desligado.
+  - `retired`: caso o nó esteja sendo ou já tenha sido definitivamente desconectado e desligado.
 - `operationalStatus` indica o estado operacional do nó:
   - `inactive` indica que o nó está temporariamente inativo, como por exemplo quando está sofrendo manutenção.
   - `active` indica que o nó está (ou deveria estar) ativo.
