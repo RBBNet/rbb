@@ -45,6 +45,24 @@
   - Steferson Lima Costa Ferreira
 
 # Reuniões do Comitê Executivo realizadas
+- 12/09/2024
+  - [Ata assinada digitalmente](atas/2024-09-12-RBB-Ata-Reuniao-24-Comite-Executivo-Assinada.pdf)
+  - Destaques:
+    - Pedidos de adesão 
+      - SGD 
+      - IBICT 
+    - Relato de conversa com a FGV 
+    - Apresentação Starlight / EY 
+    - Governança de aplicações
+- 22/08/2024
+  - [Ata assinada digitalmente](atas/2024-08-22-RBB-Ata-Reuniao-23-Comite-Executivo-Assinada.pdf)
+  - Destaques:
+    - Follow up sobre aplicações 
+    - Apresentações 
+      - Interoperabilidade do DREX (Bacen/UFRJ) 
+      - Framework de Governança de Blockchain (CPQD) 
+    - Propostas para melhoria da Gestão de Incidentes 
+    - Relatos 
 - 08/08/2024
   - [Ata assinada digitalmente](atas/2024-08-08-RBB-Ata-Reuniao%2022%20ass.pdf)
   - Destaques:
