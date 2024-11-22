@@ -45,6 +45,13 @@
   - Steferson Lima Costa Ferreira
 
 # Reuniões do Comitê Executivo realizadas
+- 10/10/2024
+  - [Ata assinada digitalmente](atas/2024-10-10-RBB-Ata-Reuniao-25-Comite-Executivo-Assinada.pdf)
+  - Destaques:
+    - Relatos sobre processos de adesão 
+    - Maturação do piloto 
+    - Alinhamento com ANPD 
+    - Governança da RBB (CPQD)
 - 12/09/2024
   - [Ata assinada digitalmente](atas/2024-09-12-RBB-Ata-Reuniao-24-Comite-Executivo-Assinada.pdf)
   - Destaques:
