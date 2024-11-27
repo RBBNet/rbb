@@ -1,5 +1,35 @@
 # Reuniões do Comitê Técnico realizadas em 2024
 
+- 27/11/2024
+  - Pauta proposta:
+    - Incidentes
+    - Agenda para Reunião de 04/12
+    - Maturação do piloto
+    - Testes de configuração do Prometheus (roteiro Dataprev)
+- 13/11/2024
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - Testes de configuração do Prometheus (roteiro Dataprev)
+    - On chain permissioning deprecation
+- 06/11/2024
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - Apresentação Dataprev
+    - On chain permissioning deprecation
+- 30/10/2024
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - Agenda reunião 06/11
+    - Apresentação Dataprev
+    - On chain permissioning deprecation
+- 23/10/2024
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - On chain permissioning deprecation
 - 16/10/2024
   - Pauta proposta:
     - Incidentes
