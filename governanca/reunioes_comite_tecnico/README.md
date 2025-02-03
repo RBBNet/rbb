@@ -4,13 +4,6 @@
   - Gladstone Moises Arantes Junior - Titular e Coordenador (conforme [ata](../reunioes_comite_executivo/2022-11-29_reuniao/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)).
   - Sérgio Marques de Viveiros - Suplente.
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2022-12-22-Indica%C3%A7%C3%A3o-Representantes-BNDES-CARTA-SUP-ATI-01-2022.pdf).
-- TCU
-  - Eldon Teixeira Coutinho - Titular.
-  - Valter Rogerio Messias - Suplente.
-  - [Ofício de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-05-Indica%C3%A7%C3%A3o-Representantes-TCU.pdf).
-- RNP 
-  - Luiz Eduardo Folly de Campos - Titular. 
-  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-03-Indica%C3%A7%C3%A3o-Representante-RNP.pdf).
 - CPQD
   - Elder Bruno Evaristo Correa - Titular.
   - Jeffson Celeiro Sousa - Suplente.
@@ -24,6 +17,22 @@
   - Alexandre Sidney Ferreira - Titular. 
   - Rodrigo Fernandes dos Santos - Suplente. 
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2024-01-09-Prodemge-Alex-e-Rodrigo-Subst-Caleo.pdf).
+- RNP 
+  - Luiz Eduardo Folly de Campos - Titular. 
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-03-Indica%C3%A7%C3%A3o-Representante-RNP.pdf).
+- SERPRO
+  - Marcel Brunetto
+  - Leonardo Camilo Oliveira Aquino
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2024-12-20-Indicacao-Representante-Serpro.pdf).
+- SGD
+  - Germana Gladys Marques de Almeida
+  - Pollyanna Carla Oliveira Dias
+  - Rafael Abraão Rodrigues Lago
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2024-12-20-Indicacao-Representante-SGD.pdf).
+- TCU
+  - Eldon Teixeira Coutinho - Titular.
+  - Valter Rogerio Messias - Suplente.
+  - [Ofício de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-05-Indica%C3%A7%C3%A3o-Representantes-TCU.pdf).
 
 # Indicação de Representante para o Comitê Técnico da RBB
 
