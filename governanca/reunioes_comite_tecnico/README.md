@@ -31,5 +31,6 @@ Este é o [modelo de carta](../indicacoes_representantes/Modelo-Carta-Indica%C3%
 
 # Reuniões do Comitê Técnico realizadas
 
+- [Reuniões realizadas em 2025](reunioes_2025.md)
 - [Reuniões realizadas em 2024](reunioes_2024.md)
 - [Reuniões realizadas em 2023](reunioes_2023.md)

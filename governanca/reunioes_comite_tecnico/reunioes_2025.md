@@ -1,0 +1,26 @@
+# Reuniões do Comitê Técnico realizadas em 2025
+
+- 29/01/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - Ajustes na governança
+    - Estimativa de gas para aplicações
+- 22/01/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - Ajustes na governança
+    - Estimativa de gas para aplicações
+- 15/01/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - Ajustes na governança
+    - Estimativa de gas para aplicações
+- 08/01/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - Ajustes na governança
+    - Estimativa de gas para aplicações

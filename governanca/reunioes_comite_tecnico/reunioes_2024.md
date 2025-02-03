@@ -1,5 +1,14 @@
 # Reuniões do Comitê Técnico realizadas em 2024
 
+- 18/12/2024
+  - Pauta proposta:
+    - Sobre adesões
+    - Ajustes na governança
+    - Incidentes
+    - Maturação do piloto
+    - Estimativa de gas para aplicações
+    - Apresentação Starlight
+    - Datas das próximas reuniões
 - 11/12/2024
   - Pauta proposta:
     - Incidentes
