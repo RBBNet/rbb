@@ -5,16 +5,25 @@
   - Gladstone Moises Arantes Junior
   - Luciana Giuliani de Oliveira Reis
   - Sérgio Marques de Viveiros
+
+**CGE-PA**
+  - Gabriel Leandro Dantas
+  - Rodrigo Kenji Aranha Kanzaki
     
 **CPQD**
+  - Fernando Cesar Heredia Marino 
   - José Reynaldo Formigoni Filho
     
 **Dataprev**
   - Bernado Martins Pina
   - Felipe Braga Carneiro Leão
-  - Fernanda Bruno dos Santos
+
+**IBICT**
+  - Hugo Valadares Siqueira
+  - Washington Luís Ribeiro de Carvalho Segundo
+  - Fábio Castro Gouveia
     
-**Prefeitura de Araguaína (Em solicitação)**
+**Município de Araguaína**
   - Allen Kardec Feitosa Oliveira
   - Max Doeel Nunes Guimarães
   - Igor Thawan do Nascimento da Silva
@@ -30,20 +39,27 @@
     
 **RNP**
   - Leandro Neumann Ciuffo
+  - Luiz Eduardo de Souza Coelho (Achei nada)
+  - Emílio Nakamura (Achei nada)
     
-**Serpro (Em solicitação)**
+**Serpro**
+  - Guilherme Funchal da Silva
   - Jetro Paulo Weber
-  - Kerley de Lourdes Silva
   - Marco Túlio da Silva Lima
+
+**SGD**
+  - Hudson Vinícius Mesquita
+  - Germana Gladys Marques de Almeida
     
+**STC-MA - Secretária de Estado de Transparência e Controle**
+  - Nísia Paixão Seguins Louzeiro Seabra
+  - Ronald Serra Campos
+  - Steferson Lima Costa Ferreira
+
 **TCU**
   - Eldon Teixeira Coutinho
   - Rainério Rodrigues Leite
     
-**STC-MA - Secretária de Estado de Transparência e Controle**
-  - Ronald Serra Campos
-  - Steferson Lima Costa Ferreira
-
 # Reuniões do Comitê Executivo realizadas
 - 14/11/2024
   - [Ata assinada digitalmente](atas/2024-11-14-RBB-Ata-Reuniao-26-Comite-Executivo-Assinada.pdf)
