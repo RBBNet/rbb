@@ -1,5 +1,11 @@
 # Reuniões do Comitê Técnico realizadas em 2025
 
+- 05/02/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+    - Indicadores
+    - Planejamento 2025
 - 29/01/2025
   - Pauta proposta:
     - Incidentes
