@@ -52,7 +52,7 @@ A RBB fornece um [roteiro básico](roteiro_acesso_leitura.md) para quem quiser l
 Quem quiser subir um nó por conta própria e se conectar, deve usar os seguintes enodes para *discovery*:
 ```
 enode://3fc63306a2df0b19196395dcb117af3b52f4d9b5533f8f77772baf9cab0e7f8a06e8b8191bc5ff15408dda0955ad1556359e67f04a63ff27d7fa5e60aa805815@rbb-observer-boot01.bndes.gov.br:60002
-enode://5dd979ae40077dcd3ca620baeeb2328bde18b3a802e9b515181d5ef7c14b3692fc3a00d4d84ae17819d443f4fcfa13e07aa070c53aa191e7f2e46c587dc449a8@10.233.40.40:30303
+enode://b0bfb6437118f89fa3e093f45fe4a747179c766efd882fe3694d71e27df1fdf6024595ae5f3a3f285e8234ec134c306fbd031a98107d4b1bfac5ed58179430e8@200.198.20.95:60606
 enode://bf8d93733d707b30f1e09545d0ee3e57cddc697d0fdc9940540d5c4f77ec33bb8ea1cb1eeae8fccddc5b9539147dfa7ff24eb7bd82932243a77b31f83a8a7b0f@139.82.24.160:30303
 ```
 
