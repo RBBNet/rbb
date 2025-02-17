@@ -62,7 +62,7 @@
     
 # Reuniões do Comitê Executivo realizadas
 - 09/01/2025
-  - [Ata assinada digitalmente](2025-01-09-RBB-Ata-28-CE-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2025-01-09-RBB-Ata-28-CE-Assinada.pdf)
   - Destaques:
     - Proposta de aplicação do CPQD
     - Indicadores.  
