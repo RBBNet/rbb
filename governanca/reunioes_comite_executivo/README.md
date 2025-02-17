@@ -61,6 +61,19 @@
   - Rainério Rodrigues Leite
     
 # Reuniões do Comitê Executivo realizadas
+- 09/01/2025
+  - [Ata assinada digitalmente](2025-01-09-RBB-Ata-28-CE-Assinada.pdf)
+  - Destaques:
+    - Proposta de aplicação do CPQD
+    - Indicadores.  
+
+- 12/12/2024
+  - [Ata assinada digitalmente](atas/2024-12-12-RBB-Ata-27-CE-Assinada.pdf)
+  - Destaques:
+    - Adesão SGD
+    - Aplicação do SERPRO
+    - Ajustes na governança.
+
 - 14/11/2024
   - [Ata assinada digitalmente](atas/2024-11-14-RBB-Ata-Reuniao-26-Comite-Executivo-Assinada.pdf)
   - Destaques:
