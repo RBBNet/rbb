@@ -14,11 +14,11 @@ A partir da assinatura do Acordo de Cooperação entre o BNDES e o TCU no dia 12
   - SGD
 - Partícipes Aderentes Parceiros:
   - CGE-PA
+  - FENASBAC
   - Município de Araguaína
   - PUC-RJ
   - Secretaria de Transparência e Controle do Estado do Maranhão
   - TCE-SP
-  - FENASBAC
 
 Na terceira reunião da Governança da RBB, já com a participações de TCU, BNDES, Dataprev, CPQD e RNP, foi aprovado o Regulamento da RBB ([link para a ata com o Regulamento](reunioes_comite_executivo/2022-11-29_reuniao/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)). O Regulamento dividiu a governança em dois comitês: o Comitê Executivo e o Comitê Técnico, definidos da seguinte forma: 
 
