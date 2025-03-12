@@ -1,5 +1,11 @@
 # Reuniões do Comitê Técnico realizadas em 2025
 
+- 12/03/2025
+  - Pauta proposta:
+    - Incidentes
+    - Indicadores – fev/2025
+    - Permissionamento – Geração 2
+    - Maturação do piloto
 - 26/02/2025
   - Pauta proposta:
     - Incidentes
