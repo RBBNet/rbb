@@ -11,7 +11,7 @@ Este roteiro guia na criação de nós `observer-boots` para o laboratório da R
 > [!IMPORTANT]
 > Pré-requisitos
 > 	- Rede com nós de núcleo funcionando (boot, validadores, writers)
-> 	- A porta 30303 do host do observer-boot deve estar **aberta para conexões externas a partir da Internet**. 
+> 	- A porta 30303 do host do observer-boot deve estar **aberta para conexões externas a partir da Internet**. A liberação de acesso deve ser feita para os protocolos **TCP e UDP** (este último necessário para o protocolo de discovery).
 
 ### Boot de Observer
 
