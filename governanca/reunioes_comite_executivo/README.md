@@ -61,6 +61,21 @@
   - Rainério Rodrigues Leite
     
 # Reuniões do Comitê Executivo realizadas
+- 13/03/2025
+  - [Ata assinada digitalmente](atas/2025-03-13-RBB-Ata-30-CE_assinada.pdf)
+  - Destaques:
+    - Indicadores
+    - Adições ao Plano de Trabalho
+    - Projeto CPQD 
+
+- 13/02/2025
+  - [Ata assinada digitalmente](atas/2025-02-13-RBB-Ata-29-CE_assinada.pdf)
+  - Destaques:
+    - Proposta de adesão do TCE-SP
+    - Proposta de adesão da FENASBAC
+    - Indicadores
+    - Planejamento 2025  
+
 - 09/01/2025
   - [Ata assinada digitalmente](atas/2025-01-09-RBB-Ata-28-CE-Assinada.pdf)
   - Destaques:
