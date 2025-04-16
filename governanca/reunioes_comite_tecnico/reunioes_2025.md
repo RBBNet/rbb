@@ -1,5 +1,32 @@
 # Reuniões do Comitê Técnico realizadas em 2025
 
+- 16/04/2025
+  - Pauta proposta:
+    - Incidentes
+    - Permissionamento – Geração 2
+    - Manutenção do nodes.json
+    - On chain permissioning deprecation
+    - Maturação do piloto
+- 09/04/2025
+  - Pauta proposta:
+    - Incidentes
+    - Indicadores
+    - Simulação de SLAs/OLAs
+    - Maturação do piloto
+- 02/04/2025
+  - Pauta proposta:
+    - Incidentes
+    - Indicadores
+    - Maturação do piloto
+    - Simulação de SLAs/OLAs
+- 26/03/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+- 19/03/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
 - 12/03/2025
   - Pauta proposta:
     - Incidentes
