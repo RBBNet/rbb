@@ -41,7 +41,7 @@ As instituições participantes da RBB, aderentes ao Acordo de Cooperação, pod
   - Têm os mesmos direitos e deveres dos partícipes aderentes associados;
   - Têm direito a voto de desempate e vetar as propostas apresentadas.
 
-Para acesso e operação da rede, as instituições participantes devem seguir o [roteiro técnico](roteito_adicao_nos.md) para instalação e configuração de seus nós.
+Para acesso e operação da rede, as instituições participantes devem seguir o [roteiro técnico](roteiro_adicao_nos.md) para instalação e configuração de seus nós.
 
 ## Acesso aos Dados pelo Público
 
