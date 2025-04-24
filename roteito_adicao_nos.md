@@ -267,7 +267,7 @@ Onde:
 - `hostNames` é a lista com os nomes de host do nó, caso exista algum. Caso o nó não tenha nome de host correspondente, não adicione este atributo. Caso o nó tenha apenas um nome de host, preencha a lista com um único elemento.
 - `ipAddresses` é a lista de endereços IP do nó. Caso só exista um endereço, preencha a lista com um único elemento.
 - `port` é a porta IP utilizada pelo nó.
-- `id` é o identificador do nó (com o prefixo `0x`). Este atributo deve ser utilizado para os nós do tipo `validator`.
+- `id` é o identificador do nó (com o prefixo `0x`). Este atributo deve ser utilizado para os nós do tipo `validator`. O identificador do nó deve ser obtido no arquivo `.env.configs/nodes/<nome-do-nó>/node.id`.
 - `deploymentStatus` indica o estado de implantação do nó na rede, podendo ser um dos seguintes valores:
   - `provisioned`: caso o nó já tenha chave pública, identificador (no caso de validator), endereço IP e porta definidos, porém sem ainda esta plenamente implantado.
   - `deployed`: caso o nó já tenha sido implantado e já possa receber conexões.

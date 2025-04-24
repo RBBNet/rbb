@@ -6,7 +6,7 @@
 
 Este roteiro tem como objetivo levantar uma cópia compatível com a RBB do zero.
 
-**Após a existência de uma versão inicial da rede, a adição de novas instituições deverá seguir outro roteiro**.
+**Após a existência de uma versão inicial da rede, a adição de novas instituições deverá seguir [outro roteiro](roteiro_adicao_nos.md)**.
 
 *É fácil confundir, pois este roteiro tem como premissa que as instituições entrarão na rede uma a uma. Porém, não é possível usar este roteiro para adesão de uma instituição após a existência da rede, porque na seção 1 é necessário que os passos sejam executados por todas as instituições em paralelo antes de qualquer nó ser levantado. Logo, uma nova instituição após a rede já existir não terá executado aqueles passos.*  
 
