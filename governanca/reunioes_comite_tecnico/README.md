@@ -5,19 +5,24 @@
   - Sérgio Marques de Viveiros - Suplente.
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2022-12-22-Indica%C3%A7%C3%A3o-Representantes-BNDES-CARTA-SUP-ATI-01-2022.pdf).
 - CPQD
-  - Elder Bruno Evaristo Correa - Titular.
-  - Jeffson Celeiro Sousa - Suplente.
-  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2023-04-03-Indica%C3%A7%C3%A3o-Representantes-CPQD.pdf).
+  - Fernanda Corsini Jordão Medeiros
+  - Jeffson Celeiro Sousa
+  - Rayan Gustavo Oliveira Jucá Lima
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-05-05-Indicacao-Representantes-CPQD.pdf).
 - Dataprev
   - Claudemir Custódio Brum - Titular.
   - Julio Cesar Faria Cornacchia - Suplente
   - Danilo Gonçalves Lyra - Suplente.
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-19-Indica%C3%A7%C3%A3o-Representantes-Dataprev.pdf).
+- IBICT
+  - Nicolas Ramos da Cruz
+  - José Edilson Filho
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-05-23-Indicacao-Representantes-IBICT.pdf).
 - Prodemge
   - Alexandre Sidney Ferreira - Titular. 
   - Rodrigo Fernandes dos Santos - Suplente. 
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2024-01-09-Prodemge-Alex-e-Rodrigo-Subst-Caleo.pdf).
-- RNP 
+- RNP
   - Luiz Eduardo Folly de Campos - Titular. 
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-03-Indica%C3%A7%C3%A3o-Representante-RNP.pdf).
 - SERPRO
