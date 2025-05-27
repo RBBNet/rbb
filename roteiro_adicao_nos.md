@@ -80,7 +80,6 @@ Siga um ou vários dos itens a seguir de acordo com o(s) tipo(s) de nó que quis
 
 - Definir sequencial para o nome do nó. Por exemplo: `boot01` (sequencial `01`).
 
-
 - Gerar chaves e endereço do nó:
 
 ```bash
@@ -223,6 +222,10 @@ accounts-allowlist=[]
 
 **Observarção**: A inteção desse arquivo é ter uma lista de contas **vazia**, de forma **não** permitir conta alguma enviar transações. Deve-se lembrar que o observer-boot é o único tipo de nó da RBB com acesso público e que deve ser utilizado **somente para leitura**.
 
+#### 2.4.5 - Novo Prometheus
+
+Para implantar um novo nó Prometheus, siga as instruções descritas no passo 12 - Implantar monitoração.
+
 
 ## 3 - Documentação do(s) novo(s) nó(s)
 
@@ -233,9 +236,7 @@ Para isso, deve-se documentar as informações definidas no item anterior, acres
 O arquivo é o `nodes.json`, que se encontra em `https://github.com/RBBNet/participantes/tree/main/`**${rede}**`/nodes.json`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede os novos nós devam ser adicionados. 
 
 O arquivo `nodes.json` possui o seguinte formato:
-
-
-```
+```json
 [
   {
     "organization": "...",
@@ -281,7 +282,7 @@ Em caso de dúvidas, é possível utiliar o [JSON schema](https://github.com/RBB
 
 ## 4 - Comunicação
 
-Comunique aos demais partícipes da rede sobre a inclusão de novos nós na rede. Várias atividades deverão ser realizadas em conjunto para o correto funcionamento dos novos nós, logo há necessidade de uma coordenação a partir desse ponto. 
+Comunique aos demais partícipes da rede sobre a inclusão de novos nós na rede. Várias atividades deverão ser realizadas em conjunto para o correto funcionamento dos novos nós, logo há necessidade de uma coordenação a partir desse ponto. Idealmente, adicionalmente a quaisquer outros canais de comunicação que venham a ser utilizados, a inclusão dos novos nós deve ser anunciada e discutida em reunião do Comitê Técnico da RBB.
 
 
 ## 5 - Regras de firewall
@@ -402,7 +403,7 @@ Veja o exemplo abaixo:
 ```
 
 
-# 8 - Ajustar genesis e static-nodes dos nós dos outros partícipes associados 
+# 8 - Ajustar genesis e static-nodes dos nós e configuração do Prometheus dos outros partícipes associados 
 
 As atividades a seguir deverão ser executadas pelos **partícipes associados** para cada novo nó, de acordo com seu tipo.
 
@@ -431,8 +432,12 @@ As atividades a seguir deverão ser executadas pelos **partícipes associados** 
 ]
 ```
 
+## 8.3 Novo Prometheus
 
-# 9 - Ajustar genesis dos nós dos partícipes parceiros  
+Para ajustar a configuração do Prometheus, siga as instruções descritas no passo 13 - Ajuste na monitoração pelos demais partícipes.
+
+
+# 9 - Ajustar genesis dos nós e configuração do Prometheus dos partícipes parceiros  
 
 As atividades a seguir deverão ser executadas pelos **partícipes parceiros** para cada novo nó, de acordo com seu tipo.
 
@@ -449,6 +454,10 @@ As atividades a seguir deverão ser executadas pelos **partícipes parceiros** p
     ]
   },
 ```
+
+## 9.2 Novo Prometheus
+
+Para ajustar a configuração do Prometheus, siga as instruções descritas no passo 13 - Ajuste na monitoração pelos demais partícipes.
 
 
 # 10 - Iniciar novo(s) nó(s)
