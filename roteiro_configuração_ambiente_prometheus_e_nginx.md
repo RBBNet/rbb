@@ -1,8 +1,12 @@
 # Roteiro de Instalação do EthStats.
 
-## EthStats 
+## Observações 
 
-Executar o EthStats Lite em nodes do Besu.
+Esse  roteiro   foi  elaborado  para  adaptar  o  Nginx  com  ajustes  de  segurança,   junto  ao  Promtheus, disponibilizado no Github da RBB.
+Testes, Configurações, Certificados  etc.  foram utilizados os seguintes softwares/ferramentas: Docker- compose, Openssl, apache2-utils e SO ubuntu Server( Caso for utilizar distribuições Linux e ferramentas diferentes, devem adaptar ao seu cenário)
+Certificados dos clientes devem ser concatenados em um único arquivo .crt ou .pem
+Comando para concatenar*:  *cat  cert\_dataprev.crt  cert\_bndes.crt cert\_cnpq.crt >> certificado\_client.crt* 
+Ou editar o arquivo *certificado\_client.crt e cola a chave publica do certificado do client* 
 
 ### Instalando o Servidor 
 
