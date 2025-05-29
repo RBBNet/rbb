@@ -108,53 +108,52 @@ Caso for adicionar as configurações no mesmo servidor da rede LAB, deve adicio
 *sudo vim prometheus/prometheus.yml*
 
 ~~~yaml
-*global:* 
-  `*scrape\_interval: 15s* 
-  `*evaluation\_interval: 15s* 
-
-- *Rule files specifies a list of globs. Rules and alerts are read from* 
-- *all matching files.* 
-  *rule\_files:* 
-- */etc/prometheus/rules.yml* 
-- *rules/\*.yml* 
-*scrape\_configs:* 
-- *Job para coletar as métricas de outras organizações.* 
-- *Inclua aqui os alvos das outras organizações (Prometheus expostos).* 
-- *job\_name: rbb-federado2* 
-`    `*honor\_labels: false* 
-`    `*metrics\_path: '/federate'* 
-`    `*scheme: https* 
-`    `*tls\_config:                                          # Configurações de TLS para comunicação segura       cert\_file: /etc/prometheus/certs/certificado.crt   # Caminho para o certificado* 
-`      `*key\_file: /etc/prometheus/certs/chave-privada.key  # Caminho para a chave privada* 
-`      `*insecure\_skip\_verify: true                         # Ignora a verificação do certificado* 
-`    `*params:* 
-`      `*'match[]':* 
-- *'{job="rbb"}'* 
-`    `*static\_configs:* 
-- *targets: [ '200.178.27.8:8443']       # Prometheus DILI* 
-`        `*labels:* 
-`          `*organization: 'DILI'* 
-- *targets: [ '34.95.98.2:8443' ]       # Prometheus CPqD* 
-`        `*labels:* 
-`          `*organization: 'CPqD'* 
-`    `*metric\_relabel\_configs:* 
-- *source\_labels: ["exported\_instance"]* 
-`      `*target\_label: "instance"* 
-- *source\_labels: ["exported\_organization"]* 
-`      `*target\_label: "organization"* 
-- *action: "labeldrop"* 
-`      `*regex: "^exported\_.\*"* 
-- *Job para coletar as métricas de outras organizações.* 
-- *Inclua aqui os alvos das outras organizações (Prometheus expostos).* 
-- *job\_name: rbb-federado* 
-`    `*honor\_labels: false* 
-`    `*metrics\_path: '/federate'* 
-`    `*basic\_auth:* 
-`      `*username: 'admin'* 
-`      `*password: '@#$%prometheus'                # aqui pode ser usado <password\_file>* 
-`    `*params:* 
-`      `*'match[]':* 
-- *'{job="rbb"}'* 
+global: 
+  scrape\_interval: 15s 
+  evaluation\_interval: 15s 
+# Rule files specifies a list of globs. Rules and alerts are read from* 
+# all matching files. 
+  rule\_files: 
+  - /etc/prometheus/rules.yml 
+  - rules/*.yml 
+scrape\_configs: 
+ # Job para coletar as métricas de outras organizações. 
+ # Inclua aqui os alvos das outras organizações (Prometheus expostos). 
+ - job\_name: rbb-federado2 
+    honor\_labels: false 
+    metrics\_path: '/federate' 
+    scheme: https* 
+    tls\_config:                                          # Configurações de TLS para comunicação segura       cert\_file: /etc/prometheus/certs/certificado.crt   # Caminho para o certificado 
+      key\_file: /etc/prometheus/certs/chave-privada.key  # Caminho para a chave privada 
+      insecure\_skip\_verify: true                         # Ignora a verificação do certificado 
+    params: 
+      'match[]': 
+      - '{job="rbb"}' 
+    static\_configs: 
+    - targets: [ '200.178.27.8:8443']       # Prometheus DILI* 
+      labels: 
+          organization: 'DILI' 
+    - targets: [ '34.95.98.2:8443' ]       # Prometheus CPqD* 
+      labels: 
+          organization: 'CPqD' 
+    metric\_relabel\_configs: 
+    - source\_labels: ["exported\_instance"]* 
+      target\_label: "instance"* 
+    - source\_labels: ["exported\_organization"]* 
+      target\_label: "organization"* 
+    - action: "labeldrop"* 
+      regex: "^exported\_.\*"* 
+# Job para coletar as métricas de outras organizações.* 
+# Inclua aqui os alvos das outras organizações (Prometheus expostos).* 
+- job\_name: rbb-federado* 
+    honor\_labels: false* 
+    metrics\_path: '/federate'* 
+    basic\_auth:* 
+      username: 'admin'* 
+      password: '@#$%prometheus'                # aqui pode ser usado <password\_file>* 
+    params: 
+      'match[]': 
+      - '{job="rbb"}' 
 `    `*static\_configs:* 
 - *targets: [ '34.9.21.17:9090' ]  # Prometheus CPqD* 
 `        `*labels:* 
