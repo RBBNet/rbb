@@ -34,9 +34,9 @@ Obter o repositório:
 *cd nginx/certs* 
 
 1. **Gerar chave privada:**
-
-*openssl genrsa -out chave-privada.key 4096* 
-
+~~~shell
+openssl genrsa -out chave-privada.key 4096
+~~~
 2. **Criar uma solicitação de assinatura de certificado (CSR):**  
 
 alterar os campos destacados 
