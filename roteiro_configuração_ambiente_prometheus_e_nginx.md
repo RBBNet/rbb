@@ -2,13 +2,15 @@
 
 ## Observações 
 
-Esse  roteiro   foi  elaborado  para  adaptar  o  Nginx  com  ajustes  de  segurança,   junto  ao  Prometheus, disponibilizado no Github da RBB.
+Esse  roteiro   foi  elaborado  para  adaptar  o  Nginx  com  ajustes  de  segurança,   junto  ao  Prometheus, disponibilizado no Github da RBB. 
+
 Testes, Configurações, Certificados  etc.  foram utilizados os seguintes softwares/ferramentas: Docker- compose, Openssl, apache2-utils e SO ubuntu Server( Caso for utilizar distribuições Linux e ferramentas diferentes, devem adaptar ao seu cenário)
+
 Certificados dos clientes devem ser concatenados em um único arquivo .crt ou .pem
 Comando para concatenar*:  *cat  cert\_dataprev.crt  cert\_bndes.crt cert\_cnpq.crt >> certificado\_client.crt* 
-Ou editar o arquivo *certificado\_client.crt e cola a chave publica do certificado do client* 
+OU editar o arquivo *certificado\_client.crt e cola a chave publica do certificado do client* 
 
-### Passo 1: Na pasta onde estar prometheus, criar as pastas e arquivos: 
+### Passo 1: Na pasta onde esta o prometheus, criar as pastas e arquivos: 
 
 **/rbb-monitoracao$** 
 ~~~shell
@@ -65,52 +67,34 @@ alterar os campos destacados
 
 Conteúdo do arquivo `docker-compose.yml` utilizado:
 ~~~yaml
-*version: '3'* 
-
-   *services:* 
-
-   `  `*prometheus:                # Define o serviço Prometheus* 
-
-   `    `*image: my-prometheus* 
-
-   `    `*command: --config.file=/etc/prometheus/prometheus.yml* 
-
-   `    `*volumes:* 
-
-- *./prometheus:/etc/prometheus* 
-- *./nginx/certs:/etc/prometheus/certs* 
-
-`    `*networks:                # Define as redes em que o serviço será inserido* 
-
-- *monitoracao          # Adiciona o Prometheus à rede "monitoracao"* 
-- *Removendo a exposição direta da porta 9090 para evitar acesso direto* 
-- *ports:* 
-- *- 9090:9090* 
-
-`  `*nginx:* 
-
-`    `*image: nginx:latest* 
-
-`    `*ports:* 
-
-- *'8443:8443'          # Exposição da porta 8443 para acesso do prometheus client* 
-- *"443:443"            # Exposição da porta 443 para acesso WEB* 
-
-`    `*volumes:* 
-
-- *./nginx/nginx.conf:/etc/nginx/nginx.conf:ro* 
-- *./nginx/certs:/etc/nginx/certs:ro            # Monta o diretório de certificados do Nginx* 
-- *./nginx/logs/access.log:/var/log/nginx/access.log  # Monta o log de acesso do Nginx* 
-- *./nginx/logs/error.log:/var/log/nginx/error.log    # Monta o log de erros do Nginx* 
-- *./nginx/.htpasswd:/etc/nginx/.htpasswd:ro          # Monta o arquivo de autenticação básica como somente leitura* 
-
-`    `*networks:* 
-
-- *monitoracao* 
-
-*networks:* 
-
-`  `*monitoracao:               # Declara a rede "monitoracao" para comunicação interna entre os serviços* 
+version: '3'
+   services: 
+    prometheus:                # Define o serviço Prometheus 
+     image: my-prometheus 
+     command: --config.file=/etc/prometheus/prometheus.yml 
+     volumes: 
+      - ./prometheus:/etc/prometheus 
+      - ./nginx/certs:/etc/prometheus/certs 
+     networks:                # Define as redes em que o serviço será inserido 
+      - monitoracao          # Adiciona o Prometheus à rede "monitoracao" 
+      # Removendo a exposição direta da porta 9090 para evitar acesso direto 
+      # ports: 
+      # 9090:9090 
+    nginx: 
+     image: nginx:latest 
+     ports: 
+      -'8443:8443'          # Exposição da porta 8443 para acesso do prometheus client 
+      - "443:443"            # Exposição da porta 443 para acesso WEB 
+     volumes: 
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro 
+      - ./nginx/certs:/etc/nginx/certs:ro            # Monta o diretório de certificados do Nginx 
+      - ./nginx/logs/access.log:/var/log/nginx/access.log  # Monta o log de acesso do Nginx 
+      - ./nginx/logs/error.log:/var/log/nginx/error.log    # Monta o log de erros do Nginx 
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd:ro          # Monta o arquivo de autenticação básica como somente leitura 
+     networks: 
+      - monitoracao 
+  networks: 
+   monitoracao:               # Declara a rede "monitoracao" para comunicação interna entre os serviços 
 ~~~
 
 ### Passo 6: Configuração do prometheus.yml:
