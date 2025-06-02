@@ -183,7 +183,7 @@ docker-compose up -d
 
   ```bash
   git clone https://github.com/RBBNet/Permissionamento.git
-  cd Permissionamento
+  cd Permissionamento/gen01
   
   ```
 
