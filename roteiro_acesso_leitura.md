@@ -105,7 +105,7 @@ Ao acessar o dashboard do *block explorer* (Blockscout ou Chainlens), será poss
 
 Após subir o Blockscout, **não** é necessário esperar até que todos os blocos estejam indexados. O processo de indexação é diferente do de *baixar* os blocos, e pode demorar de horas a dias. Mesmo quando a indexação estiver ainda no início, é possível verificar contratos. A verificação de um smart contract envolve a submissão de seu código fonte para garantir que o *bytecode* que se encontra na blockchain corresponde ao código fonte fornecido ao usuário.
 
-Os contratos do permissionamento utilizado na RBB se encontram [nesse link](https://github.com/RBBNet/Permissionamento/tree/main/contracts).
+Os contratos do permissionamento utilizado inicialmente na RBB se encontram [nesse link](https://github.com/RBBNet/Permissionamento/tree/main/gen01/contracts).
 
 | Contrato | Endereço |
 |----------|----------|
@@ -116,11 +116,11 @@ Os contratos do permissionamento utilizado na RBB se encontram [nesse link](http
 Para efetivamente verificar os contratos, entre no endereço do Blockscout disponibilizado pelo script e clique no seguinte botão:
 ![image](https://github.com/RBBNet/rbb/assets/111009073/8261d83c-42b7-474f-9106-094817f7f78f)
 
-Ao clicar no botão, aparecerá a tela de verificação de *smart contracts*. Alguns argumentos serão pedidos, como o endereço (incluindo 0x[...]), a licença e o tipo de verificação. A licença, no caso da RBB será `None`, e o tipo de verificação é à escolha do usuário. Caso seja necessário utilizar vários arquivos para a verificação, deve-se utilizar a opção `Multi-part form files`.
+Ao clicar no botão, aparecerá a tela de verificação de *smart contracts*. Alguns argumentos serão pedidos, como o endereço (incluindo 0x[...]), a licença e o tipo de verificação. Pode-se escolher não aplicar uma licença - `None` - e o tipo de verificação é à escolha do usuário. Caso seja necessário utilizar vários arquivos para a verificação, deve-se utilizar a opção `Multi-part form files`.
 
 ![image](https://github.com/RBBNet/rbb/assets/111009073/d264e32e-e81a-4080-82a6-df2e29e3860b)
 
-A versão do compilador deve ser `0.5.9+commit.e560f70d`. A versão da EVM é a default, mas, caso dê erro, tente `petersburg`. Otimização desabilitada - sabe-se que ela muda o bytecode do código, o que impossibilita a verificação. Por fim, adicione na caixa pontilhada os arquivos dos smart contracts.
+Para a verificação dos contratos mencionados acima, a versão do compilador deve ser `0.5.9+commit.e560f70d`. A versão da EVM é a default, mas, caso dê erro, tente `petersburg`. Otimização desabilitada - sabe-se que ela muda o bytecode do código, o que impossibilita a verificação. Por fim, adicione na caixa pontilhada os arquivos dos smart contracts.
 
 ⚠️ Se um contrato importar outro, disponibilize também o importado. Exemplo: contrato A importa contrato B e C, então na hora de verificar o contrato A, é necessário enviar B e C junto para a verificação.
 
