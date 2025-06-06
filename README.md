@@ -86,7 +86,7 @@ Informações sobre a [governança da RBB](governanca/README.md).
 
 ## Tecnologia
 
-A implementação de blockchain utilizada na RBB é a do projeto de código aberto [Hyperledger Besu](https://besu.hyperledger.org), que é baseada na rede [Ethereum](https://ethereum.org).
+A implementação de blockchain utilizada na RBB é a do projeto de código aberto [Besu](https://besu.hyperledger.org), que é baseada na rede [Ethereum](https://ethereum.org).
 
 ## Topologia
 
