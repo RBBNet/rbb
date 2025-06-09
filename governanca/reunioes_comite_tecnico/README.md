@@ -41,7 +41,7 @@
 
 # Indicação de Representante para o Comitê Técnico da RBB
 
-Este é o [modelo de carta](../indicacoes_representantes/Modelo-Carta-Indica%C3%A7%C3%A3o-Comit%C3%AA-T%C3%A9cnico.docx) para indicação ao Comitê Técnico da RBB.
+Este é o [modelo de carta](../../documentos/Modelo%20-%20Carta%20Indica%C3%A7%C3%A3o%20Comit%C3%AA%20T%C3%A9cnico.docx) para indicação ao Comitê Técnico da RBB.
 
 # Reuniões do Comitê Técnico realizadas
 

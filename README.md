@@ -115,7 +115,7 @@ A RBB se baseou no *framework* da [LACChain](https://www.lacchain.net), para def
 
 ## Incidentes
 
-Para a indicação de gestores de incidentes de sua instituição participante, preencha o documento [Gestor de incidentes](https://github.com/RBBNet/rbb/blob/master/documentos/Modelo%20-%20Carta%20Gestor%20de%20Incidentes.docx) e envie para o e-mail [rbb@bndes.gov.br](#).
+Para a indicação de gestores de incidentes de sua instituição participante, preencha o documento [Gestor de incidentes](documentos/Modelo%20-%20Carta%20Gestor%20de%20Incidentes.docx) e envie para o e-mail [rbb@bndes.gov.br](#).
 
 ## Aviso Legal sobre a participação do Tribunal de Contas da União – TCU
 
