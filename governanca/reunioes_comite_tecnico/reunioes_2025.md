@@ -1,5 +1,44 @@
 # Reuniões do Comitê Técnico realizadas em 2025
 
+- 11/06/2025
+  - Pauta proposta:
+    - Incidentes
+    - Implantação da gen02
+    - Indicadores Maio/2025
+    - Maturação do piloto
+- 04/06/2025
+  - Pauta proposta:
+    - Incidentes
+    - Implantação da gen02
+    - Indicadores Maio/2025
+    - Maturação do piloto
+- 28/05/2025
+  - Pauta proposta:
+    - Incidentes
+    - Implantação da gen02
+    - Maturação do piloto
+- 21/05/2025
+  - Pauta proposta:
+    - Incidentes
+    - Implantação da gen02
+    - Maturação do piloto
+- 14/05/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+- 07/05/2025
+  - Pauta proposta:
+    - Incidentes
+    - Permissionamento – Geração 2
+    - Indicadores
+    - Maturação do piloto
+- 30/04/2025
+  - Pauta proposta:
+    - Incidentes
+    - Permissionamento – Geração 2
+    - Manutenção do nodes.json
+    - On chain permissioning deprecation
+    - Maturação do piloto
 - 16/04/2025
   - Pauta proposta:
     - Incidentes
