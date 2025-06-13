@@ -61,6 +61,14 @@
   - Rainério Rodrigues Leite
     
 # Reuniões do Comitê Executivo realizadas
+- 10/04/2025
+  - [Ata assinada digitalmente](atas/2025-04-10-RBB-Ata-31-CE-Assinada.pdf)
+  - Destaques:
+    - Apresentação do Instituto Plexos 
+    - Revisão do Plano de Trabalho 
+    - Indicadores 
+    - SLAs/OLAs
+
 - 13/03/2025
   - [Ata assinada digitalmente](atas/2025-03-13-RBB-Ata-30-CE_assinada.pdf)
   - Destaques:
