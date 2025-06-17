@@ -488,7 +488,7 @@ Outras funções disponíveis para a gestão de nós são:
 
 O endereço para o *smart contract* `NodeRulesV2Impl` pode ser encontrado em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/contratos.md`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede o permissionamento será feito.
 
-Mais informações sobre a gestão e permissionamento de nós podem ser encontradas na [documentação dos *smart contracts* de permissionamento*](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/nos.md).
+Mais informações sobre a gestão e permissionamento de nós podem ser encontradas na [documentação dos *smart contracts* de permissionamento](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/nos.md).
 
 Para facilitar a chamada aos *smart contracts* de permissionamento, é possível usar os [scripts de permissionamento](https://github.com/RBBNet/scripts-permissionamento) ou o [DApp de permissionamento](https://github.com/RBBNet/dapp-permissionamento). Saiba mais sobre essas duas ferramantas nos arquivos README desses projetos.
 
@@ -716,7 +716,7 @@ A gestão e o permissionamento de contas deverão ser feitos através do *smart 
 
 O endereço para o *smart contract* `AccountRulesV2Impl` pode ser encontrado em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/contratos.md`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede o permissionamento será feito.
 
-Mais informações sobre a gestão e permissionamento de contas podem ser encontradas na [documentação dos *smart contracts* de permissionamento*](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/contas.md).
+Mais informações sobre a gestão e permissionamento de contas podem ser encontradas na [documentação dos *smart contracts* de permissionamento](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/contas.md).
 
 Para facilitar a chamada aos *smart contracts* de permissionamento, é possível usar os [scripts de permissionamento](https://github.com/RBBNet/scripts-permissionamento) ou o [DApp de permissionamento](https://github.com/RBBNet/dapp-permissionamento). Saiba mais sobre essas duas ferramantas nos arquivos README desses projetos.
 
