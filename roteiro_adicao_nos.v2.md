@@ -15,15 +15,15 @@ Este roteiro tem como objetivo a adição de novos nós a uma rede RBB já estab
 
 #### Servidores para execução de nodes da RBB:
 
-A seguir são apresentados os valores de referência recomendados para servidores, para execução de um nó (uma instância Besu), tanto na rede Lab quanto na rede Piloto:
+A seguir são apresentados os valores de referência sugeridos para servidores, para execução de um nó (uma instância Besu), tanto na rede Lab quanto na rede Piloto:
 
-- Referência para servidores da Rede Lab:
+- Servidores para a rede Lab:
   - CPU: 2 Cores/vCPU
   - RAM: 4 GB
   - Disco: 100 GB
   - Conectividade de rede: 1G Eth
 
-- Referência para servidores da Rede Piloto:
+- Servidores para a rede Piloto:
   - CPU: 8 Cores/vCPU
   - RAM: 8 GB
   - Disco: 200 GB
@@ -60,11 +60,11 @@ Para cada nó será necessário definir um endereço IP e porta para acesso exte
 
 É permitido, para fins de redundância e/ou balanceamento de carga, que um nó tenha mais de um endereço IP.
 
-**Observação**: Cada nó, na verdade, usa duas portas: uma porta RPC para interação humana (envio de transações, de comandos de gestão, etc.); e uma porta P2P, para comunicação com outros nós.
+**Observação**: Cada nó, na verdade, usa duas portas: uma porta RPC para interação humana (envio de transações, de comandos de gestão, etc.); e uma porta P2P, para comunicação com outros nós. A porta RPC **não** deve receber acesso externo. A porta P2P é que pode ter que receber conexões externas, dependendo do tipo de nó.
 
 ### 2.2 - Definição de nomes
 
-Os nós participantes de uma rede RBB devem seguir a [padronização de nomes estabelecida](padrao_nomes_nos.md), que compreende o padrão `<tipo_no><sequencial>` (ex.: `validator01`, `boot02`). Usualmente, o primeiro nó de um certo tipo tem o sequencial `01`. Fica a cargo de cada partícipe adequar o sequencial de acordo com a configuração desejada em sua infraestrutura.
+Os nós participantes de uma rede RBB devem seguir a [padronização de nomes estabelecida](padrao_nomes_nos.md) para a RBB, que compreende o padrão `<tipo_no><sequencial>` (ex.: `validator01`, `boot02`). Usualmente, o primeiro nó de um certo tipo tem o sequencial `01`. Fica a cargo de cada partícipe adequar o sequencial de acordo com a configuração desejada em sua infraestrutura.
 
 ### 2.3 - Definição de nome de host (Opcional)
 
@@ -80,11 +80,11 @@ O procedimento de documentação dos nós se encontra no passo 6.
 
 ### 2.5 - Criação de novo(s) nó(s)
 
-Usualmente, cada nó é criado em uma VM separada, dentro de um contêiner Docker. Porém, nada impede que vários nós sejam criadas em diferentes contêineres em uma mesma VM.
+Usualmente, cada nó (instância Besu) é criado em uma VM separada e executado dentro de um contêiner Docker. Porém, nada impede que vários nós sejam criados em diferentes contêineres em uma mesma VM.
 
-Siga um ou vários dos itens a seguir de acordo com o(s) tipo(s) de nó que quiser adicionar à rede.
+Siga um ou vários dos passos a seguir de acordo com o(s) tipo(s) de nó que quiser adicionar à rede.
 
-Para os passos 2.5.x a seguir, considere que todos os comandos são executados dentro do diretório `start-network`.
+Para os passos 2.5.x a seguir, considere que todos os comandos são executados dentro do diretório `start-network`, preparado no passo 1.2.
 
 #### 2.5.1 - Novo boot
 
@@ -269,6 +269,18 @@ Veja o exemplo abaixo:
 ]
 ```
 
+- Para **partícipe parceiro**, inclua na seção apropriada do arquivo `.env.configs/genesis.json` todos os **outros** boots da rede (usando endereços IP **externos**):
+
+```json
+  "discovery": {
+    "bootnodes" : 
+    [ 
+      "enode://<chave-publica-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>", 
+      "enode://<chave-publica-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>"
+    ]
+  },
+```
+
 ## 3.4 Configuração de novo observer-boot
 
 - Copie para `.env.configs/` o arquivo `genesis.json` localizado em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/genesis.json`.
@@ -279,6 +291,18 @@ Veja o exemplo abaixo:
 [ 
   "enode://<chave-publica-boot-interno-SEM-0x>@<ip-interno>:<porta-p2p>"
 ]
+```
+
+- Para **partícipe parceiro**, inclua na seção apropriada do arquivo `.env.configs/genesis.json` todos os **outros** boots da rede (usando endereços IP **externos**):
+
+```json
+  "discovery": {
+    "bootnodes" : 
+    [ 
+      "enode://<chave-publica-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>", 
+      "enode://<chave-publica-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>"
+    ]
+  },
 ```
 
 
@@ -311,7 +335,7 @@ A configuração apresentada aqui é a mais simples que atende esse requisito, e
 
 Ainda, também é possível que cada organização reconfigure os critérios de alerta do Prometheus, conforme julgue oportuno.
 
-Para os passos 5.x a seguir, considere que todos os comandos e arquivos devem serão executados ou se encontram dentro do diretório `rbb-monitoracao`.
+Para os passos 5.x a seguir, considere que todos os comandos e arquivos devem serão executados ou se encontram dentro do diretório `rbb-monitoracao`, preparado no passo 1.3.
 
 O diretório apresenta a seguinte estrutura:
 ```
@@ -352,7 +376,7 @@ scrape_configs:
           organization: '<nome-organizacao>'
 ```
 
-O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao) apresenta uma configuração (`job_name: rbb`) que atende esse objetivo. Ele deverá ser alterado com os dados de sua organização, adicionando um alvo (*target*) para cada nó Besu.
+O arquivo de configuração do [repositório de monitoração](https://github.com/RBBNet/rbb-monitoracao/blob/main/prometheus/prometheus.yml#L48) apresenta uma configuração (`job_name: rbb`) que atende esse objetivo. Ele deverá ser alterado com os dados de sua organização, adicionando um alvo (*target*) para cada nó Besu.
 
 ## 5.3 - Captura das métricas de outras organizações
 
@@ -391,9 +415,9 @@ Acesse a interface web do Prometheus (http://localhost:9090/) e verifique o esta
 
 ## 6 - Documentação do(s) novo(s) nó(s)
 
-Com base nas informações definidas nos passos anteriores, a documentação da RBB deve ser atualizada. As informações dos nós devem ser compartilhadas para que todas as organizações conheçam as informações de todos os nós da rede e possam conectar esses nós conforme a topologia da rede.
+Com base nas informações definidas nos passos anteriores, a documentação da RBB deve ser atualizada. As informações dos nós devem ser compartilhadas para que todas as organizações conheçam as informações de todos os nós da rede e possam conectar esses nós conforme a topologia da RBB.
 
-Para isso, deve-se documentar as informações definidas nos itens anteriores, acrescentando-as no arquivo `nodes.json` localizado no repositório privado, com acesso restrito apenas para os participantes da rede: <https://github.com/RBBNet/participantes>. 
+Para isso, deve-se documentar as informações definidas nos passos anteriores, acrescentando-as no arquivo `nodes.json` localizado no repositório privado (com acesso restrito apenas para os participantes da rede) https://github.com/RBBNet/participantes.
 
 O arquivo se encontra em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/nodes.json`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede os novos nós devam ser adicionados. 
 
@@ -444,14 +468,14 @@ Em caso de dúvidas, é possível utiliar o [JSON schema](https://github.com/RBB
 
 ## 7 - Comunicação
 
-Comunique aos demais partícipes da rede sobre a inclusão de novos nós na rede. Várias atividades deverão ser realizadas em conjunto para o correto funcionamento dos novos nós. Logo, há necessidade de uma coordenação a partir desse ponto. Idealmente, adicionalmente a quaisquer outros canais de comunicação que venham a ser utilizados, a inclusão dos novos nós deve ser anunciada e discutida em reunião do Comitê Técnico da RBB.
+Comunique aos demais partícipes da rede sobre a inclusão de novos nós na rede. Várias atividades deverão ser realizadas em conjunto para o correto funcionamento dos novos nós. Logo, há necessidade de uma coordenação a partir desse ponto. Independentemente a quaisquer outros canais de comunicação que venham a ser utilizados, **a inclusão dos novos nós deve ser anunciada e discutida em reunião do Comitê Técnico da RBB**.
 
 
 # 8 - Permissionamento do(s) novo(s) nó(s)
 
-Para que possam conectar-se à rede, os novos nós precisam ser permissionados. Este permissionamento deve ser feito através de execução dos *smart contracts* da RBB específicos para essa função.
+Para que possam conectar-se à rede, os novos nós precisam ser permissionados. Isto deve ser feito através de execução dos [*smart contracts* de permissionamento](https://github.com/RBBNet/Permissionamento/) da RBB.
 
-Para o caso de novas organizações, o permissionamento terá que ser feito através de uma atividade de governança *on chain*. Nesse caso, solicite ao Comitê Técnico a realização do procedimento de inclusão da nova organização.
+Para o caso de novas organizações, o permissionamento terá que ser feito através de uma atividade de governança *on chain*. Nesse caso, solicite ao Comitê Técnico a realização do [procedimento de inclusão da nova organização](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/macroprocessos.md#entrada-de-uma-nova-organiza%C3%A7%C3%A3o).
 
 Para o caso de novo(s) nó(s) de uma organização já existente, utilize uma conta administrativa de sua organização para o permissionamento do(s) novo(s) nó(s). O permissionamento de novos nós deverá ser feito através da função [`NodeRulesV2Impl.addLocalNode(bytes32 enodeHigh, bytes32 enodeLow, NodeType nodeType, string calldata name)`](https://github.com/RBBNet/Permissionamento/blob/main/gen02/contracts/NodeRulesV2Impl.sol#L48), onde:
 - `enodeHigh`: São os primeiros 32 bytes da chave pública do nó.
@@ -461,7 +485,7 @@ Para o caso de novo(s) nó(s) de uma organização já existente, utilize uma co
 
 O endereço para o *smart contract* `NodeRulesV2Impl` pode ser encontrado em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/contratos.md`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede o permissionamento será feito.
 
-Para facilitar a chamada aos *smart contracts* de permissionamento, é possível usar os [scripts de permissionamento](https://github.com/RBBNet/scripts-permissionamento) ou [DApp de permissionamento](https://github.com/RBBNet/dapp-permissionamento). Saiba mais sobre essas duas ferramantas nos arquivos README desses projetos.
+Para facilitar a chamada aos *smart contracts* de permissionamento, é possível usar os [scripts de permissionamento](https://github.com/RBBNet/scripts-permissionamento) ou o [DApp de permissionamento](https://github.com/RBBNet/dapp-permissionamento). Saiba mais sobre essas duas ferramantas nos arquivos README desses projetos.
 
 
 ## 9 - Regras de firewall
@@ -548,7 +572,35 @@ As atividades a seguir deverão ser executadas pelos **partícipes associados** 
 ]
 ```
 
-## 10.3 Novo Prometheus
+## 10.3 Novo writer de partícipe parceiro
+
+- Inclua na seção apropriada do arquivo `.env.configs/genesis.json` do boot da organização o novo writer adicionado à rede (usando endereço IP **externo**):
+
+```json
+  "discovery": {
+    "bootnodes" : 
+    [
+      ...    
+      "enode://<chave-publica-writer-externo-SEM-0x>@<ip-externo>:<porta-p2p>"
+    ]
+  },
+```
+
+## 10.4 Novo observer-boot de partícipe parceiro
+
+- Inclua na seção apropriada do arquivo `.env.configs/genesis.json` do boot da organização o novo observer-boot adicionado à rede (usando endereço IP **externo**):
+
+```json
+  "discovery": {
+    "bootnodes" : 
+    [
+      ...    
+      "enode://<chave-publica-observer-boot-externo-SEM-0x>@<ip-externo>:<porta-p2p>"
+    ]
+  },
+```
+
+## 10.5 Novo Prometheus
 
 Para ajustar a configuração do Prometheus, siga as instruções descritas no passo 12 - Ajustes de configuração na monitoração pelos demais partícipes.
 
@@ -616,9 +668,9 @@ A votação deve ser realizada no nó validator de cada partícipe associado atr
 curl -X POST --data '{"jsonrpc":"2.0","method":"qbft_proposeValidatorVote","params":["<id-novo-validator-SEM-0x>",true], "id":1}' <ip-interno-validator>:<porta-json-rpc>
 ```
 
-Os identificadores dos validadores pode ser obtido em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/nodes.json` no atributo `id` de cada nó.
+Os identificadores dos validadores podem ser obtidos em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/nodes.json` no atributo `id` de cada nó.
 
-**Observeração**: Essa atividade somente deve ser realizada se o nó a ser votado como validador estiver efetivamente funcional, conectado com os demais validadores e devidamente sincronizado.
+**Observação**: Essa atividade somente deve ser realizada se o nó a ser votado como validador estiver efetivamente funcional, conectado com os demais validadores e devidamente sincronizado. Adicionalmente, é importante que o novo validador esteja sendo monitorado através do Prometheus da mesma organização e que as métricas desse Prometheus estejam sendo capturadas pelos demais partícipes. Dessa forma, aumenta-se a confiança de que eventuais problemas no novo validador serão detectáveis.
 
 
 # 14 - Implantação de block explorer (opcional)
