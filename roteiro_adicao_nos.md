@@ -481,7 +481,14 @@ Para o caso de novo(s) nó(s) de uma organização já existente, utilize uma co
 - `nodeType`: Indica um dos tipos definidos pela enumeração [`NodeType`](https://github.com/RBBNet/Permissionamento/blob/main/gen02/contracts/NodeRulesV2.sol#L11)
 - `name`: Nome do nó, conforme documentado no arquivo `nodes.json` (ver passo 6).
 
-O endereço para o *smart contract* `NodeRulesV2Impl` pode ser encontrado em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/contratos.md`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede o permissionamento será feito.
+Outras funções disponíveis para a gestão de nós são:
+- `deleteLocalNode(bytes32 enodeHigh, bytes32 enodeLow)`: Remove nó.
+- `updateLocalNode(bytes32 enodeHigh, bytes32 enodeLow, NodeType nodeType, string memory name)`: Atualiza dados do nó.
+- `updateLocalNodeStatus(bytes32 enodeHigh, bytes32 enodeLow, bool active)`: Habilita ou desabilita o nó.
+
+O endereço para o *smart contract* `NodeRulesV2Impl` pode ser encontrado em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/contratos.md`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede o permissionamento será feito.
+
+Mais informações sobre a gestão e permissionamento de nós podem ser encontradas na [documentação dos *smart contracts* de permissionamento*](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/nos.md).
 
 Para facilitar a chamada aos *smart contracts* de permissionamento, é possível usar os [scripts de permissionamento](https://github.com/RBBNet/scripts-permissionamento) ou o [DApp de permissionamento](https://github.com/RBBNet/dapp-permissionamento). Saiba mais sobre essas duas ferramantas nos arquivos README desses projetos.
 
@@ -698,9 +705,29 @@ http://<ip-interno-node>:<porta-blockexplorer>
 
 # 15 - Permissionamento de contas (opcional)
 
-EM ELABORAÇÃO.
+Ao aderir à RBB, uma nova organização é adicionada ao [permissionamento](https://github.com/RBBNet/Permissionamento/) da rede. E caso essa organização vá implantar nós, é necessário também definir uma conta administrativa. Essa conta é usada para representar a organização em atividades de [governança](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/governanca.md) e para atividades de gestão dos próprios nós e contas transacionais - contas que podem enviar transações para a rede, mas não podem realizar atividades de governança ou permissionamento.
+
+A gestão e o permissionamento de contas deverão ser feitos através do *smart contract* [`AccountRulesV2Impl`](https://github.com/RBBNet/Permissionamento/blob/main/gen02/contracts/AccountRulesV2Impl.sol), utilizando-se as funções:
+- `addLocalAccount(address account, bytes32 roleId, bytes32 dataHash)`: Adiciona conta.
+- `deleteLocalAccount(address account)`: Remove conta.
+- `updateLocalAccount(address account, bytes32 roleId, bytes32 dataHash)`: Atualiza dados da conta.
+- `updateLocalAccountStatus(address account, bool active)`: Habilita ou desabilita a conta.
+- `setAccountTargetAccess(address account, bool restricted, address[] calldata allowedTargets)`: Controla o acesso da conta a *targets* específicos.
+
+O endereço para o *smart contract* `AccountRulesV2Impl` pode ser encontrado em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/contratos.md`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede o permissionamento será feito.
+
+Mais informações sobre a gestão e permissionamento de contas podem ser encontradas na [documentação dos *smart contracts* de permissionamento*](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/contas.md).
+
+Para facilitar a chamada aos *smart contracts* de permissionamento, é possível usar os [scripts de permissionamento](https://github.com/RBBNet/scripts-permissionamento) ou o [DApp de permissionamento](https://github.com/RBBNet/dapp-permissionamento). Saiba mais sobre essas duas ferramantas nos arquivos README desses projetos.
 
 
 # 16 - Implantação do DApp de permissionamento (opcional)
 
-EM ELABORAÇÃO.
+O DApp de permissionamento é uma aplicação web3 que pode ser executada localmente, utilizando uma *wallet* (como o MetaMask, por exemplo) conectada à RBB (rede Lab ou Piloto), para efetuar chamadas às [funções de permissionamento da RBB](https://github.com/RBBNet/Permissionamento), implementadas *on chain*. O DApp funciona como um *"front end"* para os *smart contracts* de permissionamento da RBB.
+
+Para implantar o DApp, consulte o [README do projeto](https://github.com/RBBNet/dapp-permissionamento).
+
+**Observações**:
+- A execução de funções que alterem o estado do permissionamento requererá o uso de contas administrativas.
+- A guarda de chaves privadas deve ser feito com **alto rigor de segurança**.
+- Alternativamente ou complementarmente ao DApp, pode-se também usar os [scripts de permissionamento](https://github.com/RBBNet/scripts-permissionamento). Esses scripts são uma alternativa CLI (*command line interface*) para acesso às funcionalidades dos *smart contracts* de permissionamento da RBB.
