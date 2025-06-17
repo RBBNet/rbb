@@ -6,8 +6,6 @@ Este roteiro tem como objetivo a adição de novos nós a uma rede RBB já estab
 - [Roteiro para criação de uma rede](Roteiro_para_a_criacao_de_uma_rede.md)
 - [Roteiro para levantar uma rede de testes (toy)](roteiro_criacao_rede_teste.md)
 
-**Observação**: Este roteiro ainda está em elaboração e **NÃO DEVE SER USADO**. O roteiro oficial pode ser encontrado [aqui](roteiro_adicao_nos.md).
-
 
 ## 1 - Preparação de ambiente
 
