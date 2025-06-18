@@ -282,7 +282,7 @@ case "$1" in
                 check_if_observer_already_installed
                 check_if_blockscout_already_installed
                 asciititle
-                echo "Instalando nó Observer + Chainlens block-explorer..."
+                echo "Instalando nó Observer + Blockscout..."
                 install_observer
                 install_blockscout
                 ;;
