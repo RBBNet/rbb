@@ -61,6 +61,15 @@
   - Rainério Rodrigues Leite
     
 # Reuniões do Comitê Executivo realizadas
+
+- 08/05/2025
+  - [Ata assinada digitalmente](atas/2025-05-08-RBB-Ata-32-CE-Assinada.pdf)
+  - Destaques:
+    - Informes 
+    - Proposta de Implantação de Novo Permissionamento
+    - Report do Andamento do CPQD IDD 
+    - Indicadores
+
 - 10/04/2025
   - [Ata assinada digitalmente](atas/2025-04-10-RBB-Ata-31-CE-Assinada.pdf)
   - Destaques:
