@@ -338,14 +338,23 @@ Para os passos 5.x a seguir, considere que todos os comandos e arquivos devem se
 O diretório apresenta a seguinte estrutura:
 ```
 rbb-monitoracao
-├── docker-compose.yml      # Arquivo de configuração do container docker Prometheus
+├── docker-compose.yml         # Arquivo de configuração do container docker Prometheus
 └── prometheus
-    ├── prometheus.yml      # Arquivo de configuração do Prometheus
-    ├── rules.yml           # Arquivo de regras do Prometheus
-    ├── web-config.yml      # Arquivo de configuração para a interface web do Prometheus
-    └── rules
-        ├── alerts.yml      # Arquivo de configuração para critérios de alertas
-        └── metrics.yml     # Arquivo de configuração para definição de métricas derivadas
+|   ├── prometheus.yml         # Arquivo de configuração do Prometheus
+|   ├── rules.yml              # Arquivo de regras do Prometheus|   
+|   └── rules
+|       ├── alerts.yml         # Arquivo de configuração para critérios de alertas
+|       └── metrics.yml        # Arquivo de configuração para definição de métricas derivadas
+└── nginx
+    ├── nginx.conf             # Arquivo de configuração do nginx  para scraping de métricas com mTLS e interface web do Prometheus
+    ├── certs
+    |   ├── client.crt         # certificados das Organizações
+    |   ├── certificado.crt    # certificado do servidor
+    |   ├──chave-privada.key   # chave do certificado do servidor
+    └── logs
+        ├── error.log          # Arquivo de log do servidor
+        ├── access.log         # Arquivo de log do servidor
+
 ```
 
 ## 5.1 - Habilitação das métricas no Besu
@@ -399,8 +408,11 @@ Para configuração dos alvos, utilize as informações dos nós documentados no
 
 ## 5.4 - Configuração da autenticação mútua
 
+Roteiro de configuração do nó de monitoração Prometheus com o Nginx
+https://github.com/RBBNet/rbb/blob/master/roteiro%20configura%C3%A7%C3%A3o%20do%20n%C3%B3%20de%20monitora%C3%A7%C3%A3o%20prometheus%20com%20nginx.md
+
 roteiro_configuração_do _nó de monitoração_prometheus com nginx.md
-https://github.com/RBBNet/rbb/blob/ed45a7b7183bb7ce9d4caf78514a57c357e84770/roteiro_configura%C3%A7%C3%A3o_do%20_n%C3%B3%20de%20monitora%C3%A7%C3%A3o_prometheus%20com%20nginx.md
+
 
 ## 5.5 - Início do Prometheus
 
