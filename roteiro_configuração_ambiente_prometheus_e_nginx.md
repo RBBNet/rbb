@@ -2,6 +2,7 @@
 
 ## Observações 
 Foram utilizados os seguintes softwares/ferramentas: Docker- compose, Openssl, apache2-utils e SO ubuntu Server( Caso for utilizar distribuições Linux e ferramentas diferentes, devem adaptar ao seu ambiente)
+
 LEIA os comentarios nos arquivos .yml e adapta para seu ambiente.
 
 ### Passo 1: Baixar o repositorio rbb-monitoracao no (https://github.com/RBBNet/rbb-monitoracao): 
@@ -18,7 +19,7 @@ openssl genrsa -out chave-privada.key 4096
 ~~~
 ## 2.2. **Criar uma solicitação de assinatura de certificado (CSR):**  
 
-alterar os campos conforme seu ambiente: C=país, ST=estado, L=cidade, O=Oraganização, CN=IP 
+Alterar os campos conforme seu ambiente: C=país, ST=estado, L=cidade, O=Oraganização, CN=IP 
 
 **Exemplo:** 
 ~~~~
@@ -36,7 +37,7 @@ openssl x509 -req -days 730 -in pedido.csr -signkey chave-privada.key -out certi
 ~~~~
 
 ### Passo 3 Faça o Downloads ou copie o conteudo dos certificados das Organizações disponivel no (https://github.com/RBBNet/participantes/tree/main/lab/certificados)
-## 3.1. caso  for copiar o conteudo dos certificados, deve criar o arquivo client.crt e colar o conteudo so certificados dentro do arquivo um abaixo do outro.
+## 3.1. caso  for copiar o conteudo dos certificados, deve criar o arquivo client.crt e colar o conteudo do certificados dentro do arquivo, um abaixo do outro.
 ~~~~
 touch client.crt
 ~~~~
