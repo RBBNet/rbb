@@ -175,7 +175,7 @@ sudo docker ps # Verificar se os containers subiu
 sudo docker-compose logs #caso de erro, verifique os logs do Nginx e Prometheus* .
 ~~~~
 
-Se os containers estiverem OK, acesse a interface web do Prometheus e disponibilize seu certificado no repositório Git:https://github.com/RBBNet/participantes/tree/main/lab/certificados
+Se os containers estiverem OK, acesse a interface web do Prometheus (https://localhost/)  verifique o estado dos alvos (menu *Status -> Targets*), bem como algumas métricas (ex: no menu *Graph*, digite como expressão `ethereum_blockchain_height`), disponibilize seu certificado no repositório Git:https://github.com/RBBNet/participantes/tree/main/lab/certificados
 Em seguida, avise as organizações participantes para que configurem o seu certificado nos respectivos Prometheus. Conforme cada participante for configurando corretamente, o status deverá aparecer como UP, como mostrado na imagem abaixo. Além disso, o seu Prometheus deverá ser capaz de coletar as métricas dos demais.
 
 ![image](https://github.com/user-attachments/assets/2d0bd820-681a-4525-9ed6-5e58485f113b)
