@@ -45,6 +45,7 @@ touch client.crt
 ~~~~
 vim client.crt
 ~~~~
+*Exemplo*
 ~~~~
 root@prometheus:/home/dili/rbb-monitoracao/nginx/certs# cat client.crt
 
