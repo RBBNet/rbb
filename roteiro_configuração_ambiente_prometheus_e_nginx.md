@@ -2,6 +2,7 @@
 
 ## Observações 
 Foram utilizados os seguintes softwares/ferramentas: Docker- compose, Openssl, apache2-utils e SO ubuntu Server( Caso for utilizar distribuições Linux e ferramentas diferentes, devem adaptar ao seu ambiente)
+LEIA os comentarios nos arquivos .yml e adapta para seu ambiente.
 
 ### Passo 1: Baixar o repositorio rbb-monitoracao no (https://github.com/RBBNet/rbb-monitoracao): 
 ~~~~
