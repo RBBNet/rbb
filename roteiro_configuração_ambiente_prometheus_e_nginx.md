@@ -164,7 +164,7 @@ Substitua admin pelo nome de usuário desejado.
 
 ### Conclusão
 
-Após configurar os arquivos, suba os containers: 
+Após configurar os arquivos, suba os containers 
 ~~~~
 sudo docker-compose up -d
 ~~~~
