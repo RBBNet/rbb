@@ -399,7 +399,8 @@ Para configuração dos alvos, utilize as informações dos nós documentados no
 
 ## 5.4 - Configuração da autenticação mútua
 
-EM ELABORAÇÃO.
+roteiro_configuração_do _nó de monitoração_prometheus com nginx.md
+https://github.com/RBBNet/rbb/blob/ed45a7b7183bb7ce9d4caf78514a57c357e84770/roteiro_configura%C3%A7%C3%A3o_do%20_n%C3%B3%20de%20monitora%C3%A7%C3%A3o_prometheus%20com%20nginx.md
 
 ## 5.5 - Início do Prometheus
 
