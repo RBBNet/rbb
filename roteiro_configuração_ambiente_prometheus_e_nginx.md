@@ -1,23 +1,23 @@
 # Roteiro de configuração do nó de monitoração Prometheus com o Nginx.
 
 ## Observações 
-Foram utilizados os seguintes softwares/ferramentas: Docker- compose, Openssl, apache2-utils e SO ubuntu Server( Caso for utilizar distribuições Linux e ferramentas diferentes, devem adaptar ao seu ambiente)
+Foram utilizados os seguintes softwares/ferramentas: Docker- compose, Openssl, apache2-utils e SO Ubuntu Server( Caso for utilizar distribuições Linux e ferramentas diferentes, deve adaptar ao seu ambiente)
 
-LEIA os comentarios nos arquivos .yml e adapta para seu ambiente.
+LEIA os comentários nos arquivos .yml e adapta para seu ambiente.
 
-### Passo 1: Baixar o repositorio rbb-monitoracao no (https://github.com/RBBNet/rbb-monitoracao): 
+### Passo 1. Baixar o repositorio rbb-monitoracao no (https://github.com/RBBNet/rbb-monitoracao): 
 ~~~~
 git clone https://github.com/RBBNet/rbb-monitoracao
 ~~~~
-### Passo 2 Gerar o Certificados:
+### Passo 2. Gerar o Certificados:
 ~~~~
 cd rbb-monitoracao/nginx/certs/
 ~~~~
-## 2.1. Gerar chave privada:
+#### 2.1. Gerar chave privada:
 ~~~shell
 openssl genrsa -out chave-privada.key 4096
 ~~~
-## 2.2. **Criar uma solicitação de assinatura de certificado (CSR):**  
+#### 2.2. **Criar uma solicitação de assinatura de certificado (CSR):**  
 
 Alterar os campos conforme seu ambiente: C=país, ST=estado, L=cidade, O=Oraganização, CN=IP 
 
@@ -29,7 +29,7 @@ openssl req -new -key chave-privada.key -out pedido.csr -subj "/C=BR/ST=DF/L=Bra
 ~~~~
 openssl req -new -key chave-privada.key -out pedido.csr
 ~~~~
-## 2.3. **Gerar o certificado autoassinado:** 
+#### 2.3. **Gerar o certificado autoassinado:** 
 
 **A validade do certificado fica a critério, mas recomendamos 2 anos.** 
 ~~~~
@@ -37,14 +37,14 @@ openssl x509 -req -days 730 -in pedido.csr -signkey chave-privada.key -out certi
 ~~~~
 
 ### Passo 3 Faça o Downloads ou copie o conteudo dos certificados das Organizações disponivel no (https://github.com/RBBNet/participantes/tree/main/lab/certificados)
-## 3.1. caso  for copiar o conteudo dos certificados, deve criar o arquivo client.crt e colar o conteudo do certificados dentro do arquivo, um abaixo do outro.
+
+#### 3.1. caso  for copiar o conteúdo dos certificados, deve criar o arquivo client.crt e colar o conteúdo dos certificados dentro do arquivo, um abaixo do outro, conforme o exemplo abaixo
 ~~~~
 touch client.crt
 ~~~~
 ~~~~
 vim client.crt
 ~~~~
-**Exemplo**
 ~~~~
 root@prometheus:/home/dili/rbb-monitoracao/nginx/certs# cat client.crt
 
@@ -111,16 +111,17 @@ P2IfyAvB4qGa8u8ik92V5yokxnba0OgTkflLBAsu7e2hoMycW10nueyTDg==
 
 root@prometheus:/home/dili/rbb-monitoracao/nginx/certs#
 ~~~~
-## 3.2. caso faça o Download dos certificados, deve concatenar todos em um unico arquivo client.crt
+#### 3.2. caso faça o Download dos certificados, deve concatenar todos em um unico arquivo client.crt
+
 **Exemplo**
 ~~~~
 cat  cert_dataprev.crt  cert_bndes.crt cert_cnpq.crt >> client.crt
 ~~~~
-## 3.3. Dar permissão aos certificados e chaves
+#### 3.3. Dar permissão aos certificados e chave
 ~~~~
 sudo chmod 644 *
 ~~~~
-### Passo 4 Configuração do arquivo Docker Compose (caso for necessario adpta para o seu ambiente) 
+### Passo 4. Configuração do arquivo Docker Compose (caso for necessario adpta para o seu ambiente) 
 
 *No diretorio rbb-monitoracao*
 
@@ -128,7 +129,7 @@ sudo chmod 644 *
 sudo vim docker-compose.yml
 ~~~~ 
 
-### Passo 5: Configuração do prometheus.yml (necessario adptar para o seu ambiente):
+### Passo 5. Configuração do prometheus.yml (necessario adptar para o seu ambiente):
 ~~~~
 cd prometheus/
 ~~~~
@@ -136,7 +137,7 @@ cd prometheus/
 sudo vim prometheus.yml
 ~~~~
 
-### Passo 6: Configuração do nginx.conf (necessario adptar para o seu ambiente):
+### Passo 6. Configuração do nginx.conf (necessario adptar para o seu ambiente):
 ~~~~
 cd ..
 ~~~~
@@ -147,7 +148,7 @@ cd nginx/
 sudo vim nginx.conf
 ~~~~
 
-### Passo 7: Criar o Arquivo .htpasswd, com as credenciais usuário e senha para autenticação web:
+### Passo 7. Criar o Arquivo .htpasswd, com as credenciais usuário e senha para autenticação web:
 ~~~~
 cd ..
 ~~~~
@@ -160,9 +161,9 @@ sudo htpasswd -c nginx/.htpasswd admin
 ~~~~
 Substitua admin pelo nome de usuário desejado.
 
-## Conclusão
+### Conclusão
 
-Após configurar os arquivos, suba os containers com o comando: 
+Após configurar os arquivos, suba os containers: 
 ~~~~
 sudo docker-compose up -d
 ~~~~
@@ -170,10 +171,11 @@ sudo docker-compose up -d
 sudo docker ps # Verificar se os containers subiu
 ~~~~
 ~~~~
-sudo docker-compose logs #caso de erro verifique os logs do Nginx e Prometheus* .
+sudo docker-compose logs #caso de erro, verifique os logs do Nginx e Prometheus* .
 ~~~~
 
-*Se os conteiner estiver OK, faça o login na interface WEB do prometheus,  e Disponibiliza seu certificado no Git https://github.com/RBBNet/participantes/tree/main/lab/certificados e avisa as Orgnizações para configura-lo em seus promethues, assim que cada participe for configurando, deve ficar UP conforme a imagem abaixo, e o seu promethues deverá ser capas de coletar as metricas 
+Se os containers estiverem OK, acesse a interface web do Prometheus e disponibilize seu certificado no repositório Git:https://github.com/RBBNet/participantes/tree/main/lab/certificados
+Em seguida, avise as organizações participantes para que configurem o seu certificado nos respectivos Prometheus. Conforme cada participante for configurando corretamente, o status deverá aparecer como UP, como mostrado na imagem abaixo. Além disso, o seu Prometheus deverá ser capaz de coletar as métricas dos demais.
 
 ![image](https://github.com/user-attachments/assets/2d0bd820-681a-4525-9ed6-5e58485f113b)
 
