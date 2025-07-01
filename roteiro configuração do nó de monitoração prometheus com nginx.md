@@ -120,7 +120,8 @@ cat  cert_dataprev.crt  cert_bndes.crt cert_cnpq.crt >> client.crt
 ~~~~
 sudo chmod 644 *
 ~~~~
-### Passo 4. Configuração do arquivo Docker Compose (caso for necessario adpta para o seu ambiente) 
+### Passo 4. Configuração do arquivo Docker Compose.
+**LEIA os comentários no arquivo docker-compose.yml, caso for necessario adapta para seu ambiente.**
 
 *No diretorio rbb-monitoracao*
 
@@ -128,7 +129,8 @@ sudo chmod 644 *
 sudo vim docker-compose.yml
 ~~~~ 
 
-### Passo 5. Configuração do prometheus.yml (necessario adptar para o seu ambiente):
+### Passo 5. Configuração do prometheus.yml:
+**LEIA os comentários no arquivo prometheus.yml e adapta para seu ambiente.**
 ~~~~
 cd prometheus/
 ~~~~
@@ -136,7 +138,8 @@ cd prometheus/
 sudo vim prometheus.yml
 ~~~~
 
-### Passo 6. Configuração do nginx.conf (necessario adptar para o seu ambiente):
+### Passo 6. Configuração do nginx.conf:
+**LEIA os comentários no arquivo nginx.conf e adapta para seu ambiente.**
 ~~~~
 cd ..
 ~~~~
