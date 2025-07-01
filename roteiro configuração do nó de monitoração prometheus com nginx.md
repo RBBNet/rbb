@@ -3,8 +3,6 @@
 ## Observações 
 Foram utilizados os seguintes softwares/ferramentas: Docker- compose, Openssl, apache2-utils e SO Ubuntu Server( Caso for utilizar distribuições Linux e ferramentas diferentes, deve adaptar ao seu ambiente)
 
-LEIA os comentários nos arquivos .yml e adapta para seu ambiente.
-
 ### Passo 1. Baixar o repositorio rbb-monitoracao no (https://github.com/RBBNet/rbb-monitoracao): 
 ~~~~
 git clone https://github.com/RBBNet/rbb-monitoracao
@@ -19,11 +17,11 @@ openssl genrsa -out chave-privada.key 4096
 ~~~
 #### 2.2. **Criar uma solicitação de assinatura de certificado (CSR):**  
 
-Alterar os campos conforme seu ambiente: C=país, ST=estado, L=cidade, O=Oraganização, CN=IP 
+Alterar os campos conforme seu ambiente: C=país, ST=estado, L=cidade, O=Oraganização, CN=IP do seu Servidor 
 
 **Exemplo:** 
 ~~~~
-openssl req -new -key chave-privada.key -out pedido.csr -subj "/C=BR/ST=DF/L=Brasilia/O=DATAPREV- RBB/CN=192.168.1.1"
+openssl req -new -key chave-privada.key -out pedido.csr -subj "/C=BR/ST=DF/L=Brasilia/O=DATAPREV- RBB/CN=192.168.x.x"
 ~~~~
 *Também pode utilizar o comando sem o -subj e preencher as informações manualmente* 
 ~~~~
@@ -175,7 +173,7 @@ sudo docker ps # Verificar se os containers subiu
 sudo docker-compose logs #caso de erro, verifique os logs do Nginx e Prometheus* .
 ~~~~
 
-Se os containers estiverem OK, acesse a interface web do Prometheus (https://localhost/)  verifique o estado dos alvos (menu *Status -> Targets*), bem como algumas métricas (ex: no menu *Graph*, digite como expressão `ethereum_blockchain_height`), disponibilize seu certificado no repositório Git:https://github.com/RBBNet/participantes/tree/main/lab/certificados
+Se os containers estiverem OK, acesse a interface web do Prometheus (exemplo: https://192.168.x.x/)  verifique o estado dos alvos (menu *Status -> Targets*), bem como algumas métricas (ex: no menu *Graph*, digite como expressão `ethereum_blockchain_height`). Disponibilize seu certificado no repositório Git:https://github.com/RBBNet/participantes/tree/main/lab/certificados
 Em seguida, avise as organizações participantes para que configurem o seu certificado nos respectivos Prometheus. Conforme cada participante for configurando corretamente, o status deverá aparecer como UP, como mostrado na imagem abaixo. Além disso, o seu Prometheus deverá ser capaz de coletar as métricas dos demais.
 
 ![image](https://github.com/user-attachments/assets/2d0bd820-681a-4525-9ed6-5e58485f113b)
