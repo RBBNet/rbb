@@ -18,6 +18,10 @@
   - Nicolas Ramos da Cruz
   - José Edilson Filho
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-05-23-Indicacao-Representantes-IBICT.pdf).
+- Plexos Institute
+  - Paulo Mauricio Freire de Oliveira
+  - Solange Gueiros dos Santos
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-07-01-Indicacao-Representantes-Plexos.pdf).
 - Prodemge
   - Alexandre Sidney Ferreira - Titular. 
   - Rodrigo Fernandes dos Santos - Suplente. 

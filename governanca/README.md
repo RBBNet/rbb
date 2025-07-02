@@ -8,6 +8,7 @@ A partir da assinatura do Acordo de Cooperação entre o BNDES e o TCU no dia 12
   - CPQD
   - Dataprev
   - IBICT
+  - Plexos Institute
   - Prodemge
   - RNP
   - Serpro

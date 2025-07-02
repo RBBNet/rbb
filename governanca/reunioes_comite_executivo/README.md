@@ -28,6 +28,10 @@
   - Max Doeel Nunes Guimarães
   - Igor Thawan do Nascimento da Silva
   - Sérgio Maia Rabelo
+
+**Plexos Institute**
+  - Camila Rioja Arantes
+  - Paulo Mauricio Freire de Oliveira
     
 **Prodemge**
   - Augusto Nogueira Zadra
