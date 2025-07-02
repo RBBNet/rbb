@@ -408,8 +408,7 @@ Para configuração dos alvos, utilize as informações dos nós documentados no
 
 ## 5.4 - Configuração da autenticação mútua
 
-roteiro_configuração_do _nó de monitoração_prometheus com nginx.md
-https://github.com/RBBNet/rbb/blob/master/roteiro%20configura%C3%A7%C3%A3o%20do%20n%C3%B3%20de%20monitora%C3%A7%C3%A3o%20prometheus%20com%20nginx.md
+A autenticação mútua entre instâncias Prometheus, com a utilização de certificados digitais, é feita com o suporte de uma instância NGINX. A configuração necessária está descrita [neste roteiro](roteiro_prometheus_nginx.md).
 
 ## 5.5 - Início do Prometheus
 Acesse a interface web do Prometheus (https://localhost/) e verifique o estado dos alvos (menu *Status -> Targets*), bem como algumas métricas (ex: no menu *Graph*, digite como expressão `ethereum_blockchain_height`).
