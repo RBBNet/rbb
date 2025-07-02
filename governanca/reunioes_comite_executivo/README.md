@@ -62,6 +62,14 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 12/06/2025
+  - [Ata assinada digitalmente](atas/2025-06-12-RBB-Ata-33-CE-Assinada.pdf)
+  - Destaques:
+    - Apreciação do pedido de ingresso do Plexos Institute 
+    - Relato sobre a implantação da nova geração de permissionamento (gen02) 
+    - Indicadores
+    - Informes
+
 - 08/05/2025
   - [Ata assinada digitalmente](atas/2025-05-08-RBB-Ata-32-CE-Assinada.pdf)
   - Destaques:
