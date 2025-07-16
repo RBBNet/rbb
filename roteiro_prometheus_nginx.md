@@ -1,4 +1,4 @@
-# Roteiro de configuração do nó de monitoração Prometheus com o Nginx.
+# Roteiro de configuração do nó de monitoração Prometheus com MTLs e Nginx.
 
 ## Observações 
 Foram utilizados os seguintes softwares/ferramentas: Docker- compose, Openssl, apache2-utils e SO Ubuntu Server( Caso for utilizar distribuições Linux e ferramentas diferentes, deve adaptar ao seu ambiente)
