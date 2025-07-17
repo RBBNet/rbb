@@ -484,7 +484,7 @@ No momento de se solicitar a inclusão da organização, entretanto, será neces
 
 A definição desse endereço fica a cargo da nova organização, que pode usar quaisquer ferramentas que julgue apropriadas, como pela utilização de um HSM ou pela ferramenta `openssl`, por exemplo. A guarda da chave privada correspondente a esse endereço, entretanto, deve ser feita com **alto rigor de segurança**.
 
-Vale observar que a RBB provê uma ferramenta para geração de conta/chave privada. Ela está disponível no repositório [`scripts-permissionamento´](https://github.com/RBBNet/scripts-permissionamento/?tab=readme-ov-file#gera%C3%A7%C3%A3o-de-chave-privada). Consulte a documentação do repositório para mais informações.
+Vale observar que a RBB provê uma ferramenta para geração de conta/chave privada. Ela está disponível no repositório [`scripts-permissionamento`](https://github.com/RBBNet/scripts-permissionamento/?tab=readme-ov-file#gera%C3%A7%C3%A3o-de-chave-privada). Consulte a documentação desse repositório para mais informações.
 
 ## 8.2 Organização já existente
 
