@@ -476,7 +476,17 @@ Comunique aos demais partícipes da rede sobre a inclusão de novos nós na rede
 
 Para que possam conectar-se à rede, os novos nós precisam ser permissionados. Isto deve ser feito através de execução dos [*smart contracts* de permissionamento](https://github.com/RBBNet/Permissionamento/) da RBB.
 
+## 8.1 Nova organização
+
 Para o caso de novas organizações, o permissionamento terá que ser feito através de uma atividade de governança *on chain*. Nesse caso, solicite ao Comitê Técnico a realização do [procedimento de inclusão da nova organização](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/macroprocessos.md#entrada-de-uma-nova-organiza%C3%A7%C3%A3o).
+
+No momento de se solicitar a inclusão da organização, entretanto, será necessário informar um endereço (conta Ethereum) para ser usado para fins de administração da organização e representação da organização em atividades de governança *on chain*. Esse endereço será cadastrado como [Administrador Global](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/premissas.md) da nova organização.
+
+A definição desse endereço fica a cargo da nova organização, que pode usar quaisquer ferramentas que julgue apropriadas, como pela utilização de um HSM ou pela ferramenta `openssl`, por exemplo. A guarda da chave privada correspondente a esse endereço, entretanto, deve ser feita com **alto rigor de segurança**.
+
+Vale observar que a RBB provê uma ferramenta para geração de conta/chave privada. Ela está disponível no repositório [`scripts-permissionamento´](https://github.com/RBBNet/scripts-permissionamento/?tab=readme-ov-file#gera%C3%A7%C3%A3o-de-chave-privada). Consulte a documentação do repositório para mais informações.
+
+## 8.2 Organização já existente
 
 Para o caso de novo(s) nó(s) de uma organização já existente, utilize uma conta administrativa de sua organização para o permissionamento do(s) novo(s) nó(s). O permissionamento de novos nós deverá ser feito através da função [`NodeRulesV2Impl.addLocalNode(bytes32 enodeHigh, bytes32 enodeLow, NodeType nodeType, string calldata name)`](https://github.com/RBBNet/Permissionamento/blob/main/gen02/contracts/NodeRulesV2Impl.sol#L48), onde:
 - `enodeHigh`: São os primeiros 32 bytes da chave pública do nó.
