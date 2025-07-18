@@ -23,7 +23,7 @@ Alterar os campos conforme seu ambiente: C=país, ST=estado, L=cidade, O=Oragani
 ~~~~
 openssl req -new -key chave-privada.key -out pedido.csr -subj "/C=BR/ST=DF/L=Brasilia/O=DATAPREV- RBB/CN=192.168.x.x"
 ~~~~
-*Também pode utilizar o comando sem o -subj e preencher as informações manualmente* 
+* Ou pode utilizar o comando sem o -subj e preencher as informações manualmente* 
 ~~~~
 openssl req -new -key chave-privada.key -out pedido.csr
 ~~~~
@@ -31,21 +31,21 @@ openssl req -new -key chave-privada.key -out pedido.csr
 
 **A validade do certificado fica a critério, mas recomendamos 2 anos.** 
 ~~~~
-openssl x509 -req -days 730 -in pedido.csr -signkey chave-privada.key -out certificado.crt
+openssl x509 -req -days 730 -in pedido.csr -signkey chave-privada.key -out certificado.pem
 ~~~~
 
 ### Passo 3 Faça o Downloads ou copie o conteudo dos certificados das Organizações disponivel no (https://github.com/RBBNet/participantes/tree/main/lab/certificados)
 
 #### 3.1. caso  for copiar o conteúdo dos certificados, deve criar o arquivo client.crt e colar o conteúdo dos certificados dentro do arquivo, um abaixo do outro, conforme o exemplo abaixo
 ~~~~
-touch client.crt
+touch client.pem
 ~~~~
 ~~~~
-vim client.crt
+vim client.pem
 ~~~~
 *Exemplo*
 ~~~~
-root@prometheus:/home/dili/rbb-monitoracao/nginx/certs# cat client.crt
+root@prometheus:/home/dili/rbb-monitoracao/nginx/certs# cat client.pem
 
 -----BEGIN CERTIFICATE-----
 MIIFNzCCAx8CFE1T0oAdwo5kgb+edmgRA6Fu+35SMA0GCSqGSIb3DQEBCwUAMFgx
@@ -114,7 +114,7 @@ root@prometheus:/home/dili/rbb-monitoracao/nginx/certs#
 
 **Exemplo**
 ~~~~
-cat  cert_dataprev.crt  cert_bndes.crt cert_cnpq.crt >> client.crt
+cat  cert_dataprev.pem  cert_bndes.pem cert_cnpq.pem >> client.pem
 ~~~~
 #### 3.3. Dar permissão aos certificados e chave
 ~~~~
