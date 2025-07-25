@@ -2,9 +2,9 @@
 
 **BNDES**
   - Fernando Passeri Lavrado
+  - Ana Carolina de Almeida Carneiro
   - Gladstone Moises Arantes Junior
-  - Luciana Giuliani de Oliveira Reis
-  - Sérgio Marques de Viveiros
+  - João Alexandre dos Santos Lopes
 
 **CGE-PA**
   - Gabriel Leandro Dantas

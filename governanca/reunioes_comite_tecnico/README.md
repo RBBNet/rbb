@@ -1,9 +1,9 @@
 # Representantes dos Partícipes no Comitê Técnico da RBB
 
 - BNDES
-  - Gladstone Moises Arantes Junior - Titular e Coordenador (conforme [ata](../reunioes_comite_executivo/2022-11-29_reuniao/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)).
-  - Sérgio Marques de Viveiros - Suplente.
-  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2022-12-22-Indica%C3%A7%C3%A3o-Representantes-BNDES-CARTA-SUP-ATI-01-2022.pdf).
+  - Gladstone Moises Arantes Junior - Representante e Coordenador (conforme [ata](../reunioes_comite_executivo/2022-11-29_reuniao/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)).
+  - João Alexandre dos Santos Lopes
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-07-25-Indicacao-Representantes-BNDES.pdf).
 - CPQD
   - Fernanda Corsini Jordão Medeiros
   - Jeffson Celeiro Sousa
