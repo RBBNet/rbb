@@ -66,6 +66,13 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 10/07/2025
+  - [Ata assinada digitalmente](atas/2025-07-10-RBB-Ata-34-CE-Assinada.pdf)
+  - Destaques:
+    - Informes
+    - Implantação do novo permissionamento (gen02)
+    - Indicadores
+
 - 12/06/2025
   - [Ata assinada digitalmente](atas/2025-06-12-RBB-Ata-33-CE-Assinada.pdf)
   - Destaques:
