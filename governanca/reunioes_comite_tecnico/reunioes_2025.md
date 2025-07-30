@@ -1,5 +1,40 @@
 # Reuniões do Comitê Técnico realizadas em 2025
 
+- 30/07/2025
+  - Pauta proposta:
+    - Incidentes
+    - Blockchain.rio
+    - Apresentação Plexos
+    - Maturação do piloto
+- 23/07/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
+- 16/07/2025
+  - Pauta proposta:
+    - Incidentes
+    - Informes
+    - Maturação do piloto
+- 09/07/2025
+  - Pauta proposta:
+    - Incidentes
+    - Implantação da gen02
+    - Maturação do piloto
+- 02/07/2025
+  - Pauta proposta:
+    - Incidentes
+    - Implantação da gen02
+    - Maturação do piloto
+- 25/06/2025
+  - Pauta proposta:
+    - Incidentes
+    - Discord
+    - Implantação da gen02
+    - Maturação do piloto
+- 18/06/2025
+  - Pauta proposta:
+    - Incidentes
+    - Maturação do piloto
 - 11/06/2025
   - Pauta proposta:
     - Incidentes
