@@ -19,8 +19,8 @@
   - Felipe Braga Carneiro Leão
 
 **IBICT**
-  - Hugo Valadares Siqueira
   - Washington Luís Ribeiro de Carvalho Segundo
+  - Alexandre Faria de Oliveira
   - Fábio Castro Gouveia
     
 **Município de Araguaína**
