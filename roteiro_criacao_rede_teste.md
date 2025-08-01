@@ -242,6 +242,92 @@ docker-compose restart validator
 
 ```
 
+### 4.5 - Preparar a Gen02
+
+- Execute o seguinte comando:
+
+```bash
+cd ../gen02
+
+```
+
+- Execute o seguinte comando para instalar as dependências:
+
+```bash
+npm install
+
+```
+
+- Crie um arquivo `.env` e defina as variáveis de ambiente neste arquivo conforme template abaixo:
+```.env
+CONFIG_PARAMETERS=deploy/parameters-toy.json
+ACCOUNT_ADDRESS=627306090abaB3A6e1400e9345bC60c78a8BEf57
+PRIVATE_KEY=c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
+RPC_URL=http://localhost:8545
+
+```
+
+ Em `CONFIG_PARAMETERS`, inserimos o arquivo de parametros que a Gen02 deve se basear. Por ser este um roteiro somente para testes, utilizaremos um recém criado parameters-toy.
+
+ Em `ACCOUNT_ADDRESS`, inserimos o endereço com que fizemos deploy da rede. Por ser este um roteiro somente para testes, o endereço contido no template poderá ser utilizado.
+
+ Em `PRIVATE_KEY`, insira a chave privada da conta mencionada acima conforme o template. Por ser este um roteiro somente para testes, a chave privada contida no template poderá ser utilizada.
+  > ⚠️ **Atenção!** Não utilize a chave privada do template em ambiente de **produção**.
+  
+  Em `RPC_URL`, insira o endereço `IP:Porta` do seu validator (utilize o IP do container, execute ```docker ps``` para localizar o id do container do validator e, em seguida, ```docker inspect <container-id> | grep "IPAddress"``` para obter o IP do container do validator ) conforme o template.
+  
+- Na pasta deploy, gere um arquivo `parameters-toy.json` com os valores conforme o template abaixo: 
+
+```
+{
+    "adminAddress": "...",
+    "organizations": [
+        {
+            "id": 0,
+            "cnpj": "00000000000001",
+            "name": "Org Patrono",
+            "orgType": "Patron",
+            "canVote": true
+        },
+        {
+            "id": 0,
+            "cnpj": "00000000000002",
+            "name": "Org Associado",
+            "orgType": "Associate",
+            "canVote": true
+        },
+        {
+            "id": 0,
+            "cnpj": "00000000000003",
+            "name": "Org Parceiro",
+            "orgType": "Partner",
+            "canVote": false
+        }
+    ],
+    "globalAdmins": [
+        "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+    ]
+}
+
+```
+
+ Em `adminAddress`, insira o endereço do Admin contract recebido na etapa [4.3](###43-executar-o-deploy).
+ 
+ Em `organizations`, insira as organizações que farão parte da rede. Por ser este um roteiro somente para testes, as organizações contidas no template poderão ser utilizadas.
+ 
+ Em `globalAdmins`, insera os endereços das organizações. Por ser este um roteiro somente para testes, os endereços padrão gerados pelo hardhat e contidos no template poderão ser utilizados.
+ 
+### 4.6 - Executar o Deploy da Gen02
+
+```bash
+npm run local-deploy-gen02
+
+``` 
+
+
+
 ## 5 - Levantar block explorer
 
 #### Sirato Block Explorer:
