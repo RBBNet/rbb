@@ -326,7 +326,70 @@ npm run local-deploy-gen02
 
 ``` 
 
+### 4.7 - Implantar contratos da Gen02
 
+- Execute os seguintes comandos:
+
+```bash
+cd ../..
+git clone https://github.com/RBBNet/scripts-permissionamento.git
+cd scripts-permissionamento
+
+```
+- Execute o seguinte comando para instalar as dependências:
+
+  ```bash
+  npm install
+  
+  ```
+
+- Crie um arquivo `.env` e defina as variáveis de ambiente neste arquivo conforme template abaixo:
+
+```
+JSON_RPC_URL=http://localhost:8545
+ACCOUNT_INGRESS_ADDRESS=0x0000000000000000000000000000000000008888
+NODE_INGRESS_ADDRESS=0x0000000000000000000000000000000000009999
+ADMIN_ADDRESS=0x...
+ORGANIZATION_ADDRESS=0x...
+ACCOUNT_RULES_V2_ADDRESS=0x...
+NODE_RULES_V2_ADDRESS=0x...
+GOVERNANCE_ADDRESS=0x...
+PRIVATE_KEY=0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
+```
+
+ Em `JSON_RPC_URL`, insira o endereço `IP:Porta` do seu validator (utilize o IP do container, execute ```docker ps``` para localizar o id do container do validator e, em seguida, ```docker inspect <container-id> | grep "IPAddress"``` para obter o IP do container do validator ) conforme o template.
+
+ Em `ACCOUNT_INGRESS_ADDRESS`, insira o endereço do smart contract de AccountIngress. Por ser este um roteiro somente para testes, o endereço contido no template poderá ser utilizado.
+ 
+ Em `NODE_INGRESS_ADDRESS`, insira o endereço do smart contract de NodeIngress. Por ser este um roteiro somente para testes, o endereço contido no template poderá ser utilizado.
+ 
+ Em `ADMIN_ADDRESS`, insira o endereço do Admin contract recebido na etapa [4.3](###43-executar-o-deploy).
+ 
+ Em `ORGANIZATION_ADDRESS`, insira o endereço do smart contract de OrganizationImpl que foi recebido na etapa [4.6](###46-executar-o-deploy-da-gen02).
+ 
+ Em `ACCOUNT_RULES_V2_ADDRESS`, insira o endereço do smart contract de AccountRulesV2Impl que foi recebido na etapa [4.6](###46-executar-o-deploy-da-gen02).
+ 
+ Em `NODE_RULES_V2_ADDRESS`, insira o endereço do smart contract de NodeRulesV2Impl que foi recebido na etapa [4.6](###46-executar-o-deploy-da-gen02).
+ 
+ Em `GOVERNANCE_ADDRESS`, insira o endereço do smart contract de Governance que foi recebido na etapa [4.6](###46-executar-o-deploy-da-gen02).
+ 
+ Em `PRIVATE_KEY`, insira a chave privada da conta a ser usada para envio de transações. Por ser este um roteiro somente para testes, a chave privada contina no template poderá ser utilizada.
+ 
+### 4.8 - Adicionar nós ao NodeRulesV2 
+
+- Executar, para cada nó, o seguinte comando:
+
+```bash
+node node-rules-v2.js addLocalNode 0x<1ªmetade da chave publica> 0x<2ªmetade da chave publica> <tipo-do-nó> <nome-do-nó>
+
+```
+
+### 4.9 - Reponteirar regras de Permissionamento
+
+```bash
+node repoint-rules.js
+
+```
 
 ## 5 - Levantar block explorer
 
