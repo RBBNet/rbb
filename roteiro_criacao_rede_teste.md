@@ -242,6 +242,160 @@ docker-compose restart validator
 
 ```
 
+### 4.5 - Preparar a Gen02
+
+- Execute o seguinte comando:
+
+```bash
+cd ../gen02
+
+```
+
+- Execute o seguinte comando para instalar as dependências:
+
+```bash
+npm install
+
+```
+
+- Crie um arquivo `.env` e defina as variáveis de ambiente neste arquivo conforme template abaixo:
+```.env
+CONFIG_PARAMETERS=deploy/parameters-toy.json
+ACCOUNT_ADDRESS=627306090abaB3A6e1400e9345bC60c78a8BEf57
+PRIVATE_KEY=c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
+RPC_URL=http://localhost:8545
+
+```
+
+Em `CONFIG_PARAMETERS`, inserimos o arquivo de parametros que a Gen02 deve se basear. Por ser este um roteiro somente para testes, utilizaremos o arquivo `deploy/parameters-toy.json`, conforme exemplificado a seguir.
+
+Em `ACCOUNT_ADDRESS`, inserimos o endereço com que fizemos deploy da rede. Por ser este um roteiro somente para testes, o endereço contido no template poderá ser utilizado.
+
+Em `PRIVATE_KEY`, insira a chave privada da conta mencionada acima conforme o template. Por ser este um roteiro somente para testes, a chave privada contida no template poderá ser utilizada.
+> ⚠️ **Atenção!** Não utilize a chave privada do template em ambiente de **produção**.
+  
+Em `RPC_URL`, insira o endereço `IP:Porta` do seu validator (utilize o IP do container, execute ```docker ps``` para localizar o id do container do validator e, em seguida, ```docker inspect <container-id> | grep "IPAddress"``` para obter o IP do container do validator ) conforme o template.
+  
+- Na pasta deploy, gere um arquivo `parameters-toy.json` com os valores conforme o template abaixo: 
+
+```
+{
+    "adminAddress": "...",
+    "organizations": [
+        {
+            "id": 0,
+            "cnpj": "00000000000001",
+            "name": "Org Patrono",
+            "orgType": "Patron",
+            "canVote": true
+        },
+        {
+            "id": 0,
+            "cnpj": "00000000000002",
+            "name": "Org Associado",
+            "orgType": "Associate",
+            "canVote": true
+        },
+        {
+            "id": 0,
+            "cnpj": "00000000000003",
+            "name": "Org Parceiro",
+            "orgType": "Partner",
+            "canVote": false
+        }
+    ],
+    "globalAdmins": [
+        "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
+        "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+    ]
+}
+
+```
+
+Em `adminAddress`, insira o endereço do Admin contract recebido na etapa [4.3](#43---executar-o-deploy).
+ 
+Em `organizations`, insira as organizações que farão parte da rede. Por ser este um roteiro somente para testes, as organizações contidas no template poderão ser utilizadas.
+ 
+Em `globalAdmins`, insera os endereços das organizações. Por ser este um roteiro somente para testes, os endereços padrão gerados pelo hardhat e contidos no template poderão ser utilizados.
+ 
+### 4.6 - Executar o Deploy da Gen02
+
+```bash
+npm run local-deploy-gen02
+
+``` 
+
+### 4.7 - Permissionar os nós na Gen02
+
+Antes que o permissionamento *on chain* da rede seja migrado para a Gen02, é necessário permissionar os nós criados. Caso contrário, imediatamente após a migração, os nós se desconectariam, parando a rede.
+
+Para executar as funcionalidades de permissionamento, usaremos as ferramentas disponíveis no repositório [`scripts-permissionamento`](https://github.com/RBBNet/scripts-permissionamento). Caso necessário, consulte mais informações sobre as ferramentas na documentação desse repositório.
+
+- Execute os seguintes comandos:
+
+```bash
+cd ../..
+git clone https://github.com/RBBNet/scripts-permissionamento.git
+cd scripts-permissionamento
+
+```
+
+- Execute o seguinte comando para instalar as dependências:
+
+```bash
+npm install
+
+```
+
+- Crie um arquivo `.env` e defina as variáveis de ambiente neste arquivo conforme template abaixo:
+
+```
+JSON_RPC_URL=http://localhost:8545
+ACCOUNT_INGRESS_ADDRESS=0x0000000000000000000000000000000000008888
+NODE_INGRESS_ADDRESS=0x0000000000000000000000000000000000009999
+ADMIN_ADDRESS=0x...
+ORGANIZATION_ADDRESS=0x...
+ACCOUNT_RULES_V2_ADDRESS=0x...
+NODE_RULES_V2_ADDRESS=0x...
+GOVERNANCE_ADDRESS=0x...
+PRIVATE_KEY=0xc87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3
+```
+
+Em `JSON_RPC_URL`, insira o endereço `IP:Porta` do seu validator (utilize o IP do container, execute ```docker ps``` para localizar o id do container do validator e, em seguida, ```docker inspect <container-id> | grep "IPAddress"``` para obter o IP do container do validator ) conforme o template.
+
+Em `ACCOUNT_INGRESS_ADDRESS`, insira o endereço do smart contract de AccountIngress. Por ser este um roteiro somente para testes, o endereço contido no template poderá ser utilizado.
+ 
+Em `NODE_INGRESS_ADDRESS`, insira o endereço do smart contract de NodeIngress. Por ser este um roteiro somente para testes, o endereço contido no template poderá ser utilizado.
+ 
+Em `ADMIN_ADDRESS`, insira o endereço do Admin contract recebido na etapa [4.3](#43---executar-o-deploy).
+ 
+Em `ORGANIZATION_ADDRESS`, insira o endereço do smart contract de OrganizationImpl que foi recebido na etapa [4.6](#46---executar-o-deploy-da-gen02).
+ 
+Em `ACCOUNT_RULES_V2_ADDRESS`, insira o endereço do smart contract de AccountRulesV2Impl que foi recebido na etapa [4.6](#46---executar-o-deploy-da-gen02).
+ 
+Em `NODE_RULES_V2_ADDRESS`, insira o endereço do smart contract de NodeRulesV2Impl que foi recebido na etapa [4.6](#46---executar-o-deploy-da-gen02).
+ 
+Em `GOVERNANCE_ADDRESS`, insira o endereço do smart contract de Governance que foi recebido na etapa [4.6](#46---executar-o-deploy-da-gen02).
+ 
+Em `PRIVATE_KEY`, insira a chave privada da conta a ser usada para envio de transações. Por ser este um roteiro somente para testes, a chave privada contina no template poderá ser utilizada.
+ 
+### 4.8 - Adicionar nós ao NodeRulesV2 
+
+- Executar, para cada nó, o seguinte comando:
+
+```bash
+node node-rules-v2.js addLocalNode 0x<1ªmetade da chave publica> 0x<2ªmetade da chave publica> <tipo-do-nó> <nome-do-nó>
+
+```
+
+### 4.9 - Reponteirar regras de Permissionamento
+
+```bash
+node util/repoint-rules.js
+
+```
+
 ## 5 - Levantar block explorer
 
 #### Sirato Block Explorer:
