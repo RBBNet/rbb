@@ -252,6 +252,8 @@ Caso você **não** seja a instituição inicial pule para a [seção 3](#3---at
 
 ### 2.4 - Implantar os smart contracts de permissionamento
 
+**Observarção**: Os passos desta seção foram documentados conforme procedimento adotado no momento de implantação do piloto da RBB. Porém, caso seja necessário recriar a rede em algum momento, estes passos terão que ser adaptados, considerando o uso de nova ferramenta (Hardhat), nova versão de código dos *smart contracts* permissionamento originalmente implantados na RBB [(gen01)](https://github.com/RBBNet/Permissionamento/?tab=readme-ov-file#primeira-gera%C3%A7%C3%A3o) e nova geração de *smart contracts* de permissionamento [(gen02)](https://github.com/RBBNet/Permissionamento/?tab=readme-ov-file#segunda-gera%C3%A7%C3%A3o) implantados posteriormente.
+
 #### 2.4.1 - Pré-requisito
 
 - [Node.js](https://nodejs.org/en/download/)
