@@ -36,9 +36,28 @@ Os identificadores dos validators pode ser obtido em `https://github.com/RBBNet/
 
 # 4 - Permissionamento do(s) nó(s) removido(s)
 
-De forma a manter a configuração da rede atualizada e a zelar pela segurança, o(s) nó(s) removido(s) deve(m) ter seu permissionamento revogado. Esta revogação deve ser feita através de execução dos *smart contracts* da RBB específicos para essa função, que devem ser executados por uma conta de administração.
+De forma a manter a configuração da rede atualizada e a zelar pela segurança, o(s) nó(s) removido(s) deve(m) ter seu permissionamento revogado. Esta revogação deve ser feita através de execução dos [*smart contracts* de permissionamento](https://github.com/RBBNet/Permissionamento/) da RBB.
 
-Solicite que um administrador da rede realize a(s) devida(s) revogação(ões).
+## 4.1 Remoção de nó(s) de uma organização ativa
+
+Para o caso de remoção de nó(s) de uma organização ativa, utilize uma conta administrativa de sua organização para a remoção do permissionamento do(s) nó(s). Isso deverá ser feito através da função [`NodeRulesV2Impl.deleteLocalNode(bytes32 enodeHigh, bytes32 enodeLow)`](https://github.com/RBBNet/Permissionamento/blob/main/gen02/contracts/NodeRulesV2Impl.sol#L75), onde:
+- `enodeHigh`: São os primeiros 32 bytes da chave pública do nó.
+- `enodeLow`: São os útimos 32 bytes da chave pública do nó.
+
+Outras funções disponíveis para a gestão de nós são:
+- `addLocalNode(bytes32 enodeHigh, bytes32 enodeLow, NodeType nodeType, string calldata name)`: Adiciona nó.
+- `updateLocalNode(bytes32 enodeHigh, bytes32 enodeLow, NodeType nodeType, string memory name)`: Atualiza dados do nó.
+- `updateLocalNodeStatus(bytes32 enodeHigh, bytes32 enodeLow, bool active)`: Habilita ou desabilita o nó.
+
+O endereço para o *smart contract* `NodeRulesV2Impl` pode ser encontrado em `https://github.com/RBBNet/participantes/blob/main/`**${rede}**`/contratos.md`, onde `${rede}` pode assumir o valor `lab` (laboratório) ou `piloto`, a depender em qual rede o permissionamento será feito.
+
+Mais informações sobre a gestão e permissionamento de nós podem ser encontradas na [documentação dos *smart contracts* de permissionamento](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/nos.md).
+
+Para facilitar a chamada aos *smart contracts* de permissionamento, é possível usar os [scripts de permissionamento](https://github.com/RBBNet/scripts-permissionamento) ou o [DApp de permissionamento](https://github.com/RBBNet/dapp-permissionamento). Saiba mais sobre essas duas ferramantas nos arquivos README desses projetos.
+
+## 4.2 Remoção de organização
+
+Para o caso de remoção de uma organização, o permissionamento terá que ser feito através de uma atividade de governança *on chain*. Nesse caso, solicite ao Comitê Técnico a realização do [procedimento de saída da organização](https://github.com/RBBNet/Permissionamento/blob/main/gen02/doc/macroprocessos.md#sa%C3%ADda-de-uma-organiza%C3%A7%C3%A3o).
 
 
 ## 5 - Regras de firewall
