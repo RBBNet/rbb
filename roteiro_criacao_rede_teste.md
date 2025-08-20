@@ -317,7 +317,7 @@ Em `adminAddress`, insira o endereço do Admin contract recebido na etapa [4.3](
  
 Em `organizations`, insira as organizações que farão parte da rede. Por ser este um roteiro somente para testes, as organizações contidas no template poderão ser utilizadas.
  
-Em `globalAdmins`, insera os endereços das organizações. Por ser este um roteiro somente para testes, os endereços padrão gerados pelo hardhat e contidos no template poderão ser utilizados.
+Em `globalAdmins`, insira os endereços das contas administrativas das organizações. Por ser este um roteiro somente para testes, os endereços padrão gerados pelo hardhat e contidos no template poderão ser utilizados.
  
 ### 4.6 - Executar o Deploy da Gen02
 
