@@ -11,8 +11,8 @@
   - Rodrigo Kenji Aranha Kanzaki
     
 **CPQD**
-  - Fernando Cesar Heredia Marino 
-  - José Reynaldo Formigoni Filho
+  - Andreza Ferraresso Lona Faro
+  - Fernando Cesar Heredia Marino
     
 **Dataprev**
   - Bernado Martins Pina
