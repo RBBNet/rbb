@@ -28,8 +28,6 @@
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2024-01-09-Prodemge-Alex-e-Rodrigo-Subst-Caleo.pdf).
 - PUC-Rio
   - Paulo Henrique Cardoso Alves
-  - Theo Necyk Agner Caldas
-  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-08-19-Indicacao-Representantes-PUC.pdf).
 - RNP
   - Luiz Eduardo Folly de Campos - Titular. 
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-03-Indica%C3%A7%C3%A3o-Representante-RNP.pdf).
