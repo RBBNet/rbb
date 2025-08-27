@@ -15,8 +15,9 @@
   - Fernando Cesar Heredia Marino
     
 **Dataprev**
-  - Bernado Martins Pina
   - Felipe Braga Carneiro Leão
+  - Luiz Guilherme Guercio Benini
+  - Rafael Freixo Gratão
 
 **IBICT**
   - Washington Luís Ribeiro de Carvalho Segundo
