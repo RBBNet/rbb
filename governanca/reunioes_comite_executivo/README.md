@@ -67,6 +67,14 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 14/08/2025
+  - [Ata assinada digitalmente](atas/2025-08-14-RBB-Ata-35-CE-Assinada.pdf)
+  - Destaques:
+    - Informes
+    - Renovação do ACT
+    - Indicadores
+    - Assinatura de documentos (Não houve tempo para a discussão)
+
 - 10/07/2025
   - [Ata assinada digitalmente](atas/2025-07-10-RBB-Ata-34-CE-Assinada.pdf)
   - Destaques:
