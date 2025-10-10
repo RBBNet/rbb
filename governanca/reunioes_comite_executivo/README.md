@@ -67,7 +67,7 @@
     
 # Reuniões do Comitê Executivo realizadas
 - 11/09/2025
-  - [Ata assinada digitalmente](atas/2025-09-11-RBB-Ata-36-CE-Assinada.pdf)
+  - [Ata assinada digitalmente](atas/2025-09-11-RBB-Ata-36-CE-assinada.pdf)
   - Destaques:
     - Informes
     - Renovção do ACT
