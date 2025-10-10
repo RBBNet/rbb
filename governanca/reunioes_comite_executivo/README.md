@@ -73,7 +73,7 @@
     - Renovção do ACT
     - Indicadores
     - Assinatura de documentos
-    - SLA/OLA com Rotação de Validadores
+    - SLA/OLA com Rotação de Validadores (retirada de pauta por falta de tempo)
 
 
 - 14/08/2025
