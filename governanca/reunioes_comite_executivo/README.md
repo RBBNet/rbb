@@ -70,7 +70,7 @@
   - [Ata assinada digitalmente](atas/2025-09-11-RBB-Ata-36-CE-assinada.pdf)
   - Destaques:
     - Informes
-    - Renovção do ACT
+    - Renovação do ACT
     - Indicadores
     - Assinatura de documentos
     - SLA/OLA com Rotação de Validadores (retirada de pauta por falta de tempo)
