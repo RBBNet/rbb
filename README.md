@@ -57,6 +57,7 @@ enode://bf8d93733d707b30f1e09545d0ee3e57cddc697d0fdc9940540d5c4f77ec33bb8ea1cb1e
 enode://5dd979ae40077dcd3ca620baeeb2328bde18b3a802e9b515181d5ef7c14b3692fc3a00d4d84ae17819d443f4fcfa13e07aa070c53aa191e7f2e46c587dc449a8@35.198.49.239:30303
 enode://107fb2f960d429d9e89c2861967b49405c22385a53b50c0d24096a5b20112adf5753264e06b8456f38e211bbc0b95178fb0104bf488cec68918067f971fdc500@161.148.126.69:30303
 enode://8d52e34fb48a96109eb4d916bd2a0bfad86dc107a8d57f35c50236048857058eba11b7c7438870cf6b5cf7257c765d186e8920d8bf64a0f525a788912657dd20@200.133.56.131:30303
+enode://855dcdaed2b03b2e29dda80190509cd81b3957cf87ae087de6aa9aef30f802bc27c0277c596c1e0642e2b4285aba73451486e56ada9c0dfb6efaad19c352a5a6@200.130.0.155:10004
 ```
 
 Caso o nó seja uma instância Besu, é possível utilizar como referência [este aquivo *genesis*](artefatos/observer/genesis.json), tomando-se o cuidado de utilizar as opções `--Xdns-enabled=true` e `--Xdns-update-enabled=true` para resolução correta de nomes.
