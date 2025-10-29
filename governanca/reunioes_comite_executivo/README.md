@@ -66,6 +66,14 @@
   - Rainério Rodrigues Leite
     
 # Reuniões do Comitê Executivo realizadas
+- 09/10/2025
+  - [Ata assinada digitalmente](atas/2025-10-09-RBB-Ata-37-CE-v02-assinado.pdf)
+  - Destaques:
+    - Informes
+    - Logo para a RBB
+    - Indicadores
+    - SLA/OLA com Rotação de Validadores
+
 - 11/09/2025
   - [Ata assinada digitalmente](atas/2025-09-11-RBB-Ata-36-CE-assinada.pdf)
   - Destaques:
