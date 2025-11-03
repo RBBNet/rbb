@@ -26,9 +26,8 @@
     
 **Município de Araguaína**
   - Allen Kardec Feitosa Oliveira
-  - Max Doeel Nunes Guimarães
-  - Igor Thawan do Nascimento da Silva
   - Sérgio Maia Rabelo
+  - José Ribamar Sousa Júnior
 
 **Plexos Institute**
   - Camila Rioja Arantes
