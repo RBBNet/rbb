@@ -49,7 +49,7 @@
 
 - Prefeitura de Araguaína
   - Sérgio Maia Rabelo - Titular.
-  - [Carta de indicação ao Comitê Técnico[(../indicacoes_representantes/2025-11-05-Indicacao-Representante-Araguaina.pdf).
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-11-05-Indicacao-Representante-Araguaina.pdf).
 
 # Indicação de Representante para o Comitê Técnico da RBB
 
