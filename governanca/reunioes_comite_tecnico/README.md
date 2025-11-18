@@ -36,7 +36,8 @@
 - SERPRO
   - Marcel Brunetto
   - Leonardo Camilo Oliveira Aquino
-  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2024-08-07-Indicacao-Representantes-Serpro.pdf).
+  - Thiago de Lima Mariano
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-11-10-Indicacao-Representantes-Serpro.pdf).
 - SGD
   - Germana Gladys Marques de Almeida
   - Pollyanna Carla Oliveira Dias
