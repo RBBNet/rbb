@@ -48,6 +48,10 @@
   - Valter Rogerio Messias - Suplente.
   - [Ofício de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-05-Indica%C3%A7%C3%A3o-Representantes-TCU.pdf).
 
+- Prefeitura de Araguaína
+  - Sérgio Maia Rabelo - Titular.
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-11-05-Indicacao-Representante-Araguaina.pdf).
+
 # Indicação de Representante para o Comitê Técnico da RBB
 
 Este é o [modelo de carta](../../documentos/Modelo%20-%20Carta%20Indica%C3%A7%C3%A3o%20Comit%C3%AA%20T%C3%A9cnico.docx) para indicação ao Comitê Técnico da RBB.
