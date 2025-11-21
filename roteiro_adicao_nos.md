@@ -306,8 +306,13 @@ Veja o exemplo abaixo:
 
 # 4 - Início do(s) novo(s) nó(s)
 
+> [!CAUTION]
+> É necessário observar que **não** se deve utilizar a versão mais atualizada do Besu. Devido à [remoção do suporte nativo às funcionalidades de permissionamento *on chain*](https://github.com/hyperledger/besu/pull/8597) desde a [versão 25.6.0](https://github.com/hyperledger/besu/releases/tag/25.6.0), deve-se limitar o uso do Besu à [versão 25.5.0](https://github.com/hyperledger/besu/releases/tag/25.5.0) ou versões anteriores.
+>  De forma a garantir essa restrição de uso de versão do Besu, antes da execução de cada nó, configure a seguinte variável de ambiente: `IMAGE_BESU=hyperledger/besu:25.5.0`
+
 Para cada novo nó:
 ```bash
+export IMAGE_BESU=hyperledger/besu:25.5.0
 ./rbb-cli config render-templates
 docker-compose up -d
 ```
