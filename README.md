@@ -69,7 +69,7 @@ A RBB também oferece um [roteiro](roteiro_criacao_rede_teste.md) para instalaç
 A implantação da RBB está sendo feita de forma gradativa, conforme determinado em seu Plano de Trabalho, que tem previstas as seguintes atividades:
 
 - Implantação da rede laboratório
-- Elaboração do [Regulamento da RBB](governanca/reunioes_comite_executivo/atas/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)
+- Elaboração do [Regulamento da RBB](governanca/reunioes_comite_executivo/atas/2023-02-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)
 - Estruturação do piloto
 - Operação assistida do piloto
 - Estruturação da produção

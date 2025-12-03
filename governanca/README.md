@@ -21,7 +21,7 @@ A partir da assinatura do Acordo de Cooperação entre o BNDES e o TCU no dia 12
   - Secretaria de Transparência e Controle do Estado do Maranhão
   - TCE-SP
 
-Na terceira reunião da Governança da RBB, já com a participações de TCU, BNDES, Dataprev, CPQD e RNP, foi aprovado o Regulamento da RBB ([link para a ata com o Regulamento](reunioes_comite_executivo/2022-11-29_reuniao/2022-11-29-Ata-Reuni%C3%A3o-Governan%C3%A7a-RBB-Assinada.pdf)). O Regulamento dividiu a governança em dois comitês: o Comitê Executivo e o Comitê Técnico, definidos da seguinte forma: 
+Na terceira reunião da Governança da RBB, já com a participações de TCU, BNDES, Dataprev, CPQD e RNP, foi aprovado o Regulamento da RBB ([link para a ata com o Regulamento](reunioes_comite_executivo/atas/2023-02-16-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo-Assinada.pdf)). O Regulamento dividiu a governança em dois comitês: o Comitê Executivo e o Comitê Técnico, definidos da seguinte forma: 
 
 - **Comitê Executivo**, que é responsável por:
   - Desenvolver e atualizar o Regulamento da RBB;
