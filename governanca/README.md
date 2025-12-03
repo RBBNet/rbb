@@ -38,5 +38,4 @@ Na terceira reunião da Governança da RBB, já com a participações de TCU, BN
 
 Você pode acompanhar as atas das reuniões e outros detalhes de ambos os comitês: [Comitê Executivo](reunioes_comite_executivo/README.md) e [Comitê Técnico](reunioes_comite_tecnico/README.md).
 
-Na reunião do Comitê Executivo do dia 14/12/2003, foi aprovado o Manual de Operações. Este é um documento que define o protocolo necessário entre os Partícipes para viabilizar uma operação da rede de forma conjunta e descentralizada. Segue a ([ata com o Manual de Operações em anexo](reunioes_comite_executivo/2023-12-14_reuniao/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_assinada.pdf)).
-
+Na reunião do Comitê Executivo do dia 14/12/2003, foi aprovado o Manual de Operações. Este é um documento que define o protocolo necessário entre os Partícipes para viabilizar uma operação da rede de forma conjunta e descentralizada. Segue a ([ata com o Manual de Operações em anexo](governanca/reunioes_comite_executivo/atas/2023-12-14-RBB-Ata-Reuni%C3%A3o-Comit%C3%AA-Executivo_v3_assinada.pdf)).
