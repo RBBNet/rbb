@@ -86,7 +86,7 @@
 - 14/08/2025
 
   - [Ata assinada digitalmente](atas/2025-08-14-RBB-Ata-35-CE-Assinada.pdf)
-  Destaques:
+  - Destaques:
     - Informes
     - Renovação do ACT
     - Indicadores
