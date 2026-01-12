@@ -65,6 +65,14 @@
   - Rainério Rodrigues Leite
     
 # Reuniões do Comitê Executivo realizadas
+- 13/11/2025
+  - [Ata assinada digitalmente](atas/2025-11-13-RBB-Ata-38-CE-v01-assinado.pdf)
+  - Destaques:
+    - BlockchainGov
+    - Indicadores
+    - Tese de doutorado do Allen Kardec
+    - SLA/OLA com Rotação de Validadores
+
 - 09/10/2025
   - [Ata assinada digitalmente](atas/2025-10-09-RBB-Ata-37-CE-v02-assinado.pdf)
   - Destaques:
