@@ -58,25 +58,26 @@
 **STC-MA - Secretária de Estado de Transparência e Controle**
   - Nísia Paixão Seguins Louzeiro Seabra
   - Ronald Serra Campos
-  - Steferson Lima Costa Ferreira
+   Steferson Lima Costa Ferreira
 
 **TCU**
   - Eldon Teixeira Coutinho
   - Rainério Rodrigues Leite
     
-# Reuniões do Comitê Executivo realizadas
--
+# euniões do Comitê Executivo realizadas
+
 - 25/11/2025
   - [Ata assinada digitalmente](atas/2025-11-25-RBB-Ata-39-CE-v02-assinado.pdf)
   - Destaques:
-    - Renovação do ACT
+  - Renovação do ACT
     - Termo de uso
     - Cartilha LGPD
     - 
     - Projeto Integra
-13/11/2025
-  - [Ata assinada digitalmente](atas/2025-11-13-RBB-Ata-38-CE-v01-assinado.pdf)
-  - Destaques:
+   - 
+- 13/11/2025
+     - [Ata assinada digitalmente](atas/2025-11-13-RBB-Ata-38-CE-v01-assinado.pdf)
+  
     - BlockchainGov
     - Indicadores
     - Tese de doutorado do Allen Kardec
