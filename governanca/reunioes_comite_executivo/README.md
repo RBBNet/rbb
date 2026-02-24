@@ -66,6 +66,16 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 08/01/2026
+  - [Ata assinada digitalmente](atas/2026-01-08-RBB-Ata-40-CE-v01-assinado.pdf)
+  - Destaques:
+    - Informes
+      - Projeto Ilíada
+      - Atraso das atas das reuniões anteriores
+      - Convite da Linux Foundation
+    - Pré-planejamento para 2026
+    - Indicadores
+
 - 25/11/2025
   - [Ata assinada digitalmente](atas/2025-11-25-RBB-Ata-39-CE-v02-assinado.pdf)
   - Destaques:
