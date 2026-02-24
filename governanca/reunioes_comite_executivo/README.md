@@ -67,7 +67,7 @@
 # Reuniões do Comitê Executivo realizadas
 
 - 08/01/2026
-  - [Ata assinada digitalmente](atas/2026-01-08-RBB-Ata-40-CE-v01-assinado.pdf)
+  - [Ata assinada digitalmente](atas/2026-01-08-RBB-Ata-40-CE-v01-assinada.pdf)
   - Destaques:
     - Informes
       - Projeto Ilíada
