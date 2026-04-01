@@ -23,9 +23,9 @@
   - Solange Gueiros dos Santos
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-07-01-Indicacao-Representantes-Plexos.pdf).
 - Prodemge
-  - Alexandre Sidney Ferreira - Titular. 
-  - Rodrigo Fernandes dos Santos - Suplente. 
-  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2024-01-09-Prodemge-Alex-e-Rodrigo-Subst-Caleo.pdf).
+  - Alexandre Sidney Ferreira 
+  - Marcelo Cunha Scheffer 
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2026-03-24-Indicacao-Representantes-Prodemge.pdf).
 - PUC-Rio
   - Paulo Henrique Cardoso Alves
   - Theo Necyk Agner Caldas
