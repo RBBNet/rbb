@@ -36,8 +36,8 @@ A seguir são apresentados os valores de referência sugeridos para servidores, 
 
 - Execute os seguintes comandos:
 ```bash
-curl -#SL https://github.com/RBBNet/start-network/archive/refs/tags/v1.0.0.tar.gz | tar xz
-mv start-network-1.0.0 start-network
+curl -#SL https://github.com/RBBNet/start-network/archive/refs/tags/v1.1.0.tar.gz | tar xz
+mv start-network-1.1.0 start-network
 ```
 
 ### 1.3 - Download do repositório `rbb-monitoracao`
