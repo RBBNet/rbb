@@ -66,6 +66,21 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 12/03/2026
+  - [Ata assinada digitalmente](atas/2026-03-12-RBB-Ata-42-CE-v02-assinada.pdf)
+  - Destaques:
+    - Descentralização da Coordenações
+    - Planejamento 2026-2027
+    - Indicadores
+
+- 12/02/2026
+  - [Ata assinada digitalmente](atas/2026-02-12-RBB-Ata-41-CE-v02-assinada.pdf)
+  - Destaques:
+    - Adesão do Comitê Paralímpico Brasileiro (preliminar)
+    - Aplicação do Plexos
+    - Descentralização da Coordenações
+    - Indicadores
+   
 - 08/01/2026
   - [Ata assinada digitalmente](atas/2026-01-08-RBB-Ata-40-CE-v01-assinada.pdf)
   - Destaques:
