@@ -15,6 +15,7 @@ A partir da assinatura do Acordo de Cooperação entre o BNDES e o TCU no dia 12
   - SGD
 - Partícipes Aderentes Parceiros:
   - CGE-PA
+  - Comitê Paralímpico Brasileiro
   - FENASBAC
   - Município de Araguaína
   - PUC-RJ
