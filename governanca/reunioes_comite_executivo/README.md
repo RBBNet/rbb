@@ -9,6 +9,10 @@
 **CGE-PA**
   - Gabriel Leandro Dantas
   - Rodrigo Kenji Aranha Kanzaki
+
+**Comitê Paralímpico Brasileiro**
+  - José Antônio Ferreira Freire
+  - Paulo Victor Barchi Losinskas
     
 **CPQD**
   - Andreza Ferraresso Lona Faro
