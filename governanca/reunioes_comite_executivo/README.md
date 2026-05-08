@@ -70,6 +70,15 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 09/04/2026
+  - [Ata assinada digitalmente](atas/2026-04-09-RBB-Ata-43-CE-v02-assinada.pdf)
+  - Destaques:
+    - Adesão do Comitê Paralímpico Brasileiro
+    - Apresentação da Coordenação de Ecossistema
+    - Apresentação da Coordenação de Evolução
+    - Planejamento 2026-2027
+    - Indicadores (retirado de pauta por falta de tempo)
+   
 - 12/03/2026
   - [Ata assinada digitalmente](atas/2026-03-12-RBB-Ata-42-CE-v02-assinada.pdf)
   - Destaques:
