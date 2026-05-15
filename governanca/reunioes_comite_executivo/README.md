@@ -64,6 +64,11 @@
   - Ronald Serra Campos
    Steferson Lima Costa Ferreira
 
+**TCE-SP**
+- José Ricardo Figueiredo Vaz
+- José David de Araújo
+- Rodrigo Mendes Rosa
+
 **TCU**
   - Eldon Teixeira Coutinho
   - Rainério Rodrigues Leite
