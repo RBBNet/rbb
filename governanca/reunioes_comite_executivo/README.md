@@ -16,7 +16,7 @@
     
 **CPQD**
   - Andreza Ferraresso Lona Faro
-  - Fernando Cesar Heredia Marino
+  - Sérgio Ribeiro
     
 **Dataprev**
   - Felipe Braga Carneiro Leão
