@@ -75,6 +75,15 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 14/05/2026
+  - [Ata assinada digitalmente](atas/2026-05-14-RBB-Ata-44-CE-v04-assinada.pdf)
+  - Destaques:
+    - Apresentação Preliminar ACIEG
+    - Indicadores de Governança e Operação
+    - Indicadores de Evolução
+    - Proposta de Acompanhamento de Indicadores
+    - Coordenação de Ecossistema
+    
 - 09/04/2026
   - [Ata assinada digitalmente](atas/2026-04-09-RBB-Ata-43-CE-v02-assinada.pdf)
   - Destaques:
