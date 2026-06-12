@@ -6,72 +6,72 @@
   - Gladstone Moises Arantes Junior
   - João Alexandre dos Santos Lopes
 
-**CGE-PA**
-  - Gabriel Leandro Dantas
-  - Rodrigo Kenji Aranha Kanzaki
+**TCU**
+  - Eldon Teixeira Coutinho
+  - Rainério Rodrigues Leite
 
-**Comitê Paralímpico Brasileiro**
-  - José Antônio Ferreira Freire
-  - Paulo Victor Barchi Losinskas
-    
-**CPQD**
-  - Andreza Ferraresso Lona Faro
-  - Sérgio Ribeiro
-    
 **Dataprev**
   - Felipe Braga Carneiro Leão
   - Luiz Guilherme Guercio Benini
   - Rafael Freixo Gratão
 
-**IBICT**
-  - Washington Luís Ribeiro de Carvalho Segundo
-  - Alexandre Faria de Oliveira
-  - Fábio Castro Gouveia
-    
+**RNP**
+  - Leandro Neumann Ciuffo
+  - Luiz Eduardo de Souza Coelho (Achei nada)
+  - Emílio Nakamura (Achei nada)
+
+**CPQD**
+  - Andreza Ferraresso Lona Faro
+  - Sérgio Ribeiro
+
+**Prodemge**
+  - Augusto Nogueira Zadra
+  - Sândalo Carleto Del’Rio Euzébio e Bessa
+
+**PUC-Rio**
+  - Gustavo Robichez de Carvalho
+  - Rafael Barbosa Nasser
+
+**STC-MA - Secretária de Estado de Transparência e Controle**
+  - Nísia Paixão Seguins Louzeiro Seabra
+  - Ronald Serra Campos
+   Steferson Lima Costa Ferreira
+
 **Município de Araguaína**
   - Allen Kardec Feitosa Oliveira
   - Sérgio Maia Rabelo
   - José Ribamar Sousa Júnior
 
-**Plexos Institute**
-  - Camila Rioja Arantes
-  - Paulo Mauricio Freire de Oliveira
-    
-**Prodemge**
-  - Augusto Nogueira Zadra
-  - Sândalo Carleto Del’Rio Euzébio e Bessa
-    
-**PUC-Rio**
-  - Gustavo Robichez de Carvalho
-  - Rafael Barbosa Nasser
-    
-**RNP**
-  - Leandro Neumann Ciuffo
-  - Luiz Eduardo de Souza Coelho (Achei nada)
-  - Emílio Nakamura (Achei nada)
-    
 **Serpro**
   - Guilherme Funchal da Silva
   - Jetro Paulo Weber
   - Marco Túlio da Silva Lima
 
+**IBICT**
+  - Washington Luís Ribeiro de Carvalho Segundo
+  - Alexandre Faria de Oliveira
+  - Fábio Castro Gouveia
+
+**CGE-PA**
+  - Gabriel Leandro Dantas
+  - Rodrigo Kenji Aranha Kanzaki
+
 **SGD**
   - Hudson Vinícius Mesquita
   - Germana Gladys Marques de Almeida
-    
-**STC-MA - Secretária de Estado de Transparência e Controle**
-  - Nísia Paixão Seguins Louzeiro Seabra
-  - Ronald Serra Campos
-   Steferson Lima Costa Ferreira
 
 **TCE-SP**
 - José Ricardo Figueiredo Vaz
 - José David de Araújo
 - Rodrigo Mendes Rosa
 
-**TCU**
-  - Eldon Teixeira Coutinho
-  - Rainério Rodrigues Leite
+**Plexos Institute**
+  - Camila Rioja Arantes
+  - Paulo Mauricio Freire de Oliveira
+    
+**Comitê Paralímpico Brasileiro**
+  - José Antônio Ferreira Freire
+  - Paulo Victor Barchi Losinskas
     
 # Reuniões do Comitê Executivo realizadas
 
