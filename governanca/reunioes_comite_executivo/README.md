@@ -65,6 +65,9 @@
 - José David de Araújo
 - Rodrigo Mendes Rosa
 
+**FENASBAC**
+- Rodrigo de Azevedo Henriques
+
 **Plexos Institute**
   - Camila Rioja Arantes
   - Paulo Mauricio Freire de Oliveira
