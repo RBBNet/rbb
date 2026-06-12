@@ -2,7 +2,7 @@
 
 **BNDES**
   - Fernando Passeri Lavrado
-  - Ana Carolina de Almeida Carneiro
+  - Vinicius Lima Magalhães
   - Gladstone Moises Arantes Junior
   - João Alexandre dos Santos Lopes
 
