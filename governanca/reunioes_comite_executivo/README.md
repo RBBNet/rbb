@@ -75,6 +75,12 @@
 **Comitê Paralímpico Brasileiro**
   - José Antônio Ferreira Freire
   - Paulo Victor Barchi Losinskas
+
+**ACIEG**
+  - Rubens José Fileti
+  - Juliano Guimarães
+  - Pedro Renan Ferreira de Santana
+
     
 # Reuniões do Comitê Executivo realizadas
 
