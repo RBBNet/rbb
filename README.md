@@ -90,6 +90,7 @@ A partir da assinatura do Acordo de Cooperação entre o BNDES e o TCU no dia 12
   - BNDES
   - TCU
 - Partícipes Aderentes Associados:
+  - ACIEG
   - CPQD
   - Dataprev
   - IBICT
