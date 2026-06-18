@@ -52,6 +52,10 @@
   - Sérgio Maia Rabelo - Titular.
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-11-05-Indicacao-Representante-Araguaina.pdf).
 
+- ACIEG
+  - Pedro Renan Ferreira de Santana - Titular.
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2026-06-15-Indicação-Representante-ACIEG.pdf).
+
 # Indicação de Representante para o Comitê Técnico da RBB
 
 Este é o [modelo de carta](../../documentos/Modelo%20-%20Carta%20Indica%C3%A7%C3%A3o%20Comit%C3%AA%20T%C3%A9cnico.docx) para indicação ao Comitê Técnico da RBB.
