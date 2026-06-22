@@ -17,8 +17,8 @@
 
 **RNP**
   - Leandro Neumann Ciuffo
-  - Luiz Eduardo de Souza Coelho (Achei nada)
-  - Emílio Nakamura (Achei nada)
+  - Luiz Eduardo de Souza Coelho
+  - Emílio Nakamura 
 
 **CPQD**
   - Andreza Ferraresso Lona Faro
