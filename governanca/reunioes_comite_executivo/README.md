@@ -48,9 +48,9 @@
   - Marco Túlio da Silva Lima
 
 **IBICT**
-  - Washington Luís Ribeiro de Carvalho Segundo
   - Alexandre Faria de Oliveira
   - Fábio Castro Gouveia
+  - Jabson Cavalcante Dias
 
 **CGE-PA**
   - Gabriel Leandro Dantas
