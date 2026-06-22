@@ -16,8 +16,9 @@
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-19-Indica%C3%A7%C3%A3o-Representantes-Dataprev.pdf).
 - IBICT
   - Nicolas Ramos da Cruz
-  - José Edilson Filho
-  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2025-05-23-Indicacao-Representantes-IBICT.pdf).
+  - Priscila da Silva Neves Lima
+  - Lucas Rodrigues Costa
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2026-06-19-Indicação-Representante-IBICT.pdf).
 - Plexos Institute
   - Paulo Mauricio Freire de Oliveira
   - Solange Gueiros dos Santos
