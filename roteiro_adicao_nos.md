@@ -18,13 +18,13 @@ A seguir são apresentados os valores de referência sugeridos para servidores, 
 - Servidores para a rede Lab:
   - CPU: 2 Cores/vCPU
   - RAM: 4 GB
-  - Disco: 100 GB
+  - Disco: 400 GB
   - Conectividade de rede: 1G Eth
 
 - Servidores para a rede Piloto:
   - CPU: 8 Cores/vCPU
   - RAM: 8 GB
-  - Disco: 200 GB
+  - Disco: 400 GB
   - Conectividade de rede: 1G Eth
 
 #### Outras ferramentas:
