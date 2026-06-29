@@ -84,6 +84,15 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 11/06/2026
+  - [Ata assinada digitalmente](atas/2026-06-11-RBB-Ata-45-CE-v01-assinada.pdf)
+  - Destaques:
+    - Aprovação da adesão da ACIEG (Partícipe Associado); mainnet passa a 10 validadores
+    - Melhorias de resiliência da rede (retirada automática de validadores inativos do consenso)
+    - Coordenação de Ecossistema: lançamento do site redeblockchainbrasil.org e perfis oficiais
+    - Indicadores de Governança e Operação
+    - Coordenação de Evolução (CPQD): acompanhamento de iniciativas e indicadores
+
 - 14/05/2026
   - [Ata assinada digitalmente](atas/2026-05-14-RBB-Ata-44-CE-v04-assinada.pdf)
   - Destaques:
