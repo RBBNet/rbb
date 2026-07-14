@@ -48,7 +48,7 @@
   - Marco Túlio da Silva Lima
 
 **IBICT**
-  - Alexandre Faria de Oliveira
+  - Marcelo Alves dos Santos
   - Fábio Castro Gouveia
   - Jabson Cavalcante Dias
 
