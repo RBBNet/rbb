@@ -84,6 +84,16 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 09/07/2026
+  - [Ata assinada digitalmente](atas/2026-07-09-RBB-Ata-46-CE-v02-assinada.pdf)
+  - Destaques:
+    - Coordenação de Ecossistema (Plexos): resultados e aprovação do BlockchainGov 2026, coordenado pelo Plexos, no Rio de Janeiro
+    - LGPD: cartilha e Relatório de Impacto (RIPD) — exigência para novas aplicações aprovada por unanimidade, com reflexo futuro no Regulamento
+    - Renovação do Acordo de Cooperação (ACT) — proposta de “acordo 1.1”
+    - Convergência de SLA: primeira retirada automática de validador inativo na testnet (CPQD)
+    - Indicadores Trimestrais
+    - Acompanhamento das Iniciativas (Coordenação de Evolução)
+
 - 11/06/2026
   - [Ata assinada digitalmente](atas/2026-06-11-RBB-Ata-45-CE-v01-assinada.pdf)
   - Destaques:
