@@ -1,0 +1,30 @@
+# Copie para terraform.tfvars e ajuste. NÃO versione terraform.tfvars.
+# A API key deve vir do ambiente: export TF_VAR_mgc_api_key="..."
+
+organization      = "exemplo"
+mgc_region        = "br-se1"
+availability_zone = "br-se1-a"
+
+# Chave pública dos administradores (ou use existing_ssh_key_name)
+ssh_public_key = "ssh-ed25519 AAAA... admin@org"
+
+# Restrinja o SSH à rede da organização / VPN
+admin_ssh_cidrs = ["203.0.113.0/24"]
+
+# Opcional: limitar P2P/Prometheus aos IPs dos demais partícipes (RBBNet/participantes/lab/nodes.json)
+# participant_cidrs = ["200.198.20.95/32", "139.82.24.160/32"]
+
+# Opcional: rede das aplicações com acesso RPC ao writer
+# rpc_cidrs = ["10.50.0.0/16"]
+
+# Topologia padrão de partícipe associado (sobrescreva para personalizar)
+# nodes = {
+#   boot01          = { type = "boot" }
+#   validator01     = { type = "validator", machine_type = "BV2-4-20" }
+#   writer01        = { type = "writer", public_ip = false }        # exige NAT gateway (nat_gateway = "auto")
+#   observer-boot01 = { type = "observer-boot" }
+#   prometheus01    = { type = "prometheus", data_volume_size = 0, machine_type = "BV2-4-20" }
+# }
+
+# Prometheus de outras organizações a federar
+# prometheus_federation_targets = [{ organization = "bndes", target = "203.0.113.10:443" }]

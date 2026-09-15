@@ -1,0 +1,164 @@
+locals {
+  is_besu = var.node.type != "prometheus"
+
+  # Regra do roteiro: boot, validator e observer-boot são alcançáveis
+  # externamente; writer de partícipe associado é interno.
+  p2p_public = coalesce(var.node.p2p_public, contains(["boot", "validator", "observer-boot"], var.node.type))
+
+  p2p_host    = local.p2p_public ? var.public_ip : var.private_ip
+  p2p_address = local.is_besu ? "${local.p2p_host}:${var.node.p2p_port}" : null
+
+  hostname = "${var.organization}-${var.rbb_network}-${var.node.name}"
+
+  # observer-boot é público para qualquer observer; demais nós núcleo só para partícipes.
+  p2p_cidrs = var.node.type == "observer-boot" ? ["0.0.0.0/0"] : (local.p2p_public ? var.participant_cidrs : [var.vpc_cidr])
+
+  rpc_cidrs = distinct(concat([var.vpc_cidr], var.rpc_cidrs, var.node.rpc_public ? ["0.0.0.0/0"] : []))
+
+  ssh_rules = [
+    for cidr in var.admin_ssh_cidrs : {
+      key         = "ssh-${cidr}"
+      description = "SSH administrativo"
+      direction   = "ingress"
+      protocol    = "tcp"
+      port_min    = 22
+      port_max    = 22
+      cidr        = cidr
+    }
+  ]
+
+  besu_rules = local.is_besu ? concat(
+    flatten([
+      for cidr in local.p2p_cidrs : [
+        {
+          key         = "p2p-tcp-${cidr}"
+          description = "Besu P2P (RLPx) TCP"
+          direction   = "ingress"
+          protocol    = "tcp"
+          port_min    = var.node.p2p_port
+          port_max    = var.node.p2p_port
+          cidr        = cidr
+        },
+        {
+          key         = "p2p-udp-${cidr}"
+          description = "Besu P2P (discovery) UDP"
+          direction   = "ingress"
+          protocol    = "udp"
+          port_min    = var.node.p2p_port
+          port_max    = var.node.p2p_port
+          cidr        = cidr
+        },
+      ]
+    ]),
+    [
+      for cidr in local.rpc_cidrs : {
+        key         = "rpc-${cidr}"
+        description = "Besu JSON-RPC HTTP"
+        direction   = "ingress"
+        protocol    = "tcp"
+        port_min    = var.node.rpc_port
+        port_max    = var.node.rpc_port
+        cidr        = cidr
+      }
+    ],
+    [
+      {
+        key         = "metrics-vpc"
+        description = "Métricas Besu para o Prometheus da organização"
+        direction   = "ingress"
+        protocol    = "tcp"
+        port_min    = var.node.metrics_port
+        port_max    = var.node.metrics_port
+        cidr        = var.vpc_cidr
+      }
+    ]
+  ) : []
+
+  prometheus_rules = var.node.type == "prometheus" ? concat(
+    [
+      for cidr in var.participant_cidrs : {
+        key         = "prom-mtls-${cidr}"
+        description = "Prometheus federado (NGINX mTLS)"
+        direction   = "ingress"
+        protocol    = "tcp"
+        port_min    = 443
+        port_max    = 443
+        cidr        = cidr
+      }
+    ],
+    [
+      {
+        key         = "prom-vpc"
+        description = "Prometheus interno"
+        direction   = "ingress"
+        protocol    = "tcp"
+        port_min    = 9090
+        port_max    = 9090
+        cidr        = var.vpc_cidr
+      }
+    ]
+  ) : []
+
+  egress_rules = [
+    {
+      key         = "egress-all"
+      description = "Saída irrestrita"
+      direction   = "egress"
+      protocol    = null
+      port_min    = null
+      port_max    = null
+      cidr        = "0.0.0.0/0"
+    }
+  ]
+
+  firewall_rules = concat(local.ssh_rules, local.besu_rules, local.prometheus_rules, local.egress_rules)
+
+  node_env = {
+    NODE_NAME             = var.node.name
+    NODE_TYPE             = var.node.type
+    ORGANIZATION          = var.organization
+    RBB_NETWORK           = var.rbb_network
+    HOSTNAME_FQDN         = local.hostname
+    P2P_PORT              = var.node.p2p_port
+    RPC_PORT              = var.node.rpc_port
+    METRICS_PORT          = var.node.metrics_port
+    P2P_ADDRESS           = local.p2p_address == null ? "" : local.p2p_address
+    P2P_PUBLIC            = local.p2p_public
+    PRIVATE_IP            = var.private_ip
+    PUBLIC_IP             = var.public_ip == null ? "" : var.public_ip
+    START_NETWORK_VERSION = var.start_network_version
+    BESU_IMAGE            = var.besu_image
+    RBB_CLI_IMAGE         = var.rbb_cli_image
+    CONTAINER_CPUS        = var.container_cpus
+    CONTAINER_MEMORY      = var.container_memory
+    DATA_MOUNT            = var.data_mount
+    DATA_VOLUME           = var.data_volume
+    HAS_GENESIS           = var.genesis_json != null
+  }
+
+  node_env_file = join("\n", concat(
+    [for k, v in local.node_env : "${k}=${jsonencode(tostring(v))}"],
+    ["EXTRA_ENV=${jsonencode(join(" ", [for k, v in var.node.extra_env : "${k}=${v}"]))}"]
+  ))
+
+  prometheus_config = templatefile("${path.module}/templates/prometheus.yml.tftpl", {
+    organization = var.organization
+    rbb_network  = var.rbb_network
+    targets      = var.prometheus_targets
+    federation   = var.prometheus_federation_targets
+  })
+
+  user_data = templatefile("${path.module}/templates/cloud-init.yaml.tftpl", {
+    hostname          = local.hostname
+    timezone          = var.timezone
+    node_env_b64      = base64gzip(local.node_env_file)
+    setup_b64         = base64gzip(file("${path.module}/files/rbb-node-setup.sh"))
+    cli_b64           = base64gzip(file("${path.module}/files/rbb-node"))
+    genesis_b64       = var.genesis_json == null ? null : base64gzip(var.genesis_json)
+    is_prometheus     = var.node.type == "prometheus"
+    prometheus_b64    = base64gzip(local.prometheus_config)
+    prometheus_nginx  = base64gzip(file("${path.module}/files/prometheus-nginx.conf"))
+    prometheus_setup  = base64gzip(file("${path.module}/files/prometheus-setup.sh"))
+    prometheus_docker = base64gzip(file("${path.module}/files/prometheus-compose.yml"))
+  })
+}

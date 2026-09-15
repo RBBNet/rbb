@@ -1,0 +1,55 @@
+#cloud-config
+hostname: ${hostname}
+fqdn: ${hostname}
+manage_etc_hosts: true
+timezone: ${timezone}
+package_update: true
+package_upgrade: false
+packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - jq
+  - git
+  - apache2-utils
+  - openssl
+write_files:
+  - path: /etc/rbb/node.env
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${node_env_b64}
+  - path: /usr/local/sbin/rbb-node-setup
+    permissions: "0755"
+    encoding: gz+b64
+    content: ${setup_b64}
+  - path: /usr/local/bin/rbb-node
+    permissions: "0755"
+    encoding: gz+b64
+    content: ${cli_b64}
+%{ if genesis_b64 != null ~}
+  - path: /etc/rbb/genesis.json
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${genesis_b64}
+%{ endif ~}
+%{ if is_prometheus ~}
+  - path: /etc/rbb/prometheus/prometheus.yml
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${prometheus_b64}
+  - path: /etc/rbb/prometheus/nginx.conf
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${prometheus_nginx}
+  - path: /etc/rbb/prometheus/docker-compose.yml
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${prometheus_docker}
+  - path: /usr/local/sbin/rbb-prometheus-setup
+    permissions: "0755"
+    encoding: gz+b64
+    content: ${prometheus_setup}
+%{ endif ~}
+runcmd:
+  - [bash, -c, "/usr/local/sbin/rbb-node-setup >> /var/log/rbb-node-setup.log 2>&1"]
+final_message: "RBB node bootstrap finished after $UPTIME seconds. See /var/log/rbb-node-setup.log"
