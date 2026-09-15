@@ -21,7 +21,7 @@ Para cada ambiente, com a topologia padrão de **partícipe associado**:
 | `validator01` | validator | sim | partícipes | VPC | VPC | 400 GB |
 | `writer01` | writer | sim (só SSH) | **somente VPC** (endereço anunciado = IP interno) | VPC + `rpc_cidrs` | VPC | 400 GB |
 | `observer-boot01` | observer-boot | sim | internet (0.0.0.0/0) | VPC (ou público com `rpc_public`) | VPC | 400 GB |
-| `prometheus01` | prometheus | sim | — | 443 (NGINX mTLS) para partícipes; 9090 VPC | — | — |
+| `prometheus01` | prometheus | sim | — | 8443 `/federate` (NGINX mTLS) para partícipes; 443 UI (senha) para admins; 9090 VPC | — | — |
 
 Além disso: VPC, subnet pool, sub-rede com IPs privados fixos, um security group por nó (regras padrão da Magalu desabilitadas), chave SSH, IPs públicos gerenciados, volumes de dados criptografados (com `prevent_destroy` em mainnet) e NAT gateway quando algum nó fica sem IP público.
 
@@ -41,7 +41,7 @@ As **chaves privadas dos nós são geradas na própria VM** e nunca passam pelo 
 
 - [OpenTofu ≥ 1.11](https://opentofu.org/docs/intro/install/), `jq`, `ssh`, `make` (opcional).
 - Conta na Magalu Cloud com [API key](https://docs.magalu.cloud/docs/devops-tools/api-keys/overview) e quota para as VMs.
-- Acesso ao repositório privado `RBBNet/participantes` (concedido pela Governança da RBB após a adesão) para obter `genesis.json`, `nodes.json` e certificados. Sem esses arquivos os nós são preparados mas o Besu não é iniciado.
+- `gh` ([GitHub CLI](https://cli.github.com)) autenticado com uma conta **membro da org RBBNet**: o script `rbb-sync-participantes.sh` lê o repositório privado `RBBNet/participantes` (`genesis.json`, `nodes.json`, `docker-compose.yml.hbs`, certificados). Sem esses arquivos os nós são preparados mas o Besu não é iniciado.
 - Chave SSH dos administradores.
 
 ## Passo a passo
@@ -52,9 +52,9 @@ cp terraform.tfvars.example terraform.tfvars
 $EDITOR terraform.tfvars              # organization, ssh_public_key, admin_ssh_cidrs, ...
 export TF_VAR_mgc_api_key="<api key da Magalu Cloud>"
 
-# arquivos da rede (repositório privado RBBNet/participantes/<lab|piloto>/)
-cp /caminho/genesis.json network/genesis.json
-$EDITOR network/boots.txt network/validators.txt   # enodes das OUTRAS organizações, um por linha
+# arquivos da rede, gerados a partir do repositório privado RBBNet/participantes/<lab|piloto>/
+# (genesis.json, nodes.json, docker-compose.yml.hbs, boots.txt, validators.txt, federation.json, clients.pem)
+../../../scripts/rbb-sync-participantes.sh testnet BNDES     # nome da organização como em nodes.json
 
 tofu init
 tofu plan -out=tofu.tfplan
@@ -62,7 +62,7 @@ tofu apply tofu.tfplan
 tofu output nodes
 ```
 
-Ou, a partir de `infra/`: `make init plan apply ENV=testnet`.
+Ou, a partir de `infra/`: `make sync ORG=BNDES ENV=testnet` e `make init plan apply ENV=testnet`.
 
 Aguarde alguns minutos pelo bootstrap (`/var/log/rbb-node-setup.log` em cada VM). Depois:
 
@@ -73,18 +73,22 @@ cd infra
 ./scripts/rbb-ssh.sh testnet validator01 sudo rbb-node status
 ```
 
+O script `rbb-sync-participantes.sh` só considera nós das **outras** organizações com `deploymentStatus = deployed` e `operationalStatus = active`, usando o primeiro IP documentado. Repita-o (e depois `rbb-link-nodes.sh`) sempre que o `nodes.json` mudar.
+
 O script `rbb-link-nodes.sh` implementa as regras do roteiro para partícipe associado:
 
 - `validator`: `static-nodes.json` = validators das outras organizações (`network/validators.txt`) + boot(s) próprio(s) com IP interno;
 - `writer` e `observer-boot`: `static-nodes.json` = boot(s) próprio(s) com IP interno;
 - `boot`: `discovery.bootnodes` do genesis = boots das outras organizações (`network/boots.txt`);
-- `prometheus`: instala `network/clients.pem` (certificados dos demais partícipes) para o mTLS.
+- `prometheus`: instala `network/clients.pem` (certificados dos demais partícipes, mTLS) e `network/federation.json` (Prometheus das demais organizações, sem reiniciar).
+
+No piloto, o `docker-compose.yml.hbs` publicado em `participantes/piloto/` (sem limites de CPU/memória no contêiner) substitui automaticamente o do `start-network`.
 
 ### Passos que continuam manuais (dependem da Governança)
 
 1. **Permissionamento on chain** dos novos nós (`addEnode`) por um administrador da rede: use a saída de `rbb-node-info.sh` (`enodeHigh`, `enodeLow`, `nodeType`, `name`, `organization`). Sem isso os nós não sincronizam.
 2. **Documentar os nós** em `RBBNet/participantes/<rede>/nodes.json` (passo 6 do roteiro), com o JSON gerado por `rbb-node-info.sh`.
-3. **Publicar o certificado** do Prometheus (`/srv/rbb/prometheus/certs/certificado.pem` no nó `prometheus01`) em `participantes/<rede>/certificados` e configurar `prometheus_federation_targets` com os Prometheus das demais organizações.
+3. **Publicar o certificado** do Prometheus (`/srv/rbb/prometheus/certs/certificado.pem` no nó `prometheus01`) em `participantes/<rede>/certificados` como `<org>-prometheus01.pem`, para que as demais organizações consigam coletar suas métricas (porta 8443). A senha inicial da interface web (443) fica em `/srv/rbb/prometheus/.htpasswd-initial`.
 4. Se a organização já opera nós, ajuste os sequenciais em `nodes` (ex.: `validator02`).
 
 ## Operação do nó (`rbb-node`)
@@ -99,7 +103,7 @@ Em qualquer VM, como root (`sudo rbb-node`):
 | `genesis set <arquivo>` | instala um genesis |
 | `up` / `down` / `restart` / `logs -f` / `status` | ciclo de vida do Besu |
 | `cli <args>` | executa `./rbb-cli <args>` em `/srv/rbb/start-network` |
-| `prometheus clients <pem>` / `prometheus reload` | nós prometheus |
+| `prometheus clients <pem>` / `prometheus federation <json>` / `prometheus reload` | nós prometheus |
 
 O layout na VM é o mesmo do roteiro: `/srv/rbb/start-network/` (rbb-cli, `infra.json`, `.env.configs/`, `volumes/<nó>/`), então qualquer comando dos roteiros oficiais pode ser executado ali.
 
@@ -118,8 +122,9 @@ Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. Para listar 
 
 - SSH restrito a `admin_ssh_cidrs`; nunca use `0.0.0.0/0`.
 - RPC e métricas só na VPC (mais `rpc_cidrs`). O observer-boot nega qualquer conta (`accounts-allowlist=[]`).
-- P2P dos nós núcleo pode ser limitado aos IPs dos partícipes (`participant_cidrs`, a partir de `nodes.json`).
+- P2P dos nós núcleo e a porta 8443 do Prometheus podem ser limitados aos IPs dos partícipes (`participant_cidrs`, a partir de `network/nodes.json`).
 - `writer01` anuncia o IP interno e só aceita P2P da VPC; para removê-lo totalmente da internet use `public_ip = false` (um NAT gateway é criado para a saída).
+- Os arquivos em `envs/<env>/network/` vêm de um repositório restrito aos partícipes e são ignorados pelo git.
 - Estado do OpenTofu contém IPs e IDs, não chaves de nós. Guarde-o em backend remoto (`backend.s3.tf.example`, Object Storage da Magalu) com acesso restrito.
 - A API key nunca vai para arquivos versionados (`TF_VAR_mgc_api_key`).
 
@@ -127,7 +132,7 @@ Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. Para listar 
 
 ```
 infra/
-├── Makefile, scripts/            # atalhos locais (link de nós, ssh, info)
+├── Makefile, scripts/            # atalhos locais (sync com participantes, link de nós, ssh, info)
 └── tofu/
     ├── modules/
     │   ├── rbb-node-config/      # AGNÓSTICO: cloud-init + regras de firewall de um nó RBB
@@ -161,4 +166,5 @@ Os scripts em `scripts/` e o `rbb-node` funcionam sem alteração, pois dependem
 - O bootstrap assume imagem **Ubuntu** (apt). Para outra distribuição, adapte `install_docker` em `rbb-node-setup.sh`.
 - O `rbb-cli` usa a imagem `bndes/rbb:latest` do Docker Hub (a mesma do roteiro). Se preferir construí-la, use `build.sh` do `start-network` na VM.
 - Alterações no cloud-init após a criação não recriam a VM (`ignore_changes = [user_data]`); use `rbb-node` ou recrie o nó explicitamente (`tofu apply -replace`).
-- Os arquivos do repositório privado `participantes` não são obtidos automaticamente.
+- `rbb-sync-participantes.sh` depende do `gh` autenticado com uma conta membro da org RBBNet (o repositório `participantes` é privado).
+- O tipo `observer` (nó de leitura/archive para block explorer, como o do TCU) não está modelado; use `observer-boot` ou adicione um tipo ao módulo agnóstico.
