@@ -3,10 +3,10 @@ ENV ?= testnet
 TOFU ?= tofu
 DIR := tofu/envs/$(ENV)
 
-.PHONY: help init plan apply destroy output fmt validate test link ssh info
+.PHONY: help init plan apply destroy output fmt validate test sync link ssh info
 
 help:
-	@echo "Alvos: init plan apply destroy output fmt validate test link ssh NODE=<nó> info"
+	@echo "Alvos: init plan apply destroy output fmt validate test sync [ORG=<nome>] link ssh NODE=<nó> info"
 	@echo "Ambiente atual: ENV=$(ENV) ($(DIR))"
 
 init:
@@ -33,6 +33,9 @@ validate:
 
 test:
 	cd tofu/modules/mgc-rbb-stack && $(TOFU) init -backend=false -input=false >/dev/null && $(TOFU) test
+
+sync:
+	./scripts/rbb-sync-participantes.sh $(ENV) $(ORG)
 
 link:
 	./scripts/rbb-link-nodes.sh $(ENV)

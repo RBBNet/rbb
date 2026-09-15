@@ -1,5 +1,5 @@
 # Prometheus + NGINX (mTLS) para exposição federada de métricas, conforme
-# roteiro_prometheus_nginx.md. Executado a partir de /srv/rbb/prometheus.
+# rbb-monitoracao e roteiro_prometheus_nginx.md. Executado a partir de /srv/rbb/prometheus.
 services:
   prometheus:
     image: prom/prometheus:v3.5.0
@@ -11,7 +11,8 @@ services:
       - --web.enable-lifecycle
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-      - ./rules:/etc/prometheus/rules:ro
+      - ./rules.yml:/etc/prometheus/rules.yml:ro
+      - ./targets:/etc/prometheus/targets:ro
       - ./certs:/etc/prometheus/certs:ro
       - prometheus-data:/prometheus
     expose:
@@ -29,6 +30,7 @@ services:
       - prometheus
     ports:
       - "443:443"
+      - "8443:8443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./certs:/etc/nginx/certs:ro

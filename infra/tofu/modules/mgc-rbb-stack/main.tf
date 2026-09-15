@@ -34,8 +34,9 @@ module "node_config" {
   source   = "../rbb-node-config"
   for_each = var.nodes
 
-  organization = var.organization
-  rbb_network  = var.rbb_network
+  organization      = var.organization
+  organization_name = var.organization_name
+  rbb_network       = var.rbb_network
   node = {
     name         = each.key
     type         = each.value.type
@@ -56,6 +57,7 @@ module "node_config" {
   rpc_cidrs         = var.rpc_cidrs
 
   genesis_json          = var.genesis_json
+  compose_template      = var.compose_template
   start_network_version = var.start_network_version
   besu_image            = var.besu_image
   container_cpus        = coalesce(each.value.container_cpus, var.container_cpus)

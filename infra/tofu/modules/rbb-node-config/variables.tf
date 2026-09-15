@@ -12,6 +12,12 @@ variable "organization" {
   }
 }
 
+variable "organization_name" {
+  description = "Nome do partícipe como consta em participantes/<rede>/nodes.json (ex.: BNDES, PUC-Rio). Padrão: organization em maiúsculas."
+  type        = string
+  default     = null
+}
+
 variable "rbb_network" {
   description = "Rede RBB à qual o nó pertence: 'lab' (testnet) ou 'piloto' (mainnet)."
   type        = string
@@ -94,6 +100,12 @@ variable "genesis_json" {
   sensitive   = false
 }
 
+variable "compose_template" {
+  description = "Conteúdo de um docker-compose.yml.hbs específico da rede (ex.: participantes/piloto/docker-compose.yml.hbs). Nulo = usa o do start-network."
+  type        = string
+  default     = null
+}
+
 variable "start_network_version" {
   description = "Tag do repositório RBBNet/start-network (rbb-cli) a ser usada."
   type        = string
@@ -152,7 +164,7 @@ variable "prometheus_targets" {
 }
 
 variable "prometheus_federation_targets" {
-  description = "Somente para nós prometheus: Prometheus de outras organizações (host:porta) e nome da organização."
+  description = "Somente para nós prometheus: Prometheus de outras organizações (host:8443, mTLS) e nome da organização."
   type = list(object({
     organization = string
     target       = string

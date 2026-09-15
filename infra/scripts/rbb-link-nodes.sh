@@ -3,7 +3,7 @@
 #   - validator: static-nodes = validators das OUTRAS organizações (network/validators.txt) + boots PRÓPRIOS (IP interno)
 #   - writer / observer-boot (partícipe associado): static-nodes = boots PRÓPRIOS (IP interno)
 #   - boot: discovery.bootnodes = boots das OUTRAS organizações (network/boots.txt)
-#   - prometheus: instala network/clients.pem (mTLS) se existir
+#   - prometheus: instala network/clients.pem (mTLS) e network/federation.json (alvos federados), se existirem
 # Depois reinicia os nós alterados. Idempotente.
 #
 # Uso: ./scripts/rbb-link-nodes.sh <testnet|mainnet> [--no-restart]
@@ -47,6 +47,11 @@ for node in $(nodes_json "${env}" | jq -r 'keys[]'); do
       if [[ -f "${netdir}/clients.pem" ]]; then
         echo "== ${node}: instalando clients.pem"
         node_ssh "${env}" "${node}" 'cat > /tmp/clients.pem && sudo rbb-node prometheus clients /tmp/clients.pem' < "${netdir}/clients.pem"
+      fi
+      if [[ -f "${netdir}/federation.json" ]]; then
+        echo "== ${node}: atualizando alvos federados ($(jq length "${netdir}/federation.json"))"
+        jq '[.[] | {targets: [.target], labels: {organization: .organization}}]' "${netdir}/federation.json" \
+          | node_ssh "${env}" "${node}" 'cat > /tmp/federation.json && sudo rbb-node prometheus federation /tmp/federation.json'
       fi ;;
   esac
 done

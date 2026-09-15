@@ -1,12 +1,21 @@
 locals {
-  genesis_path = var.genesis_file == null ? null : (startswith(var.genesis_file, "/") ? var.genesis_file : "${path.module}/${var.genesis_file}")
-  genesis_json = local.genesis_path != null && fileexists(local.genesis_path) ? file(local.genesis_path) : null
+  abspath = { for k, v in { genesis = var.genesis_file, compose = var.compose_template_file, federation = var.federation_file } :
+    k => v == null ? null : (startswith(v, "/") ? v : "${path.module}/${v}")
+  }
+  genesis_json         = local.abspath.genesis != null && fileexists(local.abspath.genesis) ? file(local.abspath.genesis) : null
+  compose_template     = local.abspath.compose != null && fileexists(local.abspath.compose) ? file(local.abspath.compose) : null
+  federation_from_file = local.abspath.federation != null && fileexists(local.abspath.federation) ? jsondecode(file(local.abspath.federation)) : []
+  prometheus_federation_targets = concat(
+    [for f in local.federation_from_file : { organization = f.organization, target = f.target }],
+    var.prometheus_federation_targets,
+  )
 }
 
 module "rbb" {
   source = "../../modules/mgc-rbb-stack"
 
   organization      = var.organization
+  organization_name = var.organization_name
   rbb_network       = "piloto"
   availability_zone = var.availability_zone
 
@@ -30,9 +39,10 @@ module "rbb" {
   rpc_cidrs         = var.rpc_cidrs
 
   genesis_json          = local.genesis_json
+  compose_template      = local.compose_template
   start_network_version = var.start_network_version
   besu_image            = var.besu_image
   nat_gateway           = var.nat_gateway
 
-  prometheus_federation_targets = var.prometheus_federation_targets
+  prometheus_federation_targets = local.prometheus_federation_targets
 }

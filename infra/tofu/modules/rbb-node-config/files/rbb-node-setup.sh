@@ -124,6 +124,10 @@ install_start_network() {
     curl -#SL "https://github.com/RBBNet/start-network/archive/refs/tags/${START_NETWORK_VERSION}.tar.gz" | tar xz -C "${DATA_MOUNT}"
     mv "${DATA_MOUNT}/start-network-${ver}" "${SN_DIR}"
   fi
+  # Template de compose específico da rede (ex.: participantes/piloto/docker-compose.yml.hbs)
+  if [[ -f /etc/rbb/docker-compose.yml.hbs ]]; then
+    cp -f /etc/rbb/docker-compose.yml.hbs "${SN_DIR}/docker-compose.yml.hbs"
+  fi
   # .env é lido pelo docker compose (IMAGE_BESU fixado — CAUTION do roteiro, passo 4)
   cat > "${SN_DIR}/.env" <<ENV
 IMAGE_BESU=${BESU_IMAGE}

@@ -1,14 +1,12 @@
-# Gerado pela infra RBB (OpenTofu). Baseado no modelo do repositório rbb-monitoracao.
+# Gerado pela infra RBB (OpenTofu), conforme o modelo do repositório rbb-monitoracao.
+# Os alvos ficam em arquivos file_sd (targets/*.json) e podem ser atualizados sem
+# reiniciar o Prometheus (rbb-node prometheus federation <arquivo>).
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
 
 rule_files:
-  - /etc/prometheus/rules/rules-blockchain.yml
-  - /etc/prometheus/rules/rules-rbb.yml
-%{ if rbb_network == "lab" ~}
-  - /etc/prometheus/rules/rules-rbb-lab.yml
-%{ endif ~}
+  - /etc/prometheus/rules.yml
 
 scrape_configs:
   - job_name: prometheus
@@ -17,33 +15,27 @@ scrape_configs:
 
   # Job para coleta das métricas locais (nós Besu desta organização).
   - job_name: rbb
-    static_configs:
-%{ for t in targets ~}
-      - targets: ["${t.ip}:${t.port}"]
-        labels:
-          node: "${t.name}"
-          organization: "${organization}"
-          network: "rbb${rbb_network == "lab" ? "-lab" : ""}"
-%{ endfor ~}
+    file_sd_configs:
+      - files: ["/etc/prometheus/targets/local.json"]
 
-  # Job para coletar as métricas de outras organizações (Prometheus expostos via NGINX mTLS).
+  # Job para coletar as métricas de outras organizações (Prometheus expostos via NGINX mTLS, porta 8443).
   - job_name: rbb-federado
-    scheme: https
-    honor_labels: true
+    honor_labels: false
     metrics_path: /federate
-    params:
-      "match[]":
-        - '{job="rbb"}'
+    scheme: https
     tls_config:
       cert_file: /etc/prometheus/certs/certificado.pem
       key_file: /etc/prometheus/certs/chave-privada.key
       insecure_skip_verify: true
-    static_configs:
-%{ for f in federation ~}
-      - targets: ["${f.target}"]
-        labels:
-          organization: "${f.organization}"
-%{ endfor ~}
-%{ if length(federation) == 0 ~}
-      []
-%{ endif ~}
+    params:
+      "match[]":
+        - '{job="rbb"}'
+    file_sd_configs:
+      - files: ["/etc/prometheus/targets/federation.json"]
+    metric_relabel_configs:
+      - source_labels: ["exported_instance"]
+        target_label: "instance"
+      - source_labels: ["exported_organization"]
+        target_label: "organization"
+      - action: "labeldrop"
+        regex: "^exported_.*"

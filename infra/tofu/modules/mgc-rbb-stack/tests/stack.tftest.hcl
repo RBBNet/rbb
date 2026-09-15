@@ -67,8 +67,8 @@ run "topologia_associado" {
     error_message = "observer-boot com rpc_public deve liberar RPC público."
   }
   assert {
-    condition     = contains([for r in module.node_config["prometheus01"].firewall_rules : r.port_min], 443)
-    error_message = "Prometheus deve liberar 443 (mTLS)."
+    condition     = contains([for r in module.node_config["prometheus01"].firewall_rules : r.port_min], 8443) && contains([for r in module.node_config["prometheus01"].firewall_rules : r.port_min], 443)
+    error_message = "Prometheus deve liberar 8443 (mTLS federado) e 443 (UI)."
   }
   assert {
     condition     = alltrue([for k in keys(var.nodes) : module.node_config[k].user_data_size < 65000])

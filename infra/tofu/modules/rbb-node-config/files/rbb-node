@@ -39,8 +39,9 @@ Operação (passo 4 do roteiro)
   cli <args>                executa ./rbb-cli <args> no diretório start-network
 
 Prometheus (somente nós prometheus)
-  prometheus clients <arquivo.pem>   instala o bundle de certificados dos demais partícipes e recarrega o NGINX
-  prometheus reload                  recarrega configuração do Prometheus
+  prometheus clients <arquivo.pem>      instala o bundle de certificados dos demais partícipes e recarrega o NGINX
+  prometheus federation <arquivo.json>  substitui os alvos federados (formato file_sd: [{targets:[...],labels:{organization}}])
+  prometheus reload                     recarrega configuração do Prometheus
 USAGE
 }
 
@@ -57,7 +58,7 @@ cmd_enode() {
 cmd_info() {
   need_besu
   local pk; pk="$(pubkey 2>/dev/null || echo "")"
-  jq -n --arg name "${NODE_NAME}" --arg type "${NODE_TYPE}" --arg org "${ORGANIZATION}" \
+  jq -n --arg name "${NODE_NAME}" --arg type "${NODE_TYPE}" --arg org "${ORGANIZATION_NAME}" \
     --arg network "${RBB_NETWORK}" --arg pubkey "${pk}" --arg priv "${PRIVATE_IP}" --arg pub "${PUBLIC_IP}" \
     --argjson port "${P2P_PORT}" --arg p2p "${P2P_ADDRESS}" \
     --arg enode_ext "$( [[ -n "${pk}" ]] && cmd_enode || echo "")" \
@@ -121,6 +122,8 @@ cmd_prometheus() {
   case "${1:-}" in
     clients) [[ -f "${2:-}" ]] || { usage; exit 1; }; install -o rbb -g rbb -m 0644 "$2" "${home}/certs/client.pem"
              (cd "${home}" && sudo -u rbb -H docker compose exec nginx nginx -s reload); echo "client.pem instalado." ;;
+    federation) [[ -f "${2:-}" ]] || { usage; exit 1; }; jq -e 'type=="array"' "$2" >/dev/null || { echo "JSON inválido" >&2; exit 1; }
+             install -o rbb -g rbb -m 0644 "$2" "${home}/targets/federation.json"; echo "alvos federados atualizados ($(jq length "$2")); o Prometheus recarrega file_sd automaticamente." ;;
     reload)  curl -s -X POST "http://127.0.0.1:9090/-/reload" >/dev/null 2>&1 || (cd "${home}" && sudo -u rbb -H docker compose restart prometheus); echo "prometheus recarregado." ;;
     *) usage; exit 1 ;;
   esac

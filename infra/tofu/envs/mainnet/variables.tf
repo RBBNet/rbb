@@ -22,6 +22,12 @@ variable "organization" {
   type        = string
 }
 
+variable "organization_name" {
+  description = "Nome do partícipe como consta em participantes/piloto/nodes.json (ex.: BNDES, PUC-Rio). Padrão: organization em maiúsculas."
+  type        = string
+  default     = null
+}
+
 variable "ssh_public_key" {
   description = "Chave pública SSH dos administradores."
   type        = string
@@ -117,6 +123,18 @@ variable "genesis_file" {
   description = "Caminho do genesis.json da rede piloto (RBBNet/participantes/piloto/genesis.json). Nulo = não iniciar o Besu."
   type        = string
   default     = "network/genesis.json"
+}
+
+variable "compose_template_file" {
+  description = "Caminho de um docker-compose.yml.hbs específico da rede (participantes/piloto/docker-compose.yml.hbs). Ignorado se o arquivo não existir."
+  type        = string
+  default     = "network/docker-compose.yml.hbs"
+}
+
+variable "federation_file" {
+  description = "Arquivo JSON com os Prometheus das outras organizações (gerado por scripts/rbb-sync-participantes.sh). Somado a prometheus_federation_targets."
+  type        = string
+  default     = "network/federation.json"
 }
 
 variable "start_network_version" {

@@ -11,6 +11,12 @@ variable "organization" {
   type        = string
 }
 
+variable "organization_name" {
+  description = "Nome do partícipe como consta em participantes/<rede>/nodes.json. Padrão: organization em maiúsculas."
+  type        = string
+  default     = null
+}
+
 variable "rbb_network" {
   description = "'lab' (testnet) ou 'piloto' (mainnet)."
   type        = string
@@ -137,6 +143,12 @@ variable "rpc_cidrs" {
 
 variable "genesis_json" {
   description = "Conteúdo do genesis.json da rede. Nulo = nós preparados sem iniciar o Besu."
+  type        = string
+  default     = null
+}
+
+variable "compose_template" {
+  description = "Conteúdo de docker-compose.yml.hbs específico da rede (participantes/<rede>/docker-compose.yml.hbs), se houver."
   type        = string
   default     = null
 }

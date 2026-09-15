@@ -12,6 +12,16 @@ output "genesis_loaded" {
   value       = local.genesis_json != null
 }
 
+output "compose_template_loaded" {
+  description = "Se um docker-compose.yml.hbs específico da rede foi embutido."
+  value       = local.compose_template != null
+}
+
+output "federation_targets" {
+  description = "Prometheus de outras organizações configurados para federação."
+  value       = local.prometheus_federation_targets
+}
+
 output "vpc_id" {
   value = module.rbb.vpc_id
 }

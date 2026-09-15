@@ -1,6 +1,8 @@
 locals {
   is_besu = var.node.type != "prometheus"
 
+  organization_name = coalesce(var.organization_name, upper(var.organization))
+
   # Regra do roteiro: boot, validator e observer-boot são alcançáveis
   # externamente; writer de partícipe associado é interno.
   p2p_public = coalesce(var.node.p2p_public, contains(["boot", "validator", "observer-boot"], var.node.type))
@@ -78,7 +80,18 @@ locals {
     [
       for cidr in var.participant_cidrs : {
         key         = "prom-mtls-${cidr}"
-        description = "Prometheus federado (NGINX mTLS)"
+        description = "Prometheus federado /federate (NGINX mTLS)"
+        direction   = "ingress"
+        protocol    = "tcp"
+        port_min    = 8443
+        port_max    = 8443
+        cidr        = cidr
+      }
+    ],
+    [
+      for cidr in var.admin_ssh_cidrs : {
+        key         = "prom-ui-${cidr}"
+        description = "Interface web do Prometheus (TLS + senha)"
         direction   = "ingress"
         protocol    = "tcp"
         port_min    = 443
@@ -117,6 +130,7 @@ locals {
     NODE_NAME             = var.node.name
     NODE_TYPE             = var.node.type
     ORGANIZATION          = var.organization
+    ORGANIZATION_NAME     = local.organization_name
     RBB_NETWORK           = var.rbb_network
     HOSTNAME_FQDN         = local.hostname
     P2P_PORT              = var.node.p2p_port
@@ -141,24 +155,37 @@ locals {
     ["EXTRA_ENV=${jsonencode(join(" ", [for k, v in var.node.extra_env : "${k}=${v}"]))}"]
   ))
 
-  prometheus_config = templatefile("${path.module}/templates/prometheus.yml.tftpl", {
-    organization = var.organization
-    rbb_network  = var.rbb_network
-    targets      = var.prometheus_targets
-    federation   = var.prometheus_federation_targets
-  })
+  prometheus_config = templatefile("${path.module}/templates/prometheus.yml.tftpl", {})
+
+  # Alvos em formato file_sd do Prometheus
+  prometheus_local_targets = jsonencode([
+    for t in var.prometheus_targets : {
+      targets = ["${t.ip}:${t.port}"]
+      labels  = { node = t.name, organization = local.organization_name, network = "rbb${var.rbb_network == "lab" ? "-lab" : ""}" }
+    }
+  ])
+  prometheus_federation_targets = jsonencode([
+    for f in var.prometheus_federation_targets : {
+      targets = [f.target]
+      labels  = { organization = f.organization }
+    }
+  ])
 
   user_data = templatefile("${path.module}/templates/cloud-init.yaml.tftpl", {
-    hostname          = local.hostname
-    timezone          = var.timezone
-    node_env_b64      = base64gzip(local.node_env_file)
-    setup_b64         = base64gzip(file("${path.module}/files/rbb-node-setup.sh"))
-    cli_b64           = base64gzip(file("${path.module}/files/rbb-node"))
-    genesis_b64       = var.genesis_json == null ? null : base64gzip(var.genesis_json)
-    is_prometheus     = var.node.type == "prometheus"
-    prometheus_b64    = base64gzip(local.prometheus_config)
-    prometheus_nginx  = base64gzip(file("${path.module}/files/prometheus-nginx.conf"))
-    prometheus_setup  = base64gzip(file("${path.module}/files/prometheus-setup.sh"))
-    prometheus_docker = base64gzip(file("${path.module}/files/prometheus-compose.yml"))
+    hostname                      = local.hostname
+    timezone                      = var.timezone
+    node_env_b64                  = base64gzip(local.node_env_file)
+    setup_b64                     = base64gzip(file("${path.module}/files/rbb-node-setup.sh"))
+    cli_b64                       = base64gzip(file("${path.module}/files/rbb-node"))
+    genesis_b64                   = var.genesis_json == null ? null : base64gzip(var.genesis_json)
+    compose_template_b64          = var.compose_template == null ? null : base64gzip(var.compose_template)
+    is_prometheus                 = var.node.type == "prometheus"
+    prometheus_b64                = base64gzip(local.prometheus_config)
+    prometheus_rules              = base64gzip(file("${path.module}/files/prometheus-rules.yml"))
+    prometheus_local_targets      = base64gzip(local.prometheus_local_targets)
+    prometheus_federation_targets = base64gzip(local.prometheus_federation_targets)
+    prometheus_nginx              = base64gzip(file("${path.module}/files/prometheus-nginx.conf"))
+    prometheus_setup              = base64gzip(file("${path.module}/files/prometheus-setup.sh"))
+    prometheus_docker             = base64gzip(file("${path.module}/files/prometheus-compose.yml"))
   })
 }

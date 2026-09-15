@@ -32,11 +32,29 @@ write_files:
     encoding: gz+b64
     content: ${genesis_b64}
 %{ endif ~}
+%{ if compose_template_b64 != null ~}
+  - path: /etc/rbb/docker-compose.yml.hbs
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${compose_template_b64}
+%{ endif ~}
 %{ if is_prometheus ~}
   - path: /etc/rbb/prometheus/prometheus.yml
     permissions: "0644"
     encoding: gz+b64
     content: ${prometheus_b64}
+  - path: /etc/rbb/prometheus/rules.yml
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${prometheus_rules}
+  - path: /etc/rbb/prometheus/targets/local.json
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${prometheus_local_targets}
+  - path: /etc/rbb/prometheus/targets/federation.json
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${prometheus_federation_targets}
   - path: /etc/rbb/prometheus/nginx.conf
     permissions: "0644"
     encoding: gz+b64
