@@ -50,6 +50,24 @@ variable "participant_cidrs" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "participants_file" {
+  description = "Arquivo com IPs por papel das outras organizações (gerado por rbb-sync-participantes.sh). Se existir e firewall_from_participants = true, restringe P2P e 8443 a esses IPs (passo 9 do roteiro)."
+  type        = string
+  default     = "network/participants.json"
+}
+
+variable "firewall_from_participants" {
+  description = "Restringir P2P dos nós núcleo e 8443 do Prometheus aos IPs de network/participants.json. false = usa participant_cidrs."
+  type        = bool
+  default     = true
+}
+
+variable "dns_domain" {
+  description = "Domínio DNS público da organização (opcional), para hostNames no nodes.json. Ex.: exemplo.org.br"
+  type        = string
+  default     = null
+}
+
 variable "rpc_cidrs" {
   description = "CIDRs adicionais com acesso à porta RPC (aplicações da organização)."
   type        = list(string)

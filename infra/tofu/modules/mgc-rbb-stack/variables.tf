@@ -135,6 +135,22 @@ variable "participant_cidrs" {
   default     = ["0.0.0.0/0"]
 }
 
+variable "peer_cidrs" {
+  description = "CIDRs por papel (validators, boots, prometheus) conforme o passo 9 do roteiro; nulos usam participant_cidrs. Ver network/participants.json."
+  type = object({
+    validators = optional(list(string))
+    boots      = optional(list(string))
+    prometheus = optional(list(string))
+  })
+  default = {}
+}
+
+variable "dns_domain" {
+  description = "Domínio DNS público da organização (opcional). Se definido, cada nó público recebe hostName rbb-<nó>.<domínio> no nodes.json (o registro DNS é responsabilidade da organização)."
+  type        = string
+  default     = null
+}
+
 variable "rpc_cidrs" {
   description = "CIDRs adicionais com acesso RPC (ex.: rede das aplicações)."
   type        = list(string)

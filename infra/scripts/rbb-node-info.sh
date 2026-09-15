@@ -1,24 +1,46 @@
 #!/usr/bin/env bash
-# Coleta 'rbb-node info' de todos os nós Besu e imprime o trecho de nodes.json
-# (RBBNet/participantes/<rede>/nodes.json) e os parâmetros para addEnode().
+# Coleta 'rbb-node info' de todos os nós Besu e gera:
+#   - a entrada da organização para participantes/<rede>/nodes.json (passo 6 do roteiro), em
+#     tofu/envs/<env>/network/our-nodes.json (validada contra o esquema quando disponível)
+#   - os parâmetros de permissionamento gen02 (passo 8) e do voto QBFT (passo 13)
+# Uso: ./scripts/rbb-node-info.sh <testnet|mainnet> [provisioned|deployed] [active|inactive]
 # shellcheck disable=SC1091
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 require_env "${1:-}"
-env="$1"
+env="$1"; deploy="${2:-provisioned}"; oper="${3:-active}"
+netdir="$(env_dir "${env}")/network"; mkdir -p "${netdir}"
 
 infos=()
 for node in $(nodes_json "${env}" | jq -r 'to_entries[] | select(.value.type != "prometheus") | .key'); do
   info="$(node_ssh "${env}" "${node}" sudo rbb-node info 2>/dev/null || true)"
-  [[ -n "${info}" ]] || { echo "AVISO: ${node} ainda sem informações (bootstrap em andamento?)" >&2; continue; }
+  [[ -n "${info}" && "$(jq -r .pubKey <<<"${info}")" != "" ]] || { echo "AVISO: ${node} ainda sem chave (bootstrap em andamento?)" >&2; continue; }
   infos+=("${info}")
 done
-[[ ${#infos[@]} -gt 0 ]] || exit 1
+[[ ${#infos[@]} -gt 0 ]] || { echo "nenhum nó respondeu" >&2; exit 1; }
 
-printf '%s\n' "${infos[@]}" | jq -s '
+# Prometheus: entra no nodes.json com IP público e porta 8443 (mTLS), sem pubKey
+prom_entries="$(nodes_json "${env}" | jq -c '[to_entries[] | select(.value.type == "prometheus") | {name: .key, nodeType: "prometheus", ipAddresses: [.value.public_ip // .value.private_ip], port: 8443}]')"
+
+printf '%s\n' "${infos[@]}" | jq -s --arg d "${deploy}" --arg o "${oper}" --argjson prom "${prom_entries}" '
   { organization: .[0].organization,
-    nodes: map({ name, nodeType, pubKey, hostNames: [], ipAddresses, port,
-                 id: "", deploymentStatus: "deployed", operationalStatus: "active" }) }'
+    nodes: ((map({ name, nodeType, pubKey, hostNames, ipAddresses, port, id })
+             | map(if .nodeType != "validator" or .id == "" then del(.id) else . end)
+             | map(if (.hostNames | length) == 0 then del(.hostNames) else . end))
+            + $prom)
+           | map(. + { deploymentStatus: $d, operationalStatus: $o }) }' > "${netdir}/our-nodes.json"
+
+echo "== entrada para participantes/$( [[ "${env}" == testnet ]] && echo lab || echo piloto)/nodes.json (${netdir}/our-nodes.json)"
+jq . "${netdir}/our-nodes.json"
+if command -v check-jsonschema >/dev/null 2>&1 && gh api repos/RBBNet/participantes/contents/nodes.schema.json --jq .content 2>/dev/null | base64 -d > "${netdir}/nodes.schema.json"; then
+  jq '[.]' "${netdir}/our-nodes.json" > "${netdir}/.our-nodes-array.json"
+  check-jsonschema --schemafile "${netdir}/nodes.schema.json" "${netdir}/.our-nodes-array.json" && echo "   esquema OK"
+  rm -f "${netdir}/.our-nodes-array.json"
+fi
 
 echo
-echo "# Permissionamento on chain (addEnode): enodeHigh / enodeLow / nodeType / geoHash 0x000000000000 / name / organization"
-printf '%s\n' "${infos[@]}" | jq -r '"\(.name): high=0x\(.pubKey[2:66]) low=0x\(.pubKey[66:130]) type=\(.nodeType)"'
+echo "== permissionamento gen02 (passo 8) e voto QBFT (passo 13)"
+for node in $(printf '%s\n' "${infos[@]}" | jq -r .name); do
+  echo "--- ${node}"; node_ssh "${env}" "${node}" sudo rbb-node perm-args
+done
+echo
+echo "Publique com: ./scripts/rbb-publish-nodes.sh ${env}"

@@ -9,6 +9,7 @@ SN_DIR="${DATA_MOUNT}/start-network"
 VOL="${SN_DIR}/volumes/${NODE_NAME}"
 GENESIS="${SN_DIR}/.env.configs/genesis.json"
 PUBKEY_FILE="${SN_DIR}/.env.configs/nodes/${NODE_NAME}/key.pub"
+NODEID_FILE="${SN_DIR}/.env.configs/nodes/${NODE_NAME}/node.id"
 
 usage() {
   cat <<USAGE
@@ -20,7 +21,7 @@ Informações
   info                      JSON com nome, tipo, chave pública, enodes e endereços
   enode [--internal]        enode anunciado (externo) ou com IP interno
   pubkey                    chave pública (0x...)
-  perm-args                 enodeHigh/enodeLow para addEnode() do permissionamento
+  perm-args                 parâmetros gen02 (NodeRulesV2Impl.addLocalNode / calldata addNode) e voto QBFT
 
 Topologia (passo 3 do roteiro)
   peers show                mostra volumes/${NODE_NAME}/static-nodes.json
@@ -49,6 +50,13 @@ as_rbb() { sudo -u rbb -H env IMAGE_BESU="${BESU_IMAGE}" RBB_IMAGE="${RBB_CLI_IM
 need_besu() { [[ "${NODE_TYPE}" != "prometheus" ]] || { echo "comando não se aplica a nós prometheus" >&2; exit 1; }; }
 
 pubkey() { need_besu; [[ -f "${PUBKEY_FILE}" ]] || { echo "chave ainda não gerada" >&2; exit 1; }; tr -d '\n' < "${PUBKEY_FILE}"; echo; }
+nodeid() { [[ -f "${NODEID_FILE}" ]] && tr -d '\n' < "${NODEID_FILE}" || true; }
+perm_type() {
+  case "${NODE_TYPE}" in
+    boot) echo Boot ;; validator) echo Validator ;; observer-boot) echo ObserverBoot ;;
+    writer) [[ "${P2P_PUBLIC}" == "true" ]] && echo WriterPartner || echo Writer ;;
+  esac
+}
 enode_with() { local host="$1"; printf 'enode://%s@%s:%s\n' "$(pubkey | sed 's/^0x//')" "${host}" "${P2P_PORT}"; }
 
 cmd_enode() {
@@ -59,18 +67,35 @@ cmd_info() {
   need_besu
   local pk; pk="$(pubkey 2>/dev/null || echo "")"
   jq -n --arg name "${NODE_NAME}" --arg type "${NODE_TYPE}" --arg org "${ORGANIZATION_NAME}" \
-    --arg network "${RBB_NETWORK}" --arg pubkey "${pk}" --arg priv "${PRIVATE_IP}" --arg pub "${PUBLIC_IP}" \
+    --arg network "${RBB_NETWORK}" --arg pubkey "${pk}" --arg id "$(nodeid)" --arg priv "${PRIVATE_IP}" --arg pub "${PUBLIC_IP}" \
+    --arg p2p_public "${P2P_PUBLIC}" --arg host "${HOSTNAME_PUBLIC}" --arg permtype "$(perm_type)" \
     --argjson port "${P2P_PORT}" --arg p2p "${P2P_ADDRESS}" \
     --arg enode_ext "$( [[ -n "${pk}" ]] && cmd_enode || echo "")" \
     --arg enode_int "$( [[ -n "${pk}" ]] && cmd_enode --internal || echo "")" \
-    '{organization:$org, network:$network, name:$name, nodeType:$type, pubKey:$pubkey,
-      ipAddresses:([$pub,$priv]|map(select(.!=""))), port:$port, p2pAddress:$p2p,
-      enode:$enode_ext, enodeInternal:$enode_int}'
+    '{organization:$org, network:$network, name:$name, nodeType:$type, pubKey:$pubkey, id:$id,
+      hostNames:(if $host != "" then [$host] else [] end),
+      # nodes.json: IP externo para nós públicos; IP interno para writer de associado
+      ipAddresses:(if $p2p_public == "true" then [$pub] else [$priv] end),
+      port:$port, p2pAddress:$p2p, enode:$enode_ext, enodeInternal:$enode_int, permissioningType:$permtype}'
 }
 
 cmd_perm_args() {
   local pk; pk="$(pubkey | sed 's/^0x//')"
-  printf 'enodeHigh: 0x%s\nenodeLow:  0x%s\nname:      %s\n' "${pk:0:64}" "${pk:64:64}" "${NODE_NAME}"
+  cat <<PERM
+# Permissionamento gen02 (roteiro_adicao_nos.md, passo 8) — scripts-permissionamento
+enodeHigh: 0x${pk:0:64}
+enodeLow:  0x${pk:64:64}
+nodeType:  $(perm_type)
+name:      ${NODE_NAME}
+# Organização já cadastrada (admin da própria organização):
+node node-rules-v2.js addLocalNode 0x${pk:0:64} 0x${pk:64:64} $(perm_type) ${NODE_NAME}
+# Nova organização (proposta de governança; <orgId> = OrganizationImpl.idSeed antes do addOrganization):
+node calldata.js NodeRulesV2Impl addNode 0x${pk:0:64} 0x${pk:64:64} $(perm_type) ${NODE_NAME} <orgId>
+PERM
+  if [[ "${NODE_TYPE}" == "validator" ]]; then
+    printf '# Voto QBFT pelos validators existentes (passo 13), id do validator sem 0x:\n'
+    printf "curl -X POST --data '{\"jsonrpc\":\"2.0\",\"method\":\"qbft_proposeValidatorVote\",\"params\":[\"%s\",true],\"id\":1}' <ip-interno-validator>:<porta-rpc>\n" "$(nodeid | sed 's/^0x//')"
+  fi
 }
 
 peers_file() { echo "${VOL}/static-nodes.json"; }

@@ -3,10 +3,10 @@ ENV ?= testnet
 TOFU ?= tofu
 DIR := tofu/envs/$(ENV)
 
-.PHONY: help init plan apply destroy output fmt validate test sync link ssh info
+.PHONY: help init plan apply destroy output fmt validate test sync link ssh info publish
 
 help:
-	@echo "Alvos: init plan apply destroy output fmt validate test sync [ORG=<nome>] link ssh NODE=<nó> info"
+	@echo "Alvos: init plan apply destroy output fmt validate test sync [ORG=<nome>] link info publish [ARGS=--dry-run] ssh NODE=<nó>"
 	@echo "Ambiente atual: ENV=$(ENV) ($(DIR))"
 
 init:
@@ -45,3 +45,6 @@ ssh:
 
 info:
 	./scripts/rbb-node-info.sh $(ENV)
+
+publish:
+	./scripts/rbb-publish-nodes.sh $(ENV) $(ARGS)

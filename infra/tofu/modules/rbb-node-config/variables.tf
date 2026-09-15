@@ -82,9 +82,31 @@ variable "admin_ssh_cidrs" {
 }
 
 variable "participant_cidrs" {
-  description = "CIDRs dos demais partícipes com acesso à porta P2P dos nós núcleo e ao Prometheus (443). Use ['0.0.0.0/0'] para qualquer origem."
+  description = "CIDRs dos demais partícipes (fallback para P2P dos nós núcleo e Prometheus 8443). Use ['0.0.0.0/0'] para qualquer origem."
   type        = list(string)
   default     = ["0.0.0.0/0"]
+}
+
+variable "peer_cidrs" {
+  description = <<-EOT
+    CIDRs por papel, conforme o passo 9 do roteiro (gerados por rbb-sync-participantes.sh em network/participants.json):
+      validators: origem permitida no P2P dos validators (validators das outras organizações)
+      boots:      origem permitida no P2P dos boots (boots, writers de parceiros e observer-boots das outras organizações)
+      prometheus: origem permitida em 8443 do Prometheus (Prometheus das outras organizações)
+    Quando um papel é nulo, usa participant_cidrs.
+  EOT
+  type = object({
+    validators = optional(list(string))
+    boots      = optional(list(string))
+    prometheus = optional(list(string))
+  })
+  default = {}
+}
+
+variable "hostname_public" {
+  description = "Nome DNS público do nó (opcional; entra em hostNames do nodes.json). Ex.: rbb-validator01.exemplo.org.br"
+  type        = string
+  default     = null
 }
 
 variable "rpc_cidrs" {

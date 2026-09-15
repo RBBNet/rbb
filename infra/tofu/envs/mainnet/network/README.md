@@ -15,6 +15,8 @@ Gere todos automaticamente com o `gh` autenticado em uma conta membro da org RBB
 | `boots.txt` | boots ativos das **outras** organizações | `rbb-link-nodes.sh`: discovery do boot próprio |
 | `validators.txt` | validators ativos das **outras** organizações | `rbb-link-nodes.sh`: static-nodes do validator |
 | `federation.json` | Prometheus (8443) ativos das **outras** organizações | `tofu apply` e `rbb-link-nodes.sh`: federação |
+| `participants.json` | IPs por papel (validators, boots, prometheus) das **outras** organizações | `tofu apply`: firewall por papel (passo 9) |
+| `our-nodes.json` | gerado por `rbb-node-info.sh` a partir dos nossos nós | `rbb-publish-nodes.sh`: PR no `participantes` (passo 6) |
 | `clients.pem` | `participantes/piloto/certificados/*.pem` concatenados | `rbb-link-nodes.sh`: mTLS do Prometheus |
 
 Todos são ignorados pelo git (exceto este README): contêm dados reservados aos partícipes.

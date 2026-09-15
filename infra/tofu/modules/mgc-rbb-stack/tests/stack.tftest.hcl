@@ -101,6 +101,44 @@ run "piloto_protege_volumes" {
   }
 }
 
+run "firewall_por_papel" {
+  command = plan
+
+  variables {
+    peer_cidrs = {
+      validators = ["198.51.100.1/32", "198.51.100.2/32"]
+      boots      = ["198.51.100.3/32"]
+      prometheus = ["198.51.100.4/32"]
+    }
+    dns_domain = "exemplo.org.br"
+  }
+
+  assert {
+    condition     = tolist(sort([for r in module.node_config["validator01"].firewall_rules : r.cidr if r.port_min == 30303 && r.protocol == "tcp"])) == tolist(["198.51.100.1/32", "198.51.100.2/32"])
+    error_message = "P2P do validator deve aceitar apenas validators das outras organizações."
+  }
+  assert {
+    condition     = tolist([for r in module.node_config["boot01"].firewall_rules : r.cidr if r.port_min == 30303 && r.protocol == "udp"]) == tolist(["198.51.100.3/32"])
+    error_message = "P2P (UDP) do boot deve aceitar apenas boots/writers parceiros/observer-boots."
+  }
+  assert {
+    condition     = tolist([for r in module.node_config["observer-boot01"].firewall_rules : r.cidr if r.port_min == 30303 && r.protocol == "tcp"]) == tolist(["0.0.0.0/0"])
+    error_message = "observer-boot continua público."
+  }
+  assert {
+    condition     = tolist([for r in module.node_config["prometheus01"].firewall_rules : r.cidr if r.port_min == 8443]) == tolist(["198.51.100.4/32"])
+    error_message = "8443 só para Prometheus das outras organizações."
+  }
+  assert {
+    condition     = tolist([for r in module.node_config["prometheus01"].firewall_rules : r.cidr if r.port_min == 443]) == tolist(["203.0.113.0/24"])
+    error_message = "UI 443 só para administradores."
+  }
+  assert {
+    condition     = module.node_config["validator01"].hostname_public == "rbb-validator01.exemplo.org.br"
+    error_message = "dns_domain deve gerar hostName público por nó."
+  }
+}
+
 run "writer_privado_cria_nat" {
   command = plan
 

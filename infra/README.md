@@ -17,11 +17,13 @@ Para cada ambiente, com a topologia padrão de **partícipe associado**:
 
 | Nó | Tipo | IP público | P2P (30303 tcp/udp) | RPC 8545 | Métricas 9545 | Volume |
 |---|---|---|---|---|---|---|
-| `boot01` | boot | sim | partícipes (`participant_cidrs`) | VPC | VPC | 400 GB |
-| `validator01` | validator | sim | partícipes | VPC | VPC | 400 GB |
+| `boot01` | boot | sim | boots, writers de parceiros e observer-boots das outras organizações | VPC | VPC | 400 GB |
+| `validator01` | validator | sim | validators das outras organizações | VPC | VPC | 400 GB |
 | `writer01` | writer | sim (só SSH) | **somente VPC** (endereço anunciado = IP interno) | VPC + `rpc_cidrs` | VPC | 400 GB |
 | `observer-boot01` | observer-boot | sim | internet (0.0.0.0/0) | VPC (ou público com `rpc_public`) | VPC | 400 GB |
-| `prometheus01` | prometheus | sim | — | 8443 `/federate` (NGINX mTLS) para partícipes; 443 UI (senha) para admins; 9090 VPC | — | — |
+| `prometheus01` | prometheus | sim | — | 8443 `/federate` (NGINX mTLS) para os Prometheus das outras organizações; 443 UI (senha) para admins; 9090 VPC | — | — |
+
+As origens permitidas vêm de `network/participants.json` (IPs reais dos nós ativos das outras organizações, gerados a partir do `nodes.json`), exatamente como o passo 9 do roteiro pede. Com `firewall_from_participants = false` volta-se ao fallback `participant_cidrs` (padrão: qualquer origem). Sempre que outra organização entrar ou trocar de IP, rode `make sync` e `tofu apply` de novo.
 
 Além disso: VPC, subnet pool, sub-rede com IPs privados fixos, um security group por nó (regras padrão da Magalu desabilitadas), chave SSH, IPs públicos gerenciados, volumes de dados criptografados (com `prevent_destroy` em mainnet) e NAT gateway quando algum nó fica sem IP público.
 
@@ -84,12 +86,17 @@ O script `rbb-link-nodes.sh` implementa as regras do roteiro para partícipe ass
 
 No piloto, o `docker-compose.yml.hbs` publicado em `participantes/piloto/` (sem limites de CPU/memória no contêiner) substitui automaticamente o do `start-network`.
 
-### Passos que continuam manuais (dependem da Governança)
+### Depois do `apply`: o que a rede precisa receber de você (passos 6 a 13 do roteiro)
 
-1. **Permissionamento on chain** dos novos nós (`addEnode`) por um administrador da rede: use a saída de `rbb-node-info.sh` (`enodeHigh`, `enodeLow`, `nodeType`, `name`, `organization`). Sem isso os nós não sincronizam.
-2. **Documentar os nós** em `RBBNet/participantes/<rede>/nodes.json` (passo 6 do roteiro), com o JSON gerado por `rbb-node-info.sh`.
-3. **Publicar o certificado** do Prometheus (`/srv/rbb/prometheus/certs/certificado.pem` no nó `prometheus01`) em `participantes/<rede>/certificados` como `<org>-prometheus01.pem`, para que as demais organizações consigam coletar suas métricas (porta 8443). A senha inicial da interface web (443) fica em `/srv/rbb/prometheus/.htpasswd-initial`.
-4. Se a organização já opera nós, ajuste os sequenciais em `nodes` (ex.: `validator02`).
+Os IPs públicos só existem depois do `tofu apply` (são recursos gerenciados e sobrevivem à recriação das VMs). As outras organizações precisam deles para liberar firewall, incluir seu boot no `discovery` delas e seu validator nos `static-nodes.json` delas. A sequência é:
+
+1. **Documentar os nós** (passo 6): `./scripts/rbb-node-info.sh testnet` coleta chave pública, `id` do validator, IPs e portas e gera `network/our-nodes.json` no formato do `nodes.schema.json` (writer de associado com IP interno, Prometheus na 8443). `./scripts/rbb-publish-nodes.sh testnet` abre um PR em `RBBNet/participantes` com a entrada mesclada (`--dry-run` só mostra o diff). Use `deploymentStatus = provisioned` até o nó estar conectado e mude para `deployed` depois.
+2. **Comunicar** (passo 7): anunciar a inclusão em reunião do Comitê Técnico. Só a partir daí as outras organizações ajustam firewall (passo 9.2), `discovery` dos boots e `static-nodes` dos validators (passo 10) e a federação do Prometheus (passo 12).
+3. **Permissionar** (passo 8): `rbb-node perm-args` em cada nó imprime `enodeHigh`, `enodeLow`, `NodeType` e o comando pronto. Organização nova: a Governança cria uma proposta com `addOrganization`, `addAccount` (Administrador Global, conta gerada com `generate-key.js` do `scripts-permissionamento`, guardada com alto rigor) e `addNode` para cada nó. Organização já cadastrada: o próprio administrador executa `node-rules-v2.js addLocalNode`. Sem permissionamento os nós não sincronizam.
+4. **Ligar a topologia** (passos 3 e 10): `./scripts/rbb-link-nodes.sh testnet`.
+5. **Publicar o certificado** do Prometheus (`/srv/rbb/prometheus/certs/certificado.pem`) em `participantes/<rede>/certificados/<org>-prometheus01.pem`. A senha inicial da interface web (443) fica em `/srv/rbb/prometheus/.htpasswd-initial`.
+6. **Votar o validator** (passo 13): com o nó sincronizado e monitorado, pedir ao Comitê Técnico a votação `qbft_proposeValidatorVote` pelos validators existentes, usando o `id` impresso por `perm-args`.
+7. Se a organização já opera nós, ajuste os sequenciais em `nodes` (ex.: `validator02`). `hostNames` só entram no `nodes.json` se você definir `dns_domain` (e criar os registros DNS `rbb-<nó>.<domínio>` apontando para os IPs públicos).
 
 ## Operação do nó (`rbb-node`)
 
@@ -97,7 +104,7 @@ Em qualquer VM, como root (`sudo rbb-node`):
 
 | Comando | Função |
 |---|---|
-| `info` / `enode [--internal]` / `pubkey` / `perm-args` | identificação do nó |
+| `info` / `enode [--internal]` / `pubkey` / `perm-args` | identificação do nó, entrada para `nodes.json`, comandos de permissionamento gen02 e voto QBFT |
 | `peers show\|set\|add <enode>...` | `volumes/<nó>/static-nodes.json` |
 | `bootnodes show\|set\|clear` | `config.discovery.bootnodes` do genesis |
 | `genesis set <arquivo>` | instala um genesis |
@@ -106,6 +113,19 @@ Em qualquer VM, como root (`sudo rbb-node`):
 | `prometheus clients <pem>` / `prometheus federation <json>` / `prometheus reload` | nós prometheus |
 
 O layout na VM é o mesmo do roteiro: `/srv/rbb/start-network/` (rbb-cli, `infra.json`, `.env.configs/`, `volumes/<nó>/`), então qualquer comando dos roteiros oficiais pode ser executado ali.
+
+## Armazenamento do Besu: Bonsai ou Forest
+
+O roteiro da RBB não fixa formato; o `docker-compose.yml.hbs` não define `data-storage-format`, então vale o padrão do Besu 25.5.0, que é **Bonsai** (menor uso de disco e memória, adequado a boot, validator, writer e observer-boot). **Forest** com `sync-mode FULL` só é indicado para um nó archive de leitura, como o observer que alimenta o Blockscout do TCU, porque Bonsai não guarda estado histórico profundo. Para esse caso, adicione um nó com:
+
+```hcl
+nodes = {
+  "observer-boot02" = { type = "observer-boot", data_volume_size = 800,
+    extra_env = { BESU_DATA_STORAGE_FORMAT = "FOREST", BESU_SYNC_MODE = "FULL" } }
+}
+```
+
+O formato não pode ser trocado depois sem ressincronizar do zero (novo volume).
 
 ## Dimensionamento e custos
 
@@ -122,7 +142,7 @@ Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. Para listar 
 
 - SSH restrito a `admin_ssh_cidrs`; nunca use `0.0.0.0/0`.
 - RPC e métricas só na VPC (mais `rpc_cidrs`). O observer-boot nega qualquer conta (`accounts-allowlist=[]`).
-- P2P dos nós núcleo e a porta 8443 do Prometheus podem ser limitados aos IPs dos partícipes (`participant_cidrs`, a partir de `network/nodes.json`).
+- P2P dos nós núcleo e a porta 8443 do Prometheus ficam restritos aos IPs das outras organizações (`network/participants.json`), por papel, como no passo 9 do roteiro; observer-boot é público por definição.
 - `writer01` anuncia o IP interno e só aceita P2P da VPC; para removê-lo totalmente da internet use `public_ip = false` (um NAT gateway é criado para a saída).
 - Os arquivos em `envs/<env>/network/` vêm de um repositório restrito aos partícipes e são ignorados pelo git.
 - Estado do OpenTofu contém IPs e IDs, não chaves de nós. Guarde-o em backend remoto (`backend.s3.tf.example`, Object Storage da Magalu) com acesso restrito.
@@ -132,7 +152,7 @@ Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. Para listar 
 
 ```
 infra/
-├── Makefile, scripts/            # atalhos locais (sync com participantes, link de nós, ssh, info)
+├── Makefile, scripts/            # sync com participantes, link de nós, info/publicação no nodes.json, ssh
 └── tofu/
     ├── modules/
     │   ├── rbb-node-config/      # AGNÓSTICO: cloud-init + regras de firewall de um nó RBB
@@ -167,4 +187,5 @@ Os scripts em `scripts/` e o `rbb-node` funcionam sem alteração, pois dependem
 - O `rbb-cli` usa a imagem `bndes/rbb:latest` do Docker Hub (a mesma do roteiro). Se preferir construí-la, use `build.sh` do `start-network` na VM.
 - Alterações no cloud-init após a criação não recriam a VM (`ignore_changes = [user_data]`); use `rbb-node` ou recrie o nó explicitamente (`tofu apply -replace`).
 - `rbb-sync-participantes.sh` depende do `gh` autenticado com uma conta membro da org RBBNet (o repositório `participantes` é privado).
-- O tipo `observer` (nó de leitura/archive para block explorer, como o do TCU) não está modelado; use `observer-boot` ou adicione um tipo ao módulo agnóstico.
+- O tipo `observer` (nó de leitura/archive para block explorer, como o do TCU) não está modelado; use `observer-boot` com Forest/FULL ou adicione um tipo ao módulo agnóstico.
+- A Magalu Cloud pode limitar o número de regras por security group; com muitas organizações, o firewall por papel gera dezenas de regras por nó. Se o `apply` falhar por quota, use `firewall_from_participants = false` e `participant_cidrs` com faixas agregadas.

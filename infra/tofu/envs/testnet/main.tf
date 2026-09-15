@@ -1,10 +1,17 @@
 locals {
-  abspath = { for k, v in { genesis = var.genesis_file, compose = var.compose_template_file, federation = var.federation_file } :
+  abspath = { for k, v in { genesis = var.genesis_file, compose = var.compose_template_file, federation = var.federation_file, participants = var.participants_file } :
     k => v == null ? null : (startswith(v, "/") ? v : "${path.module}/${v}")
   }
   genesis_json         = local.abspath.genesis != null && fileexists(local.abspath.genesis) ? file(local.abspath.genesis) : null
   compose_template     = local.abspath.compose != null && fileexists(local.abspath.compose) ? file(local.abspath.compose) : null
   federation_from_file = local.abspath.federation != null && fileexists(local.abspath.federation) ? jsondecode(file(local.abspath.federation)) : []
+  participants         = var.firewall_from_participants && local.abspath.participants != null && fileexists(local.abspath.participants) ? jsondecode(file(local.abspath.participants)) : null
+  # Listas vazias (ex.: rede sem validators de outras orgs) caem no fallback participant_cidrs
+  peer_cidrs = local.participants == null ? {} : {
+    validators = length(local.participants.validators) > 0 ? local.participants.validators : null
+    boots      = length(local.participants.boots) > 0 ? local.participants.boots : null
+    prometheus = length(local.participants.prometheus) > 0 ? local.participants.prometheus : null
+  }
   prometheus_federation_targets = concat(
     [for f in local.federation_from_file : { organization = f.organization, target = f.target }],
     var.prometheus_federation_targets,
@@ -36,7 +43,9 @@ module "rbb" {
 
   admin_ssh_cidrs   = var.admin_ssh_cidrs
   participant_cidrs = var.participant_cidrs
+  peer_cidrs        = local.peer_cidrs
   rpc_cidrs         = var.rpc_cidrs
+  dns_domain        = var.dns_domain
 
   genesis_json          = local.genesis_json
   compose_template      = local.compose_template

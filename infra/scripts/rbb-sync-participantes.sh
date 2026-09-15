@@ -8,6 +8,9 @@
 #   boots.txt               <- enodes dos boots ATIVOS das OUTRAS organizações
 #   validators.txt          <- enodes dos validators ATIVOS das OUTRAS organizações
 #   federation.json         <- Prometheus (porta 8443, mTLS) ATIVOS das OUTRAS organizações
+#   participants.json       <- IPs (/32) por papel, para as regras de firewall do passo 9 do roteiro:
+#                              validators (P2P dos nossos validators), boots (boots, writers de parceiros e
+#                              observer-boots das outras orgs -> P2P dos nossos boots), prometheus (8443)
 #   clients.pem             <- certificados concatenados de participantes/<rede>/certificados
 #
 # Uso: ./scripts/rbb-sync-participantes.sh <testnet|mainnet> [NOME-DA-ORGANIZACAO]
@@ -56,6 +59,16 @@ jq -r --arg o "${org}" ".[] | select(.organization != \$o) | .nodes[] | select($
 jq --arg o "${org}" "[.[] | select(.organization != \$o) | .organization as \$org | .nodes[] | select(${active} and .nodeType == \"prometheus\" and .port == 8443) | {organization: \$org, target: \"\(.ipAddresses[0]):\(.port)\"}]" \
   "${netdir}/nodes.json" > "${netdir}/federation.json"
 echo "   boots.txt ($(wc -l < "${netdir}/boots.txt" | tr -d ' ')), validators.txt ($(wc -l < "${netdir}/validators.txt" | tr -d ' ')), federation.json ($(jq length "${netdir}/federation.json"))"
+
+# IPs por papel para firewall (roteiro, passo 9). Writers com IP público são de partícipes parceiros.
+# Todos os IPs documentados de cada nó entram (nós com múltiplos links de saída).
+private='test("^(10\\.|192\\.168\\.|172\\.(1[6-9]|2[0-9]|3[01])\\.|127\\.)")'
+jq --arg o "${org}" "
+  def cidrs(f): [.[] | select(.organization != \$o) | .nodes[] | select(${active}) | select(f) | .ipAddresses[] | select(${private} | not) | . + \"/32\"] | unique;
+  { validators: cidrs(.nodeType == \"validator\"),
+    boots:      cidrs(.nodeType == \"boot\" or .nodeType == \"observer-boot\" or .nodeType == \"writer\"),
+    prometheus: cidrs(.nodeType == \"prometheus\") }" "${netdir}/nodes.json" > "${netdir}/participants.json"
+echo "   participants.json (validators $(jq '.validators|length' "${netdir}/participants.json"), boots $(jq '.boots|length' "${netdir}/participants.json"), prometheus $(jq '.prometheus|length' "${netdir}/participants.json"))"
 
 # Certificados dos Prometheus dos partícipes (bundle para o mTLS do NGINX)
 : > "${netdir}/clients.pem"

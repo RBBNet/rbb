@@ -22,6 +22,11 @@ output "federation_targets" {
   value       = local.prometheus_federation_targets
 }
 
+output "firewall_peer_cidrs" {
+  description = "IPs das outras organizações usados nas regras de firewall (nulo = participant_cidrs)."
+  value       = local.peer_cidrs
+}
+
 output "vpc_id" {
   value = module.rbb.vpc_id
 }

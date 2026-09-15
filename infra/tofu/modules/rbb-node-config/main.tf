@@ -12,8 +12,20 @@ locals {
 
   hostname = "${var.organization}-${var.rbb_network}-${var.node.name}"
 
-  # observer-boot é público para qualquer observer; demais nós núcleo só para partícipes.
-  p2p_cidrs = var.node.type == "observer-boot" ? ["0.0.0.0/0"] : (local.p2p_public ? var.participant_cidrs : [var.vpc_cidr])
+  # Passo 9 do roteiro: validators aceitam validators; boots aceitam boots, writers de parceiros e
+  # observer-boots; observer-boot é público para qualquer observer; writer de associado só na VPC.
+  peer_cidrs = {
+    validator = coalesce(var.peer_cidrs.validators, var.participant_cidrs)
+    boot      = coalesce(var.peer_cidrs.boots, var.participant_cidrs)
+    prom      = coalesce(var.peer_cidrs.prometheus, var.participant_cidrs)
+  }
+  p2p_cidrs = (
+    var.node.type == "observer-boot" ? ["0.0.0.0/0"] :
+    !local.p2p_public ? [var.vpc_cidr] :
+    var.node.type == "validator" ? local.peer_cidrs.validator :
+    var.node.type == "boot" ? local.peer_cidrs.boot :
+    var.participant_cidrs # writer de parceiro (p2p_public = true): boots das outras organizações
+  )
 
   rpc_cidrs = distinct(concat([var.vpc_cidr], var.rpc_cidrs, var.node.rpc_public ? ["0.0.0.0/0"] : []))
 
@@ -78,7 +90,7 @@ locals {
 
   prometheus_rules = var.node.type == "prometheus" ? concat(
     [
-      for cidr in var.participant_cidrs : {
+      for cidr in local.peer_cidrs.prom : {
         key         = "prom-mtls-${cidr}"
         description = "Prometheus federado /federate (NGINX mTLS)"
         direction   = "ingress"
@@ -133,6 +145,7 @@ locals {
     ORGANIZATION_NAME     = local.organization_name
     RBB_NETWORK           = var.rbb_network
     HOSTNAME_FQDN         = local.hostname
+    HOSTNAME_PUBLIC       = var.hostname_public == null ? "" : var.hostname_public
     P2P_PORT              = var.node.p2p_port
     RPC_PORT              = var.node.rpc_port
     METRICS_PORT          = var.node.metrics_port
