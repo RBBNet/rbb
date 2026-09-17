@@ -84,6 +84,15 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 13/08/2026
+  - [Ata assinada digitalmente](atas/2026-08-13-RBB-Ata-47-CE-v03-assinada.pdf)
+  - Destaques:
+    - Renovação do Acordo de Cooperação (ACT): estratégia de novo acordo BNDES–TCU com cláusulas de transição e adesão simplificada dos demais Partícipes, com vigência a partir de 12/04/2027
+    - Aprovação do BlockchainGov 2026: semana de 16 a 19/11/2026, no Rio de Janeiro, com evento central de dois dias no BNDES, formato em três verticais (aprender, hackear e discutir) e bootcamps descentralizados facultativos
+    - LGPD – Cartilha e Regulamento: item retirado de pauta (ausência da PUC-Rio)
+    - Indicadores trimestrais: primeiro ciclo de acompanhamento e indicadores de julho (melhor mês de produção de blocos do período)
+    - Acompanhamento das Iniciativas (Coordenação de Evolução): não apresentado por restrição de tempo
+
 - 09/07/2026
   - [Ata assinada digitalmente](atas/2026-07-09-RBB-Ata-46-CE-v02-assinada.pdf)
   - Destaques:
