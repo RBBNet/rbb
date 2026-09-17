@@ -31,6 +31,7 @@
 **PUC-Rio**
   - Gustavo Robichez de Carvalho
   - Rafael Barbosa Nasser
+  - Paulo Henrique Cardoso Alves
 
 **STC-MA - Secretária de Estado de Transparência e Controle**
   - Nísia Paixão Seguins Louzeiro Seabra
