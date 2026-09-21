@@ -46,8 +46,8 @@
   - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2024-12-20-Indicacao-Representantes-SGD.pdf).
 - TCU
   - Eldon Teixeira Coutinho - Titular.
-  - Valter Rogerio Messias - Suplente.
-  - [Ofício de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-05-Indica%C3%A7%C3%A3o-Representantes-TCU.pdf).
+  - Wanderson Eduardo Silva Martins - Suplente.
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2026-09-21-Indicacao-Representantes-TCU.pdf).
 
 - Prefeitura de Araguaína
   - Sérgio Maia Rabelo - Titular.
