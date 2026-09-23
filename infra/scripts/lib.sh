@@ -29,10 +29,23 @@ node_host() {
   nodes_json "$1" | jq -r --arg n "$2" '.[$n] | (.public_ip // .private_ip)'
 }
 
+bastion_ip() { (cd "$(env_dir "$1")" && tofu output -raw bastion_ip 2>/dev/null) || true; }
+
+# Opções de salto quando o nó não tem IP público
+node_jump_opts() {
+  local env="$1" node="$2"
+  local pub; pub="$(nodes_json "${env}" | jq -r --arg n "${node}" '.[$n].public_ip // empty')"
+  if [[ -z "${pub}" ]]; then
+    local b; b="$(bastion_ip "${env}")"
+    [[ -n "${b}" ]] && printf -- '-J %s@%s' "${SSH_USER}" "${b}"
+  fi
+}
+
 node_ssh() {
   local env="$1" node="$2"; shift 2
   local host; host="$(node_host "${env}" "${node}")"
-  ssh "${SSH_OPTS[@]}" "${SSH_USER}@${host}" "$@"
+  # shellcheck disable=SC2046
+  ssh "${SSH_OPTS[@]}" $(node_jump_opts "${env}" "${node}") "${SSH_USER}@${host}" "$@"
 }
 
 nodes_of_type() { nodes_json "$1" | jq -r --arg t "$2" 'to_entries[] | select(.value.type == $t) | .key'; }

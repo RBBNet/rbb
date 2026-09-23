@@ -27,6 +27,11 @@ output "firewall_peer_cidrs" {
   value       = local.peer_cidrs
 }
 
+output "bastion_ip" {
+  description = "IP público de salto SSH para os nós privados."
+  value       = module.rbb.bastion_ip
+}
+
 output "vpc_id" {
   value = module.rbb.vpc_id
 }

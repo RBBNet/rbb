@@ -138,6 +138,21 @@ nodes = {
 
 Recomendação: subir um `observer01` archive na testnet para medir disco e tempo de sincronização, e só então dimensionar o da mainnet. O formato não pode ser trocado depois sem ressincronizar do zero (novo volume).
 
+## Cotas iniciais da Magalu Cloud
+
+Uma conta nova vem com cotas baixas: **3 IPs públicos** e cerca de **1 TB de Block Storage** por região (a API não expõe os números; eles aparecem como `creating_error_quota` e `Insufficient quota ... public_ip`). Peça aumento no console antes da mainnet. Enquanto isso, a topologia cabe na cota com IP público só onde a RBB exige (boot, validator, observer-boot) e os demais nós privados atrás do NAT gateway, acessados por salto SSH pelo primeiro nó público (`output bastion_ip`; os scripts usam `-J` automaticamente):
+
+```hcl
+nodes = {
+  boot01          = { type = "boot", data_volume_size = 100 }
+  validator01     = { type = "validator", data_volume_size = 150 }
+  observer-boot01 = { type = "observer-boot", data_volume_size = 100 }
+  writer01        = { type = "writer", public_ip = false, data_volume_size = 100 }
+  observer01      = { type = "observer", public_ip = false, archive = true, data_volume_size = 300 }
+  prometheus01    = { type = "prometheus", public_ip = false, data_volume_size = 0 }  # public_ip = true assim que a cota permitir (federação 8443)
+}
+```
+
 ## Dimensionamento e custos
 
 Os valores padrão seguem a referência do roteiro (Lab: 2 vCPU/4 GB; Piloto: 8 vCPU/8 GB; 400 GB de disco):

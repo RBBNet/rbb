@@ -33,8 +33,9 @@ locals {
 
   rpc_cidrs = distinct(concat([var.vpc_cidr], var.rpc_cidrs, var.node.rpc_public ? ["0.0.0.0/0"] : []))
 
+  # SSH: dos administradores e de dentro da VPC (salto por um nó com IP público para nós privados)
   ssh_rules = [
-    for cidr in var.admin_ssh_cidrs : {
+    for cidr in distinct(concat(var.admin_ssh_cidrs, [var.vpc_cidr])) : {
       key         = "ssh-${cidr}"
       description = "SSH administrativo"
       direction   = "ingress"
