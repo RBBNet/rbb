@@ -53,7 +53,7 @@ pubkey() { need_besu; [[ -f "${PUBKEY_FILE}" ]] || { echo "chave ainda não gera
 nodeid() { [[ -f "${NODEID_FILE}" ]] && tr -d '\n' < "${NODEID_FILE}" || true; }
 perm_type() {
   case "${NODE_TYPE}" in
-    boot) echo Boot ;; validator) echo Validator ;; observer-boot) echo ObserverBoot ;;
+    boot) echo Boot ;; validator) echo Validator ;; observer-boot) echo ObserverBoot ;; observer) echo Observer ;;
     writer) [[ "${P2P_PUBLIC}" == "true" ]] && echo WriterPartner || echo Writer ;;
   esac
 }
@@ -81,6 +81,11 @@ cmd_info() {
 
 cmd_perm_args() {
   local pk; pk="$(pubkey | sed 's/^0x//')"
+  if [[ "${NODE_TYPE}" == "observer" ]]; then
+    echo "# observer interno: fora do núcleo da RBB; não entra no nodes.json nem exige permissionamento (instanciar_observer.md)."
+    echo "# Conecta-se apenas aos observer-boots da própria organização: rbb-node peers set <enode interno do observer-boot>"
+    return
+  fi
   cat <<PERM
 # Permissionamento gen02 (roteiro_adicao_nos.md, passo 8) — scripts-permissionamento
 enodeHigh: 0x${pk:0:64}

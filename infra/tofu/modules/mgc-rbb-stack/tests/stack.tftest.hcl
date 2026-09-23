@@ -22,6 +22,7 @@ variables {
     validator01     = { type = "validator" }
     writer01        = { type = "writer" }
     observer-boot01 = { type = "observer-boot", rpc_public = true }
+    observer01      = { type = "observer", archive = true }
     prometheus01    = { type = "prometheus", data_volume_size = 0 }
   }
 }
@@ -30,15 +31,15 @@ run "topologia_associado" {
   command = plan
 
   assert {
-    condition     = length(mgc_virtual_machine_instances.node) == 5
-    error_message = "Deveriam existir 5 VMs."
+    condition     = length(mgc_virtual_machine_instances.node) == 6
+    error_message = "Deveriam existir 6 VMs."
   }
   assert {
-    condition     = length(mgc_block_storage_volumes.data) == 4 && length(mgc_block_storage_volumes.data_protected) == 0
-    error_message = "Prometheus não deve ter volume de dados; os 4 nós Besu devem (sem proteção em lab)."
+    condition     = length(mgc_block_storage_volumes.data) == 5 && length(mgc_block_storage_volumes.data_protected) == 0
+    error_message = "Prometheus não deve ter volume de dados; os 5 nós Besu devem (sem proteção em lab)."
   }
   assert {
-    condition     = length(mgc_network_public_ips.this) == 5
+    condition     = length(mgc_network_public_ips.this) == 6
     error_message = "Todos os nós têm IP público por padrão."
   }
   assert {
@@ -46,7 +47,7 @@ run "topologia_associado" {
     error_message = "Sem nós privados, não deve haver NAT gateway."
   }
   assert {
-    condition     = output.nodes["writer01"].p2p_public == false && output.nodes["writer01"].p2p_address == "10.120.1.14:30303"
+    condition     = output.nodes["writer01"].p2p_public == false && output.nodes["writer01"].p2p_address == "10.120.1.15:30303"
     error_message = "Writer de associado anuncia o IP interno."
   }
   assert {
@@ -79,8 +80,16 @@ run "topologia_associado" {
     error_message = "user_data deve ser cloud-config."
   }
   assert {
-    condition     = length(output.prometheus_targets) == 4
-    error_message = "Prometheus deve coletar os 4 nós Besu."
+    condition     = length(output.prometheus_targets) == 5
+    error_message = "Prometheus deve coletar os 5 nós Besu (incluindo o observer)."
+  }
+  assert {
+    condition     = output.nodes["observer01"].p2p_public == false && tolist([for r in module.node_config["observer01"].firewall_rules : r.cidr if r.port_min == 30303]) == tolist(["10.120.0.0/16", "10.120.0.0/16"])
+    error_message = "Observer interno: P2P só na VPC (tcp+udp)."
+  }
+  assert {
+    condition     = module.node_config["observer01"].archive_env["BESU_DATA_STORAGE_FORMAT"] == "FOREST" && module.node_config["observer01"].archive_env["BESU_SYNC_MODE"] == "FULL"
+    error_message = "archive = true deve configurar Forest + sync FULL."
   }
 }
 
@@ -92,11 +101,11 @@ run "piloto_protege_volumes" {
   }
 
   assert {
-    condition     = length(mgc_block_storage_volumes.data_protected) == 4 && length(mgc_block_storage_volumes.data) == 0
+    condition     = length(mgc_block_storage_volumes.data_protected) == 5 && length(mgc_block_storage_volumes.data) == 0
     error_message = "Em piloto os volumes devem usar prevent_destroy."
   }
   assert {
-    condition     = length(mgc_block_storage_volume_attachment.data) == 4
+    condition     = length(mgc_block_storage_volume_attachment.data) == 5
     error_message = "Todos os volumes devem ser anexados."
   }
 }

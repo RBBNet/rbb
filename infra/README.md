@@ -21,6 +21,7 @@ Para cada ambiente, com a topologia padrão de **partícipe associado**:
 | `validator01` | validator | sim | validators das outras organizações | VPC | VPC | 400 GB |
 | `writer01` | writer | sim (só SSH) | **somente VPC** (endereço anunciado = IP interno) | VPC + `rpc_cidrs` | VPC | 400 GB |
 | `observer-boot01` | observer-boot | sim | internet (0.0.0.0/0) | VPC (ou público com `rpc_public`) | VPC | 400 GB |
+| `observer01` (opcional) | observer | sim (só SSH) | **somente VPC**; peers = observer-boots próprios | VPC + `rpc_cidrs` | VPC | 400 GB+ (archive) |
 | `prometheus01` | prometheus | sim | — | 8443 `/federate` (NGINX mTLS) para os Prometheus das outras organizações; 443 UI (senha) para admins; 9090 VPC | — | — |
 
 As origens permitidas vêm de `network/participants.json` (IPs reais dos nós ativos das outras organizações, gerados a partir do `nodes.json`), exatamente como o passo 9 do roteiro pede. Com `firewall_from_participants = false` volta-se ao fallback `participant_cidrs` (padrão: qualquer origem). Sempre que outra organização entrar ou trocar de IP, rode `make sync` e `tofu apply` de novo.
@@ -125,7 +126,15 @@ nodes = {
 }
 ```
 
-O formato não pode ser trocado depois sem ressincronizar do zero (novo volume).
+O módulo já tem o tipo `observer` para isso: um nó interno de leitura, fora do núcleo da RBB (não entra no `nodes.json` nem exige permissionamento), com P2P só na VPC, discovery desligado e `static-nodes` apontando para o(s) `observer-boot` da própria organização (`rbb-link-nodes.sh` faz isso). Com `archive = true` ele sobe com Forest + FULL:
+
+```hcl
+nodes = {
+  observer01 = { type = "observer", archive = true, machine_type = "BV4-8-20", data_volume_size = 400 }
+}
+```
+
+Recomendação: subir um `observer01` archive na testnet para medir disco e tempo de sincronização, e só então dimensionar o da mainnet. O formato não pode ser trocado depois sem ressincronizar do zero (novo volume).
 
 ## Dimensionamento e custos
 
@@ -187,5 +196,4 @@ Os scripts em `scripts/` e o `rbb-node` funcionam sem alteração, pois dependem
 - O `rbb-cli` usa a imagem `bndes/rbb:latest` do Docker Hub (a mesma do roteiro). Se preferir construí-la, use `build.sh` do `start-network` na VM.
 - Alterações no cloud-init após a criação não recriam a VM (`ignore_changes = [user_data]`); use `rbb-node` ou recrie o nó explicitamente (`tofu apply -replace`).
 - `rbb-sync-participantes.sh` depende do `gh` autenticado com uma conta membro da org RBBNet (o repositório `participantes` é privado).
-- O tipo `observer` (nó de leitura/archive para block explorer, como o do TCU) não está modelado; use `observer-boot` com Forest/FULL ou adicione um tipo ao módulo agnóstico.
 - A Magalu Cloud pode limitar o número de regras por security group; com muitas organizações, o firewall por papel gera dezenas de regras por nó. Se o `apply` falhar por quota, use `firewall_from_participants = false` e `participant_cidrs` com faixas agregadas.

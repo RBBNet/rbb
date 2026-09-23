@@ -123,6 +123,7 @@ variable "nodes" {
     p2p_port          = optional(number, 30303)
     rpc_port          = optional(number, 8545)
     metrics_port      = optional(number, 9545)
+    archive           = optional(bool, false)
     extra_env         = optional(map(string), {})
     container_cpus    = optional(number)
     container_memory  = optional(string)

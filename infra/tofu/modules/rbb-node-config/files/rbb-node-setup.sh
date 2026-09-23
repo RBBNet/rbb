@@ -163,8 +163,14 @@ configure_node() {
     log "configurando ${NODE_NAME} via rbb-cli"
     as_rbb "./rbb-cli config set '${ref}.ports=[\"${RPC_PORT}:8545\",\"${METRICS_PORT}:9545\"]'"
     as_rbb "./rbb-cli config set '${ref}.address=\"${P2P_ADDRESS}\"'"
-    if [[ "${NODE_TYPE}" == "validator" || "${NODE_TYPE}" == "writer" ]]; then
+    if [[ "${NODE_TYPE}" == "validator" || "${NODE_TYPE}" == "writer" || "${NODE_TYPE}" == "observer" ]]; then
       as_rbb "./rbb-cli config set '${ref}.environment.BESU_DISCOVERY_ENABLED=false'"
+    fi
+    if [[ "${NODE_TYPE}" == "observer" ]]; then
+      # instanciar_observer.md: observer interno (satélite) sem permissionamento on chain de nós;
+      # conecta-se apenas aos observer-boots da própria organização (static-nodes, IP interno).
+      as_rbb "./rbb-cli config set '${ref}.environment.BESU_PERMISSIONS_NODES_CONTRACT_ENABLED=false'"
+      sed -i '/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' "${SN_DIR}/docker-compose.yml.hbs"
     fi
     if [[ "${NODE_TYPE}" == "observer-boot" ]]; then
       # Passo 2.5.4: sem permissionamento on chain; permissionamento local de contas com lista vazia

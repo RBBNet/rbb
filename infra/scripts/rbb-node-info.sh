@@ -11,7 +11,8 @@ env="$1"; deploy="${2:-provisioned}"; oper="${3:-active}"
 netdir="$(env_dir "${env}")/network"; mkdir -p "${netdir}"
 
 infos=()
-for node in $(nodes_json "${env}" | jq -r 'to_entries[] | select(.value.type != "prometheus") | .key'); do
+# observer interno não entra no nodes.json (fora do núcleo da RBB)
+for node in $(nodes_json "${env}" | jq -r 'to_entries[] | select(.value.type != "prometheus" and .value.type != "observer") | .key'); do
   info="$(node_ssh "${env}" "${node}" sudo rbb-node info 2>/dev/null || true)"
   [[ -n "${info}" && "$(jq -r .pubKey <<<"${info}")" != "" ]] || { echo "AVISO: ${node} ainda sem chave (bootstrap em andamento?)" >&2; continue; }
   infos+=("${info}")

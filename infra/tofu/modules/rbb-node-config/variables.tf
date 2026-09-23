@@ -31,7 +31,7 @@ variable "node" {
   description = "Descrição do nó, conforme o padrão de nomes da RBB (<tipo><sequencial>, ex.: validator01)."
   type = object({
     name         = string
-    type         = string # boot | validator | writer | observer-boot | prometheus
+    type         = string # boot | validator | writer | observer-boot | observer | prometheus
     p2p_port     = optional(number, 30303)
     rpc_port     = optional(number, 8545)
     metrics_port = optional(number, 9545)
@@ -43,20 +43,22 @@ variable "node" {
     # Expor a porta RPC publicamente (somente faz sentido para observer-boot,
     # que já bloqueia transações por permissionamento local de contas).
     rpc_public = optional(bool, false)
+    # Nó archive: Forest + sync FULL (guarda estado histórico completo). Só para observer.
+    archive = optional(bool, false)
     # Variáveis de ambiente extras do Besu (BESU_*), aplicadas via rbb-cli.
     extra_env = optional(map(string), {})
   })
   validation {
-    condition     = contains(["boot", "validator", "writer", "observer-boot", "prometheus"], var.node.type)
-    error_message = "node.type deve ser boot, validator, writer, observer-boot ou prometheus."
+    condition     = contains(["boot", "validator", "writer", "observer-boot", "observer", "prometheus"], var.node.type)
+    error_message = "node.type deve ser boot, validator, writer, observer-boot, observer ou prometheus."
   }
   validation {
-    condition     = can(regex("^(boot|validator|writer|observer-boot|prometheus)[0-9]{2}$", var.node.name))
-    error_message = "node.name deve seguir o padrão <tipo><sequencial> com dois dígitos (ex.: boot01, observer-boot01)."
+    condition     = can(regex("^${var.node.type}[0-9]{2}$", var.node.name))
+    error_message = "node.name deve ser <tipo><sequencial> com dois dígitos (ex.: boot01, observer-boot01, observer01)."
   }
   validation {
-    condition     = startswith(var.node.name, var.node.type)
-    error_message = "node.name deve começar com node.type."
+    condition     = !var.node.archive || var.node.type == "observer"
+    error_message = "archive = true só é permitido em nós observer (nós núcleo devem usar Bonsai, o padrão do Besu)."
   }
 }
 

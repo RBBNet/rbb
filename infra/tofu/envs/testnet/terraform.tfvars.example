@@ -17,14 +17,16 @@ admin_ssh_cidrs = ["203.0.113.0/24"]
 # Opcional: rede das aplicações com acesso RPC ao writer
 # rpc_cidrs = ["10.50.0.0/16"]
 
-# Topologia padrão de partícipe associado (sobrescreva para personalizar)
-# nodes = {
-#   boot01          = { type = "boot" }
-#   validator01     = { type = "validator", machine_type = "BV2-4-20" }
-#   writer01        = { type = "writer", public_ip = false }        # exige NAT gateway (nat_gateway = "auto")
-#   observer-boot01 = { type = "observer-boot" }
-#   prometheus01    = { type = "prometheus", data_volume_size = 0, machine_type = "BV2-4-20" }
-# }
+# Topologia de partícipe associado + observer archive interno (Forest + FULL) para
+# medir disco/tempo de sync e alimentar block explorer / indicadores. Remova-o do mapa quando terminar.
+nodes = {
+  boot01          = { type = "boot" }
+  validator01     = { type = "validator" }
+  writer01        = { type = "writer" }
+  observer-boot01 = { type = "observer-boot" }
+  observer01      = { type = "observer", archive = true, machine_type = "BV4-8-20", data_volume_size = 400, container_memory = "6G" }
+  prometheus01    = { type = "prometheus", data_volume_size = 0 }
+}
 
 # Prometheus de outras organizações a federar
 # prometheus_federation_targets = [{ organization = "bndes", target = "203.0.113.10:443" }]

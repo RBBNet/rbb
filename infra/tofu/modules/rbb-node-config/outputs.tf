@@ -30,3 +30,8 @@ output "hostname_public" {
   description = "Nome DNS público do nó, se configurado (entra em hostNames do nodes.json)."
   value       = var.hostname_public
 }
+
+output "archive_env" {
+  description = "Variáveis Besu aplicadas quando archive = true (Forest + FULL)."
+  value       = local.archive_env
+}

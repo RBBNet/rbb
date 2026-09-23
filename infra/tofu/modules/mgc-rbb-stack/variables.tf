@@ -99,6 +99,7 @@ variable "protect_data_volumes" {
 variable "nodes" {
   description = <<-EOT
     Nós a provisionar, indexados pelo nome no padrão da RBB (boot01, validator01, writer01, observer-boot01, prometheus01).
+    Tipos: boot, validator, writer, observer-boot, prometheus e observer (nó interno de leitura, opcionalmente archive = true: Forest + FULL).
     Campos opcionais por nó: machine_type, data_volume_size (0 = sem volume extra), public_ip (padrão true),
     p2p_public (padrão: true para boot/validator/observer-boot, false para writer), rpc_public, p2p_port, rpc_port,
     metrics_port, extra_env (BESU_*), container_cpus, container_memory, private_ip_offset.
@@ -113,6 +114,7 @@ variable "nodes" {
     p2p_port          = optional(number, 30303)
     rpc_port          = optional(number, 8545)
     metrics_port      = optional(number, 9545)
+    archive           = optional(bool, false)
     extra_env         = optional(map(string), {})
     container_cpus    = optional(number)
     container_memory  = optional(string)

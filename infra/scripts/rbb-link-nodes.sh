@@ -2,6 +2,7 @@
 # Aplica a topologia do roteiro_adicao_nos.md (passo 3) entre os nós da organização:
 #   - validator: static-nodes = validators das OUTRAS organizações (network/validators.txt) + boots PRÓPRIOS (IP interno)
 #   - writer / observer-boot (partícipe associado): static-nodes = boots PRÓPRIOS (IP interno)
+#   - observer (interno/archive): static-nodes = observer-boots PRÓPRIOS (IP interno)
 #   - boot: discovery.bootnodes = boots das OUTRAS organizações (network/boots.txt)
 #   - prometheus: instala network/clients.pem (mTLS) e network/federation.json (alvos federados), se existirem
 # Depois reinicia os nós alterados. Idempotente.
@@ -24,6 +25,10 @@ for b in $(nodes_of_type "${env}" boot); do
   echo "   ${b}: ${e}"; own_boots+=("${e}")
 done
 [[ ${#own_boots[@]} -gt 0 ]] || echo "AVISO: nenhum boot próprio; validators/writers dependerão apenas de peers externos."
+own_obs_boots=()
+for b in $(nodes_of_type "${env}" observer-boot); do
+  e="$(node_ssh "${env}" "${b}" sudo rbb-node enode --internal)"; own_obs_boots+=("${e}")
+done
 
 changed=()
 for node in $(nodes_json "${env}" | jq -r 'keys[]'); do
@@ -36,6 +41,10 @@ for node in $(nodes_json "${env}" | jq -r 'keys[]'); do
     writer|observer-boot)
       echo "== ${node}: static-nodes (${#own_boots[@]} boots próprios)"
       node_ssh "${env}" "${node}" sudo rbb-node peers set "${own_boots[@]}"; changed+=("${node}") ;;
+    observer)
+      [[ ${#own_obs_boots[@]} -gt 0 ]] || { echo "== ${node}: sem observer-boot próprio; observer fica sem peers" ; continue; }
+      echo "== ${node}: static-nodes (${#own_obs_boots[@]} observer-boots próprios)"
+      node_ssh "${env}" "${node}" sudo rbb-node peers set "${own_obs_boots[@]}"; changed+=("${node}") ;;
     boot)
       if [[ ${#ext_boots[@]} -gt 0 ]]; then
         echo "== ${node}: bootnodes (${#ext_boots[@]} boots externos)"

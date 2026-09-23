@@ -4,8 +4,12 @@ locals {
   organization_name = coalesce(var.organization_name, upper(var.organization))
 
   # Regra do roteiro: boot, validator e observer-boot são alcançáveis
-  # externamente; writer de partícipe associado é interno.
+  # externamente; writer de partícipe associado e observer interno (archive) são internos.
   p2p_public = coalesce(var.node.p2p_public, contains(["boot", "validator", "observer-boot"], var.node.type))
+
+  # Observer archive (instanciar_observer.md + explorador do TCU): Forest + FULL.
+  archive_env = var.node.archive ? { BESU_DATA_STORAGE_FORMAT = "FOREST", BESU_SYNC_MODE = "FULL" } : {}
+  extra_env   = merge(local.archive_env, var.node.extra_env)
 
   p2p_host    = local.p2p_public ? var.public_ip : var.private_ip
   p2p_address = local.is_besu ? "${local.p2p_host}:${var.node.p2p_port}" : null
@@ -161,11 +165,12 @@ locals {
     DATA_MOUNT            = var.data_mount
     DATA_VOLUME           = var.data_volume
     HAS_GENESIS           = var.genesis_json != null
+    ARCHIVE               = var.node.archive
   }
 
   node_env_file = join("\n", concat(
     [for k, v in local.node_env : "${k}=${jsonencode(tostring(v))}"],
-    ["EXTRA_ENV=${jsonencode(join(" ", [for k, v in var.node.extra_env : "${k}=${v}"]))}"]
+    ["EXTRA_ENV=${jsonencode(join(" ", [for k, v in local.extra_env : "${k}=${v}"]))}"]
   ))
 
   prometheus_config = templatefile("${path.module}/templates/prometheus.yml.tftpl", {})

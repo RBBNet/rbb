@@ -45,6 +45,7 @@ module "node_config" {
     metrics_port = each.value.metrics_port
     p2p_public   = each.value.p2p_public
     rpc_public   = each.value.rpc_public
+    archive      = each.value.archive
     extra_env    = each.value.extra_env
   }
 
