@@ -7,8 +7,11 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 require_env "${1:-}"
 env="$1"; shift; rerun=false; [[ "${1:-}" == "--rerun-setup" ]] && { rerun=true; shift; }
 files="${INFRA_DIR}/tofu/modules/rbb-node-config/files"
-nodes=("$@"); [[ ${#nodes[@]} -gt 0 ]] || mapfile -t nodes < <(nodes_json "${env}" | jq -r 'keys[]')
-for node in "${nodes[@]}"; do
+nodes=("$@")
+if [[ ${#nodes[@]} -eq 0 ]]; then
+  while IFS= read -r l; do nodes+=("${l}"); done < <(nodes_json "${env}" | jq -r 'keys[]')
+fi
+for node in ${nodes[@]+"${nodes[@]}"}; do
   echo "== ${node}"
   node_ssh "${env}" "${node}" 'cat > /tmp/rbb-node-setup && sudo install -m 0755 /tmp/rbb-node-setup /usr/local/sbin/rbb-node-setup' < "${files}/rbb-node-setup.sh"
   node_ssh "${env}" "${node}" 'cat > /tmp/rbb-node && sudo install -m 0755 /tmp/rbb-node /usr/local/bin/rbb-node' < "${files}/rbb-node"

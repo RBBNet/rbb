@@ -22,7 +22,7 @@ done
 # Prometheus: entra no nodes.json com IP público e porta 8443 (mTLS), sem pubKey
 prom_entries="$(nodes_json "${env}" | jq -c '[to_entries[] | select(.value.type == "prometheus") | {name: .key, nodeType: "prometheus", ipAddresses: [.value.public_ip // .value.private_ip], port: 8443}]')"
 
-printf '%s\n' "${infos[@]}" | jq -s --arg d "${deploy}" --arg o "${oper}" --argjson prom "${prom_entries}" '
+printf '%s\n' ${infos[@]+"${infos[@]}"} | jq -s --arg d "${deploy}" --arg o "${oper}" --argjson prom "${prom_entries}" '
   { organization: .[0].organization,
     nodes: ((map({ name, nodeType, pubKey, hostNames, ipAddresses, port, id })
              | map(if .nodeType != "validator" or .id == "" then del(.id) else . end)
@@ -40,7 +40,7 @@ fi
 
 echo
 echo "== permissionamento gen02 (passo 8) e voto QBFT (passo 13)"
-for node in $(printf '%s\n' "${infos[@]}" | jq -r .name); do
+for node in $(printf '%s\n' ${infos[@]+"${infos[@]}"} | jq -r .name); do
   echo "--- ${node}"; node_ssh "${env}" "${node}" sudo rbb-node perm-args
 done
 echo

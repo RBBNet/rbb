@@ -15,8 +15,9 @@ env="$1"; restart=true; [[ "${2:-}" == "--no-restart" ]] && restart=false
 netdir="$(env_dir "${env}")/network"
 
 read_list() { [[ -f "$1" ]] && grep -E '^enode://' "$1" || true; }
-mapfile -t ext_boots < <(read_list "${netdir}/boots.txt")
-mapfile -t ext_validators < <(read_list "${netdir}/validators.txt")
+# (compatível com o bash 3.2 do macOS)
+ext_boots=(); while IFS= read -r l; do [[ -n "${l}" ]] && ext_boots+=("${l}"); done < <(read_list "${netdir}/boots.txt")
+ext_validators=(); while IFS= read -r l; do [[ -n "${l}" ]] && ext_validators+=("${l}"); done < <(read_list "${netdir}/validators.txt")
 
 echo "== enodes internos dos boots próprios"
 own_boots=()
@@ -35,20 +36,20 @@ for node in $(nodes_json "${env}" | jq -r 'keys[]'); do
   type="$(nodes_json "${env}" | jq -r --arg n "${node}" '.[$n].type')"
   case "${type}" in
     validator)
-      peers=("${ext_validators[@]}" "${own_boots[@]}")
+      peers=(${ext_validators[@]+"${ext_validators[@]}"} ${own_boots[@]+"${own_boots[@]}"})
       echo "== ${node}: static-nodes (${#peers[@]} peers)"
-      node_ssh "${env}" "${node}" sudo rbb-node peers set "${peers[@]}"; changed+=("${node}") ;;
+      node_ssh "${env}" "${node}" sudo rbb-node peers set ${peers[@]+"${peers[@]}"}; changed+=("${node}") ;;
     writer|observer-boot)
       echo "== ${node}: static-nodes (${#own_boots[@]} boots próprios)"
-      node_ssh "${env}" "${node}" sudo rbb-node peers set "${own_boots[@]}"; changed+=("${node}") ;;
+      node_ssh "${env}" "${node}" sudo rbb-node peers set ${own_boots[@]+"${own_boots[@]}"}; changed+=("${node}") ;;
     observer)
       [[ ${#own_obs_boots[@]} -gt 0 ]] || { echo "== ${node}: sem observer-boot próprio; observer fica sem peers" ; continue; }
       echo "== ${node}: static-nodes (${#own_obs_boots[@]} observer-boots próprios)"
-      node_ssh "${env}" "${node}" sudo rbb-node peers set "${own_obs_boots[@]}"; changed+=("${node}") ;;
+      node_ssh "${env}" "${node}" sudo rbb-node peers set ${own_obs_boots[@]+"${own_obs_boots[@]}"}; changed+=("${node}") ;;
     boot)
       if [[ ${#ext_boots[@]} -gt 0 ]]; then
         echo "== ${node}: bootnodes (${#ext_boots[@]} boots externos)"
-        node_ssh "${env}" "${node}" sudo rbb-node bootnodes set "${ext_boots[@]}"; changed+=("${node}")
+        node_ssh "${env}" "${node}" sudo rbb-node bootnodes set ${ext_boots[@]+"${ext_boots[@]}"}; changed+=("${node}")
       else
         echo "== ${node}: network/boots.txt ausente; discovery do genesis mantido"
       fi ;;
@@ -66,6 +67,6 @@ for node in $(nodes_json "${env}" | jq -r 'keys[]'); do
 done
 
 if ${restart}; then
-  for node in "${changed[@]}"; do echo "== reiniciando ${node}"; node_ssh "${env}" "${node}" sudo rbb-node restart >/dev/null; done
+  for node in ${changed[@]+"${changed[@]}"}; do echo "== reiniciando ${node}"; node_ssh "${env}" "${node}" sudo rbb-node restart >/dev/null; done
 fi
 echo "concluído. Verifique com: ./scripts/rbb-ssh.sh ${env} <nó> sudo rbb-node status"
