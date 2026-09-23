@@ -13,7 +13,8 @@
   - Claudemir Custódio Brum - Titular.
   - Julio Cesar Faria Cornacchia - Suplente
   - Danilo Gonçalves Lyra - Suplente.
-  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2023-01-19-Indica%C3%A7%C3%A3o-Representantes-Dataprev.pdf).
+  - Adinaldo Pereira da Silva - Suplente.
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2024-06-20-Indicacao-Representantes-Dataprev.pdf).
 - IBICT
   - Nicolas Ramos da Cruz
   - Priscila da Silva Neves Lima
