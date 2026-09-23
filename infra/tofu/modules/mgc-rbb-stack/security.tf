@@ -43,5 +43,5 @@ resource "mgc_network_security_groups_attach" "node" {
   for_each = var.nodes
 
   security_group_id = mgc_network_security_groups.node[each.key].id
-  interface_id      = mgc_network_vpcs_interfaces.node[each.key].id
+  interface_id      = mgc_virtual_machine_instances.node[each.key].network_interface_id
 }

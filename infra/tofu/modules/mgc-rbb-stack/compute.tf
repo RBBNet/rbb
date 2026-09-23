@@ -9,11 +9,10 @@ resource "mgc_virtual_machine_instances" "node" {
   network_interface_id = mgc_network_vpcs_interfaces.node[each.key].id
   user_data            = base64encode(module.node_config[each.key].user_data)
 
-  # O IP público precisa existir antes da VM: ele entra no cloud-init (endereço P2P anunciado).
-  depends_on = [
-    mgc_network_public_ips_attach.this,
-    mgc_network_security_groups_attach.node,
-  ]
+  # O IP público (recurso) já existe antes da VM e entra no cloud-init (endereço P2P anunciado).
+  # A anexação do IP e do security group acontece DEPOIS da VM (ver network.tf/security.tf): na
+  # Magalu, apagar a VM apaga a porta, então os anexos precisam ser destruídos antes da VM.
+  # A saída para internet durante o bootstrap vem do NAT gateway (nat_gateway = "true").
 
   lifecycle {
     # Alterações no cloud-init não recriam a VM em produção; use 'rbb-node' para ajustes.

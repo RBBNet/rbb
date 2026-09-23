@@ -199,7 +199,7 @@ variable "container_memory" {
 }
 
 variable "nat_gateway" {
-  description = "Cria NAT Gateway para nós sem IP público (saída para internet). 'auto' = somente se houver nó com public_ip=false."
+  description = "Cria NAT Gateway (saída para internet dos nós). 'true' é o recomendado: o cloud-init roda antes de o IP público ser anexado e precisa baixar pacotes. 'auto' = somente se houver nó com public_ip=false."
   type        = string
   default     = "auto"
   validation {

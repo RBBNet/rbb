@@ -180,8 +180,9 @@ variable "protect_data_volumes" {
 }
 
 variable "nat_gateway" {
-  type    = string
-  default = "auto"
+  description = "NAT gateway para saída à internet. 'true' (padrão) é necessário porque o bootstrap roda antes de o IP público ser anexado à VM."
+  type        = string
+  default     = "true"
 }
 
 variable "prometheus_federation_targets" {

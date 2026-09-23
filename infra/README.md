@@ -172,7 +172,8 @@ Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. Para listar 
 - As chaves dos nós ficam no volume de dados (`/srv/rbb/start-network/.env.configs/nodes/<nó>/key`) e sobrevivem à recriação da VM; só são substituídas em reinstalação ou comprometimento, pois exigem novo permissionamento e, no validator, nova votação.
 - RPC e métricas só na VPC (mais `rpc_cidrs`). O observer-boot nega qualquer conta (`accounts-allowlist=[]`).
 - P2P dos nós núcleo e a porta 8443 do Prometheus ficam restritos aos IPs das outras organizações (`network/participants.json`), por papel, como no passo 9 do roteiro; observer-boot é público por definição.
-- `writer01` anuncia o IP interno e só aceita P2P da VPC; para removê-lo totalmente da internet use `public_ip = false` (um NAT gateway é criado para a saída).
+- `writer01` anuncia o IP interno e só aceita P2P da VPC; para removê-lo totalmente da internet use `public_ip = false`.
+- O NAT gateway fica ligado por padrão: na Magalu o IP público só é anexado depois de a VM existir, e o bootstrap (cloud-init) precisa de internet desde o primeiro boot.
 - Os arquivos em `envs/<env>/network/` vêm de um repositório restrito aos partícipes e são ignorados pelo git.
 - Estado do OpenTofu contém IPs e IDs, não chaves de nós. Guarde-o em backend remoto (`backend.s3.tf.example`, Object Storage da Magalu) com acesso restrito.
 - A API key nunca vai para arquivos versionados (`TF_VAR_mgc_api_key`).

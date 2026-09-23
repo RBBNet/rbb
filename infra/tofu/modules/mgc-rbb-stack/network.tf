@@ -40,11 +40,13 @@ resource "mgc_network_public_ips" "this" {
   vpc_id      = mgc_network_vpcs.this.id
 }
 
+# Anexa o IP público à interface primária da VM já criada (dependência explícita da VM:
+# garante criação depois e destruição antes da VM).
 resource "mgc_network_public_ips_attach" "this" {
   for_each = local.public_nodes
 
   public_ip_id = mgc_network_public_ips.this[each.key].id
-  interface_id = mgc_network_vpcs_interfaces.node[each.key].id
+  interface_id = mgc_virtual_machine_instances.node[each.key].network_interface_id
 }
 
 resource "mgc_network_nat_gateway" "this" {
