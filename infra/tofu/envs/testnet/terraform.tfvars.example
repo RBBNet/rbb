@@ -5,8 +5,10 @@ organization      = "exemplo"
 mgc_region        = "br-se1"
 availability_zone = "br-se1-a"
 
-# Chave pública dos administradores (ou use existing_ssh_key_name)
-ssh_public_key = "ssh-ed25519 AAAA... admin@org"
+# Chave pública do operador (cadastrada na nuvem) e chaves adicionais, ex.: chave institucional da
+# organização guardada fora do operador, para que o acesso possa ser revogado sem perder o controle dos nós.
+ssh_public_key      = "ssh-ed25519 AAAA... operador@org"
+ssh_authorized_keys = ["ssh-ed25519 AAAA... admin-institucional@org"]
 
 # Restrinja o SSH à rede da organização / VPN
 admin_ssh_cidrs = ["203.0.113.0/24"]

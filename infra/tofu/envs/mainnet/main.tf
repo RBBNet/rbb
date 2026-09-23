@@ -30,6 +30,7 @@ module "rbb" {
   subnet_cidr = var.subnet_cidr
 
   ssh_public_key        = var.ssh_public_key
+  ssh_authorized_keys   = var.ssh_authorized_keys
   existing_ssh_key_name = var.existing_ssh_key_name
 
   default_machine_type     = var.default_machine_type

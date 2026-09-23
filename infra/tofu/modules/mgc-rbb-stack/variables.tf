@@ -56,6 +56,12 @@ variable "ssh_public_key" {
   default     = null
 }
 
+variable "ssh_authorized_keys" {
+  description = "Chaves públicas SSH adicionais autorizadas em todas as VMs (ex.: chave institucional da organização). A chave principal (ssh_public_key) continua cadastrada na nuvem."
+  type        = list(string)
+  default     = []
+}
+
 variable "existing_ssh_key_name" {
   description = "Nome de uma chave SSH já cadastrada na Magalu Cloud (alternativa a ssh_public_key)."
   type        = string
@@ -123,6 +129,10 @@ variable "nodes" {
   validation {
     condition     = alltrue([for n in var.nodes : !coalesce(n.p2p_public, contains(["boot", "validator", "observer-boot"], n.type)) || n.public_ip])
     error_message = "Nós com p2p_public = true precisam de public_ip = true."
+  }
+  validation {
+    condition     = alltrue([for n in var.nodes : !n.rpc_public || n.type == "observer-boot"])
+    error_message = "rpc_public = true só é permitido em observer-boot: a porta RPC de boot, validator, writer e observer nunca deve ser exposta à internet."
   }
 }
 

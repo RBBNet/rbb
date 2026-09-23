@@ -5,6 +5,12 @@ manage_etc_hosts: true
 timezone: ${timezone}
 package_update: true
 package_upgrade: false
+%{ if length(ssh_authorized_keys) > 0 ~}
+ssh_authorized_keys:
+%{ for k in ssh_authorized_keys ~}
+  - "${k}"
+%{ endfor ~}
+%{ endif ~}
 packages:
   - ca-certificates
   - curl

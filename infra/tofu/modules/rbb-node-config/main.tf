@@ -192,6 +192,7 @@ locals {
   user_data = templatefile("${path.module}/templates/cloud-init.yaml.tftpl", {
     hostname                      = local.hostname
     timezone                      = var.timezone
+    ssh_authorized_keys           = var.ssh_authorized_keys
     node_env_b64                  = base64gzip(local.node_env_file)
     setup_b64                     = base64gzip(file("${path.module}/files/rbb-node-setup.sh"))
     cli_b64                       = base64gzip(file("${path.module}/files/rbb-node"))

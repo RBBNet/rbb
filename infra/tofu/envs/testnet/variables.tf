@@ -34,6 +34,12 @@ variable "ssh_public_key" {
   default     = null
 }
 
+variable "ssh_authorized_keys" {
+  description = "Chaves públicas SSH adicionais (ex.: chave institucional da organização, guardada fora do operador)."
+  type        = list(string)
+  default     = []
+}
+
 variable "existing_ssh_key_name" {
   type    = string
   default = null

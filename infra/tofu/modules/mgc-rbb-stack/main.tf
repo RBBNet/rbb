@@ -53,11 +53,12 @@ module "node_config" {
   public_ip  = each.value.public_ip ? mgc_network_public_ips.this[each.key].public_ip : null
   vpc_cidr   = var.vpc_cidr
 
-  admin_ssh_cidrs   = var.admin_ssh_cidrs
-  participant_cidrs = var.participant_cidrs
-  peer_cidrs        = var.peer_cidrs
-  rpc_cidrs         = var.rpc_cidrs
-  hostname_public   = var.dns_domain != null && each.value.public_ip ? "rbb-${each.key}.${var.dns_domain}" : null
+  ssh_authorized_keys = var.ssh_authorized_keys
+  admin_ssh_cidrs     = var.admin_ssh_cidrs
+  participant_cidrs   = var.participant_cidrs
+  peer_cidrs          = var.peer_cidrs
+  rpc_cidrs           = var.rpc_cidrs
+  hostname_public     = var.dns_domain != null && each.value.public_ip ? "rbb-${each.key}.${var.dns_domain}" : null
 
   genesis_json          = var.genesis_json
   compose_template      = var.compose_template

@@ -113,6 +113,8 @@ Em qualquer VM, como root (`sudo rbb-node`):
 | `cli <args>` | executa `./rbb-cli <args>` em `/srv/rbb/start-network` |
 | `prometheus clients <pem>` / `prometheus federation <json>` / `prometheus reload` | nós prometheus |
 
+Do lado local, `scripts/rbb-ssh-keys.sh <env> show|set|add|remove` gerencia as chaves SSH autorizadas em todos os nós.
+
 O layout na VM é o mesmo do roteiro: `/srv/rbb/start-network/` (rbb-cli, `infra.json`, `.env.configs/`, `volumes/<nó>/`), então qualquer comando dos roteiros oficiais pode ser executado ali.
 
 ## Armazenamento do Besu: Bonsai ou Forest
@@ -150,6 +152,9 @@ Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. Para listar 
 ## Segurança
 
 - SSH restrito a `admin_ssh_cidrs`; nunca use `0.0.0.0/0`.
+- **Separe titularidade de operação.** A conta na nuvem, o estado do OpenTofu e uma chave SSH institucional (`ssh_authorized_keys`) devem ficar com a organização titular dos nós; o operador técnico usa chave própria e uma API key própria, ambas revogáveis. `scripts/rbb-ssh-keys.sh <env> remove <comentário-da-chave>` revoga um acesso em todos os nós em segundos, sem recriar nada.
+- A porta RPC de boot, validator, writer e observer nunca é pública (o módulo rejeita `rpc_public` fora de observer-boot). Aplicações acessam o writer pela VPC ou por `rpc_cidrs`.
+- As chaves dos nós ficam no volume de dados (`/srv/rbb/start-network/.env.configs/nodes/<nó>/key`) e sobrevivem à recriação da VM; só são substituídas em reinstalação ou comprometimento, pois exigem novo permissionamento e, no validator, nova votação.
 - RPC e métricas só na VPC (mais `rpc_cidrs`). O observer-boot nega qualquer conta (`accounts-allowlist=[]`).
 - P2P dos nós núcleo e a porta 8443 do Prometheus ficam restritos aos IPs das outras organizações (`network/participants.json`), por papel, como no passo 9 do roteiro; observer-boot é público por definição.
 - `writer01` anuncia o IP interno e só aceita P2P da VPC; para removê-lo totalmente da internet use `public_ip = false` (um NAT gateway é criado para a saída).

@@ -60,6 +60,16 @@ variable "node" {
     condition     = !var.node.archive || var.node.type == "observer"
     error_message = "archive = true só é permitido em nós observer (nós núcleo devem usar Bonsai, o padrão do Besu)."
   }
+  validation {
+    condition     = !var.node.rpc_public || var.node.type == "observer-boot"
+    error_message = "rpc_public = true só é permitido em observer-boot. A porta RPC de boot, validator, writer e observer nunca deve ser exposta à internet (roteiro_adicao_nos.md, 2.1)."
+  }
+}
+
+variable "ssh_authorized_keys" {
+  description = "Chaves públicas SSH adicionais autorizadas no usuário administrador da VM (ex.: chave institucional da organização, além da chave do operador). Rotação posterior: scripts/rbb-ssh-keys.sh."
+  type        = list(string)
+  default     = []
 }
 
 variable "private_ip" {

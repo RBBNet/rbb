@@ -15,6 +15,7 @@ variables {
   availability_zone    = "br-se1-a"
   default_machine_type = "BV2-4-20"
   ssh_public_key       = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAITESTKEYTESTKEYTESTKEYTESTKEYTESTKEYTESTKEY teste"
+  ssh_authorized_keys  = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIINSTITUCIONALINSTITUCIONALINSTITUCIONAL admin@org"]
   admin_ssh_cidrs      = ["203.0.113.0/24"]
   genesis_json         = "{\"config\":{\"chainId\":648629}}"
   nodes = {
@@ -78,6 +79,10 @@ run "topologia_associado" {
   assert {
     condition     = alltrue([for k in keys(var.nodes) : startswith(module.node_config[k].user_data, "#cloud-config")])
     error_message = "user_data deve ser cloud-config."
+  }
+  assert {
+    condition     = alltrue([for k in keys(var.nodes) : strcontains(module.node_config[k].user_data, "ssh_authorized_keys:")])
+    error_message = "Chaves SSH adicionais devem entrar no cloud-init de todos os nós."
   }
   assert {
     condition     = length(output.prometheus_targets) == 5
@@ -146,6 +151,18 @@ run "firewall_por_papel" {
     condition     = module.node_config["validator01"].hostname_public == "rbb-validator01.exemplo.org.br"
     error_message = "dns_domain deve gerar hostName público por nó."
   }
+}
+
+run "writer_nao_pode_ter_rpc_publico" {
+  command = plan
+
+  variables {
+    nodes = {
+      writer01 = { type = "writer", rpc_public = true }
+    }
+  }
+
+  expect_failures = [var.nodes]
 }
 
 run "writer_privado_cria_nat" {
