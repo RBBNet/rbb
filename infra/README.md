@@ -26,7 +26,7 @@ Para cada ambiente, com a topologia padrão de **partícipe associado**:
 
 As origens permitidas vêm de `network/participants.json` (IPs reais dos nós ativos das outras organizações, gerados a partir do `nodes.json`), exatamente como o passo 9 do roteiro pede. Com `firewall_from_participants = false` volta-se ao fallback `participant_cidrs` (padrão: qualquer origem). Sempre que outra organização entrar ou trocar de IP, rode `make sync` e `tofu apply` de novo.
 
-Além disso: VPC, subnet pool, sub-rede com IPs privados fixos, um security group por nó (regras padrão da Magalu desabilitadas), chave SSH, IPs públicos gerenciados, volumes de dados criptografados (com `prevent_destroy` em mainnet) e NAT gateway quando algum nó fica sem IP público.
+Além disso: VPC, subnet pool, sub-rede com IPs privados fixos e estáveis (derivados do tipo e do sequencial: boot01 = .11, validator01 = .21, writer01 = .31, observer-boot01 = .41, observer01 = .51, prometheus01 = .61; adicionar ou remover um nó nunca muda o IP dos outros), um security group por nó (regras padrão da Magalu desabilitadas), chave SSH, IPs públicos gerenciados, volumes de dados criptografados (com `prevent_destroy` em mainnet) e NAT gateway quando algum nó fica sem IP público.
 
 Cada VM é configurada por **cloud-init** no primeiro boot (`modules/rbb-node-config/files/rbb-node-setup.sh`):
 

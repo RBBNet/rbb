@@ -44,12 +44,6 @@ variable "dns_nameservers" {
   default = ["8.8.8.8", "1.1.1.1"]
 }
 
-variable "private_ip_offset" {
-  description = "Primeiro host da sub-rede a ser usado pelos nós (evita gateway/DHCP)."
-  type        = number
-  default     = 10
-}
-
 variable "ssh_public_key" {
   description = "Chave pública SSH a cadastrar na Magalu Cloud (ex.: conteúdo de ~/.ssh/id_ed25519.pub). Se nulo, usa existing_ssh_key_name."
   type        = string
@@ -108,7 +102,8 @@ variable "nodes" {
     Tipos: boot, validator, writer, observer-boot, prometheus e observer (nó interno de leitura, opcionalmente archive = true: Forest + FULL).
     Campos opcionais por nó: machine_type, data_volume_size (0 = sem volume extra), public_ip (padrão true),
     p2p_public (padrão: true para boot/validator/observer-boot, false para writer), rpc_public, p2p_port, rpc_port,
-    metrics_port, extra_env (BESU_*), container_cpus, container_memory, private_ip_offset.
+    metrics_port, extra_env (BESU_*), container_cpus, container_memory, private_ip_offset (host fixo na sub-rede;
+    padrão: base do tipo + sequencial, ex.: validator01 = .21).
   EOT
   type = map(object({
     type              = string

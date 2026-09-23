@@ -48,7 +48,7 @@ run "topologia_associado" {
     error_message = "Sem nós privados, não deve haver NAT gateway."
   }
   assert {
-    condition     = output.nodes["writer01"].p2p_public == false && output.nodes["writer01"].p2p_address == "10.120.1.15:30303"
+    condition     = output.nodes["writer01"].p2p_public == false && output.nodes["writer01"].p2p_address == "10.120.1.31:30303"
     error_message = "Writer de associado anuncia o IP interno."
   }
   assert {
@@ -56,8 +56,8 @@ run "topologia_associado" {
     error_message = "Validator anuncia o IP público."
   }
   assert {
-    condition     = output.nodes["boot01"].private_ip == "10.120.1.10"
-    error_message = "IPs privados devem ser sequenciais a partir do offset (ordem alfabética das chaves)."
+    condition     = output.nodes["boot01"].private_ip == "10.120.1.11" && output.nodes["observer-boot01"].private_ip == "10.120.1.41" && output.nodes["prometheus01"].private_ip == "10.120.1.61"
+    error_message = "IPs privados devem derivar do tipo e do sequencial (estáveis ao adicionar/remover nós)."
   }
   # Firewall: writer sem P2P público; observer-boot com P2P e RPC públicos; prometheus com 443
   assert {

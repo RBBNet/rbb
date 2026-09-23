@@ -1,11 +1,14 @@
 locals {
   prefix = "${var.organization}-rbb-${var.rbb_network}"
 
-  node_keys  = sort(keys(var.nodes))
-  node_index = { for i, k in local.node_keys : k => i }
+  node_keys = sort(keys(var.nodes))
 
+  # IP privado fixo por nó, derivado do tipo e do sequencial (boot01 = .11, validator02 = .22,
+  # writer01 = .31, observer-boot01 = .41, observer01 = .51, prometheus01 = .61). Não depende de
+  # quais outros nós existem: adicionar ou remover um nó nunca altera o IP dos demais.
+  type_ip_base = { boot = 10, validator = 20, writer = 30, "observer-boot" = 40, observer = 50, prometheus = 60 }
   private_ips = {
-    for k, n in var.nodes : k => cidrhost(var.subnet_cidr, coalesce(n.private_ip_offset, var.private_ip_offset + local.node_index[k]))
+    for k, n in var.nodes : k => cidrhost(var.subnet_cidr, coalesce(n.private_ip_offset, local.type_ip_base[n.type] + tonumber(regex("[0-9]{2}$", k))))
   }
 
   public_nodes = { for k, n in var.nodes : k => n if n.public_ip }
