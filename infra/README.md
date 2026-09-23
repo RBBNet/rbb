@@ -106,6 +106,7 @@ Em qualquer VM, como root (`sudo rbb-node`):
 | Comando | Função |
 |---|---|
 | `info` / `enode [--internal]` / `pubkey` / `perm-args` | identificação do nó, entrada para `nodes.json`, comandos de permissionamento gen02 e voto QBFT |
+| `address show\|set <ip[:porta]>` | endereço P2P anunciado (use após trocar o IP público) |
 | `peers show\|set\|add <enode>...` | `volumes/<nó>/static-nodes.json` |
 | `bootnodes show\|set\|clear` | `config.discovery.bootnodes` do genesis |
 | `genesis set <arquivo>` | instala um genesis |
@@ -210,6 +211,14 @@ O contrato é simples: implemente um módulo `tofu/modules/<provedor>-rbb-stack`
 3. exponha `output "nodes"` com `type`, `public_ip`, `private_ip`, `p2p_address`.
 
 Os scripts em `scripts/` e o `rbb-node` funcionam sem alteração, pois dependem apenas desse output e do layout na VM.
+
+## Comportamentos da Magalu Cloud observados na prática
+
+- Descrições de recursos aceitam só letras, números, espaços e hífens (o módulo já sanitiza).
+- Cotas de conta nova: 5 instâncias, 3 IPs públicos, ~1 TB de Block Storage. Peça aumento antes da mainnet.
+- Um IP público recém-anexado leva alguns minutos para responder; o bootstrap tolera isso (apt tenta de novo, volume esperado por até 20 min).
+- Apagar uma VM apaga a porta primária dela; por isso os anexos de IP e security group dependem da VM (destruídos antes). Se uma VM for apagada fora do OpenTofu, remova do estado a interface e os anexos (`tofu state rm`).
+- Um IP público cuja associação ficou inconsistente (nó sem entrada nem saída) se resolve com `tofu apply -replace` do recurso `mgc_network_public_ips`; depois ajuste o nó com `rbb-node address set <novo-ip>`.
 
 ## Limitações conhecidas
 

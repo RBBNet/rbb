@@ -23,6 +23,10 @@ Informações
   pubkey                    chave pública (0x...)
   perm-args                 parâmetros gen02 (NodeRulesV2Impl.addLocalNode / calldata addNode) e voto QBFT
 
+Endereço anunciado
+  address show              endereço P2P anunciado (BESU_P2P_HOST:PORT)
+  address set <ip[:porta]>  atualiza IP público/porta anunciados (ex.: após troca do IP público) e reinicia
+
 Topologia (passo 3 do roteiro)
   peers show                mostra volumes/${NODE_NAME}/static-nodes.json
   peers set <enode>...      substitui static-nodes.json (validator/writer/observer-boot)
@@ -103,6 +107,24 @@ PERM
   fi
 }
 
+node_ref() { if [[ "${NODE_NAME}" == *-* ]]; then printf 'nodes["%s"]' "${NODE_NAME}"; else printf 'nodes.%s' "${NODE_NAME}"; fi; }
+cmd_address() {
+  need_besu
+  case "${1:-show}" in
+    show) echo "${P2P_ADDRESS}" ;;
+    set)
+      local addr="${2:-}"; [[ "${addr}" =~ ^[0-9.]+(:[0-9]+)?$ ]] || { echo "uso: rbb-node address set <ip[:porta]>" >&2; exit 1; }
+      [[ "${addr}" == *:* ]] || addr="${addr}:${P2P_PORT}"
+      local host="${addr%%:*}" port="${addr##*:}"
+      sed -i "s|^P2P_ADDRESS=.*|P2P_ADDRESS=\"${addr}\"|; s|^P2P_PORT=.*|P2P_PORT=\"${port}\"|" /etc/rbb/node.env
+      [[ "${P2P_PUBLIC}" == "true" ]] && sed -i "s|^PUBLIC_IP=.*|PUBLIC_IP=\"${host}\"|" /etc/rbb/node.env
+      as_rbb "./rbb-cli config set '$(node_ref).address=\"${addr}\"'" >/dev/null
+      as_rbb "./rbb-cli config render-templates >/dev/null && docker compose down >/dev/null 2>&1; docker compose up -d >/dev/null 2>&1"
+      echo "endereço anunciado: ${addr} (Besu reiniciado). Atualize o nodes.json (rbb-node-info.sh / rbb-publish-nodes.sh)." ;;
+    *) usage; exit 1 ;;
+  esac
+}
+
 peers_file() { echo "${VOL}/static-nodes.json"; }
 cmd_peers() {
   need_besu
@@ -164,6 +186,7 @@ case "${1:-}" in
   enode)     shift; cmd_enode "$@" ;;
   pubkey)    pubkey ;;
   perm-args) cmd_perm_args ;;
+  address)   shift; cmd_address "$@" ;;
   peers)     shift; cmd_peers "$@" ;;
   bootnodes) shift; cmd_bootnodes "$@" ;;
   genesis)   shift; cmd_genesis "$@" ;;
