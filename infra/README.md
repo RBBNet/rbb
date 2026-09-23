@@ -113,7 +113,7 @@ Em qualquer VM, como root (`sudo rbb-node`):
 | `cli <args>` | executa `./rbb-cli <args>` em `/srv/rbb/start-network` |
 | `prometheus clients <pem>` / `prometheus federation <json>` / `prometheus reload` | nós prometheus |
 
-Do lado local, `scripts/rbb-ssh-keys.sh <env> show|set|add|remove` gerencia as chaves SSH autorizadas em todos os nós.
+Do lado local, `scripts/rbb-ssh-keys.sh <env> show|set|add|remove` gerencia as chaves SSH autorizadas em todos os nós, e `scripts/rbb-update-tools.sh <env> [--rerun-setup]` envia versões novas do `rbb-node`/bootstrap para as VMs sem recriá-las (o bootstrap é idempotente e migra os dados para o volume caso ele tenha sido anexado depois do primeiro boot).
 
 O layout na VM é o mesmo do roteiro: `/srv/rbb/start-network/` (rbb-cli, `infra.json`, `.env.configs/`, `volumes/<nó>/`), então qualquer comando dos roteiros oficiais pode ser executado ali.
 

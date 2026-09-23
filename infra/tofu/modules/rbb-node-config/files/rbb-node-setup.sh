@@ -22,6 +22,20 @@ SN_DIR="${DATA_MOUNT}/start-network"
 # ---------------------------------------------------------------------------
 # 1. Volume de dados
 # ---------------------------------------------------------------------------
+find_data_device() {
+  # Disco extra: tipo disk, sem partições, sem filesystem, diferente do disco raiz;
+  # ou disco já rotulado rbbdata (reprovisionamento da VM mantendo o volume).
+  local root_disk d
+  root_disk="$(lsblk -no PKNAME "$(findmnt -no SOURCE /)" 2>/dev/null || true)"
+  if blkid -L rbbdata >/dev/null 2>&1; then blkid -L rbbdata; return; fi
+  for d in $(lsblk -dnpo NAME,TYPE | awk '$2=="disk"{print $1}'); do
+    [[ "$(basename "$d")" == "${root_disk}" ]] && continue
+    [[ -n "$(lsblk -no NAME "$d" | tail -n +2)" ]] && continue
+    [[ -n "$(blkid -p -o value -s TYPE "$d" 2>/dev/null)" ]] && continue
+    echo "$d"; return
+  done
+}
+
 mount_data_volume() {
   mkdir -p "${DATA_MOUNT}"
   if mountpoint -q "${DATA_MOUNT}"; then
@@ -33,28 +47,15 @@ mount_data_volume() {
     return
   fi
 
-  local root_disk dev
-  root_disk="$(lsblk -no PKNAME "$(findmnt -no SOURCE /)" 2>/dev/null || true)"
-  for _ in $(seq 1 60); do
-    # Disco extra: tipo disk, sem partições, sem filesystem, diferente do disco raiz.
-    dev="$(lsblk -dnpo NAME,TYPE | awk '$2=="disk"{print $1}' | while read -r d; do
-      [[ "$(basename "$d")" == "${root_disk}" ]] && continue
-      [[ -n "$(lsblk -no NAME "$d" | tail -n +2)" ]] && continue
-      blkid -p "$d" >/dev/null 2>&1 && { [[ "$(blkid -p -o value -s TYPE "$d")" == "" ]] || continue; }
-      echo "$d"; break
-    done)"
+  # O volume é anexado pela infra depois de a VM existir; espera até 20 minutos.
+  local dev=""
+  for _ in $(seq 1 240); do
+    dev="$(find_data_device)"
     [[ -n "${dev}" ]] && break
-    # Disco já formatado com o rótulo rbbdata (reprovisionamento da VM mantendo o volume).
-    if blkid -L rbbdata >/dev/null 2>&1; then dev="$(blkid -L rbbdata)"; break; fi
     sleep 5
   done
-
-  if [[ -z "${dev:-}" ]]; then
-    log "AVISO: nenhum volume de dados encontrado; usando disco raiz em ${DATA_MOUNT}"
-    return
-  fi
-  if [[ -n "$(ls -A "${DATA_MOUNT}" 2>/dev/null)" ]]; then
-    log "AVISO: ${DATA_MOUNT} já contém dados no disco raiz; volume ${dev} NÃO montado. Pare o nó, mova os dados e monte manualmente (LABEL=rbbdata)."
+  if [[ -z "${dev}" ]]; then
+    log "AVISO: nenhum volume de dados encontrado; usando disco raiz em ${DATA_MOUNT}. Reexecute rbb-node-setup após anexar o volume."
     return
   fi
   if [[ "$(blkid -p -o value -s TYPE "${dev}" 2>/dev/null || true)" == "" ]]; then
@@ -62,6 +63,22 @@ mount_data_volume() {
     mkfs.ext4 -q -L rbbdata "${dev}"
   fi
   grep -q 'LABEL=rbbdata' /etc/fstab || printf 'LABEL=rbbdata %s ext4 defaults,nofail 0 2\n' "${DATA_MOUNT}" >> /etc/fstab
+
+  if [[ -n "$(ls -A "${DATA_MOUNT}" 2>/dev/null)" ]]; then
+    # Volume chegou depois de o bootstrap ter usado o disco raiz: migra os dados.
+    log "migrando ${DATA_MOUNT} do disco raiz para ${dev}"
+    if [[ -f "${SN_DIR}/docker-compose.yml" ]]; then
+      (cd "${SN_DIR}" && docker compose down >/dev/null 2>&1 || true)
+    fi
+    if [[ -f "${DATA_MOUNT}/prometheus/docker-compose.yml" ]]; then
+      (cd "${DATA_MOUNT}/prometheus" && docker compose down >/dev/null 2>&1 || true)
+    fi
+    mkdir -p /mnt/rbbdata && mount "${dev}" /mnt/rbbdata
+    cp -a "${DATA_MOUNT}/." /mnt/rbbdata/
+    umount /mnt/rbbdata
+    mv "${DATA_MOUNT}" "${DATA_MOUNT}.root-disk.bak"
+    mkdir -p "${DATA_MOUNT}"
+  fi
   mount "${DATA_MOUNT}"
   log "volume ${dev} montado em ${DATA_MOUNT}"
 }
@@ -226,8 +243,8 @@ write_node_info() {
 
 main() {
   log "bootstrap ${NODE_NAME} (${NODE_TYPE}) org=${ORGANIZATION} rede=${RBB_NETWORK}"
-  mount_data_volume
   install_docker
+  mount_data_volume
   create_user
   install_start_network
   if [[ "${NODE_TYPE}" == "prometheus" ]]; then
