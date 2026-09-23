@@ -50,7 +50,7 @@ locals {
       for cidr in local.p2p_cidrs : [
         {
           key         = "p2p-tcp-${cidr}"
-          description = "Besu P2P (RLPx) TCP"
+          description = "Besu P2P RLPx TCP"
           direction   = "ingress"
           protocol    = "tcp"
           port_min    = var.node.p2p_port
@@ -59,7 +59,7 @@ locals {
         },
         {
           key         = "p2p-udp-${cidr}"
-          description = "Besu P2P (discovery) UDP"
+          description = "Besu P2P discovery UDP"
           direction   = "ingress"
           protocol    = "udp"
           port_min    = var.node.p2p_port
@@ -82,7 +82,7 @@ locals {
     [
       {
         key         = "metrics-vpc"
-        description = "Métricas Besu para o Prometheus da organização"
+        description = "Metricas Besu para o Prometheus da organizacao"
         direction   = "ingress"
         protocol    = "tcp"
         port_min    = var.node.metrics_port
@@ -96,7 +96,7 @@ locals {
     [
       for cidr in local.peer_cidrs.prom : {
         key         = "prom-mtls-${cidr}"
-        description = "Prometheus federado /federate (NGINX mTLS)"
+        description = "Prometheus federado NGINX mTLS"
         direction   = "ingress"
         protocol    = "tcp"
         port_min    = 8443
@@ -107,7 +107,7 @@ locals {
     [
       for cidr in var.admin_ssh_cidrs : {
         key         = "prom-ui-${cidr}"
-        description = "Interface web do Prometheus (TLS + senha)"
+        description = "Interface web do Prometheus TLS e senha"
         direction   = "ingress"
         protocol    = "tcp"
         port_min    = 443
@@ -131,7 +131,7 @@ locals {
   egress_rules = [
     {
       key         = "egress-all"
-      description = "Saída irrestrita"
+      description = "Saida irrestrita"
       direction   = "egress"
       protocol    = null
       port_min    = null

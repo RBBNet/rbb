@@ -1,17 +1,17 @@
 resource "mgc_network_vpcs" "this" {
   name        = "${local.prefix}-vpc"
-  description = "Rede Blockchain Brasil (${var.rbb_network}) - ${var.organization}"
+  description = "Rede Blockchain Brasil ${var.rbb_network} - ${var.organization}"
 }
 
 resource "mgc_network_subnetpools" "this" {
   name        = "${local.prefix}-pool"
-  description = "Subnet pool dos nós RBB ${var.rbb_network}"
+  description = "Subnet pool dos nos RBB ${var.rbb_network}"
   cidr        = var.vpc_cidr
 }
 
 resource "mgc_network_vpcs_subnets" "nodes" {
   name            = "${local.prefix}-nodes"
-  description     = "Sub-rede dos nós RBB ${var.rbb_network}"
+  description     = "Sub-rede dos nos RBB ${var.rbb_network}"
   vpc_id          = mgc_network_vpcs.this.id
   subnetpool_id   = mgc_network_subnetpools.this.id
   cidr_block      = var.subnet_cidr
@@ -51,7 +51,7 @@ resource "mgc_network_nat_gateway" "this" {
   count = local.needs_nat ? 1 : 0
 
   name              = "${local.prefix}-nat"
-  description       = "Saída para internet dos nós sem IP público"
+  description       = "Saida para internet dos nos sem IP publico"
   vpc_id            = mgc_network_vpcs.this.id
   availability_zone = var.availability_zone
 }
