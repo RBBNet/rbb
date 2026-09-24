@@ -183,6 +183,22 @@ Os valores padrão seguem a referência do roteiro (Lab: 2 vCPU/4 GB; Piloto: 8 
 
 Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. Para listar tipos disponíveis na sua região: `mgc virtual-machine machine-types list` (CLI da Magalu) ou o data source `mgc_virtual_machine_types`. Cinco VMs + quatro volumes de 400 GB têm custo mensal relevante: reduza a topologia (ex.: só `observer-boot01` para acesso de leitura) quando fizer sentido.
 
+## Arquivos locais e dotswap
+
+Tudo que é específico da sua organização ou secreto fica **fora do git**: `.env` (API key da Magalu e credenciais AWS, lidas como variáveis de ambiente), `terraform.tfvars` e `backend.tf` de cada ambiente, e os arquivos de `network/`. Os `*.example` versionados mostram o formato.
+
+Para não perder esses arquivos ao trocar de máquina ou clonar de novo, o repositório traz um `.dotswap.json` para o [dotswap](https://www.npmjs.com/package/dotswap), que guarda cópias deles fora do repositório e as restaura sob demanda:
+
+```bash
+cd infra
+dotswap new magalu && dotswap switch magalu   # primeira vez: cria o ambiente local
+# ... preencha .env e os terraform.tfvars a partir dos exemplos ...
+dotswap save                                  # guarda em ~/.dotswap/rbb-infra/magalu/
+dotswap restore                               # num clone novo: traz tudo de volta
+```
+
+O uso do dotswap é opcional; qualquer gerenciador de segredos serve, desde que os arquivos listados no `.dotswap.json` nunca entrem no git.
+
 ## Segurança
 
 - SSH restrito a `admin_ssh_cidrs`; nunca use `0.0.0.0/0`.
