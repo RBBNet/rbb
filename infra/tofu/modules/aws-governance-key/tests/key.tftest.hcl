@@ -50,6 +50,10 @@ run "chave_nao_exportavel_com_papel_e_trilha" {
     condition     = !contains(flatten([for st in data.aws_iam_policy_document.key.statement : st.actions if st.sid == "AdminByOwner"]), "kms:Sign")
     error_message = "Administradores da organização não assinam por padrão."
   }
+  assert {
+    condition     = length([for st in data.aws_iam_policy_document.key.statement : st if st.sid == "DenySignExceptAuthorized" && st.effect == "Deny"]) == 1
+    error_message = "Deve existir negação explícita de kms:Sign fora do papel de assinatura."
+  }
 }
 
 run "sem_papel_quando_nao_ha_operador" {

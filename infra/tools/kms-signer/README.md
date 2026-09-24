@@ -3,7 +3,7 @@
 Assina transações Ethereum da RBB com uma chave **secp256k1 no AWS KMS**: a chave privada nunca existe fora do KMS, cada assinatura fica no CloudTrail e a permissão de assinar é revogável.
 
 ```bash
-cd infra/tools/kms-signer && npm ci
+cd infra/tools/kms-signer && npm install
 export AWS_REGION=sa-east-1            # credenciais AWS pelo ambiente ou AWS_PROFILE
 export RBB_KMS_ROLE_ARN=arn:aws:iam::<conta>:role/<org>-rbb-lab-admin-signer   # opcional: assume o papel de assinatura
 node cli.mjs address alias/exemplo-rbb-lab-admin      # endereço a informar à governança da RBB

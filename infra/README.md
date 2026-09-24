@@ -152,7 +152,7 @@ cd infra/tofu/envs/testnet-governance
 cp terraform.tfvars.example terraform.tfvars      # conta, região, usuários IAM
 export AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=...
 tofu init && tofu apply
-cd ../../../tools/kms-signer && npm ci && node cli.mjs address alias/<org>-rbb-lab-admin   # endereço para a governança
+cd ../../../tools/kms-signer && npm install && node cli.mjs address alias/<org>-rbb-lab-admin   # endereço para a governança
 ```
 
 `tools/kms-signer` traz um `Signer` do ethers v6 que assina com o KMS, para uso nos scripts de permissionamento no lugar de uma chave privada em variável de ambiente.

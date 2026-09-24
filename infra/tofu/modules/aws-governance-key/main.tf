@@ -40,6 +40,29 @@ data "aws_iam_policy_document" "key" {
     actions   = ["kms:*"]
     resources = ["*"]
   }
+  # Negação explícita: NINGUÉM assina fora dos principais autorizados, nem administradores
+  # com AdministratorAccess (a Deny na política da chave prevalece sobre políticas IAM).
+  dynamic "statement" {
+    for_each = (local.create_role || length(var.signer_principal_arns) > 0) ? [1] : []
+    content {
+      sid    = "DenySignExceptAuthorized"
+      effect = "Deny"
+      principals {
+        type        = "AWS"
+        identifiers = ["*"]
+      }
+      actions   = ["kms:Sign"]
+      resources = ["*"]
+      condition {
+        test     = "ArnNotEquals"
+        variable = "aws:PrincipalArn"
+        values = concat(
+          var.signer_principal_arns,
+          local.create_role ? ["arn:${data.aws_partition.current.partition}:iam::${local.account_id}:role/${local.role_name}"] : [],
+        )
+      }
+    }
+  }
   # Assinatura: papel de operação e/ou principais explícitos
   dynamic "statement" {
     for_each = (local.create_role || length(var.signer_principal_arns) > 0) ? [1] : []
