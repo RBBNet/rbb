@@ -194,7 +194,7 @@ Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. Para listar 
 - `writer01` anuncia o IP interno e só aceita P2P da VPC; para removê-lo totalmente da internet use `public_ip = false`.
 - O NAT gateway fica ligado por padrão: na Magalu o IP público só é anexado depois de a VM existir, e o bootstrap (cloud-init) precisa de internet desde o primeiro boot.
 - Os arquivos em `envs/<env>/network/` vêm de um repositório restrito aos partícipes e são ignorados pelo git.
-- Estado do OpenTofu contém IPs e IDs, não chaves de nós. Guarde-o em backend remoto (`backend.s3.tf.example`, Object Storage da Magalu) com acesso restrito.
+- Estado do OpenTofu contém IPs e IDs, não chaves de nós. Guarde-o em backend remoto: `envs/state-backend` cria um bucket versionado na conta AWS da organização e cada ambiente tem um `backend.aws.tf.example` (renomear para `backend.tf` e `tofu init -migrate-state`).
 - A API key nunca vai para arquivos versionados (`TF_VAR_mgc_api_key`).
 
 ## Estrutura
