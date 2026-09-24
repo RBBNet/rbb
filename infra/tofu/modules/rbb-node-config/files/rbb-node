@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+# rbb-node: utilitário de operação de um nó RBB provisionado pela infra (OpenTofu).
+# Encapsula os comandos do roteiro_adicao_nos.md executados no próprio servidor.
+set -euo pipefail
+
+# shellcheck disable=SC1091
+source /etc/rbb/node.env
+SN_DIR="${DATA_MOUNT}/start-network"
+VOL="${SN_DIR}/volumes/${NODE_NAME}"
+GENESIS="${SN_DIR}/.env.configs/genesis.json"
+PUBKEY_FILE="${SN_DIR}/.env.configs/nodes/${NODE_NAME}/key.pub"
+NODEID_FILE="${SN_DIR}/.env.configs/nodes/${NODE_NAME}/node.id"
+
+usage() {
+  cat <<USAGE
+rbb-node — operação do nó ${NODE_NAME} (${NODE_TYPE}, rede ${RBB_NETWORK})
+
+Uso: rbb-node <comando> [args]
+
+Informações
+  info                      JSON com nome, tipo, chave pública, enodes e endereços
+  enode [--internal]        enode anunciado (externo) ou com IP interno
+  pubkey                    chave pública (0x...)
+  perm-args                 parâmetros gen02 (NodeRulesV2Impl.addLocalNode / calldata addNode) e voto QBFT
+
+Endereço anunciado
+  address show              endereço P2P anunciado (BESU_P2P_HOST:PORT)
+  address set <ip[:porta]>  atualiza IP público/porta anunciados (ex.: após troca do IP público) e reinicia
+
+Topologia (passo 3 do roteiro)
+  peers show                mostra volumes/${NODE_NAME}/static-nodes.json
+  peers set <enode>...      substitui static-nodes.json (validator/writer/observer-boot)
+  peers add <enode>...      acrescenta enodes ao static-nodes.json
+  bootnodes show            mostra config.discovery.bootnodes do genesis.json
+  bootnodes set <enode>...  substitui a lista de bootnodes no genesis.json (boot / partícipe parceiro)
+  bootnodes clear           remove a seção discovery do genesis.json
+  genesis set <arquivo>     instala um genesis.json (ex.: obtido em RBBNet/participantes)
+
+Operação (passo 4 do roteiro)
+  up | down | restart       docker compose (Besu ${BESU_IMAGE})
+  logs [-f]                 logs do Besu
+  status                    estado do contêiner, peers e altura de bloco
+  render                    rbb-cli config render-templates
+  cli <args>                executa ./rbb-cli <args> no diretório start-network
+
+Prometheus (somente nós prometheus)
+  prometheus clients <arquivo.pem>      instala o bundle de certificados dos demais partícipes e recarrega o NGINX
+  prometheus federation <arquivo.json>  substitui os alvos federados (formato file_sd: [{targets:[...],labels:{organization}}])
+  prometheus reload                     recarrega configuração do Prometheus
+USAGE
+}
+
+as_rbb() { sudo -u rbb -H env IMAGE_BESU="${BESU_IMAGE}" RBB_IMAGE="${RBB_CLI_IMAGE}" bash -c "cd '${SN_DIR}' && $*"; }
+need_besu() { [[ "${NODE_TYPE}" != "prometheus" ]] || { echo "comando não se aplica a nós prometheus" >&2; exit 1; }; }
+
+pubkey() { need_besu; [[ -f "${PUBKEY_FILE}" ]] || { echo "chave ainda não gerada" >&2; exit 1; }; tr -d '\n' < "${PUBKEY_FILE}"; echo; }
+nodeid() { [[ -f "${NODEID_FILE}" ]] && tr -d '\n' < "${NODEID_FILE}" || true; }
+perm_type() {
+  case "${NODE_TYPE}" in
+    boot) echo Boot ;; validator) echo Validator ;; observer-boot) echo ObserverBoot ;; observer) echo Observer ;;
+    writer) [[ "${P2P_PUBLIC}" == "true" ]] && echo WriterPartner || echo Writer ;;
+  esac
+}
+enode_with() { local host="$1"; printf 'enode://%s@%s:%s\n' "$(pubkey | sed 's/^0x//')" "${host}" "${P2P_PORT}"; }
+
+cmd_enode() {
+  if [[ "${1:-}" == "--internal" ]]; then enode_with "${PRIVATE_IP}"; else enode_with "${P2P_ADDRESS%%:*}"; fi
+}
+
+cmd_info() {
+  need_besu
+  local pk; pk="$(pubkey 2>/dev/null || echo "")"
+  jq -n --arg name "${NODE_NAME}" --arg type "${NODE_TYPE}" --arg org "${ORGANIZATION_NAME}" \
+    --arg network "${RBB_NETWORK}" --arg pubkey "${pk}" --arg id "$(nodeid)" --arg priv "${PRIVATE_IP}" --arg pub "${PUBLIC_IP}" \
+    --arg p2p_public "${P2P_PUBLIC}" --arg host "${HOSTNAME_PUBLIC}" --arg permtype "$(perm_type)" \
+    --argjson port "${P2P_PORT}" --arg p2p "${P2P_ADDRESS}" \
+    --arg enode_ext "$( [[ -n "${pk}" ]] && cmd_enode || echo "")" \
+    --arg enode_int "$( [[ -n "${pk}" ]] && cmd_enode --internal || echo "")" \
+    '{organization:$org, network:$network, name:$name, nodeType:$type, pubKey:$pubkey, id:$id,
+      hostNames:(if $host != "" then [$host] else [] end),
+      # nodes.json: IP externo para nós públicos; IP interno para writer de associado
+      ipAddresses:(if $p2p_public == "true" then [$pub] else [$priv] end),
+      port:$port, p2pAddress:$p2p, enode:$enode_ext, enodeInternal:$enode_int, permissioningType:$permtype}'
+}
+
+cmd_perm_args() {
+  local pk; pk="$(pubkey | sed 's/^0x//')"
+  if [[ "${NODE_TYPE}" == "observer" ]]; then
+    echo "# observer interno: fora do núcleo da RBB; não entra no nodes.json nem exige permissionamento (instanciar_observer.md)."
+    echo "# Conecta-se apenas aos observer-boots da própria organização: rbb-node peers set <enode interno do observer-boot>"
+    return
+  fi
+  cat <<PERM
+# Permissionamento gen02 (roteiro_adicao_nos.md, passo 8) — scripts-permissionamento
+enodeHigh: 0x${pk:0:64}
+enodeLow:  0x${pk:64:64}
+nodeType:  $(perm_type)
+name:      ${NODE_NAME}
+# Organização já cadastrada (admin da própria organização):
+node node-rules-v2.js addLocalNode 0x${pk:0:64} 0x${pk:64:64} $(perm_type) ${NODE_NAME}
+# Nova organização (proposta de governança; <orgId> = OrganizationImpl.idSeed antes do addOrganization):
+node calldata.js NodeRulesV2Impl addNode 0x${pk:0:64} 0x${pk:64:64} $(perm_type) ${NODE_NAME} <orgId>
+PERM
+  if [[ "${NODE_TYPE}" == "validator" ]]; then
+    printf '# Voto QBFT pelos validators existentes (passo 13), id do validator sem 0x:\n'
+    printf "curl -X POST --data '{\"jsonrpc\":\"2.0\",\"method\":\"qbft_proposeValidatorVote\",\"params\":[\"%s\",true],\"id\":1}' <ip-interno-validator>:<porta-rpc>\n" "$(nodeid | sed 's/^0x//')"
+  fi
+}
+
+node_ref() { if [[ "${NODE_NAME}" == *-* ]]; then printf 'nodes["%s"]' "${NODE_NAME}"; else printf 'nodes.%s' "${NODE_NAME}"; fi; }
+cmd_address() {
+  need_besu
+  case "${1:-show}" in
+    show) echo "${P2P_ADDRESS}" ;;
+    set)
+      local addr="${2:-}"; [[ "${addr}" =~ ^[0-9.]+(:[0-9]+)?$ ]] || { echo "uso: rbb-node address set <ip[:porta]>" >&2; exit 1; }
+      [[ "${addr}" == *:* ]] || addr="${addr}:${P2P_PORT}"
+      local host="${addr%%:*}" port="${addr##*:}"
+      sed -i "s|^P2P_ADDRESS=.*|P2P_ADDRESS=\"${addr}\"|; s|^P2P_PORT=.*|P2P_PORT=\"${port}\"|" /etc/rbb/node.env
+      [[ "${P2P_PUBLIC}" == "true" ]] && sed -i "s|^PUBLIC_IP=.*|PUBLIC_IP=\"${host}\"|" /etc/rbb/node.env
+      as_rbb "./rbb-cli config set '$(node_ref).address=\"${addr}\"'" >/dev/null
+      as_rbb "./rbb-cli config render-templates >/dev/null && docker compose down >/dev/null 2>&1; docker compose up -d >/dev/null 2>&1"
+      echo "endereço anunciado: ${addr} (Besu reiniciado). Atualize o nodes.json (rbb-node-info.sh / rbb-publish-nodes.sh)." ;;
+    *) usage; exit 1 ;;
+  esac
+}
+
+peers_file() { echo "${VOL}/static-nodes.json"; }
+cmd_peers() {
+  need_besu
+  case "${1:-show}" in
+    show) cat "$(peers_file)" 2>/dev/null || echo "[]" ;;
+    set)  shift; printf '%s\n' "$@" | jq -R . | jq -s . > "$(peers_file)"; chown rbb:rbb "$(peers_file)"; echo "static-nodes.json atualizado ($# peers). Execute 'rbb-node restart'." ;;
+    add)  shift; local cur; cur="$(cat "$(peers_file)" 2>/dev/null || echo '[]')"
+          { echo "${cur}"; printf '%s\n' "$@" | jq -R . | jq -s .; } | jq -s 'add | unique' > "$(peers_file)"; chown rbb:rbb "$(peers_file)"; echo "static-nodes.json atualizado. Execute 'rbb-node restart'." ;;
+    *) usage; exit 1 ;;
+  esac
+}
+
+cmd_bootnodes() {
+  need_besu
+  [[ -f "${GENESIS}" ]] || { echo "genesis.json ausente em ${GENESIS}" >&2; exit 1; }
+  local tmp; tmp="$(mktemp)"
+  case "${1:-show}" in
+    show)  jq '.config.discovery.bootnodes // []' "${GENESIS}" ;;
+    set)   shift; jq --argjson b "$(printf '%s\n' "$@" | jq -R . | jq -s .)" '.config.discovery = {bootnodes: $b}' "${GENESIS}" > "${tmp}" && mv "${tmp}" "${GENESIS}"; chown rbb:rbb "${GENESIS}"; echo "bootnodes atualizados. Execute 'rbb-node restart'." ;;
+    clear) jq 'del(.config.discovery)' "${GENESIS}" > "${tmp}" && mv "${tmp}" "${GENESIS}"; chown rbb:rbb "${GENESIS}"; echo "discovery removido. Execute 'rbb-node restart'." ;;
+    *) usage; exit 1 ;;
+  esac
+}
+
+cmd_genesis() {
+  need_besu
+  [[ "${1:-}" == "set" && -f "${2:-}" ]] || { usage; exit 1; }
+  jq -e '.config.chainId' "$2" >/dev/null || { echo "arquivo não parece um genesis válido" >&2; exit 1; }
+  install -o rbb -g rbb -m 0644 "$2" "${GENESIS}"
+  echo "genesis instalado (chainId $(jq .config.chainId "${GENESIS}")). Execute 'rbb-node up'."
+}
+
+rpc() { curl -s -X POST -H 'Content-Type: application/json' --data "{\"jsonrpc\":\"2.0\",\"method\":\"$1\",\"params\":[],\"id\":1}" "http://127.0.0.1:${RPC_PORT}"; }
+cmd_status() {
+  need_besu
+  as_rbb "docker compose ps"
+  local peers block
+  peers="$(rpc net_peerCount | jq -r '.result // empty')"; block="$(rpc eth_blockNumber | jq -r '.result // empty')"
+  printf 'peers: %s\n' "$( [[ -n "${peers}" ]] && printf '%d' "${peers}" || echo n/a)"
+  printf 'block: %s\n' "$( [[ -n "${block}" ]] && printf '%d' "${block}" || echo n/a)"
+  printf 'sync:  %s\n' "$(rpc eth_syncing | jq -c '.result')"
+}
+
+cmd_prometheus() {
+  [[ "${NODE_TYPE}" == "prometheus" ]] || { echo "somente para nós prometheus" >&2; exit 1; }
+  local home="${DATA_MOUNT}/prometheus"
+  case "${1:-}" in
+    clients) [[ -f "${2:-}" ]] || { usage; exit 1; }; install -o rbb -g rbb -m 0644 "$2" "${home}/certs/client.pem"
+             (cd "${home}" && sudo -u rbb -H docker compose exec nginx nginx -s reload); echo "client.pem instalado." ;;
+    federation) [[ -f "${2:-}" ]] || { usage; exit 1; }; jq -e 'type=="array"' "$2" >/dev/null || { echo "JSON inválido" >&2; exit 1; }
+             install -o rbb -g rbb -m 0644 "$2" "${home}/targets/federation.json"; echo "alvos federados atualizados ($(jq length "$2")); o Prometheus recarrega file_sd automaticamente." ;;
+    reload)  curl -s -X POST "http://127.0.0.1:9090/-/reload" >/dev/null 2>&1 || (cd "${home}" && sudo -u rbb -H docker compose restart prometheus); echo "prometheus recarregado." ;;
+    *) usage; exit 1 ;;
+  esac
+}
+
+case "${1:-}" in
+  info)      cmd_info ;;
+  enode)     shift; cmd_enode "$@" ;;
+  pubkey)    pubkey ;;
+  perm-args) cmd_perm_args ;;
+  address)   shift; cmd_address "$@" ;;
+  peers)     shift; cmd_peers "$@" ;;
+  bootnodes) shift; cmd_bootnodes "$@" ;;
+  genesis)   shift; cmd_genesis "$@" ;;
+  up)        need_besu; as_rbb "./rbb-cli config render-templates >/dev/null && docker compose up -d" ;;
+  down)      need_besu; as_rbb "docker compose down" ;;
+  restart)   need_besu; as_rbb "./rbb-cli config render-templates >/dev/null && docker compose down && docker compose up -d" ;;
+  logs)      need_besu; shift; as_rbb "docker compose logs $*" ;;
+  status)    cmd_status ;;
+  render)    need_besu; as_rbb "./rbb-cli config render-templates" ;;
+  cli)       need_besu; shift; as_rbb "./rbb-cli $*" ;;
+  prometheus) shift; cmd_prometheus "$@" ;;
+  -h|--help|help|"") usage ;;
+  *) usage; exit 1 ;;
+esac
