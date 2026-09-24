@@ -120,16 +120,9 @@ O layout na VM é o mesmo do roteiro: `/srv/rbb/start-network/` (rbb-cli, `infra
 
 ## Armazenamento do Besu: Bonsai ou Forest
 
-O roteiro da RBB não fixa formato; o `docker-compose.yml.hbs` não define `data-storage-format`, então vale o padrão do Besu 25.5.0, que é **Bonsai** (menor uso de disco e memória, adequado a boot, validator, writer e observer-boot). **Forest** com `sync-mode FULL` só é indicado para um nó archive de leitura, como o observer que alimenta o Blockscout do TCU, porque Bonsai não guarda estado histórico profundo. Para esse caso, adicione um nó com:
+O roteiro da RBB não fixa formato; o `docker-compose.yml.hbs` não define `data-storage-format`, então vale o padrão do Besu 25.5.0, que é **Bonsai**: menor uso de disco e memória, adequado a boot, validator, writer e observer-boot, que só precisam do estado atual. **Forest** com `sync-mode FULL` guarda o estado histórico completo (archive) e só é indicado para um nó de leitura que alimente explorador de blocos, auditoria ou indicadores, como o observer archive do explorador do TCU. Não use Forest nos nós núcleo nem no observer-boot público: é mais pesado, e o RPC de um archive não deve ser exposto.
 
-```hcl
-nodes = {
-  "observer-boot02" = { type = "observer-boot", data_volume_size = 800,
-    extra_env = { BESU_DATA_STORAGE_FORMAT = "FOREST", BESU_SYNC_MODE = "FULL" } }
-}
-```
-
-O módulo já tem o tipo `observer` para isso: um nó interno de leitura, fora do núcleo da RBB (não entra no `nodes.json` nem exige permissionamento), com P2P só na VPC, discovery desligado e `static-nodes` apontando para o(s) `observer-boot` da própria organização (`rbb-link-nodes.sh` faz isso). Com `archive = true` ele sobe com Forest + FULL:
+O módulo tem o tipo `observer` para isso: um nó interno de leitura, fora do núcleo da RBB (não entra no `nodes.json` nem exige permissionamento), com P2P só na VPC, discovery desligado e `static-nodes` apontando para o(s) `observer-boot` da própria organização (`rbb-link-nodes.sh` faz isso). Ele não afeta a rede e pode ser desligado a qualquer momento. Com `archive = true` sobe com Forest + FULL:
 
 ```hcl
 nodes = {
