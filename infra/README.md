@@ -139,6 +139,24 @@ nodes = {
 
 Recomendação: subir um `observer01` archive na testnet para medir disco e tempo de sincronização, e só então dimensionar o da mainnet. O formato não pode ser trocado depois sem ressincronizar do zero (novo volume).
 
+## Chaves de governança (Administrador Global) em cofre de chaves
+
+A conta de Administrador Global da organização no permissionamento da RBB representa a instituição em votações on chain e deve ficar sob custódia dela, sem chave privada exportável. O diretório `tofu/envs/testnet-governance` (e, futuramente, `mainnet-governance`) cria isso numa conta AWS da própria organização, separada da infra dos nós:
+
+- chave **secp256k1 no AWS KMS**, uso apenas de assinatura, não exportável, com `prevent_destroy`;
+- **papel de assinatura** com apenas `kms:Sign`, assumível só pelos usuários IAM listados em `signer_iam_users` (revogar = remover da lista e aplicar);
+- **trilha de auditoria** no CloudTrail gravada em bucket com Object Lock (retenção de 5 anos) e validação de integridade: todo uso da chave fica registrado de forma imutável.
+
+```bash
+cd infra/tofu/envs/testnet-governance
+cp terraform.tfvars.example terraform.tfvars      # conta, região, usuários IAM
+export AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=...
+tofu init && tofu apply
+cd ../../../tools/kms-signer && npm ci && node cli.mjs address alias/<org>-rbb-lab-admin   # endereço para a governança
+```
+
+`tools/kms-signer` traz um `Signer` do ethers v6 que assina com o KMS, para uso nos scripts de permissionamento no lugar de uma chave privada em variável de ambiente.
+
 ## Cotas iniciais da Magalu Cloud
 
 Uma conta nova vem com cotas baixas: **3 IPs públicos** e cerca de **1 TB de Block Storage** por região (a API não expõe os números; eles aparecem como `creating_error_quota` e `Insufficient quota ... public_ip`). Peça aumento no console antes da mainnet. Enquanto isso, a topologia cabe na cota com IP público só onde a RBB exige (boot, validator, observer-boot) e os demais nós privados atrás do NAT gateway, acessados por salto SSH pelo primeiro nó público (`output bastion_ip`; os scripts usam `-J` automaticamente):
@@ -190,8 +208,10 @@ infra/
     │   │   ├── files/            # rbb-node-setup.sh, rbb-node, prometheus-*
     │   │   └── templates/        # cloud-init.yaml.tftpl, prometheus.yml.tftpl
     │   └── mgc-rbb-stack/        # MAGALU CLOUD: rede, SG, VMs, volumes, IPs (+ tests/)
+    ├── modules/aws-governance-key/  # AWS KMS: chave de Administrador Global não exportável + papel de assinatura + CloudTrail imutável
     └── envs/
-        ├── testnet/              # rede lab
+        ├── testnet/              # rede lab (nós na Magalu)
+        ├── testnet-governance/   # chave de governança da rede lab (AWS KMS)
         └── mainnet/              # rede piloto
 ```
 
