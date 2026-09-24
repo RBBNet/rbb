@@ -215,6 +215,10 @@ infra/
         └── mainnet/              # rede piloto
 ```
 
+## Custo a partir do plano
+
+`make cost ENV=testnet`: estimativa mensal com preços ao vivo da Magalu via [mgc-infra-costs](https://github.com/poperador/mgc-infra-costs).
+
 ## Testes sem credenciais
 
 ```bash
