@@ -19,8 +19,12 @@ for node in $(nodes_json "${env}" | jq -r 'to_entries[] | select(.value.type != 
 done
 [[ ${#infos[@]} -gt 0 ]] || { echo "nenhum nó respondeu" >&2; exit 1; }
 
-# Prometheus: entra no nodes.json com IP público e porta 8443 (mTLS), sem pubKey
-prom_entries="$(nodes_json "${env}" | jq -c '[to_entries[] | select(.value.type == "prometheus") | {name: .key, nodeType: "prometheus", ipAddresses: [.value.public_ip // .value.private_ip], port: 8443}]')"
+# Prometheus: entra no nodes.json com IP público e porta 8443 (mTLS), sem pubKey.
+# Sem IP público ele não é alcançável pelos demais partícipes e fica de fora até ter um.
+prom_entries="$(nodes_json "${env}" | jq -c '[to_entries[] | select(.value.type == "prometheus" and .value.public_ip != null) | {name: .key, nodeType: "prometheus", ipAddresses: [.value.public_ip], port: 8443}]')"
+if nodes_json "${env}" | jq -e 'to_entries[] | select(.value.type == "prometheus" and .value.public_ip == null)' >/dev/null; then
+  echo "AVISO: prometheus sem IP público não entra no nodes.json (os demais partícipes não conseguiriam coletar)." >&2
+fi
 
 printf '%s\n' ${infos[@]+"${infos[@]}"} | jq -s --arg d "${deploy}" --arg o "${oper}" --argjson prom "${prom_entries}" '
   { organization: .[0].organization,

@@ -21,11 +21,9 @@ cur="$(gh api "repos/${repo}/contents/${rede}/nodes.json")"
 sha="$(jq -r .sha <<<"${cur}")"
 jq -r .content <<<"${cur}" | base64 -d > "${netdir}/nodes.current.json"
 
-# Mantém a ordem; substitui a entrada da organização ou acrescenta ao final
-jq --slurpfile o "${ours}" '
-  if (map(.organization) | index($o[0].organization)) != null
-  then map(if .organization == $o[0].organization then $o[0] else . end)
-  else . + $o end' "${netdir}/nodes.current.json" | jq --indent 3 . > "${netdir}/nodes.merged.json"
+# Insere/substitui a entrada da organização preservando a formatação original do arquivo,
+# para que o PR mostre apenas a nossa alteração.
+python3 "${INFRA_DIR}/scripts/merge-nodes.py" "${netdir}/nodes.current.json" "${ours}" "${netdir}/nodes.merged.json"
 
 echo "== diff ${rede}/nodes.json"
 diff -u "${netdir}/nodes.current.json" "${netdir}/nodes.merged.json" || true
