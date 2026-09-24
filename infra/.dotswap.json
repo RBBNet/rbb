@@ -1,0 +1,11 @@
+{
+  "project": "rbb-infra",
+  "files": [
+    ".env",
+    "tofu/envs/testnet/terraform.tfvars",
+    "tofu/envs/testnet/backend.tf",
+    "tofu/envs/testnet-governance/terraform.tfvars",
+    "tofu/envs/testnet-governance/backend.tf",
+    "tofu/envs/state-backend/terraform.tfvars"
+  ]
+}

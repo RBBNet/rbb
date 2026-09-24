@@ -1,0 +1,39 @@
+# Regras de métricas derivadas e alertas para nós RBB (bloco alvo: 4 s).
+# Equivalentes às publicadas em RBBNet/start-network (examples/prometheus) e rbb-monitoracao.
+groups:
+- name: blockchain metrics
+  rules:
+  - record: blockchain_tip
+    expr: max(ethereum_best_known_block_number)
+  - record: node_block_height_distance_from_tip
+    expr: blockchain_tip - on() group_right() ethereum_best_known_block_number
+  - record: blockchain_block_generation_rate:rate1m
+    expr: quantile(0.5, rate(ethereum_best_known_block_number[1m]))
+  - record: blockchain_block_generation_interval:rate1m
+    expr: 1 / blockchain_block_generation_rate:rate1m
+  - record: blockchain_block_generation_interval_distance_from_target:rate1m
+    expr: abs(blockchain_block_generation_interval:rate1m - 4)
+
+- name: blockchain alerts
+  rules:
+  - alert: NodeOffline
+    expr: up == 0
+    for: 30s
+    labels:
+      severity: page
+    annotations:
+      summary: "{{ $labels.instance }} is offline"
+  - alert: NodeOutOfSync
+    expr: node_block_height_distance_from_tip > 10
+    for: 30s
+    labels:
+      severity: page
+    annotations:
+      summary: "{{ $labels.instance }} is {{ $value }} blocks behind"
+  - alert: BlockGenerationOutOfSchedule
+    expr: blockchain_block_generation_interval_distance_from_target:rate1m > 2
+    for: 30s
+    labels:
+      severity: page
+    annotations:
+      summary: "block generation is out of schedule"

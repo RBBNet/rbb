@@ -1,0 +1,16 @@
+# OpenTofu
+**/.terraform/
+**/.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+*.tfvars
+!*.tfvars.example
+backend.tf
+backend.hcl
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.env

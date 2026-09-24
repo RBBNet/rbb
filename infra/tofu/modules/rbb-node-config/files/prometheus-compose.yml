@@ -1,0 +1,46 @@
+# Prometheus + NGINX (mTLS) para exposição federada de métricas, conforme
+# rbb-monitoracao e roteiro_prometheus_nginx.md. Executado a partir de /srv/rbb/prometheus.
+services:
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=30d
+      - --web.enable-lifecycle
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./rules.yml:/etc/prometheus/rules.yml:ro
+      - ./targets:/etc/prometheus/targets:ro
+      - ./certs:/etc/prometheus/certs:ro
+      - prometheus-data:/prometheus
+    expose:
+      - "9090"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    ports:
+      - "443:443"
+      - "8443:8443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+      - ./.htpasswd:/etc/nginx/.htpasswd:ro
+      - ./logs:/var/log/nginx
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  prometheus-data:
