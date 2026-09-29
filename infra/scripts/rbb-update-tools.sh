@@ -18,6 +18,12 @@ for node in ${nodes[@]+"${nodes[@]}"}; do
   if [[ -f "${files}/prometheus-setup.sh" ]]; then
     node_ssh "${env}" "${node}" 'cat > /tmp/rbb-prometheus-setup && sudo install -m 0755 /tmp/rbb-prometheus-setup /usr/local/sbin/rbb-prometheus-setup' < "${files}/prometheus-setup.sh"
   fi
+  # Nós prometheus: também os modelos de compose, nginx e regras (o bootstrap copia de /etc/rbb/prometheus)
+  if [[ "$(nodes_json "${env}" | jq -r --arg n "${node}" '.[$n].type')" == "prometheus" ]]; then
+    node_ssh "${env}" "${node}" 'sudo mkdir -p /etc/rbb/prometheus && cat > /tmp/pc && sudo install -m 0644 /tmp/pc /etc/rbb/prometheus/docker-compose.yml' < "${files}/prometheus-compose.yml"
+    node_ssh "${env}" "${node}" 'cat > /tmp/pn && sudo install -m 0644 /tmp/pn /etc/rbb/prometheus/nginx.conf' < "${files}/prometheus-nginx.conf"
+    node_ssh "${env}" "${node}" 'cat > /tmp/pr && sudo install -m 0644 /tmp/pr /etc/rbb/prometheus/rules.yml' < "${files}/prometheus-rules.yml"
+  fi
   if ${rerun}; then
     echo "   reexecutando bootstrap (log em /var/log/rbb-node-setup.log)"
     node_ssh "${env}" "${node}" 'sudo bash -c "/usr/local/sbin/rbb-node-setup >> /var/log/rbb-node-setup.log 2>&1"; sudo tail -n 3 /var/log/rbb-node-setup.log'
