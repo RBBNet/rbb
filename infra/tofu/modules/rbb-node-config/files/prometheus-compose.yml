@@ -15,8 +15,10 @@ services:
       - ./targets:/etc/prometheus/targets:ro
       - ./certs:/etc/prometheus/certs:ro
       - prometheus-data:/prometheus
-    expose:
-      - "9090"
+    # 9090 no host: consultas locais (rbb-node prometheus reload/status) e acesso interno pela VPC
+    # (o security group libera 9090 só para a VPC). Externamente, apenas via NGINX (443/8443).
+    ports:
+      - "9090:9090"
     logging:
       driver: json-file
       options:
