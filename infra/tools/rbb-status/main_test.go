@@ -105,6 +105,9 @@ func TestParseFederation(t *testing.T) {
 		if want[r.Org] != r.Reason {
 			t.Errorf("%s: %q", r.Org, r.Reason)
 		}
+		if strings.ContainsAny(r.Target, "/?") {
+			t.Errorf("alvo com caminho/query: %s", r.Target)
+		}
 	}
 }
 

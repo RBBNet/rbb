@@ -55,10 +55,19 @@ func parseFederation(out string, job string) ([]FedStatus, error) {
 		}
 		res = append(res, FedStatus{
 			Org:    a.Labels["organization"],
-			Target: strings.TrimSuffix(strings.TrimPrefix(strings.TrimPrefix(a.ScrapeURL, "https://"), "http://"), "/federate"),
+			Target: hostFromURL(a.ScrapeURL),
 			Health: a.Health,
 			Reason: classifyFederation(a.Health, a.LastError),
 		})
 	}
 	return res, nil
+}
+
+// hostFromURL reduz "https://1.2.3.4:8443/federate?match..." a "1.2.3.4:8443".
+func hostFromURL(u string) string {
+	u = strings.TrimPrefix(strings.TrimPrefix(u, "https://"), "http://")
+	if i := strings.IndexAny(u, "/?"); i >= 0 {
+		u = u[:i]
+	}
+	return u
 }
