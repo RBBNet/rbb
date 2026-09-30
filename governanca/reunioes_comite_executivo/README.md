@@ -80,7 +80,6 @@
 **ACIEG**
   - Rubens José Fileti
   - Juliano Guimarães
-  - Pedro Renan Ferreira de Santana
 
     
 # Reuniões do Comitê Executivo realizadas
