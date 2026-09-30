@@ -3,10 +3,10 @@ ENV ?= testnet
 TOFU ?= tofu
 DIR := tofu/envs/$(ENV)
 
-.PHONY: help init plan apply destroy output fmt validate test sync link ssh info publish cost
+.PHONY: help init plan apply destroy output fmt validate test sync link ssh info publish cost status
 
 help:
-	@echo "Alvos: init plan apply destroy output fmt validate test sync [ORG=<nome>] link info publish [ARGS=--dry-run] cost ssh NODE=<nó>"
+	@echo "Alvos: init plan apply destroy output fmt validate test sync [ORG=<nome>] link info publish [ARGS=--dry-run] status cost ssh NODE=<nó>"
 	@echo "Ambiente atual: ENV=$(ENV) ($(DIR))"
 
 init:
@@ -48,6 +48,9 @@ info:
 
 publish:
 	./scripts/rbb-publish-nodes.sh $(ENV) $(ARGS)
+
+status:
+	./scripts/rbb-status-config.sh $(ENV) && cd tools/rbb-status && go run . report --config ../../tofu/envs/$(ENV)/network/rbb-status.json
 
 cost:
 	@command -v mgc-infra-costs >/dev/null || { echo "instale: go install github.com/poperador/mgc-infra-costs/cmd/mgc-infra-costs@latest"; exit 1; }
