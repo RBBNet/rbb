@@ -197,7 +197,7 @@ Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. A JVM do Bes
 
 ## Arquivos locais e dotswap
 
-Tudo que é específico da sua organização ou secreto fica **fora do git**: `.env` (API key da Magalu e credenciais AWS, lidas como variáveis de ambiente), `terraform.tfvars` e `backend.tf` de cada ambiente, e os arquivos de `network/`. Os `*.example` versionados mostram o formato.
+Tudo que é específico da sua organização ou secreto fica **fora do git**: `.env` (API key da Magalu e credenciais AWS; o `Makefile` e os scripts o carregam automaticamente como variáveis de ambiente), `terraform.tfvars` e `backend.tf` de cada ambiente, e os arquivos de `network/`. Os `*.example` versionados mostram o formato.
 
 Para não perder esses arquivos ao trocar de máquina ou clonar de novo, o repositório traz um `.dotswap.json` para o [dotswap](https://www.npmjs.com/package/dotswap), que guarda cópias deles fora do repositório e as restaura sob demanda:
 

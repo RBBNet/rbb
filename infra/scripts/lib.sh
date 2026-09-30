@@ -3,6 +3,14 @@
 set -euo pipefail
 
 INFRA_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+# Credenciais (Magalu, AWS do backend S3) de infra/.env, como faz o Makefile
+if [[ -f "${INFRA_DIR}/.env" ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  source "${INFRA_DIR}/.env"
+  set +a
+fi
 SSH_USER="${RBB_SSH_USER:-ubuntu}"
 SSH_OPTS=(-o StrictHostKeyChecking=accept-new -o ConnectTimeout=15 -o BatchMode=yes)
 

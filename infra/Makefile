@@ -1,5 +1,11 @@
 # Uso: make <alvo> ENV=testnet|mainnet
 ENV ?= testnet
+
+# Credenciais (Magalu, AWS do backend S3) vêm de infra/.env, carregado automaticamente se existir.
+ifneq (,$(wildcard .env))
+include .env
+export
+endif
 TOFU ?= tofu
 DIR := tofu/envs/$(ENV)
 
