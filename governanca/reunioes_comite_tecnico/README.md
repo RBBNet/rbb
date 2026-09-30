@@ -56,7 +56,8 @@
 
 - ACIEG
   - Pedro Renan Ferreira de Santana - Titular.
-  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2026-06-15-Indicação-Representante-ACIEG.pdf).
+  - Juliano Guimarães - Suplente.
+  - [Carta de indicação ao Comitê Técnico](../indicacoes_representantes/2026-09-29-Indicacao-Representantes-ACIEG.pdf).
 
 # Indicação de Representante para o Comitê Técnico da RBB
 
