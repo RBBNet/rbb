@@ -174,7 +174,7 @@ Os valores padrão seguem a referência do roteiro (Lab: 2 vCPU/4 GB; Piloto: 8 
 | testnet | `BV2-4-20` | 2 / 3G | 400 GB `cloud_nvme1k` |
 | mainnet | `BV8-16-100` | 6 / 12G | 400 GB `cloud_nvme1k` |
 
-Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. Para listar tipos disponíveis na sua região: `mgc virtual-machine machine-types list` (CLI da Magalu) ou o data source `mgc_virtual_machine_types`. Cinco VMs + quatro volumes de 400 GB têm custo mensal relevante: reduza a topologia (ex.: só `observer-boot01` para acesso de leitura) quando fizer sentido.
+Ajuste por nó com `nodes.<nó>.machine_type` / `data_volume_size`. A JVM do Besu recebe teto de heap (`-Xmx`) igual à metade de `container_memory` (ajustável por nó com `jvm_heap`); sem isso o processo estoura o limite do contêiner durante a sincronização e é morto em loop. Para listar tipos disponíveis na sua região: `mgc virtual-machine machine-types list` (CLI da Magalu) ou o data source `mgc_virtual_machine_types`. Cinco VMs + quatro volumes de 400 GB têm custo mensal relevante: reduza a topologia (ex.: só `observer-boot01` para acesso de leitura) quando fizer sentido.
 
 ## Arquivos locais e dotswap
 

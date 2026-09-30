@@ -170,6 +170,12 @@ variable "container_memory" {
   default     = "6G"
 }
 
+variable "jvm_heap" {
+  description = "Teto de heap da JVM do Besu (-Xmx), ex.: 1536m, 3g. Nulo = metade de container_memory. Sem teto, a JVM cresce até o limite do contêiner e é morta por falta de memória (OOM), reiniciando o nó em loop."
+  type        = string
+  default     = null
+}
+
 variable "data_mount" {
   description = "Ponto de montagem do volume de dados (onde ficam start-network/ e volumes/)."
   type        = string

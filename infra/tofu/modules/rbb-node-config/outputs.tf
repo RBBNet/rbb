@@ -35,3 +35,8 @@ output "archive_env" {
   description = "Variáveis Besu aplicadas quando archive = true (Forest + FULL)."
   value       = local.archive_env
 }
+
+output "jvm_heap" {
+  description = "Teto de heap da JVM aplicado ao Besu (-Xmx)."
+  value       = local.is_besu ? local.jvm_heap : null
+}

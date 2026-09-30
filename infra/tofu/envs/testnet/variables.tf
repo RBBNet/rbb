@@ -133,6 +133,7 @@ variable "nodes" {
     extra_env         = optional(map(string), {})
     container_cpus    = optional(number)
     container_memory  = optional(string)
+    jvm_heap          = optional(string)
     private_ip_offset = optional(number)
   }))
   default = {

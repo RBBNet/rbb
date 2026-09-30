@@ -9,7 +9,14 @@ locals {
 
   # Observer archive (instanciar_observer.md + explorador do TCU): Forest + FULL.
   archive_env = var.node.archive ? { BESU_DATA_STORAGE_FORMAT = "FOREST", BESU_SYNC_MODE = "FULL" } : {}
-  extra_env   = merge(local.archive_env, var.node.extra_env)
+
+  # Teto de heap da JVM: metade do limite de memória do contêiner (o restante fica para o RocksDB,
+  # que aloca fora do heap). Sem isso o processo estoura o cgroup e é morto (OOM) em loop.
+  mem_match = regex("^([0-9]+)([GgMm])$", var.container_memory)
+  mem_mb    = tonumber(local.mem_match[0]) * (lower(local.mem_match[1]) == "g" ? 1024 : 1)
+  jvm_heap  = coalesce(var.jvm_heap, "${floor(local.mem_mb / 2)}m")
+  jvm_env   = local.is_besu ? { BESU_OPTS = "-Xmx${local.jvm_heap}" } : {}
+  extra_env = merge(local.jvm_env, local.archive_env, var.node.extra_env)
 
   p2p_host    = local.p2p_public ? var.public_ip : var.private_ip
   p2p_address = local.is_besu ? "${local.p2p_host}:${var.node.p2p_port}" : null
