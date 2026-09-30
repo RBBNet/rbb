@@ -20,6 +20,13 @@ require_env() {
   local env="${1:-}"
   [[ "${env}" == "testnet" || "${env}" == "mainnet" ]] || { echo "uso: $0 <testnet|mainnet> ..." >&2; exit 1; }
   [[ -d "$(env_dir "${env}")" ]] || { echo "ambiente ${env} não encontrado" >&2; exit 1; }
+  # Os arquivos locais (terraform.tfvars, backend.tf, .env) ficam fora do git: num clone sem eles o tofu
+  # usa um estado local vazio e nada funciona. Aponta o problema em vez de falhar mais adiante.
+  if [[ ! -f "$(env_dir "${env}")/terraform.tfvars" ]]; then
+    echo "arquivos locais ausentes em $(env_dir "${env}") (terraform.tfvars, backend.tf) e/ou ${INFRA_DIR}/.env." >&2
+    echo "Este clone (${INFRA_DIR}) não tem os segredos: use o clone configurado ou restaure-os (README, seção 'Arquivos locais e dotswap')." >&2
+    exit 1
+  fi
 }
 
 _NODES_CACHE=""
