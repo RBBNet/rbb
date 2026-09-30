@@ -42,6 +42,7 @@ Operação (passo 4 do roteiro)
   status                    estado do contêiner, peers e altura de bloco
   render                    rbb-cli config render-templates
   cli <args>                executa ./rbb-cli <args> no diretório start-network
+  jfr-clean                 remove gravações antigas do Java Flight Recorder em /tmp do contêiner (cron horário)
 
 Prometheus (somente nós prometheus)
   prometheus clients <arquivo.pem>      instala o bundle de certificados dos demais partícipes e recarrega o NGINX
@@ -157,6 +158,15 @@ cmd_genesis() {
   echo "genesis instalado (chainId $(jq .config.chainId "${GENESIS}")). Execute 'rbb-node up'."
 }
 
+# O launcher do Besu liga o Java Flight Recorder (-XX:StartFlightRecording); cada JVM grava até 250 MB
+# em /tmp/<data>_<pid> dentro do contêiner e só limpa ao encerrar normalmente. Quando o processo é morto
+# (OOM), o diretório fica na camada gravável do contêiner e, em loop de reinícios, enche o disco raiz.
+# Mantém apenas o diretório mais recente (o da JVM em execução).
+cmd_jfr_clean() {
+  need_besu
+  as_rbb "docker compose exec -T ${NODE_NAME} sh -c 'ls -dt /tmp/20[0-9][0-9]_[0-9][0-9]_[0-9][0-9]_*_* 2>/dev/null | tail -n +2 | xargs -r rm -rf'" 2>/dev/null || true
+}
+
 rpc() { curl -s -X POST -H 'Content-Type: application/json' --data "{\"jsonrpc\":\"2.0\",\"method\":\"$1\",\"params\":[],\"id\":1}" "http://127.0.0.1:${RPC_PORT}"; }
 cmd_status() {
   need_besu
@@ -197,6 +207,7 @@ case "${1:-}" in
   status)    cmd_status ;;
   render)    need_besu; as_rbb "./rbb-cli config render-templates" ;;
   cli)       need_besu; shift; as_rbb "./rbb-cli $*" ;;
+  jfr-clean) cmd_jfr_clean ;;
   prometheus) shift; cmd_prometheus "$@" ;;
   -h|--help|help|"") usage ;;
   *) usage; exit 1 ;;

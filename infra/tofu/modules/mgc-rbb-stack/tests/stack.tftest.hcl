@@ -96,6 +96,10 @@ run "topologia_associado" {
     condition     = module.node_config["observer01"].archive_env["BESU_DATA_STORAGE_FORMAT"] == "FOREST" && module.node_config["observer01"].archive_env["BESU_SYNC_MODE"] == "FULL"
     error_message = "archive = true deve configurar Forest + sync FULL."
   }
+  assert {
+    condition     = module.node_config["boot01"].jvm_heap == "3072m" && module.node_config["prometheus01"].jvm_heap == null
+    error_message = "Heap padrão = metade de container_memory (6G -> 3072m); prometheus não tem JVM."
+  }
 }
 
 run "piloto_protege_volumes" {

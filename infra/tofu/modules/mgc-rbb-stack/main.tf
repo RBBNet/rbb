@@ -69,6 +69,7 @@ module "node_config" {
   besu_image            = var.besu_image
   container_cpus        = coalesce(each.value.container_cpus, var.container_cpus)
   container_memory      = coalesce(each.value.container_memory, var.container_memory)
+  jvm_heap              = each.value.jvm_heap
   data_volume           = contains(keys(local.volume_nodes), each.key)
 
   prometheus_targets            = each.value.type == "prometheus" ? local.prometheus_targets : []
