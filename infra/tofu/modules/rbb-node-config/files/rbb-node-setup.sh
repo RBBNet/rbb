@@ -198,11 +198,13 @@ configure_node() {
       # Evita chaves duplicadas no compose (instanciar_observer-boot.md, passo 5)
       sed -i '/BESU_PERMISSIONS_ACCOUNTS_CONTRACT_ENABLED/d;/BESU_PERMISSIONS_NODES_CONTRACT_ENABLED/d' "${SN_DIR}/docker-compose.yml.hbs"
     fi
-    if [[ -n "${EXTRA_ENV}" ]]; then
-      for kv in ${EXTRA_ENV}; do
-        as_rbb "./rbb-cli config set '${ref}.environment.${kv%%=*}=\"${kv#*=}\"'"
-      done
-    fi
+  fi
+  # Variáveis extras (BESU_OPTS, Forest etc.) são reaplicadas a cada execução: permite atualizar nós
+  # existentes com 'rbb-update-tools.sh --rerun-setup' (o 'docker compose up -d' recria o contêiner se mudou).
+  if [[ -n "${EXTRA_ENV}" ]]; then
+    for kv in ${EXTRA_ENV}; do
+      as_rbb "./rbb-cli config set '${ref}.environment.${kv%%=*}=\"${kv#*=}\"'"
+    done
   fi
 
   local vol="${SN_DIR}/volumes/${NODE_NAME}"
@@ -234,6 +236,12 @@ start_node() {
   fi
   log "iniciando Besu (${BESU_IMAGE})"
   as_rbb "docker compose up -d"
+  # Limpeza horária das gravações do Java Flight Recorder que o Besu deixa em /tmp do contêiner (ver rbb-node jfr-clean)
+  cat > /etc/cron.hourly/rbb-jfr-clean <<CRON
+#!/bin/sh
+/usr/local/bin/rbb-node jfr-clean >/dev/null 2>&1
+CRON
+  chmod 0755 /etc/cron.hourly/rbb-jfr-clean
 }
 
 write_node_info() {
