@@ -99,6 +99,24 @@ Os IPs públicos só existem depois do `tofu apply` (são recursos gerenciados e
 6. **Votar o validator** (passo 13): com o nó sincronizado e monitorado, pedir ao Comitê Técnico a votação `qbft_proposeValidatorVote` pelos validators existentes, usando o `id` impresso por `perm-args`.
 7. Se a organização já opera nós, ajuste os sequenciais em `nodes` (ex.: `validator02`). `hostNames` só entram no `nodes.json` se você definir `dns_domain` (e criar os registros DNS `rbb-<nó>.<domínio>` apontando para os IPs públicos).
 
+## Acompanhando a integração com a rede (`rbb-status`)
+
+Depois do `apply` e da publicação no `nodes.json`, a integração depende dos outros partícipes (firewall, discovery, federação) e da governança (permissionamento). A CLI `tools/rbb-status` (Go, sem dependências de serviço) mede isso a partir dos próprios nós, que é de onde as liberações valem:
+
+```bash
+make status ENV=testnet      # gera network/rbb-status.json a partir dos outputs e roda o relatório
+```
+
+| Comando | O que mostra |
+|---|---|
+| `firewall --role validator\|boot\|prometheus` | quais organizações já aceitam conexão TCP dos nossos nós, nos destinos do passo 9 do roteiro |
+| `peers` | com quem o nó está conectado (`admin_peers`), com organização e nome via `nodes.json` |
+| `federation` | saúde dos alvos federados do Prometheus: ok, porta aberta sem nosso certificado, ou firewall fechado |
+| `permissioning` | `NodeRulesV2.isNodeActive` para cada nó nosso, num nó sincronizado |
+| `report --config` | tudo acima, por SSH em cada nó |
+
+Requer Go 1.24+ e `ssh` na estação. O endereço do `NodeRulesV2Impl` vem de `network/contracts.json`, gerado pelo `rbb-sync-participantes.sh` a partir de `participantes/<rede>/contratos.md`.
+
 ## Operação do nó (`rbb-node`)
 
 Em qualquer VM, como root (`sudo rbb-node`):

@@ -8,6 +8,7 @@
 #   boots.txt               <- enodes dos boots ATIVOS das OUTRAS organizações
 #   validators.txt          <- enodes dos validators ATIVOS das OUTRAS organizações
 #   federation.json         <- Prometheus (porta 8443, mTLS) ATIVOS das OUTRAS organizações
+#   contracts.json          <- endereços dos smart contracts gen02 (participantes/<rede>/contratos.md)
 #   participants.json       <- IPs (/32) por papel, para as regras de firewall do passo 9 do roteiro:
 #                              validators (P2P dos nossos validators), boots (boots, writers de parceiros e
 #                              observer-boots das outras orgs -> P2P dos nossos boots), prometheus (8443)
@@ -69,6 +70,11 @@ jq --arg o "${org}" "
     boots:      cidrs(.nodeType == \"boot\" or .nodeType == \"observer-boot\" or .nodeType == \"writer\"),
     prometheus: cidrs(.nodeType == \"prometheus\") }" "${netdir}/nodes.json" > "${netdir}/participants.json"
 echo "   participants.json (validators $(jq '.validators|length' "${netdir}/participants.json"), boots $(jq '.boots|length' "${netdir}/participants.json"), prometheus $(jq '.prometheus|length' "${netdir}/participants.json"))"
+
+# Endereços dos contratos de permissionamento (gen02), da tabela em contratos.md
+fetch contratos.md 2>/dev/null | awk -F'|' '/^\| *[A-Za-z0-9]+ *\| *0x[0-9a-fA-F]{40} *\|/ {gsub(/ /,"",$2); gsub(/ /,"",$3); print $2, $3}' \
+  | jq -Rn '[inputs | split(" ") | {key: .[0], value: .[1]}] | from_entries' > "${netdir}/contracts.json"
+echo "   contracts.json ($(jq 'keys|length' "${netdir}/contracts.json") contratos; NodeRulesV2Impl=$(jq -r '.NodeRulesV2Impl // "?"' "${netdir}/contracts.json"))"
 
 # Certificados dos Prometheus dos partícipes (bundle para o mTLS do NGINX)
 : > "${netdir}/clients.pem"
