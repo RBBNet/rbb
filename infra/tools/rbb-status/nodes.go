@@ -59,7 +59,10 @@ type Target struct {
 // organizações que o nosso nó do papel indicado precisa alcançar:
 //
 //	validator  -> validators das outras organizações
-//	boot       -> boots, observer-boots e writers de parceiros (IP público) das outras organizações
+//	boot       -> boots das outras organizações e writers de partícipes parceiros (os únicos writers
+//	              com IP público; writers de associados/patronos falam só com o boot da própria
+//	              organização por IP interno). Observer-boots não entram: ficam abertos à internet
+//	              para observadores externos, mas não são peers dos boots.
 //	prometheus -> Prometheus (porta 8443) das outras organizações
 func targetsForRole(orgs []Organization, ourOrg, role string) []Target {
 	var out []Target
@@ -76,7 +79,7 @@ func targetsForRole(orgs []Organization, ourOrg, role string) []Target {
 			case "validator":
 				ok = n.NodeType == "validator"
 			case "boot":
-				ok = n.NodeType == "boot" || n.NodeType == "observer-boot" || (n.NodeType == "writer" && !isPrivateIP(n.IPAddresses[0]))
+				ok = n.NodeType == "boot" || (n.NodeType == "writer" && !isPrivateIP(n.IPAddresses[0]))
 			case "prometheus":
 				ok = n.NodeType == "prometheus" && n.Port == 8443
 			}

@@ -23,8 +23,8 @@ locals {
 
   hostname = "${var.organization}-${var.rbb_network}-${var.node.name}"
 
-  # Passo 9 do roteiro: validators aceitam validators; boots aceitam boots, writers de parceiros e
-  # observer-boots; observer-boot é público para qualquer observer; writer de associado só na VPC.
+  # Passo 9 do roteiro: validators aceitam validators; boots aceitam boots e writers de parceiros;
+  # observer-boot é público para qualquer observer; writer de associado só na VPC.
   peer_cidrs = {
     validator = coalesce(var.peer_cidrs.validators, var.participant_cidrs)
     boot      = coalesce(var.peer_cidrs.boots, var.participant_cidrs)
