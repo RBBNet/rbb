@@ -1,0 +1,34 @@
+# Copie para terraform.tfvars e ajuste. NÃO versione terraform.tfvars.
+# A API key deve vir do ambiente: export TF_VAR_mgc_api_key="..."
+
+organization      = "exemplo"
+mgc_region        = "br-se1"
+availability_zone = "br-se1-a"
+
+# Chave pública do operador (cadastrada na nuvem) e chaves adicionais, ex.: chave institucional da
+# organização guardada fora do operador, para que o acesso possa ser revogado sem perder o controle dos nós.
+ssh_public_key      = "ssh-ed25519 AAAA... operador@org"
+ssh_authorized_keys = ["ssh-ed25519 AAAA... admin-institucional@org"]
+
+# Restrinja o SSH à rede da organização / VPN
+admin_ssh_cidrs = ["203.0.113.0/24"]
+
+# Opcional: limitar P2P/Prometheus aos IPs dos demais partícipes (RBBNet/participantes/lab/nodes.json)
+# participant_cidrs = ["200.198.20.95/32", "139.82.24.160/32"]
+
+# Opcional: rede das aplicações com acesso RPC ao writer
+# rpc_cidrs = ["10.50.0.0/16"]
+
+# Topologia de partícipe associado + observer archive interno (Forest + FULL) para
+# medir disco/tempo de sync e alimentar block explorer / indicadores. Remova-o do mapa quando terminar.
+nodes = {
+  boot01          = { type = "boot" }
+  validator01     = { type = "validator" }
+  writer01        = { type = "writer" }
+  observer-boot01 = { type = "observer-boot" }
+  observer01      = { type = "observer", archive = true, machine_type = "BV4-8-20", data_volume_size = 400, container_memory = "6G" }
+  prometheus01    = { type = "prometheus", data_volume_size = 0 }
+}
+
+# Prometheus de outras organizações a federar
+# prometheus_federation_targets = [{ organization = "bndes", target = "203.0.113.10:443" }]

@@ -1,0 +1,12 @@
+# Estado remoto no bucket criado por envs/state-backend (conta AWS da organização).
+# Renomeie para backend.tf, ajuste o bucket e rode: tofu init -migrate-state
+# Credenciais AWS pelo ambiente (AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY).
+terraform {
+  backend "s3" {
+    bucket       = "<org>-rbb-tofu-state-<conta>"
+    key          = "rbb/testnet/terraform.tfstate"
+    region       = "sa-east-1"
+    encrypt      = true
+    use_lockfile = true
+  }
+}

@@ -45,6 +45,8 @@ As instituições participantes da RBB, aderentes ao Acordo de Cooperação, pod
 
 Para acesso e operação da rede, as instituições participantes devem seguir o [roteiro técnico](roteiro_adicao_nos.md) para instalação e configuração de seus nós.
 
+Para quem prefere provisionar os servidores dos nós como código, o diretório [`infra/`](infra/README.md) contém uma automação genérica em OpenTofu (com implementação inicial para a Magalu Cloud) que aplica o roteiro técnico para as redes de laboratório (`testnet`) e piloto (`mainnet`).
+
 ## Acesso aos Dados pelo Público
 
 Os dados da RBB estão disponíveis para consulta pelo público em geral, conforme seu [modelo](#modelo) de blockchain público-permissionada. Isso significa que qualquer cidadão pode fazer uso de ferramentas para baixar, consultar, tratar e auditar os dados e código (*smart contracts*) gravados na blockchain. Além disso, também é possível consultar os dados através de um *block explorer* (ferramenta web de visualização de blocos), como o [*block explorer* do TCU](https://rbb-explorer.tcu.gov.br/).
