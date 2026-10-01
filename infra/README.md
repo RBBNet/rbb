@@ -17,7 +17,7 @@ Para cada ambiente, com a topologia padrão de **partícipe associado**:
 
 | Nó | Tipo | IP público | P2P (30303 tcp/udp) | RPC 8545 | Métricas 9545 | Volume |
 |---|---|---|---|---|---|---|
-| `boot01` | boot | sim | boots, writers de parceiros e observer-boots das outras organizações | VPC | VPC | 400 GB |
+| `boot01` | boot | sim | boots e writers de parceiros das outras organizações | VPC | VPC | 400 GB |
 | `validator01` | validator | sim | validators das outras organizações | VPC | VPC | 400 GB |
 | `writer01` | writer | sim (só SSH) | **somente VPC** (endereço anunciado = IP interno) | VPC + `rpc_cidrs` | VPC | 400 GB |
 | `observer-boot01` | observer-boot | sim | internet (0.0.0.0/0) | VPC (ou público com `rpc_public`) | VPC | 400 GB |

@@ -10,8 +10,10 @@
 #   federation.json         <- Prometheus (porta 8443, mTLS) ATIVOS das OUTRAS organizações
 #   contracts.json          <- endereços dos smart contracts gen02 (participantes/<rede>/contratos.md)
 #   participants.json       <- IPs (/32) por papel, para as regras de firewall do passo 9 do roteiro:
-#                              validators (P2P dos nossos validators), boots (boots, writers de parceiros e
-#                              observer-boots das outras orgs -> P2P dos nossos boots), prometheus (8443)
+#                              validators (P2P dos nossos validators), boots (boots e writers de parceiros,
+#                              os únicos writers com IP público, das outras orgs -> P2P dos nossos boots),
+#                              prometheus (8443). Observer-boots não entram: são abertos à internet para
+#                              observadores, mas não são peers dos boots.
 #   clients.pem             <- certificados concatenados de participantes/<rede>/certificados
 #
 # Uso: ./scripts/rbb-sync-participantes.sh <testnet|mainnet> [NOME-DA-ORGANIZACAO]
@@ -67,7 +69,7 @@ private='test("^(10\\.|192\\.168\\.|172\\.(1[6-9]|2[0-9]|3[01])\\.|127\\.)")'
 jq --arg o "${org}" "
   def cidrs(f): [.[] | select(.organization != \$o) | .nodes[] | select(${active}) | select(f) | .ipAddresses[] | select(${private} | not) | . + \"/32\"] | unique;
   { validators: cidrs(.nodeType == \"validator\"),
-    boots:      cidrs(.nodeType == \"boot\" or .nodeType == \"observer-boot\" or .nodeType == \"writer\"),
+    boots:      cidrs(.nodeType == \"boot\" or .nodeType == \"writer\"),
     prometheus: cidrs(.nodeType == \"prometheus\") }" "${netdir}/nodes.json" > "${netdir}/participants.json"
 echo "   participants.json (validators $(jq '.validators|length' "${netdir}/participants.json"), boots $(jq '.boots|length' "${netdir}/participants.json"), prometheus $(jq '.prometheus|length' "${netdir}/participants.json"))"
 
