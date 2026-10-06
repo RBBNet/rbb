@@ -84,6 +84,14 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 10/09/2026
+  - [Ata assinada digitalmente](atas/2026-09-10-RBB-Ata-48-CE-v03-assinada.pdf)
+  - Destaques:
+    - Atualização do Regulamento (PUC-Rio): sete pontos de alteração para incorporar a Cartilha de LGPD e o modelo de RIPD como instrumentos complementares, com dupla sinalização na proposta de implantação e regra de transição para aplicações em operação; documentos distribuídos às casas, com deliberação prevista para outubro
+    - Indicadores de agosto: mainnet com todos os validadores dentro do SLA e melhor tempo médio de bloco do período (4,003 s); instabilidades na testnet (RNP e IBICT) e restrição do Besu à versão 25.5.0 até a conclusão do plugin de permissionamento do CPQD
+    - Acompanhamento da Evolução: Projeto Integra (CPQD) tratando requisitos de interoperabilidade e plugin de permissionamento incorporado à LF Decentralized Trust; renovação do ACT com proposta prevista para outubro
+    - BlockchainGov 2026: parte expositiva em 16/11 no BNDES e parte prática em 17 e 18/11 (a confirmar), com convite às casas para propor painéis, palestras e desafios
+
 - 13/08/2026
   - [Ata assinada digitalmente](atas/2026-08-13-RBB-Ata-47-CE-v03-assinada.pdf)
   - Destaques:
