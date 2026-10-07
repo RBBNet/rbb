@@ -25,7 +25,7 @@
   - Sérgio Ribeiro
 
 **Prodemge**
-  - Augusto Nogueira Zadra
+  - Nelson Ribeiro de Carvalho Junior
   - Sândalo Carleto Del’Rio Euzébio e Bessa
 
 **PUC-Rio**
@@ -36,7 +36,7 @@
 **STC-MA - Secretária de Estado de Transparência e Controle**
   - Nísia Paixão Seguins Louzeiro Seabra
   - Ronald Serra Campos
-   Steferson Lima Costa Ferreira
+  - Steferson Lima Costa Ferreira
 
 **Município de Araguaína**
   - Allen Kardec Feitosa Oliveira
