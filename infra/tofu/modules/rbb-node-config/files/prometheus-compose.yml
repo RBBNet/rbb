@@ -44,5 +44,20 @@ services:
         max-size: "10m"
         max-file: "5"
 
+  # Sondas de firewall/certificado dos Prometheus parceiros (só acessível pelo Prometheus, sem porta no host)
+  blackbox:
+    image: prom/blackbox-exporter:v0.27.0
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/blackbox/blackbox.yml
+    volumes:
+      - ./blackbox.yml:/etc/blackbox/blackbox.yml:ro
+      - ./certs:/etc/blackbox/certs:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "5"
+
 volumes:
   prometheus-data:

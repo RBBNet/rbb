@@ -61,6 +61,10 @@ write_files:
     permissions: "0644"
     encoding: gz+b64
     content: ${prometheus_federation_targets}
+  - path: /etc/rbb/prometheus/blackbox.yml
+    permissions: "0644"
+    encoding: gz+b64
+    content: ${prometheus_blackbox}
   - path: /etc/rbb/prometheus/nginx.conf
     permissions: "0644"
     encoding: gz+b64

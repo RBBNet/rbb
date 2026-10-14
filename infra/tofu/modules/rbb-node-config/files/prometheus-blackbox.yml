@@ -1,0 +1,17 @@
+# Sondas do blackbox exporter para os Prometheus das outras organizações (porta 8443):
+#   tcp_connect       -> a porta abre? (firewall do parceiro liberado para o nosso IP)
+#   federation_https  -> o NGINX aceita o NOSSO certificado? (200 = ok; 400 = certificado não instalado)
+modules:
+  tcp_connect:
+    prober: tcp
+    timeout: 10s
+  federation_https:
+    prober: http
+    timeout: 15s
+    http:
+      method: GET
+      valid_status_codes: [200]
+      tls_config:
+        cert_file: /etc/blackbox/certs/certificado.pem
+        key_file: /etc/blackbox/certs/chave-privada.key
+        insecure_skip_verify: true

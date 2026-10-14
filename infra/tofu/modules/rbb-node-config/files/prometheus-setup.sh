@@ -8,8 +8,8 @@ source /etc/rbb/node.env
 
 PROM_HOME="${DATA_MOUNT}/prometheus"
 mkdir -p "${PROM_HOME}"/{targets,certs,logs}
-for f in prometheus.yml rules.yml nginx.conf docker-compose.yml; do
-  cp -f "/etc/rbb/prometheus/${f}" "${PROM_HOME}/${f}"
+for f in prometheus.yml rules.yml nginx.conf docker-compose.yml blackbox.yml; do
+  [[ -f "/etc/rbb/prometheus/${f}" ]] && cp -f "/etc/rbb/prometheus/${f}" "${PROM_HOME}/${f}"
 done
 # Alvos: sempre reescreve os locais; os federados só na primeira vez (depois via 'rbb-node prometheus federation')
 cp -f /etc/rbb/prometheus/targets/local.json "${PROM_HOME}/targets/local.json"
