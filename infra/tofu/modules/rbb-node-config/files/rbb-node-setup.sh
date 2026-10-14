@@ -145,6 +145,9 @@ install_start_network() {
   if [[ -f /etc/rbb/docker-compose.yml.hbs ]]; then
     cp -f /etc/rbb/docker-compose.yml.hbs "${SN_DIR}/docker-compose.yml.hbs"
   fi
+  # O template usa {{.}} (escape HTML) nos valores de environment: "=" vira &#x3D; e opções da JVM
+  # como -XX:MaxDirectMemorySize=512m chegam quebradas ao Besu. Triple-stash preserva o valor.
+  sed -i 's/{{@key}}: "{{\.}}"/{{@key}}: "{{{.}}}"/' "${SN_DIR}/docker-compose.yml.hbs"
   # .env é lido pelo docker compose (IMAGE_BESU fixado — CAUTION do roteiro, passo 4)
   cat > "${SN_DIR}/.env" <<ENV
 IMAGE_BESU=${BESU_IMAGE}
@@ -201,10 +204,17 @@ configure_node() {
   fi
   # Variáveis extras (BESU_OPTS, Forest etc.) são reaplicadas a cada execução: permite atualizar nós
   # existentes com 'rbb-update-tools.sh --rerun-setup' (o 'docker compose up -d' recria o contêiner se mudou).
+  # Aplicadas direto no infra.json com jq: o 'rbb-cli config set' não aceita valores com espaço.
   if [[ -n "${EXTRA_ENV}" ]]; then
-    for kv in ${EXTRA_ENV}; do
-      as_rbb "./rbb-cli config set '${ref}.environment.${kv%%=*}=\"${kv#*=}\"'"
-    done
+    local extra_json
+    if [[ "${EXTRA_ENV}" == \{* ]]; then
+      extra_json="${EXTRA_ENV}"
+    else
+      # Formato antigo: "CHAVE=valor CHAVE2=valor2" (sem espaços nos valores)
+      extra_json="$(printf '%s\n' ${EXTRA_ENV} | jq -R 'capture("^(?<k>[^=]+)=(?<v>.*)$") | {(.k): .v}' | jq -s 'add // {}')"
+    fi
+    jq --arg n "${NODE_NAME}" --argjson e "${extra_json}" '.nodes[$n].environment = ((.nodes[$n].environment // {}) + $e)' "${infra}" > "${infra}.tmp" \
+      && install -o "${RBB_USER}" -g "${RBB_USER}" -m 0644 "${infra}.tmp" "${infra}" && rm -f "${infra}.tmp"
   fi
 
   local vol="${SN_DIR}/volumes/${NODE_NAME}"
