@@ -37,3 +37,21 @@ groups:
       severity: page
     annotations:
       summary: "block generation is out of schedule"
+
+# Alertas dos nossos nós (job rbb = coleta local; as séries federadas das outras organizações
+# também chegam com nomes de nó iguais, por isso o filtro por job).
+- name: node health alerts
+  rules:
+  - alert: NodeRestarted
+    expr: changes(process_start_time_seconds{job="rbb"}[1h]) > 0
+    labels:
+      severity: page
+    annotations:
+      summary: "{{ $labels.node }} reiniciou {{ $value }}x na última hora (OOM? ver dmesg e docker inspect)"
+  - alert: NodeNoPeers
+    expr: ethereum_peer_count{job="rbb"} == 0
+    for: 5m
+    labels:
+      severity: page
+    annotations:
+      summary: "{{ $labels.node }} está sem peers há 5 min"
