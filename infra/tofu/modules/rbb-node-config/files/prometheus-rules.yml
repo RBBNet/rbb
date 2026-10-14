@@ -4,7 +4,7 @@
 # outras organizações (job rbb-federado): as séries federadas chegam com nomes de nó iguais aos
 # nossos (boot01, validator01...), por isso o filtro por job em todas as expressões.
 groups:
-- name: metricas da rede
+- name: network metrics
   rules:
   - record: blockchain_tip
     expr: max(ethereum_best_known_block_number)
@@ -17,52 +17,52 @@ groups:
   - record: blockchain_block_generation_interval_distance_from_target:rate1m
     expr: abs(blockchain_block_generation_interval:rate1m - 4)
 
-- name: nossos nos
+- name: our nodes
   rules:
-  - alert: BesuForaDoAr
+  - alert: BesuDown
     expr: up{job="rbb"} == 0
     for: 1m
     labels:
-      severity: critico
+      severity: critical
     annotations:
       summary: "{{ $labels.node }}: o Prometheus não consegue coletar métricas (contêiner parado ou porta 9545 inacessível)"
-  - alert: BesuReiniciado
+  - alert: BesuRestarted
     expr: changes(process_start_time_seconds{job="rbb"}[1h]) > 0
     labels:
-      severity: critico
+      severity: critical
     annotations:
       summary: "{{ $labels.node }}: Besu reiniciou {{ $value }}x na última hora (falta de memória? ver dmesg e docker inspect)"
-  - alert: BesuSemPeers
+  - alert: BesuNoPeers
     expr: ethereum_peer_count{job="rbb"} == 0
     for: 5m
     labels:
-      severity: critico
+      severity: critical
     annotations:
       summary: "{{ $labels.node }}: sem nenhum peer há 5 min (firewall, static-nodes ou permissionamento)"
-  - alert: BesuAtrasado
+  - alert: BesuBehindTip
     expr: node_block_height_distance_from_tip{job="rbb"} > 10
     for: 2m
     labels:
-      severity: aviso
+      severity: warning
     annotations:
       summary: "{{ $labels.node }}: {{ $value | printf \"%.0f\" }} blocos atrás da ponta da rede"
 
-- name: federacao
+- name: federation
   rules:
-  - alert: FederacaoIndisponivel
+  - alert: FederationTargetDown
     expr: up{job="rbb-federado"} == 0
     for: 10m
     labels:
-      severity: aviso
+      severity: warning
     annotations:
       summary: "{{ $labels.organization }}: Prometheus em {{ $labels.instance }} não responde à federação (firewall ou nosso certificado não instalado)"
 
-- name: rede
+- name: network
   rules:
-  - alert: BlocosForaDoRitmo
+  - alert: BlockIntervalOffTarget
     expr: blockchain_block_generation_interval_distance_from_target:rate1m > 2
     for: 2m
     labels:
-      severity: aviso
+      severity: warning
     annotations:
       summary: "a rede está gerando blocos fora do intervalo esperado de 4 s"
