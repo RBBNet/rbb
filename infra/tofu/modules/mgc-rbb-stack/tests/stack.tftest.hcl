@@ -132,16 +132,16 @@ run "firewall_por_papel" {
   }
 
   assert {
-    condition     = tolist(sort([for r in module.node_config["validator01"].firewall_rules : r.cidr if r.port_min == 30303 && r.protocol == "tcp"])) == tolist(["198.51.100.1/32", "198.51.100.2/32"])
-    error_message = "P2P do validator deve aceitar apenas validators das outras organizações."
+    condition     = tolist(sort([for r in module.node_config["validator01"].firewall_rules : r.cidr if r.port_min == 30303 && r.protocol == "tcp"])) == tolist(["10.120.0.0/16", "198.51.100.1/32", "198.51.100.2/32"])
+    error_message = "P2P do validator deve aceitar a VPC (boot próprio) e os validators das outras organizações."
   }
   assert {
-    condition     = tolist([for r in module.node_config["boot01"].firewall_rules : r.cidr if r.port_min == 30303 && r.protocol == "udp"]) == tolist(["198.51.100.3/32"])
-    error_message = "P2P (UDP) do boot deve aceitar apenas boots/writers parceiros/observer-boots."
+    condition     = tolist(sort([for r in module.node_config["boot01"].firewall_rules : r.cidr if r.port_min == 30303 && r.protocol == "udp"])) == tolist(["10.120.0.0/16", "198.51.100.3/32"])
+    error_message = "P2P (UDP) do boot deve aceitar a VPC (nós internos) e os boots/writers parceiros."
   }
   assert {
-    condition     = tolist([for r in module.node_config["observer-boot01"].firewall_rules : r.cidr if r.port_min == 30303 && r.protocol == "tcp"]) == tolist(["0.0.0.0/0"])
-    error_message = "observer-boot continua público."
+    condition     = tolist(sort([for r in module.node_config["observer-boot01"].firewall_rules : r.cidr if r.port_min == 30303 && r.protocol == "tcp"])) == tolist(["0.0.0.0/0", "10.120.0.0/16"])
+    error_message = "observer-boot continua público (e aceita a VPC)."
   }
   assert {
     condition     = tolist([for r in module.node_config["prometheus01"].firewall_rules : r.cidr if r.port_min == 8443]) == tolist(["198.51.100.4/32"])
