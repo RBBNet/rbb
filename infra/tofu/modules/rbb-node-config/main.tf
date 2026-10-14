@@ -217,5 +217,6 @@ locals {
     prometheus_nginx              = base64gzip(file("${path.module}/files/prometheus-nginx.conf"))
     prometheus_setup              = base64gzip(file("${path.module}/files/prometheus-setup.sh"))
     prometheus_docker             = base64gzip(file("${path.module}/files/prometheus-compose.yml"))
+    prometheus_blackbox           = base64gzip(file("${path.module}/files/prometheus-blackbox.yml"))
   })
 }

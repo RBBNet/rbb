@@ -39,3 +39,35 @@ scrape_configs:
         target_label: "organization"
       - action: "labeldrop"
         regex: "^exported_.*"
+
+  # Sondas (blackbox) sobre os mesmos alvos federados: separam "firewall fechado" de "certificado
+  # não instalado". O rótulo instance fica igual ao do job rbb-federado (ip:8443) para cruzar nas regras.
+  - job_name: federation-port
+    metrics_path: /probe
+    params:
+      module: [tcp_connect]
+    file_sd_configs:
+      - files: ["/etc/prometheus/targets/federation.json"]
+    relabel_configs:
+      - source_labels: ["__address__"]
+        target_label: "__param_target"
+      - source_labels: ["__address__"]
+        target_label: "instance"
+      - target_label: "__address__"
+        replacement: "blackbox:9115"
+
+  - job_name: federation-tls
+    metrics_path: /probe
+    params:
+      module: [federation_https]
+    file_sd_configs:
+      - files: ["/etc/prometheus/targets/federation.json"]
+    relabel_configs:
+      - source_labels: ["__address__"]
+        target_label: "instance"
+      - source_labels: ["__address__"]
+        regex: "(.*)"
+        target_label: "__param_target"
+        replacement: "https://$1/federate?match[]=up"
+      - target_label: "__address__"
+        replacement: "blackbox:9115"

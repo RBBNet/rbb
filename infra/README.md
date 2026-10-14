@@ -130,6 +130,7 @@ Em qualquer VM, como root (`sudo rbb-node`):
 | `genesis set <arquivo>` | instala um genesis |
 | `up` / `down` / `restart` / `logs -f` / `status` | ciclo de vida do Besu |
 | `cli <args>` | executa `./rbb-cli <args>` em `/srv/rbb/start-network` |
+| `prometheus reload` (após `rbb-update-tools.sh`) | o nó prometheus traz também um blackbox exporter que sonda a porta 8443 de cada parceiro (job `federation-port`) e a aceitação do nosso certificado (job `federation-tls`), gerando os alertas `FederationFirewallClosed` e `FederationCertificateRejected` |
 | `jfr-clean` | remove gravações antigas do Java Flight Recorder no `/tmp` do contêiner (o bootstrap instala um cron horário) |
 | `prometheus clients <pem>` / `prometheus federation <json>` / `prometheus reload` | nós prometheus |
 

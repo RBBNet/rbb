@@ -49,13 +49,28 @@ groups:
 
 - name: federation
   rules:
-  - alert: FederationTargetDown
-    expr: up{job="rbb-federado"} == 0
+  # Sondas do blackbox (jobs federation-port e federation-tls) distinguem a causa.
+  - alert: FederationFirewallClosed
+    expr: probe_success{job="federation-port"} == 0
     for: 10m
     labels:
       severity: warning
     annotations:
-      summary: "{{ $labels.organization }}: Prometheus em {{ $labels.instance }} não responde à federação (firewall ou nosso certificado não instalado)"
+      summary: "{{ $labels.organization }}: {{ $labels.instance }} não aceita conexão (firewall do parceiro não liberou nosso Prometheus)"
+  - alert: FederationCertificateRejected
+    expr: probe_success{job="federation-port"} == 1 and on(instance) probe_http_status_code{job="federation-tls"} == 400
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "{{ $labels.organization }}: porta aberta em {{ $labels.instance }}, mas o NGINX recusa nosso certificado (não instalado no client.pem)"
+  - alert: FederationTargetDown
+    expr: up{job="rbb-federado"} == 0 unless on(instance) probe_success{job="federation-port"} == 0 unless on(instance) probe_http_status_code{job="federation-tls"} == 400
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "{{ $labels.organization }}: federação com {{ $labels.instance }} falha por outro motivo (ver Status > Targets)"
 
 - name: network
   rules:

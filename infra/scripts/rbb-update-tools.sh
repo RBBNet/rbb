@@ -23,6 +23,9 @@ for node in ${nodes[@]+"${nodes[@]}"}; do
     node_ssh "${env}" "${node}" 'sudo mkdir -p /etc/rbb/prometheus && cat > /tmp/pc && sudo install -m 0644 /tmp/pc /etc/rbb/prometheus/docker-compose.yml' < "${files}/prometheus-compose.yml"
     node_ssh "${env}" "${node}" 'cat > /tmp/pn && sudo install -m 0644 /tmp/pn /etc/rbb/prometheus/nginx.conf' < "${files}/prometheus-nginx.conf"
     node_ssh "${env}" "${node}" 'cat > /tmp/pr && sudo install -m 0644 /tmp/pr /etc/rbb/prometheus/rules.yml' < "${files}/prometheus-rules.yml"
+    node_ssh "${env}" "${node}" 'cat > /tmp/pb && sudo install -m 0644 /tmp/pb /etc/rbb/prometheus/blackbox.yml' < "${files}/prometheus-blackbox.yml"
+    # prometheus.yml: o modelo não usa variáveis (templatefile com mapa vazio), então o arquivo é o próprio
+    node_ssh "${env}" "${node}" 'cat > /tmp/py && sudo install -m 0644 /tmp/py /etc/rbb/prometheus/prometheus.yml' < "${INFRA_DIR}/tofu/modules/rbb-node-config/templates/prometheus.yml.tftpl"
   fi
   if ${rerun}; then
     echo "   reexecutando bootstrap (log em /var/log/rbb-node-setup.log)"
