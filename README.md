@@ -47,7 +47,7 @@ Para acesso e operação da rede, as instituições participantes devem seguir o
 
 ## Acesso aos Dados pelo Público
 
-Os dados da RBB estão disponíveis para consulta pelo público em geral, conforme seu [modelo](#modelo) de blockchain público-permissionada. Isso significa que qualquer cidadão pode fazer uso de ferramentas para baixar, consultar, tratar e auditar os dados e código (*smart contracts*) gravados na blockchain. Além disso, também é possível consultar os dados através de um *block explorer* (ferramenta web de visualização de blocos), como o [*block explorer* do TCU](https://rbb-explorer.tcu.gov.br/).
+Os dados da RBB estão disponíveis para consulta pelo público em geral, conforme seu [modelo](#modelo) de blockchain público-permissionada. Isso significa que qualquer cidadão pode fazer uso de ferramentas para baixar, consultar, tratar e auditar os dados e código (*smart contracts*) gravados na blockchain. Além disso, também é possível consultar os dados através de um *block explorer* (ferramenta web de visualização de blocos), como o [*block explorer* do TCU](https://rbb-explorer.tcu.gov.br/) ou o [*block explorer* da DATAPREV](https://blockexplorer.rbb.dataprev.gov.br/).
 
 A RBB também fornece um [roteiro básico](roteiro_acesso_leitura.md) para quem quiser ligar um nó de leitura (*"observer node"*) e uma ferramenta de visualização de blocos (*"block explorer"*) em seu próprio computador.
 
