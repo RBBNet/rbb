@@ -1,7 +1,10 @@
 # Regras de métricas derivadas e alertas para nós RBB (bloco alvo: 4 s).
-# Equivalentes às publicadas em RBBNet/start-network (examples/prometheus) e rbb-monitoracao.
+# Métricas derivadas equivalentes às publicadas em RBBNet/start-network (examples/prometheus) e
+# rbb-monitoracao. Os alertas separam os NOSSOS nós (job rbb, coleta local) da federação com as
+# outras organizações (job rbb-federado): as séries federadas chegam com nomes de nó iguais aos
+# nossos (boot01, validator01...), por isso o filtro por job em todas as expressões.
 groups:
-- name: blockchain metrics
+- name: metricas da rede
   rules:
   - record: blockchain_tip
     expr: max(ethereum_best_known_block_number)
@@ -14,44 +17,52 @@ groups:
   - record: blockchain_block_generation_interval_distance_from_target:rate1m
     expr: abs(blockchain_block_generation_interval:rate1m - 4)
 
-- name: blockchain alerts
+- name: nossos nos
   rules:
-  - alert: NodeOffline
-    expr: up == 0
-    for: 30s
+  - alert: BesuForaDoAr
+    expr: up{job="rbb"} == 0
+    for: 1m
     labels:
-      severity: page
+      severity: critico
     annotations:
-      summary: "{{ $labels.instance }} is offline"
-  - alert: NodeOutOfSync
-    expr: node_block_height_distance_from_tip > 10
-    for: 30s
-    labels:
-      severity: page
-    annotations:
-      summary: "{{ $labels.instance }} is {{ $value }} blocks behind"
-  - alert: BlockGenerationOutOfSchedule
-    expr: blockchain_block_generation_interval_distance_from_target:rate1m > 2
-    for: 30s
-    labels:
-      severity: page
-    annotations:
-      summary: "block generation is out of schedule"
-
-# Alertas dos nossos nós (job rbb = coleta local; as séries federadas das outras organizações
-# também chegam com nomes de nó iguais, por isso o filtro por job).
-- name: node health alerts
-  rules:
-  - alert: NodeRestarted
+      summary: "{{ $labels.node }}: o Prometheus não consegue coletar métricas (contêiner parado ou porta 9545 inacessível)"
+  - alert: BesuReiniciado
     expr: changes(process_start_time_seconds{job="rbb"}[1h]) > 0
     labels:
-      severity: page
+      severity: critico
     annotations:
-      summary: "{{ $labels.node }} reiniciou {{ $value }}x na última hora (OOM? ver dmesg e docker inspect)"
-  - alert: NodeNoPeers
+      summary: "{{ $labels.node }}: Besu reiniciou {{ $value }}x na última hora (falta de memória? ver dmesg e docker inspect)"
+  - alert: BesuSemPeers
     expr: ethereum_peer_count{job="rbb"} == 0
     for: 5m
     labels:
-      severity: page
+      severity: critico
     annotations:
-      summary: "{{ $labels.node }} está sem peers há 5 min"
+      summary: "{{ $labels.node }}: sem nenhum peer há 5 min (firewall, static-nodes ou permissionamento)"
+  - alert: BesuAtrasado
+    expr: node_block_height_distance_from_tip{job="rbb"} > 10
+    for: 2m
+    labels:
+      severity: aviso
+    annotations:
+      summary: "{{ $labels.node }}: {{ $value | printf \"%.0f\" }} blocos atrás da ponta da rede"
+
+- name: federacao
+  rules:
+  - alert: FederacaoIndisponivel
+    expr: up{job="rbb-federado"} == 0
+    for: 10m
+    labels:
+      severity: aviso
+    annotations:
+      summary: "{{ $labels.organization }}: Prometheus em {{ $labels.instance }} não responde à federação (firewall ou nosso certificado não instalado)"
+
+- name: rede
+  rules:
+  - alert: BlocosForaDoRitmo
+    expr: blockchain_block_generation_interval_distance_from_target:rate1m > 2
+    for: 2m
+    labels:
+      severity: aviso
+    annotations:
+      summary: "a rede está gerando blocos fora do intervalo esperado de 4 s"
