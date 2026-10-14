@@ -30,13 +30,15 @@ locals {
     boot      = coalesce(var.peer_cidrs.boots, var.participant_cidrs)
     prom      = coalesce(var.peer_cidrs.prometheus, var.participant_cidrs)
   }
-  p2p_cidrs = (
+  # A VPC entra sempre: as conexões internas da organização (writer -> boot, validator -> boot,
+  # observer-boot -> boot, observer -> observer-boot) usam IP interno (roteiro, passo 9).
+  p2p_cidrs = distinct(concat([var.vpc_cidr], (
     var.node.type == "observer-boot" ? ["0.0.0.0/0"] :
-    !local.p2p_public ? [var.vpc_cidr] :
+    !local.p2p_public ? [] :
     var.node.type == "validator" ? local.peer_cidrs.validator :
     var.node.type == "boot" ? local.peer_cidrs.boot :
     var.participant_cidrs # writer de parceiro (p2p_public = true): boots das outras organizações
-  )
+  )))
 
   rpc_cidrs = distinct(concat([var.vpc_cidr], var.rpc_cidrs, var.node.rpc_public ? ["0.0.0.0/0"] : []))
 
