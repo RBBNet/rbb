@@ -180,7 +180,8 @@ locals {
 
   node_env_file = join("\n", concat(
     [for k, v in local.node_env : "${k}=${jsonencode(tostring(v))}"],
-    ["EXTRA_ENV=${jsonencode(join(" ", [for k, v in local.extra_env : "${k}=${v}"]))}"]
+    # Objeto JSON (valores podem ter espaços e "=", ex.: BESU_OPTS="-Xmx3g -XX:..."); aplicado com jq no infra.json
+    ["EXTRA_ENV=${jsonencode(jsonencode(local.extra_env))}"]
   ))
 
   prometheus_config = templatefile("${path.module}/templates/prometheus.yml.tftpl", {})
