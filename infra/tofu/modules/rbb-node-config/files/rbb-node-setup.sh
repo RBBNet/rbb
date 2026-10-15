@@ -252,6 +252,9 @@ start_node() {
 /usr/local/bin/rbb-node jfr-clean >/dev/null 2>&1
 CRON
   chmod 0755 /etc/cron.hourly/rbb-jfr-clean
+  # Vigia de peers: a cada 5 min; reinicia o Besu se ficar sem peers em 2 verificações seguidas (ver rbb-node watchdog)
+  printf '*/5 * * * * root /usr/local/bin/rbb-node watchdog >/dev/null 2>&1\n' > /etc/cron.d/rbb-watchdog
+  chmod 0644 /etc/cron.d/rbb-watchdog
 }
 
 write_node_info() {
