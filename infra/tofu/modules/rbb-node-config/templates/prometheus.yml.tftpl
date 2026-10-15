@@ -33,6 +33,11 @@ scrape_configs:
     file_sd_configs:
       - files: ["/etc/prometheus/targets/federation.json"]
     metric_relabel_configs:
+      # O "up" dos nós do parceiro (gerado pelo Prometheus dele) chegaria com job=rbb-federado e se
+      # confundiria com o nosso "up" do alvo federado nas regras; descarta só o remoto (o nosso é sintético).
+      - source_labels: ["__name__"]
+        regex: "up"
+        action: "drop"
       - source_labels: ["exported_instance"]
         target_label: "instance"
       - source_labels: ["exported_organization"]
