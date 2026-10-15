@@ -43,6 +43,7 @@ Operação (passo 4 do roteiro)
   render                    rbb-cli config render-templates
   cli <args>                executa ./rbb-cli <args> no diretório start-network
   jfr-clean                 remove gravações antigas do Java Flight Recorder em /tmp do contêiner (cron horário)
+  watchdog                  reinicia o Besu se ficar sem nenhum peer por 2 verificações seguidas (cron a cada 5 min)
 
 Prometheus (somente nós prometheus)
   prometheus clients <arquivo.pem>      instala o bundle de certificados dos demais partícipes e recarrega o NGINX
@@ -167,6 +168,29 @@ cmd_jfr_clean() {
   as_rbb "docker compose exec -T ${NODE_NAME} sh -c 'ls -dt /tmp/20[0-9][0-9]_[0-9][0-9]_[0-9][0-9]_*_* 2>/dev/null | tail -n +2 | xargs -r rm -rf'" 2>/dev/null || true
 }
 
+# Observado no Besu 25.5: após um reinício (ex.: morto por falta de memória) o nó pode subir sem achar
+# peer algum, declarar "Node is in sync" e nunca mais tentar os static-nodes, ficando horas parado com
+# 0 peers mesmo com o boot acessível. O vigia reinicia o contêiner quando isso se confirma.
+cmd_watchdog() {
+  need_besu
+  local state=/var/lib/rbb/watchdog.state cont peers up_s
+  mkdir -p /var/lib/rbb
+  cont="$(docker ps -q --filter "name=start-network-${NODE_NAME}-1")"
+  [[ -n "${cont}" ]] || exit 0                      # contêiner parado: não é com o vigia
+  up_s=$(( $(date +%s) - $(date -d "$(docker inspect -f '{{.State.StartedAt}}' "${cont}")" +%s) ))
+  [[ ${up_s} -ge 600 ]] || exit 0                   # dá 10 min para o nó subir e conectar
+  peers="$(rpc net_peerCount | jq -r '.result // empty' 2>/dev/null)"
+  [[ -n "${peers}" ]] || exit 0                     # RPC fora: outro problema, não mascarar
+  if [[ $(( peers )) -gt 0 ]]; then rm -f "${state}"; exit 0; fi
+  if [[ -f "${state}" ]]; then
+    logger -t rbb-watchdog "${NODE_NAME} sem peers em 2 verificações seguidas: reiniciando o Besu"
+    rm -f "${state}"
+    as_rbb "docker compose restart ${NODE_NAME}" >/dev/null 2>&1
+  else
+    date -Is > "${state}"
+  fi
+}
+
 rpc() { curl -s -X POST -H 'Content-Type: application/json' --data "{\"jsonrpc\":\"2.0\",\"method\":\"$1\",\"params\":[],\"id\":1}" "http://127.0.0.1:${RPC_PORT}"; }
 cmd_status() {
   need_besu
@@ -208,6 +232,7 @@ case "${1:-}" in
   render)    need_besu; as_rbb "./rbb-cli config render-templates" ;;
   cli)       need_besu; shift; as_rbb "./rbb-cli $*" ;;
   jfr-clean) cmd_jfr_clean ;;
+  watchdog)  cmd_watchdog ;;
   prometheus) shift; cmd_prometheus "$@" ;;
   -h|--help|help|"") usage ;;
   *) usage; exit 1 ;;
