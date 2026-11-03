@@ -6,6 +6,8 @@ Este roteiro tem como objetivo a adição de novos nós a uma rede RBB já estab
 - [Roteiro para criação de uma rede](Roteiro_para_a_criacao_de_uma_rede.md)
 - [Roteiro para levantar uma rede de testes (toy)](roteiro_criacao_rede_teste.md)
 
+**Automação com infraestrutura como código**: o repositório [rbb-iac](https://github.com/RBBNet/rbb-iac) automatiza boa parte deste roteiro usando [OpenTofu](https://opentofu.org) (versão open source do Terraform). Este documento descreve os passos manuais e vale para qualquer infraestrutura. O `rbb-iac` cria na nuvem os servidores, as regras de firewall e os nós já configurados, monta a topologia e gera a documentação dos nós para o `nodes.json`. Consulte o repositório para saber os provedores de nuvem e as topologias suportados. Os passos que dependem da rede continuam valendo como descritos aqui: comunicação ao Comitê Técnico, liberação de firewall pelas demais organizações, permissionamento e votação do validador.
+
 
 ## 1 - Preparação de ambiente
 
