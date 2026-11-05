@@ -84,6 +84,15 @@
     
 # Reuniões do Comitê Executivo realizadas
 
+- 08/10/2026
+  - [Ata assinada digitalmente](atas/2026-10-08-RBB-Ata-49-CE-v05-assinada.pdf)
+  - Destaques:
+    - Atualização do Regulamento (Cartilha de LGPD): aprovada por unanimidade dos votantes presentes a nova versão do Regulamento, que exige a declaração de elaboração do RIPD e a ciência da cartilha como pré-requisitos para a entrada de aplicações em produção (inclusive as já em operação) e delega ao Comitê Técnico as alterações não substanciais nesses documentos
+    - BlockchainGov 2026 (Plexos): evento central em 16/11 no BNDES e bootcamp em 17 e 18/11 na PUC-Rio; definido que os desafios coordenados pelo Plexos usarão a testnet da RBB, podendo a RNP demonstrar seu testbed e propor desafio próprio nesse ambiente; reunião remota do CE mantida em 12/11 e reunião presencial durante ou logo após o evento, em data a definir
+    - Indicadores de Governança e Operação: não apresentados por restrição de tempo, com envio por e-mail aos Partícipes
+    - Plugin de Permissionamento (CPQD): convocação de todas as casas a testar o plugin, necessário para atualizar o Besu; tema tratado como prioridade técnica da rede e a ser retomado na reunião presencial de novembro
+    - Acompanhamento da Evolução (Coordenação de Evolução): não apresentado por restrição de tempo
+
 - 10/09/2026
   - [Ata assinada digitalmente](atas/2026-09-10-RBB-Ata-48-CE-v03-assinada.pdf)
   - Destaques:
